@@ -26,7 +26,6 @@ end
 namespace ATokenModifier:
     func test_mint_wrong_pool{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr}():
         alloc_locals
-        %{ print("ATokenModifier : Test user tries to mint whith wrong POOL") %}
         let (local pool, _, local a_token) = get_contract_addresses()
 
         %{ stop_prank_pool = start_prank(ids.pool, target_contract_address = ids.a_token) %}
@@ -40,7 +39,6 @@ namespace ATokenModifier:
 
     func test_burn_wrong_pool{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr}():
         alloc_locals
-        %{ print("ATokenModifier : User tries to mint whith wrong POOL") %}
         let (_, _, local a_token) = get_contract_addresses()
         %{ expect_revert(error_message="Caller address should be {pool}") %}
         IAToken.burn(a_token, USER_1, USER_1, Uint256(50, 0), Uint256(1, 0))
@@ -51,7 +49,6 @@ namespace ATokenModifier:
         syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr
     }():
         alloc_locals
-        %{ print("transfer_on_liquidation : User tries to transfer_on_liquidation whith wrong POOL") %}
         let (_, _, local a_token) = get_contract_addresses()
         %{ expect_revert(error_message="Caller address should be {pool}") %}
         IAToken.transfer_on_liquidation(a_token, USER_1, USER_2, Uint256(10, 0))
@@ -62,7 +59,6 @@ namespace ATokenModifier:
         syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr
     }():
         alloc_locals
-        %{ print("transfer_underlying_to : User tries to transfer_on_liquidation whith wrong POOL") %}
         let (_, _, local a_token) = get_contract_addresses()
         %{ expect_revert(error_message="Caller address should be {pool}") %}
         IAToken.transfer_underlying_to(a_token, USER_1, Uint256(10, 0))

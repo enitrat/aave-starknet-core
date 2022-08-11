@@ -12,7 +12,8 @@ from tests.test_suites.test_specs.pool_supply_withdraw_spec import TestPoolSuppl
 from tests.test_suites.test_specs.pool_addresses_provider_spec import (
     TestPoolAddressesProviderDeployed,
 )
-from tests.test_suites.test_specs.a_token_modifiers import ATokenModifier
+from tests.test_suites.test_specs.a_token_modifiers_spec import ATokenModifier
+from tests.test_suites.test_specs.acl_manager_spec import TestACLManager, PRANK_ADMIN_ADDRESS
 
 # @notice setup hook for the test execution. It deploys the contracts
 # saves the Starknet state at the end of this function. All test cases will be executed
@@ -64,6 +65,10 @@ func __setup__{syscall_ptr : felt*, range_check_ptr}():
         context.pool_addresses_provider = deploy(prepared_pool_addresses_provider).contract_address
         stop_prank()
 
+        # To declare acl_manager, we need pool_addresses_provider. We use the one declared above
+        stop_mock_admin = mock_call(context.pool_addresses_provider, "get_ACL_admin", [ids.PRANK_ADMIN_ADDRESS])
+        context.acl = deploy_contract("./contracts/protocol/configuration/acl_manager.cairo", {"provider":context.pool_addresses_provider}).contract_address
+        stop_mock_admin()
         context.deployer = ids.deployer
     %}
     tempvar pool
@@ -72,12 +77,16 @@ func __setup__{syscall_ptr : felt*, range_check_ptr}():
     tempvar aDAI
     tempvar aWETH
     tempvar proxy
+    tempvar acl
+    tempvar pool_addresses_provider
     %{ ids.pool = context.pool %}
     %{ ids.dai = context.dai %}
     %{ ids.weth= context.weth %}
     %{ ids.aDAI = context.aDAI %}
     %{ ids.aWETH = context.aWETH %}
     %{ ids.proxy = context.proxy %}
+    %{ ids.acl = context.acl %}
+    %{ ids.pool_addresses_provider = context.pool_addresses_provider %}
 
     IPool.init_reserve(pool, dai, aDAI)
     IPool.init_reserve(pool, weth, aWETH)
@@ -271,5 +280,135 @@ func test_transfer_underlying_wrong_pool{
     syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr
 }():
     ATokenModifier.test_transfer_underlying_wrong_pool()
+    return ()
+end
+
+@external
+func test_default_admin_role{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr}():
+    TestACLManager.test_default_admin_role()
+    return ()
+end
+
+@external
+func test_grant_flash_borrow_admin_role{
+    syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr
+}():
+    TestACLManager.test_grant_flash_borrow_admin_role()
+    return ()
+end
+
+@external
+func test_grant_flash_borrow_admin_role_2{
+    syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr
+}():
+    TestACLManager.test_grant_flash_borrow_admin_role_2()
+    return ()
+end
+
+@external
+func test_grant_flash_borrow_admin_role_3{
+    syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr
+}():
+    TestACLManager.test_grant_flash_borrow_admin_role_3()
+    return ()
+end
+
+@external
+func test_grant_flash_borrow_admin_role_4{
+    syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr
+}():
+    TestACLManager.test_grant_flash_borrow_admin_role_4()
+    return ()
+end
+
+@external
+func test_revoke_flash_borrow_admin_role{
+    syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr
+}():
+    TestACLManager.test_revoke_flash_borrow_admin_role()
+    return ()
+end
+
+@external
+func test_grant_pool_admin_role{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr}(
+    ):
+    TestACLManager.test_grant_pool_admin_role()
+    return ()
+end
+
+@external
+func test_grant_emergency_admin_role{
+    syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr
+}():
+    TestACLManager.test_grant_emergency_admin_role()
+    return ()
+end
+
+@external
+func test_grant_risk_admin_role{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr}(
+    ):
+    TestACLManager.test_grant_risk_admin_role()
+    return ()
+end
+
+@external
+func test_grant_bridge_role{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr}():
+    TestACLManager.test_grant_bridge_role()
+    return ()
+end
+
+@external
+func test_grant_asset_listing_admin_role{
+    syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr
+}():
+    TestACLManager.test_grant_asset_listing_admin_role()
+    return ()
+end
+
+@external
+func test_revoke_flash_borrower{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr}(
+    ):
+    TestACLManager.test_revoke_flash_borrower()
+    return ()
+end
+
+@external
+func test_revoke_flash_borrow_admin{
+    syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr
+}():
+    TestACLManager.test_revoke_flash_borrow_admin()
+    return ()
+end
+
+@external
+func test_revoke_pool_admin_role{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr}(
+    ):
+    TestACLManager.test_revoke_pool_admin_role()
+    return ()
+end
+
+@external
+func test_revoke_emergency_admin_role{
+    syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr
+}():
+    TestACLManager.test_revoke_emergency_admin_role()
+    return ()
+end
+@external
+func test_revoke_risk_admin_role{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr}(
+    ):
+    TestACLManager.test_revoke_risk_admin_role()
+    return ()
+end
+@external
+func test_revoke_bridge_role{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr}():
+    TestACLManager.test_revoke_bridge_role()
+    return ()
+end
+@external
+func test_revoke_asset_listing_admin_role{
+    syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr
+}():
+    TestACLManager.test_revoke_asset_listing_admin_role()
     return ()
 end
