@@ -1,9 +1,11 @@
 %lang starknet
 
 from starkware.cairo.common.cairo_builtins import HashBuiltin
+
 from contracts.misc.aave_oracle_library import AaveOracle
-@constructor
-func constructor{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr}(
+
+@external
+func initialize{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr}(
     provider : felt,
     oracle_address : felt,
     assets_len : felt,

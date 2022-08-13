@@ -35,3 +35,10 @@ func get_total_supply{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_ch
     let (supply) = _total_supply.read()
     return (supply)
 end
+
+@view
+func get_revision{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr}() -> (
+    val : felt
+):
+    return (1)
+end

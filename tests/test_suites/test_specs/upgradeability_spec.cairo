@@ -2,6 +2,8 @@
 
 from starkware.cairo.common.cairo_builtins import HashBuiltin
 
+from contracts.interfaces.i_proxy import IProxy
+from contracts.protocol.libraries.helpers.constants import INITIALIZE_SELECTOR
 from contracts.mocks.i_mock_initializable_implementation import (
     IMockInitializableImplementation,
     IMockInitializableReentrantImplementation,
@@ -9,11 +11,11 @@ from contracts.mocks.i_mock_initializable_implementation import (
 from contracts.mocks.mock_initializable_implementation_library import (
     MockInitializableImplementation,
 )
-from tests.interfaces.i_mock_aave_upgradeable_proxy import IMockAaveUpgradeableProxy
 from tests.utils.constants import USER_1
 
 const INIT_VALUE = 10
 const INIT_TEXT = 'text'
+const PRANK_USER = 123
 
 #
 # VersionedInitializable tests
@@ -40,7 +42,9 @@ namespace TestInitializableImmutableAdminUpgradeabilityProxy:
         alloc_locals
         local impl_address
         %{ ids.impl_address = context.proxy %}
+        %{ stop_prank_user = start_prank(ids.PRANK_USER, target_contract_address = ids.impl_address) %}
         let (revision) = IMockInitializableImplementation.get_revision(impl_address)
+        %{ stop_prank_user() %}
         assert revision = 1
         return ()
     end
@@ -51,8 +55,10 @@ namespace TestInitializableImmutableAdminUpgradeabilityProxy:
         alloc_locals
         local impl_address
         %{ ids.impl_address = context.proxy %}
+        %{ stop_prank_user = start_prank(ids.PRANK_USER, target_contract_address = ids.impl_address) %}
         let (value) = IMockInitializableImplementation.get_value(impl_address)
         let (text) = IMockInitializableImplementation.get_text(impl_address)
+        %{ stop_prank_user() %}
 
         assert value = INIT_VALUE
         assert text = INIT_TEXT
@@ -64,12 +70,19 @@ namespace TestInitializableImmutableAdminUpgradeabilityProxy:
     }():
         alloc_locals
         local impl_address
+        local impl_hash
         %{
             ids.impl_address = context.proxy
-            start_prank = start_prank(ids.USER_1,target_contract_address=context.proxy) )
+            ids.impl_hash = context.mock_initializable_v1
             expect_revert(error_message="Contract instance has already been initialized")
         %}
-        IMockInitializableImplementation.initialize(impl_address, INIT_VALUE, INIT_TEXT)
+        IProxy.upgrade_to_and_call(
+            impl_address,
+            impl_hash,
+            INITIALIZE_SELECTOR,
+            2,
+            cast(new (INIT_VALUE, INIT_TEXT), felt*),
+        )
         return ()
     end
 
@@ -84,22 +97,25 @@ namespace TestInitializableImmutableAdminUpgradeabilityProxy:
             ids.new_impl = context.mock_initializable_v2
         %}
 
-        # Upgrade from v1 to v2
-        IMockAaveUpgradeableProxy.upgrade(proxy_address, new_impl)
-        let (value) = IMockInitializableImplementation.get_value(proxy_address)
-        assert value = 10  # Verify that stored value hasn't changed
+        # Upgrade from v1 to v2, and initialize v2
+        IProxy.upgrade_to_and_call(
+            proxy_address, new_impl, INITIALIZE_SELECTOR, 2, cast(new (20, 'new text'), felt*)
+        )
 
-        # Initialize implementation v2 should suceed with new values
-        IMockInitializableImplementation.initialize(proxy_address, 20, 'new text')
+        # Check new values of v2 implementation
+        %{ stop_prank_user = start_prank(ids.PRANK_USER, target_contract_address = ids.proxy_address) %}
         let (value) = IMockInitializableImplementation.get_value(proxy_address)
         let (text) = IMockInitializableImplementation.get_text(proxy_address)
+        %{ stop_prank_user() %}
         assert value = 20
         assert text = 'new text'
 
         # This initialize fail because we already initialized v2
-        IMockAaveUpgradeableProxy.upgrade(proxy_address, new_impl)
         %{ expect_revert(error_message="Contract instance has already been initialized") %}
-        IMockInitializableImplementation.initialize(proxy_address, 30, 100)
+        IProxy.upgrade_to_and_call(
+            proxy_address, new_impl, INITIALIZE_SELECTOR, 2, cast(new (30, 100), felt*)
+        )
+        # IMockInitializableImplementation.initialize(proxy_address, 30, 100)
         return ()
     end
 

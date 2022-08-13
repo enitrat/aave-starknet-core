@@ -2,8 +2,8 @@
 from starkware.starknet.common.syscalls import get_contract_address
 from starkware.cairo.common.cairo_builtins import HashBuiltin
 
+from contracts.interfaces.i_a_token import IAToken
 from contracts.interfaces.i_pool import IPool
-
 from tests.test_suites.test_specs.pool_drop_spec import TestPoolDropDeployed
 from tests.test_suites.test_specs.pool_get_reserve_address_by_id_spec import (
     TestPoolGetReserveAddressByIdDeployed,
@@ -29,8 +29,6 @@ func __setup__{syscall_ptr : felt*, range_check_ptr}():
 
             return int.from_bytes(text.encode(), "big")
             
-        context.pool = deploy_contract("./contracts/protocol/pool/pool.cairo",{"provider":0}).contract_address
-
         #deploy DAI/DAI, owner is deployer, supply is 0
         context.dai = deploy_contract("./lib/cairo_contracts/src/openzeppelin/token/erc20/presets/ERC20Mintable.cairo",
          {"name":str_to_felt("DAI"),"symbol":str_to_felt("DAI"),"decimals":18,"initial_supply":{"low":0,"high":0},"recipient":ids.deployer,"owner": ids.deployer}).contract_address 
@@ -38,29 +36,29 @@ func __setup__{syscall_ptr : felt*, range_check_ptr}():
         #deploy WETH/WETH, owner is deployer, supply is 0
         context.weth = deploy_contract("./lib/cairo_contracts/src/openzeppelin/token/erc20/presets/ERC20Mintable.cairo",  {"name":str_to_felt("WETH"),"symbol":str_to_felt("WETH"),"decimals":18,"initial_supply":{"low":0,"high":0},"recipient":ids.deployer,"owner": ids.deployer}).contract_address 
 
-         #deploy aDai/aDAI, owner is pool, supply is 0
-        context.aDAI = deploy_contract("./contracts/protocol/tokenization/a_token.cairo", {"pool":context.pool,"treasury":1631863113,"underlying_asset":context.dai,"incentives_controller":43232, "a_token_decimals":18,"a_token_name":str_to_felt("aDAI"),"a_token_symbol":str_to_felt("aDAI")}).contract_address
+        # deploy aDai/aDAI, owner is pool, supply is 0
+        context.aDAI = deploy_contract("./contracts/protocol/tokenization/a_token.cairo").contract_address
 
-         #deploy aWETH/aWETH, owner is pool, supply is 0
-        context.aWETH = deploy_contract("./contracts/protocol/tokenization/a_token.cairo", {"pool":context.pool,"treasury":1631863113,"underlying_asset":context.weth,"incentives_controller":43232, "a_token_decimals":18,"a_token_name":str_to_felt("aWETH"),"a_token_symbol":str_to_felt("aWETH")}).contract_address
+        # deploy aWETH/aWETH, owner is pool, supply is 0
+        context.aWETH = deploy_contract("./contracts/protocol/tokenization/a_token.cairo").contract_address
 
-
-        #declare class implementation of basic_proxy_impl
-        # TODO delete this once pool is a proxy-compatible contract, then we'll use pool
-        context.implementation_hash = declare("./tests/contracts/basic_proxy_impl.cairo").class_hash
+        # declare class implementation of Pool
+        context.implementation_hash = declare("./contracts/protocol/pool/pool.cairo").class_hash
+        # declare class implementation of mock_pool_v2
+        context.new_implementation_hash = declare("./tests/contracts/mock_pool_v2.cairo").class_hash
 
         # declare proxy_class_hash so that starknet knows about it. It's required to deploy proxies from PoolAddressesProvider
-        declared_proxy = declare("./lib/cairo_contracts/src/openzeppelin/upgrades/presets/Proxy.cairo")
+        declared_proxy = declare("./contracts/protocol/libraries/aave_upgradeability/initializable_immutable_admin_upgradeability_proxy.cairo")
         context.proxy_class_hash = declared_proxy.class_hash
-        # deploy OZ proxy contract, admin is deployer. Implementation hash is basic_proxy_impl upon deployment.
-        prepared_proxy = prepare(declared_proxy,{"implementation_hash":context.implementation_hash})
+        # deploy Aave proxy contract, admin is deployer. Implementation hash is pool upon deployment.
+        prepared_proxy = prepare(declared_proxy, {"proxy_admin": ids.deployer})
         context.proxy = deploy(prepared_proxy).contract_address
 
         # deploy poolAddressesProvider, market_id = 1, prank get_caller_address so that it returns deployer and we can set deployer as the owner.
         # We have proxy_class_hash as an argument because we store it to be able to deploy proxies from the pool_addresses_provider
         # We need a cheatcode to mock the deployer address, so we declare->prepare->mock_caller->deploy
         declared_pool_addresses_provider = declare("./contracts/protocol/configuration/pool_addresses_provider.cairo")
-        prepared_pool_addresses_provider = prepare(declared_pool_addresses_provider, {"market_id":1,"owner":ids.deployer,"proxy_class_hash":context.proxy_class_hash})
+        prepared_pool_addresses_provider = prepare(declared_pool_addresses_provider, {"market_id":1,"owner":ids.deployer,"proxy_class_hash":context.proxy_class_hash})        
         stop_prank = start_prank(0, target_contract_address=prepared_pool_addresses_provider.contract_address)
         context.pool_addresses_provider = deploy(prepared_pool_addresses_provider).contract_address
         stop_prank()
@@ -69,6 +67,10 @@ func __setup__{syscall_ptr : felt*, range_check_ptr}():
         stop_mock_admin = mock_call(context.pool_addresses_provider, "get_ACL_admin", [ids.PRANK_ADMIN_ADDRESS])
         context.acl = deploy_contract("./contracts/protocol/configuration/acl_manager.cairo", {"provider":context.pool_addresses_provider}).contract_address
         stop_mock_admin()
+
+        # deploy pool contract
+        context.pool = deploy_contract("./contracts/protocol/pool/pool.cairo").contract_address
+
         context.deployer = ids.deployer
     %}
     tempvar pool
@@ -78,7 +80,6 @@ func __setup__{syscall_ptr : felt*, range_check_ptr}():
     tempvar aWETH
     tempvar proxy
     tempvar acl
-    tempvar pool_addresses_provider
     %{ ids.pool = context.pool %}
     %{ ids.dai = context.dai %}
     %{ ids.weth= context.weth %}
@@ -86,8 +87,9 @@ func __setup__{syscall_ptr : felt*, range_check_ptr}():
     %{ ids.aWETH = context.aWETH %}
     %{ ids.proxy = context.proxy %}
     %{ ids.acl = context.acl %}
-    %{ ids.pool_addresses_provider = context.pool_addresses_provider %}
 
+    IAToken.initialize(aDAI, pool, 1631863113, dai, 43232, 18, 123, 456)
+    IAToken.initialize(aWETH, pool, 1631863113, weth, 43232, 18, 321, 654)
     IPool.init_reserve(pool, dai, aDAI)
     IPool.init_reserve(pool, weth, aWETH)
     return ()

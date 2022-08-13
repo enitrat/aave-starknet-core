@@ -7,10 +7,6 @@ from contracts.protocol.libraries.types.data_types import DataTypes
 func addresses_provider() -> (address : felt):
 end
 
-@storage_var
-func pool_revision() -> (address : felt):
-end
-
 # Map of reserves and their data (underlyind_asset => reserve_data)
 @storage_var
 func reserves(asset : felt) -> (reserve_data : DataTypes.ReserveData):
@@ -73,12 +69,6 @@ namespace PoolStorage:
         ) -> (address : felt):
         let (address) = addresses_provider.read()
         return (address)
-    end
-
-    func pool_revision_read{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr}(
-        ) -> (revision : felt):
-        let (revision) = pool_revision.read()
-        return (revision)
     end
 
     func reserves_read{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr}(
@@ -158,13 +148,6 @@ namespace PoolStorage:
         syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr
     }(address : felt):
         addresses_provider.write(address)
-        return ()
-    end
-
-    func pool_revision_write{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr}(
-        revision : felt
-    ):
-        pool_revision.write(revision)
         return ()
     end
 

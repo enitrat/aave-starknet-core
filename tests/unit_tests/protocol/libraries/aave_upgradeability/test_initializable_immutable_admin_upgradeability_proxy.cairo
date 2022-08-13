@@ -1,26 +1,12 @@
 %lang starknet
-from starkware.starknet.common.syscalls import get_contract_address
-from starkware.cairo.common.cairo_builtins import HashBuiltin
-from tests.utils.constants import USER_1, USER_2
+
 from starkware.cairo.common.alloc import alloc
+from starkware.cairo.common.cairo_builtins import HashBuiltin
+from starkware.starknet.common.syscalls import get_contract_address
 
-@contract_interface
-namespace IProxy:
-    func initialize(impl_hash : felt, selector : felt, calldata_len : felt, calldata : felt*) -> (
-        retdata_len : felt, retdata : felt*
-    ):
-    end
-    func upgrade_to_and_call(
-        impl_hash : felt, selector : felt, calldata_len : felt, calldata : felt*
-    ) -> (retdata_len : felt, retdata : felt*):
-    end
-
-    func upgrade_to(impl_hash : felt):
-    end
-
-    func get_implementation() -> (implementation : felt):
-    end
-end
+from contracts.interfaces.i_proxy import IProxy
+from contracts.protocol.libraries.helpers.constants import INITIALIZE_SELECTOR
+from tests.utils.constants import USER_1, USER_2
 
 @contract_interface
 namespace IToken:
@@ -37,23 +23,19 @@ func __setup__{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr
     %{
         context.proxy_address = deploy_contract("./contracts/protocol/libraries/aave_upgradeability/initializable_immutable_admin_upgradeability_proxy.cairo", {"proxy_admin": ids.deployer}).contract_address
         context.implementation_hash = declare("./tests/contracts/mock_token.cairo").class_hash
-        context.initialize_selector=215307247182100370520050591091822763712463273430149262739280891880522753123
     %}
 
     tempvar proxy
     tempvar implementation_hash
-    tempvar selector
 
     %{
         ids.proxy = context.proxy_address 
         ids.implementation_hash=context.implementation_hash
-        ids.selector=context.initialize_selector
     %}
-    let (calldata : felt*) = alloc()
 
-    assert calldata[0] = 345
-    assert calldata[1] = 900
-    IProxy.initialize(proxy, implementation_hash, selector, 2, calldata)
+    IProxy.initialize(
+        proxy, implementation_hash, INITIALIZE_SELECTOR, 2, cast(new (345, 900), felt*)
+    )
 
     return ()
 end
@@ -79,20 +61,14 @@ func test_initialize_when_already_initialized{
     alloc_locals
     local proxy
     local implementation_hash
-    local selector
 
     %{
         ids.proxy = context.proxy_address 
         ids.implementation_hash=context.implementation_hash
-        ids.selector=context.initialize_selector
     %}
 
-    let (calldata : felt*) = alloc()
-
-    assert calldata[0] = 33
-    assert calldata[1] = 33
     %{ expect_revert(error_message="Already initialized") %}
-    IProxy.initialize(proxy, implementation_hash, selector, 2, calldata)
+    IProxy.initialize(proxy, implementation_hash, INITIALIZE_SELECTOR, 2, cast(new (33, 33), felt*))
 
     return ()
 end
@@ -102,20 +78,16 @@ func test_update_to_and_call{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, r
     alloc_locals
     local proxy
     local implementation_hash
-    local selector
 
     %{
         ids.proxy = context.proxy_address 
         ids.implementation_hash=context.implementation_hash
-        ids.selector=context.initialize_selector
     %}
 
-    let (calldata : felt*) = alloc()
-
-    assert calldata[0] = 400
-    assert calldata[1] = 500
     # no need to change the implementation hash as long as we verify that the init values were updated
-    IProxy.upgrade_to_and_call(proxy, implementation_hash, selector, 2, calldata)
+    IProxy.upgrade_to_and_call(
+        proxy, implementation_hash, INITIALIZE_SELECTOR, 2, cast(new (400, 500), felt*)
+    )
     %{ stop_prank_non_admin = start_prank(ids.USER_1,target_contract_address=context.proxy_address) %}
     let (name) = IToken.get_name(proxy)
     let (supply) = IToken.get_total_supply(proxy)

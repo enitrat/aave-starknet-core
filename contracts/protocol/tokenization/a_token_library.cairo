@@ -91,7 +91,7 @@ namespace AToken:
         a_token_name : felt,
         a_token_symbol : felt,
     ):
-        # IncentivizedERC20.initializer(...)
+        # IncentivizedERC20.initialize(...)
         # assert pool = IncentivizedERC20.POOL()
 
         ERC20.initializer(a_token_name, a_token_symbol, a_token_decimals)

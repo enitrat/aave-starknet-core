@@ -45,4 +45,7 @@ namespace IPool:
 
     func get_addresses_provider() -> (provider : felt):
     end
+
+    func get_revision() -> (val : felt):
+    end
 end

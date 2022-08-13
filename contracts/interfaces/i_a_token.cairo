@@ -4,6 +4,17 @@ from starkware.cairo.common.uint256 import Uint256
 
 @contract_interface
 namespace IAToken:
+    func initialize(
+        pool : felt,
+        treasury : felt,
+        underlying_asset : felt,
+        incentives_controller : felt,
+        a_token_decimals : felt,
+        a_token_name : felt,
+        a_token_symbol : felt,
+    ):
+    end
+
     func name() -> (name : felt):
     end
 

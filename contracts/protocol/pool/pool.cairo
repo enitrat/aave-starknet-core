@@ -6,11 +6,16 @@ from starkware.cairo.common.bool import TRUE
 from starkware.starknet.common.syscalls import get_caller_address
 
 from contracts.protocol.pool.pool_storage import PoolStorage
+from contracts.protocol.libraries.aave_upgradeability.versioned_initializable_library import (
+    VersionedInitializable,
+)
 from contracts.protocol.libraries.logic.pool_logic import PoolLogic
+from contracts.protocol.libraries.logic.reserve_configuration import ReserveConfiguration
 from contracts.protocol.libraries.logic.supply_logic import SupplyLogic
 from contracts.protocol.libraries.types.data_types import DataTypes
-from contracts.protocol.libraries.logic.reserve_configuration import ReserveConfiguration
 from contracts.protocol.pool.pool_library import Pool
+
+const REVISION = 1
 
 func assert_only_pool_configurator{
     syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr
@@ -35,21 +40,10 @@ func assert_only_pool_admin{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, ra
 end
 
 @view
-func get_pool_revision{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr}() -> (
+func get_revision{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr}() -> (
     revision : felt
 ):
-    let (revision) = PoolStorage.pool_revision_read()
-    return (revision)
-end
-
-# @dev Constructor.
-# @param provider The address of the PoolAddressesProvider contract
-@constructor
-func constructor{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr}(
-    provider : felt
-):
-    PoolStorage.addresses_provider_write(provider)
-    return ()
+    return (REVISION)
 end
 
 # @notice Initializes the Pool.
@@ -58,10 +52,8 @@ end
 # @param provider The address of the PoolAddressesProvider
 @external
 func initialize{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr}(provider : felt):
-    let (addresses_provider) = PoolStorage.addresses_provider_read()
-    with_attr error_message("The address of the pool addresses provider is invalid"):
-        assert provider = addresses_provider
-    end
+    VersionedInitializable.initializer(REVISION)
+    PoolStorage.addresses_provider_write(provider)
     PoolStorage.max_stable_rate_borrow_size_percent_write(25 * 10 ** 2)  # 0.25e4 bps
     PoolStorage.flash_loan_premium_total_write(9)  # 9bps
     PoolStorage.flash_loan_premium_to_protocol_write(0)

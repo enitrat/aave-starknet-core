@@ -10,11 +10,11 @@ from openzeppelin.token.erc20.library import ERC20
 from contracts.protocol.tokenization.a_token_library import AToken
 
 #
-# Constructor
+# Initialize
 #
 
-@constructor
-func constructor{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr}(
+@external
+func initialize{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr}(
     pool : felt,
     treasury : felt,
     underlying_asset : felt,

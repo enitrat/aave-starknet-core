@@ -1,13 +1,16 @@
 %lang starknet
 
+from starkware.cairo.common.alloc import alloc
 from starkware.cairo.common.cairo_builtins import HashBuiltin
 from starkware.cairo.common.math import assert_not_equal
 from starkware.starknet.common.syscalls import get_contract_address
+
+from contracts.interfaces.i_pool import IPool
 from contracts.interfaces.i_pool_addresses_provider import IPoolAddressesProvider
 from contracts.interfaces.i_proxy import IProxy
 from contracts.protocol.configuration.pool_addresses_provider_library import PoolAddressesProvider
+from contracts.protocol.libraries.helpers.constants import INITIALIZE_SELECTOR
 from tests.utils.constants import USER_1, USER_2, MOCK_CONTRACT_ADDRESS
-from tests.interfaces.i_basic_proxy_impl import IBasicProxyImpl
 
 const convertible_address_id = 'CONVERTIBLE_ADDRESS'
 const convertible_2_address_id = 'CONVERTIBLE_2_ADDRESS'
@@ -248,7 +251,7 @@ namespace TestPoolAddressesProviderDeployed:
         syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr
     }():
         alloc_locals
-        let (pool_addresses_provider, implementation_hash) = before_each()
+        let (pool_addresses_provider, implementation_hash, new_implementation_hash) = before_each()
         IPoolAddressesProvider.transfer_ownership(pool_addresses_provider, USER_1)
         %{
             # Mock caller_address as USER_1 (proxy admin & pool_addresses_provider owner)
@@ -269,7 +272,7 @@ namespace TestPoolAddressesProviderDeployed:
         syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr
     }():
         alloc_locals
-        let (pool_addresses_provider, implementation_hash) = before_each()
+        let (pool_addresses_provider, implementation_hash, new_implementation_hash) = before_each()
         IPoolAddressesProvider.transfer_ownership(pool_addresses_provider, USER_1)
 
         # add address as non proxy
@@ -284,7 +287,7 @@ namespace TestPoolAddressesProviderDeployed:
         syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr
     }():
         alloc_locals
-        let (pool_addresses_provider, implementation_hash) = before_each()
+        let (pool_addresses_provider, implementation_hash, new_implementation_hash) = before_each()
         IPoolAddressesProvider.transfer_ownership(pool_addresses_provider, USER_1)
 
         add_non_proxy_address(convertible_address_id)
@@ -303,7 +306,7 @@ namespace TestPoolAddressesProviderDeployed:
         syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr
     }():
         alloc_locals
-        let (pool_addresses_provider, implementation_hash) = before_each()
+        let (pool_addresses_provider, implementation_hash, new_implementation_hash) = before_each()
         IPoolAddressesProvider.transfer_ownership(pool_addresses_provider, USER_1)
 
         add_proxy_address(convertible_address_id, implementation_hash)
@@ -321,7 +324,7 @@ namespace TestPoolAddressesProviderDeployed:
         syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr
     }():
         alloc_locals
-        let (pool_addresses_provider, implementation_hash) = before_each()
+        let (pool_addresses_provider, implementation_hash, new_implementation_hash) = before_each()
         IPoolAddressesProvider.transfer_ownership(pool_addresses_provider, USER_1)
         let (current_address) = IPoolAddressesProvider.get_address(
             pool_addresses_provider, convertible_2_address_id
@@ -345,7 +348,7 @@ namespace TestPoolAddressesProviderDeployed:
         syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr
     }():
         alloc_locals
-        let (pool_addresses_provider, implementation_hash) = before_each()
+        let (pool_addresses_provider, implementation_hash, new_implementation_hash) = before_each()
         IPoolAddressesProvider.transfer_ownership(pool_addresses_provider, USER_1)
 
         add_non_proxy_address(convertible_2_address_id)
@@ -364,49 +367,47 @@ namespace TestPoolAddressesProviderDeployed:
     end
 
     # Owner registers an existing contract (with proxy) and upgrade it
-    # TODO test this with a proxified periphery contract instead of the basic_proxy_impl
     func test_owner_registers_an_existing_contract_with_proxy_and_upgrade_it{
         syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr
     }():
         alloc_locals
-        let (pool_addresses_provider, implementation_hash) = before_each()
+        let (pool_addresses_provider, implementation_hash, new_implementation_hash) = before_each()
         IPoolAddressesProvider.transfer_ownership(pool_addresses_provider, USER_1)
         %{ stop_prank_provider = start_prank(ids.USER_1,target_contract_address=ids.pool_addresses_provider) %}
 
-        local new_proxy : felt
-        # deploy a new proxy whose implementation is basic_proxy_impl v1.
-        %{ ids.new_proxy = deploy_contract("./lib/cairo_contracts/src/openzeppelin/upgrades/presets/Proxy.cairo",{"implementation_hash":context.implementation_hash}).contract_address %}
+        local proxy_address : felt
+        # deploy a new proxy w/ USER_2 as admin
+        %{ ids.proxy_address = deploy_contract("./contracts/protocol/libraries/aave_upgradeability/initializable_immutable_admin_upgradeability_proxy.cairo", {"proxy_admin": ids.USER_2}).contract_address %}
 
-        # Initialize proxy w/ USER_2 as admin
-        IProxy.initialize(new_proxy, USER_2)
-        let (proxy_admin) = IProxy.get_admin(new_proxy)
-        let (version) = IBasicProxyImpl.get_version(new_proxy)
+        # Initialize proxy with implementation of mock_token v1.
+        let (local empty_calldata : felt*) = alloc()
+        %{ stop_prank_proxy= start_prank(ids.USER_2,target_contract_address=ids.proxy_address) %}
+        IProxy.initialize(
+            proxy_address, implementation_hash, INITIALIZE_SELECTOR, 0, empty_calldata
+        )
+        %{ stop_prank_proxy() %}
+        let (proxy_admin) = IProxy.get_admin(proxy_address)
+        let (version) = IPool.get_revision(proxy_address)
         assert proxy_admin = USER_2
         assert version = 1
 
-        # Register basic_proxy_impl contract in PoolAddressesProvider
-        %{ stop_prank_proxy= start_prank(ids.USER_2,target_contract_address=ids.new_proxy) %}
-        IProxy.set_admin(new_proxy, pool_addresses_provider)
+        # Register mock_token contract in PoolAddressesProvider
+        %{ stop_prank_proxy= start_prank(ids.USER_2,target_contract_address=ids.proxy_address) %}
+        IProxy.change_proxy_admin(proxy_address, pool_addresses_provider)
         %{ stop_prank_proxy() %}
         IPoolAddressesProvider.set_address(
-            pool_addresses_provider, new_registered_contract_id, new_proxy
+            pool_addresses_provider, new_registered_contract_id, proxy_address
         )
         let (expected_address) = IPoolAddressesProvider.get_address(
             pool_addresses_provider, new_registered_contract_id
         )
-        assert expected_address = new_proxy
+        assert expected_address = proxy_address
 
-        #
-        # Upgrade proxy implementation to basic_proxy_impl_v2
-        #
-        local new_implementation
-        # declare implementation of basic_proxy_impl_v2
-        %{ ids.new_implementation = declare("./tests/contracts/basic_proxy_impl_v2.cairo").class_hash %}
-        # Replaces proxy implementation (currently basic_proxy_impl) with basic_proxy_impl_v2
+        # Replaces proxy implementation (currently pool) with mock_pool_v2
         IPoolAddressesProvider.set_address_as_proxy(
-            pool_addresses_provider, new_registered_contract_id, new_implementation, 1357
+            pool_addresses_provider, new_registered_contract_id, new_implementation_hash, 1357
         )
-        let (version) = IBasicProxyImpl.get_version(new_proxy)
+        let (version) = IPool.get_revision(proxy_address)
         assert version = 2
         %{ stop_prank_provider() %}
         return ()
@@ -417,23 +418,22 @@ namespace TestPoolAddressesProviderDeployed:
         syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr
     }():
         alloc_locals
-        let (pool_addresses_provider, implementation_hash) = before_each()
+        let (pool_addresses_provider, implementation_hash, new_implementation_hash) = before_each()
         IPoolAddressesProvider.transfer_ownership(pool_addresses_provider, USER_1)
         add_proxy_address(pool_id, implementation_hash)  # Deploy proxy for pool
         let (proxy_address) = IPoolAddressesProvider.get_address(pool_addresses_provider, pool_id)
         let (pool_implementation) = IProxy.get_implementation(proxy_address)
         %{
-            expect_events({"name": "PoolUpdated","data":[ids.pool_implementation,ids.pool_implementation]}) 
+            expect_events({"name": "PoolUpdated","data":[ids.pool_implementation,ids.new_implementation_hash]}) 
             stop_prank_provider = start_prank(ids.USER_1,target_contract_address=ids.pool_addresses_provider)
         %}
         # Update the pool proxy
-        IPoolAddressesProvider.set_pool_impl(pool_addresses_provider, implementation_hash, 1234)
+        IPoolAddressesProvider.set_pool_impl(pool_addresses_provider, new_implementation_hash, 1234)
         let (new_pool_impl) = IProxy.get_implementation(proxy_address)
         let (pool_proxy_address) = IPoolAddressesProvider.get_pool(pool_addresses_provider)
-        assert pool_proxy_address = proxy_address
 
-        # pool implementation should not change
-        assert pool_implementation = new_pool_impl
+        # pool address should not change
+        assert pool_proxy_address = proxy_address
         %{ stop_prank_provider() %}
         return ()
     end
@@ -443,7 +443,7 @@ namespace TestPoolAddressesProviderDeployed:
         syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr
     }():
         alloc_locals
-        let (pool_addresses_provider, implementation_hash) = before_each()
+        let (pool_addresses_provider, implementation_hash, new_implementation_hash) = before_each()
         IPoolAddressesProvider.transfer_ownership(pool_addresses_provider, USER_1)
 
         # TODO replace with poolConfigurator's address once implemented
@@ -452,16 +452,14 @@ namespace TestPoolAddressesProviderDeployed:
             pool_addresses_provider, pool_configurator_id
         )
         let (pool_configurator_implementation) = IProxy.get_implementation(proxy_address)
-        local new_implementation
         %{
-            ids.new_implementation = declare("./tests/contracts/basic_proxy_impl_v2.cairo").class_hash
-            expect_events({"name": "PoolConfiguratorUpdated","data":[ids.pool_configurator_implementation,ids.new_implementation]}) 
+            expect_events({"name": "PoolConfiguratorUpdated","data":[ids.pool_configurator_implementation,ids.new_implementation_hash]}) 
             stop_prank_provider = start_prank(ids.USER_1,target_contract_address=ids.pool_addresses_provider)
         %}
 
         # Update the PoolConfigurator proxy
         IPoolAddressesProvider.set_pool_configurator_impl(
-            pool_addresses_provider, new_implementation, 1234
+            pool_addresses_provider, new_implementation_hash, 1234
         )
         let (new_pool_configurator_impl) = IProxy.get_implementation(proxy_address)
         let (pool_configurator_proxy_address) = IPoolAddressesProvider.get_pool_configurator(
@@ -471,24 +469,26 @@ namespace TestPoolAddressesProviderDeployed:
         assert pool_configurator_proxy_address = proxy_address
 
         # pool implementation should change
-        assert new_pool_configurator_impl = new_implementation
+        assert new_pool_configurator_impl = new_implementation_hash
         %{ stop_prank_provider() %}
         return ()
     end
 end
 
-# Before each test_case get the address of the PoolAddressesProvider and the hash of basic_proxy_impl
+# Before each test_case get the address of the PoolAddressesProvider, the hash of Pool and the hash of mock_pool_v2
 func before_each{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr}() -> (
-    pool_addresses_provider : felt, implementation_hash : felt
+    pool_addresses_provider : felt, implementation_hash : felt, new_implementation_hash : felt
 ):
     alloc_locals
-    local implementation_hash
     local pool_addresses_provider
+    local implementation_hash
+    local new_implementation_hash
     %{
-        ids.implementation_hash = context.implementation_hash # basic_proxy_impl class hash
         ids.pool_addresses_provider = context.pool_addresses_provider
+        ids.implementation_hash = context.implementation_hash # hash of Pool
+        ids.new_implementation_hash = context.new_implementation_hash # hash of mock_pool_v2
     %}
-    return (pool_addresses_provider, implementation_hash)
+    return (pool_addresses_provider, implementation_hash, new_implementation_hash)
 end
 
 # Owner adds a new address with no proxy and turns it into a proxy
@@ -496,7 +496,7 @@ func add_non_proxy_address{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, ran
     id : felt
 ):
     alloc_locals
-    let (pool_addresses_provider, implementation_hash) = before_each()
+    let (pool_addresses_provider, implementation_hash, new_implementation_hash) = before_each()
     local pool_addresses_provider
     %{ ids.pool_addresses_provider = context.pool_addresses_provider %}
     tempvar temp_id = id
@@ -521,7 +521,7 @@ func unregister_address{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_
     id : felt
 ):
     alloc_locals
-    let (pool_addresses_provider, implementation_hash) = before_each()
+    let (pool_addresses_provider, implementation_hash, new_implementation_hash) = before_each()
     local pool_addresses_provider
     %{
         ids.pool_addresses_provider = context.pool_addresses_provider
