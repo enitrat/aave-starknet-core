@@ -24,7 +24,7 @@ namespace IAaveIncentivesController:
     ) -> ():
     end
 
-    func handle_action(asset : felt, user_balance : Uint256, total_supply : felt) -> (
+    func handle_action(account : felt, user_balance : Uint256, total_supply : Uint256) -> (
         rewards : felt
     ):
     end
