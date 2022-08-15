@@ -1,9 +1,14 @@
 %lang starknet
+from starkware.cairo.common.cairo_builtins import HashBuiltin
 from starkware.cairo.common.uint256 import Uint256
+
 from openzeppelin.token.erc20.IERC20 import IERC20
+
 from contracts.interfaces.i_pool import IPool
 from contracts.interfaces.i_a_token import IAToken
 from contracts.protocol.libraries.math.wad_ray_math import RAY
+from contracts.protocol.libraries.types.data_types import DataTypes
+
 from tests.utils.constants import USER_1
 from tests.interfaces.IERC20_Mintable import IERC20_Mintable
 
@@ -29,6 +34,7 @@ namespace TestPoolSupplyWithdrawDeployed:
     func test_pool_supply_withdraw_spec_2{syscall_ptr : felt*, range_check_ptr}():
         alloc_locals
         let (local pool, local test_token, local a_token) = get_contract_addresses()
+
         _supply(pool, test_token)
         let (user_tokens) = IERC20.balanceOf(test_token, USER_1)
         assert user_tokens = Uint256(900, 0)
@@ -53,6 +59,7 @@ namespace TestPoolSupplyWithdrawDeployed:
             stop_prank_pool= start_prank(ids.USER_1, target_contract_address=ids.pool)
         %}
         %{ expect_revert(error_message="User cannot withdraw more than the available balance") %}
+
         IPool.withdraw(pool, test_token, Uint256(50, 0), USER_1)
         %{
             stop_prank_pool()
@@ -62,9 +69,12 @@ namespace TestPoolSupplyWithdrawDeployed:
     end
 
     # USER_1 withdraws 50 tokens out of the 100 he supplied
-    func test_pool_supply_withdraw_spec_4{syscall_ptr : felt*, range_check_ptr}():
+    func test_pool_supply_withdraw_spec_4{
+        syscall_ptr : felt*, range_check_ptr, pedersen_ptr : HashBuiltin*
+    }():
         alloc_locals
         let (local pool, local dai, local aDAI) = get_contract_addresses()
+
         _supply(pool, dai)
 
         %{
@@ -104,6 +114,7 @@ func _supply{syscall_ptr : felt*, range_check_ptr}(pool : felt, token : felt):
         stop_prank_pool = start_prank(ids.USER_1, target_contract_address=ids.pool)
         stop_prank_token()
     %}
+
     IPool.supply(pool, token, deposited_amount, USER_1, 0)
     %{ stop_prank_pool() %}
     return ()

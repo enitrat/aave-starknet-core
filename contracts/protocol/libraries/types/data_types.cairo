@@ -2,10 +2,20 @@ from starkware.cairo.common.uint256 import Uint256
 
 namespace DataTypes:
     struct ReserveData:
+        member liquidity_index : felt
+        member current_liquidity_rate : felt
+        member variable_borrow_index : felt
+        member current_variable_borrow_rate : felt
+        member current_stable_borrow_rate : felt
+        member last_update_timestamp : felt
         member id : felt
         member a_token_address : felt
-        member liquidity_index : felt
-        # TODO add the rest of the fields
+        member stable_debt_token_address : felt
+        member variable_debt_token_address : felt
+        member interest_rate_strategy_address : felt
+        member accrued_to_treasury : felt
+        member unbacked : felt
+        member isolation_mode_total_debt : felt
     end
 
     struct ReserveConfigurationMap:
@@ -29,12 +39,36 @@ namespace DataTypes:
         member debt_ceiling : felt
     end
 
+    struct ReserveCache:
+        member curr_scaled_variable_debt : felt
+        member next_scaled_variable_debt : felt
+        member curr_principal_stable_debt : felt
+        member curr_avg_stable_borrow_rate : felt
+        member curr_total_stable_debt : felt
+        member next_avg_stable_borrow_rate : felt
+        member next_total_stable_debt : felt
+        member curr_liquidity_index : felt
+        member next_liquidity_index : felt
+        member curr_variable_borrow_index : felt
+        member next_variable_borrow_index : felt
+        member curr_liquidity_rate : felt
+        member curr_variable_borrow_rate : felt
+        member reserve_factor : felt
+        member a_token_address : felt
+        member stable_debt_token_address : felt
+        member variable_debt_token_address : felt
+        member reserve_last_update_timestamp : felt
+        member stable_debt_last_update_timestamp : felt
+    end
+
     struct InitReserveParams:
         member asset : felt
         member a_token_address : felt
+        member stable_debt_token_address : felt
+        member variable_debt_token_address : felt
+        member interest_rate_strategy_address : felt
         member reserves_count : felt
         member max_number_reserves : felt
-        # TODO add the rest of the fields
     end
 
     struct UserConfigurationMap:
@@ -55,8 +89,8 @@ namespace DataTypes:
         member to : felt
         member reserves_count : felt
         # TODO add the rest of the fields
-        # member oracle : felt
-        # member user_eMode_category : felt
+        # member oracle  : felt
+        # member user_eMode_category  : felt
     end
 
     # @dev UserState - additionalData is a flexible field.

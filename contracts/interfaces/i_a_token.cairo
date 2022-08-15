@@ -84,4 +84,7 @@ namespace IAToken:
 
     func rescue_tokens(token : felt, to : felt, amount : Uint256):
     end
+
+    func scaled_total_supply() -> (total_supply : Uint256):
+    end
 end

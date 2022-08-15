@@ -2,9 +2,13 @@
 
 from starkware.cairo.common.cairo_builtins import HashBuiltin
 from starkware.cairo.common.uint256 import Uint256
-from starkware.cairo.common.bool import TRUE
+from starkware.cairo.common.bool import TRUE, FALSE
 from starkware.starknet.common.syscalls import get_caller_address
+from starkware.cairo.common.math import assert_not_zero
+from starkware.cairo.common.math_cmp import is_not_zero
 
+from contracts.protocol.libraries.helpers.helpers import is_zero
+from contracts.protocol.libraries.helpers.bool_cmp import BoolCompare
 from contracts.protocol.pool.pool_storage import PoolStorage
 from contracts.protocol.libraries.aave_upgradeability.versioned_initializable_library import (
     VersionedInitializable,
@@ -121,7 +125,11 @@ end
 # TODO add the rest of reserves parameters (debt tokens, interest_rate_strategy, etc)
 @external
 func init_reserve{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr}(
-    asset : felt, a_token_address : felt
+    asset : felt,
+    a_token_address : felt,
+    stable_debt_token_address : felt,
+    variable_debt_token_address : felt,
+    interest_rate_strategy_address : felt,
 ):
     alloc_locals
     assert_only_pool_configurator()
@@ -130,6 +138,9 @@ func init_reserve{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_
         params=DataTypes.InitReserveParams(
         asset=asset,
         a_token_address=a_token_address,
+        stable_debt_token_address=stable_debt_token_address,
+        variable_debt_token_address=variable_debt_token_address,
+        interest_rate_strategy_address=interest_rate_strategy_address,
         reserves_count=reserves_count,
         max_number_reserves=128
         ),
@@ -153,6 +164,29 @@ end
 @external
 func drop_reserve{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr}(asset : felt):
     PoolLogic.execute_drop_reserve(asset)
+    return ()
+end
+
+# sets config of pool
+# @param ReserveConfigurationMap struct
+@external
+func set_configuration{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr}(
+    asset : felt, config : DataTypes.ReserveConfigurationMap
+):
+    assert_only_pool_configurator()
+    with_attr error_message("Zero address not valid"):
+        assert_not_zero(asset)
+    end
+    let (reserve) = PoolStorage.reserves_read(asset)
+    let (is_id_not_zero) = is_not_zero(reserve.id)
+    let (first_listed_asset) = PoolStorage.reserves_list_read(0)
+    let (is_asset_first) = is_zero(first_listed_asset - asset)
+
+    with_attr error_message("Asset not listed"):
+        let (reserve_already_added) = BoolCompare.either(is_id_not_zero, is_asset_first)
+        assert reserve_already_added = FALSE
+    end
+    PoolStorage.reserves_config_write(asset, config)
     return ()
 end
 

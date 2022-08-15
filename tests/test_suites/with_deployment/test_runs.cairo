@@ -4,6 +4,8 @@ from starkware.cairo.common.cairo_builtins import HashBuiltin
 
 from contracts.interfaces.i_a_token import IAToken
 from contracts.interfaces.i_pool import IPool
+from contracts.protocol.libraries.types.data_types import DataTypes
+
 from tests.test_suites.test_specs.pool_drop_spec import TestPoolDropDeployed
 from tests.test_suites.test_specs.pool_get_reserve_address_by_id_spec import (
     TestPoolGetReserveAddressByIdDeployed,
@@ -90,8 +92,19 @@ func __setup__{syscall_ptr : felt*, range_check_ptr}():
 
     IAToken.initialize(aDAI, pool, 1631863113, dai, 43232, 18, 123, 456)
     IAToken.initialize(aWETH, pool, 1631863113, weth, 43232, 18, 321, 654)
-    IPool.init_reserve(pool, dai, aDAI)
-    IPool.init_reserve(pool, weth, aWETH)
+    IPool.init_reserve(pool, dai, aDAI, 0, 0, 0)
+    IPool.init_reserve(pool, weth, aWETH, 0, 0, 0)
+    # sets the pool config with a reserve_active set to true to be able to excute the supply & withdraw logic
+    IPool.set_configuration(
+        pool,
+        aDAI,
+        DataTypes.ReserveConfigurationMap(0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+    )
+    IPool.set_configuration(
+        pool,
+        aWETH,
+        DataTypes.ReserveConfigurationMap(0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+    )
     return ()
 end
 
