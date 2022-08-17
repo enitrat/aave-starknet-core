@@ -28,7 +28,7 @@ const PRANK_ADMIN_ROLE = 99
 
 # Utils funcitons
 func get_context{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr}() -> (
-    acl_address : felt, pool_addresses_provider_address : felt
+    acl_address : felt, pool_addresses_provider : felt
 ):
     alloc_locals
     local acl

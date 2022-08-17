@@ -16,6 +16,11 @@ from tests.test_suites.test_specs.pool_addresses_provider_spec import (
 )
 from tests.test_suites.test_specs.a_token_modifiers_spec import ATokenModifier
 from tests.test_suites.test_specs.acl_manager_spec import TestACLManager, PRANK_ADMIN_ADDRESS
+from tests.test_suites.test_specs.price_oracle_sentinel_spec import (
+    TestPriceOracleSentinel,
+    PRANK_OWNER,
+    GRACE_PERIOD,
+)
 
 # @notice setup hook for the test execution. It deploys the contracts
 # saves the Starknet state at the end of this function. All test cases will be executed
@@ -70,6 +75,20 @@ func __setup__{syscall_ptr : felt*, range_check_ptr}():
         context.acl = deploy_contract("./contracts/protocol/configuration/acl_manager.cairo", {"provider":context.pool_addresses_provider}).contract_address
         stop_mock_admin()
 
+        # declare sequencer oracle
+        declared_seq_oracle = declare("./contracts/mocks/oracle/sequencer_oracle.cairo")
+        prepared_seq_oracle = prepare(declared_seq_oracle, {"owner": ids.PRANK_OWNER}) 
+        stop_prank = start_prank(ids.PRANK_OWNER, target_contract_address = prepared_seq_oracle.contract_address)
+        context.sequencer_oracle = deploy(prepared_seq_oracle).contract_address
+        stop_prank()
+
+
+        # deploy price oracle sentinel
+        declared_price_oracle_sentinel = declare("./contracts/protocol/configuration/price_oracle_sentinel.cairo")
+        prepared_price_oracle_sentinel = prepare(declared_price_oracle_sentinel, {"addresses_provider": context.pool_addresses_provider, "oracle_sentinel":context.sequencer_oracle, "grace_period":ids.GRACE_PERIOD}) 
+        context.price_oracle_sentinel = deploy(prepared_price_oracle_sentinel).contract_address
+
+
         # deploy pool contract
         context.pool = deploy_contract("./contracts/protocol/pool/pool.cairo").contract_address
 
@@ -82,6 +101,9 @@ func __setup__{syscall_ptr : felt*, range_check_ptr}():
     tempvar aWETH
     tempvar proxy
     tempvar acl
+    tempvar price_oracle_sentinel
+    tempvar sequencer_oracle
+    tempvar pool_addresses_provider
     %{ ids.pool = context.pool %}
     %{ ids.dai = context.dai %}
     %{ ids.weth= context.weth %}
@@ -89,6 +111,9 @@ func __setup__{syscall_ptr : felt*, range_check_ptr}():
     %{ ids.aWETH = context.aWETH %}
     %{ ids.proxy = context.proxy %}
     %{ ids.acl = context.acl %}
+    %{ ids.pool_addresses_provider = context.pool_addresses_provider %}
+    %{ ids.sequencer_oracle = context.sequencer_oracle %}
+    %{ ids.price_oracle_sentinel = context.price_oracle_sentinel %}
 
     IAToken.initialize(aDAI, pool, 1631863113, dai, 43232, 18, 123, 456)
     IAToken.initialize(aWETH, pool, 1631863113, weth, 43232, 18, 321, 654)
@@ -409,21 +434,68 @@ func test_revoke_emergency_admin_role{
     TestACLManager.test_revoke_emergency_admin_role()
     return ()
 end
+
 @external
 func test_revoke_risk_admin_role{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr}(
     ):
     TestACLManager.test_revoke_risk_admin_role()
     return ()
 end
+
 @external
 func test_revoke_bridge_role{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr}():
     TestACLManager.test_revoke_bridge_role()
     return ()
 end
+
 @external
 func test_revoke_asset_listing_admin_role{
     syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr
 }():
     TestACLManager.test_revoke_asset_listing_admin_role()
+    return ()
+end
+
+@external
+func test_activate_sentinel{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr}():
+    TestPriceOracleSentinel.test_activate_sentinel()
+    return ()
+end
+
+@external
+func test_update_grace_period{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr}():
+    TestPriceOracleSentinel.test_update_grace_period()
+    return ()
+end
+
+@external
+func test_risk_admin_update_grace_period{
+    syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr
+}():
+    TestPriceOracleSentinel.test_risk_admin_update_grace_period()
+    return ()
+end
+
+@external
+func test_update_grace_period_with_not_admin{
+    syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr
+}():
+    TestPriceOracleSentinel.test_update_grace_period_with_not_admin()
+    return ()
+end
+
+@external
+func test_pool_admin_update_sequencer_oracle{
+    syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr
+}():
+    TestPriceOracleSentinel.test_pool_admin_update_sequencer_oracle()
+    return ()
+end
+
+@external
+func test_update_sequence_oracle_with_not_admin{
+    syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr
+}():
+    TestPriceOracleSentinel.test_update_sequence_oracle_with_not_admin()
     return ()
 end
