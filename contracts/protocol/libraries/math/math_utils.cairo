@@ -9,7 +9,7 @@ from starkware.cairo.common.uint256 import (
     uint256_eq,
 )
 from starkware.cairo.common.bool import TRUE
-from contracts.protocol.libraries.math.wad_ray_math import Ray, ray_add, RAY, ray_mul
+from contracts.protocol.libraries.math.wad_ray_math import WadRayMath
 from contracts.protocol.libraries.helpers.helpers import uint256_checked_sub_return_zero_when_lt
 
 namespace MathUtils:
@@ -32,7 +32,7 @@ namespace MathUtils:
 
         let (result, _) = uint256_unsigned_div_rem(temp_result, Uint256(SECONDS_PER_YEAR, 0))
 
-        let (interest, _) = uint256_add(Uint256(RAY, 0), result)
+        let (interest, _) = uint256_add(Uint256(WadRayMath.RAY, 0), result)
 
         return (interest)
     end
@@ -74,23 +74,23 @@ namespace MathUtils:
 
         let (is_exp_zero) = uint256_eq(exp, Uint256(0, 0))
         if is_exp_zero == TRUE:
-            return (Uint256(RAY, 0))
+            return (Uint256(WadRayMath.RAY, 0))
         end
 
         let (exp_minus_one) = uint256_sub(exp, Uint256(1, 0))
 
         let (exp_minus_two) = uint256_checked_sub_return_zero_when_lt(exp, Uint256(2, 0))
 
-        let (rate_square) = ray_mul(Ray(rate), Ray(rate))
+        let (rate_square) = WadRayMath.ray_mul(rate, rate)
         let (period_square, _) = uint256_mul(
             Uint256(SECONDS_PER_YEAR, 0), Uint256(SECONDS_PER_YEAR, 0)
         )
-        let (base_power_two, _) = uint256_unsigned_div_rem(rate_square.ray, period_square)
+        let (base_power_two, _) = uint256_unsigned_div_rem(rate_square, period_square)
 
-        let (base_power_two_multiplied_by_rate) = ray_mul(Ray(base_power_two), Ray(rate))
+        let (base_power_two_multiplied_by_rate) = WadRayMath.ray_mul(base_power_two, rate)
 
         let (base_power_three, _) = uint256_unsigned_div_rem(
-            base_power_two_multiplied_by_rate.ray, Uint256(SECONDS_PER_YEAR, 0)
+            base_power_two_multiplied_by_rate, Uint256(SECONDS_PER_YEAR, 0)
         )
 
         let (temp_second_term, _) = uint256_mul(exp, exp_minus_one)
@@ -107,7 +107,7 @@ namespace MathUtils:
         let (rate_mul_exp_div_period, _) = uint256_unsigned_div_rem(
             rate_mul_exp, Uint256(SECONDS_PER_YEAR, 0)
         )
-        let (first_part_rate, _) = uint256_add(Uint256(RAY, 0), rate_mul_exp_div_period)
+        let (first_part_rate, _) = uint256_add(Uint256(WadRayMath.RAY, 0), rate_mul_exp_div_period)
         let (second_plus_third_term, _) = uint256_add(second_term, third_term)
 
         let (compounded_interest, _) = uint256_add(first_part_rate, second_plus_third_term)

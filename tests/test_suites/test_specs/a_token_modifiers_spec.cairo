@@ -5,7 +5,7 @@ from starkware.starknet.common.syscalls import get_contract_address, get_caller_
 from starkware.cairo.common.uint256 import Uint256
 from starkware.cairo.common.bool import TRUE, FALSE
 
-from contracts.protocol.libraries.math.wad_ray_math import RAY
+from contracts.protocol.libraries.math.wad_ray_math import WadRayMath
 from contracts.interfaces.i_pool import IPool
 from contracts.interfaces.i_a_token import IAToken
 

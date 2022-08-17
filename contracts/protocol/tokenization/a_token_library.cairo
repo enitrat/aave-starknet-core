@@ -11,7 +11,7 @@ from openzeppelin.token.erc20.IERC20 import IERC20
 
 from contracts.interfaces.i_pool import IPool
 from contracts.protocol.libraries.helpers.bool_cmp import BoolCompare
-from contracts.protocol.libraries.math.wad_ray_math import ray_mul, ray_div, Ray
+from contracts.protocol.libraries.math.wad_ray_math import WadRayMath
 # from contracts.protocol.tokenization.base.incentivized_erc20 import IncentivizedERC20
 # from contracts.protocol.tokenization.base.scaled_balance_token_base import ScaledBalanceTokenBase
 
@@ -183,8 +183,8 @@ namespace AToken:
         let (pool) = POOL()
         let (underlying) = UNDERLYING_ASSET_ADDRESS()
         let (liquidity_index) = IPool.get_reserve_normalized_income(pool, underlying)
-        let (balance) = ray_mul(Ray(balance_scaled), Ray(liquidity_index))
-        return (balance.ray)
+        let (balance) = WadRayMath.ray_mul(balance_scaled, liquidity_index)
+        return (balance)
     end
 
     # func total_supply{
@@ -275,22 +275,16 @@ namespace AToken:
         let (index) = IPool.get_reserve_normalized_income(pool, underlying_asset)
 
         let (from_scaledbalance_before) = ERC20.balance_of(from_)
-        let (from_balance_before) = ray_mul(Ray(from_scaledbalance_before), Ray(index))
+        let (from_balance_before) = WadRayMath.ray_mul(from_scaledbalance_before, index)
         let (to_scaledbalance_before) = ERC20.balance_of(to)
-        let (to_balance_before) = ray_mul(Ray(to_scaledbalance_before), Ray(index))
+        let (to_balance_before) = WadRayMath.ray_mul(to_scaledbalance_before, index)
 
-        let (amount_over_index) = ray_div(Ray(amount), Ray(index))
-        ERC20._transfer(from_, to, amount_over_index.ray)
+        let (amount_over_index) = WadRayMath.ray_div(amount, index)
+        ERC20._transfer(from_, to, amount_over_index)
 
         if validate == TRUE:
             IPool.finalize_transfer(
-                pool,
-                underlying_asset,
-                from_,
-                to,
-                amount,
-                from_balance_before.ray,
-                to_balance_before.ray,
+                pool, underlying_asset, from_, to, amount, from_balance_before, to_balance_before
             )
             tempvar syscall_ptr = syscall_ptr
             tempvar pedersen_ptr = pedersen_ptr

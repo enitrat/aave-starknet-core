@@ -4,7 +4,7 @@ from starkware.cairo.common.cairo_builtins import HashBuiltin
 from contracts.protocol.libraries.types.data_types import DataTypes
 
 from contracts.protocol.pool.pool_storage import PoolStorage
-from contracts.protocol.libraries.math.wad_ray_math import RAY
+from contracts.protocol.libraries.math.wad_ray_math import WadRayMath
 
 namespace ReserveLogic:
     # @notice Initializes a reserve.
@@ -23,9 +23,9 @@ namespace ReserveLogic:
 
         # Write a_token_address in reserve
         let new_reserve = DataTypes.ReserveData(
-            liquidity_index=RAY,
+            liquidity_index=WadRayMath.RAY,
             0,
-            variable_borrow_index=RAY,
+            variable_borrow_index=WadRayMath.RAY,
             0,
             0,
             0,

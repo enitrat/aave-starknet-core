@@ -2,10 +2,10 @@
 from starkware.starknet.common.syscalls import get_block_timestamp
 from starkware.cairo.common.cairo_builtins import HashBuiltin
 from starkware.cairo.common.uint256 import Uint256
-from contracts.protocol.libraries.math.wad_ray_math import RAY
+from contracts.protocol.libraries.math.wad_ray_math import WadRayMath
 from contracts.protocol.libraries.math.math_utils import MathUtils
 
-const rate_in_ray = 34 * RAY
+const rate_in_ray = 34 * WadRayMath.RAY
 
 @external
 func test_calculate_linear_interest{
@@ -50,7 +50,7 @@ func test_calculate_compounded_interest{
     )
 
     # should return one RAY
-    assert res_2.low = RAY
+    assert res_2.low = WadRayMath.RAY
     %{ stop_warp() %}
 
     # test when exp<2 (exp_minus_two term should be set to zero)

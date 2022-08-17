@@ -15,7 +15,7 @@ from contracts.protocol.libraries.math.helpers import (
     assert_not_zero_uint256,
 )
 from contracts.protocol.libraries.math.helpers import to_felt
-from contracts.protocol.libraries.math.wad_ray_math import Ray, ray_add, ray_div, ray_mul, ray_sub
+from contracts.protocol.libraries.math.wad_ray_math import WadRayMath
 from contracts.protocol.libraries.types.data_types import DataTypes
 from contracts.protocol.tokenization.base.incentivized_erc20_library import IncentivizedERC20
 
@@ -137,33 +137,35 @@ end
 
 func _handle_state_change{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr}(
     user : felt, amount : Uint256, index : felt
-) -> (amount_ray : Ray, amount_scaled : Ray, balance_increase : Ray, old_user_index : felt):
+) -> (
+    amount_ray : Uint256, amount_scaled : Uint256, balance_increase : Uint256, old_user_index : felt
+):
     alloc_locals
 
-    tempvar amount_ray = Ray(amount)
+    tempvar amount_ray = amount
     let (local index_uint256) = to_uint256(index)
-    tempvar index_ray = Ray(index_uint256)
-    let (local amount_scaled) = ray_div(amount_ray, index_ray)
+    tempvar index_ray = index_uint256
+    let (local amount_scaled) = WadRayMath.ray_div(amount_ray, index_ray)
 
     # TODO: This error originally identifies whether it is mint or burn
     # There is no easy way to pass that as argument. Should we remove
     # this from this logic?
     with_attr error_message("ScaledBalanceToken: Invalid amount"):
-        assert_not_zero_uint256(amount_scaled.ray)
+        assert_not_zero_uint256(amount_scaled)
     end
 
     let (local old_user_state : DataTypes.UserState) = IncentivizedERC20.get_user_state(user)
     tempvar old_user_balance = old_user_state.balance
     let (local old_user_balance_256) = to_uint256(old_user_balance)
-    let old_user_balance_ray = Ray(old_user_balance_256)
+    let old_user_balance_ray = old_user_balance_256
 
     tempvar old_user_index = old_user_state.additional_data
     let (local old_user_index_256) = to_uint256(old_user_index)
-    tempvar old_user_index_ray = Ray(old_user_index_256)
+    tempvar old_user_index_ray = old_user_index_256
 
-    let (local new_scaled_balance) = ray_mul(old_user_balance_ray, index_ray)
-    let (local old_scaled_balance) = ray_mul(old_user_balance_ray, old_user_index_ray)
-    let (local balance_increase) = ray_sub(new_scaled_balance, old_scaled_balance)
+    let (local new_scaled_balance) = WadRayMath.ray_mul(old_user_balance_ray, index_ray)
+    let (local old_scaled_balance) = WadRayMath.ray_mul(old_user_balance_ray, old_user_index_ray)
+    let (local balance_increase) = WadRayMath.ray_sub(new_scaled_balance, old_scaled_balance)
 
     IncentivizedERC20.set_additional_data(user, index)
 
@@ -188,13 +190,13 @@ namespace ScaledBalanceToken:
             local amount_ray, local amount_scaled, local balance_increase, local old_user_index
         ) = _handle_state_change(on_behalf_of, amount, index)
 
-        _mint(on_behalf_of, amount_scaled.ray)
+        _mint(on_behalf_of, amount_scaled)
 
         # TODO Should revert on overflow?
-        let (local amount_to_mint : Ray, _) = ray_add(amount_ray, balance_increase)
+        let (local amount_to_mint : Uint256, _) = WadRayMath.ray_add(amount_ray, balance_increase)
 
-        Transfer.emit(0, on_behalf_of, amount_to_mint.ray)
-        Mint.emit(caller, on_behalf_of, amount_to_mint.ray, balance_increase.ray, index)
+        Transfer.emit(0, on_behalf_of, amount_to_mint)
+        Mint.emit(caller, on_behalf_of, amount_to_mint, balance_increase, index)
 
         if old_user_index == 0:
             return (TRUE)
@@ -221,19 +223,19 @@ namespace ScaledBalanceToken:
             local amount_ray, local amount_scaled, local balance_increase, _
         ) = _handle_state_change(user, amount, index)
 
-        _burn(user, amount_scaled.ray)
+        _burn(user, amount_scaled)
 
-        let (is_balance_increase_le_than_amount) = uint256_le(balance_increase.ray, amount)
+        let (is_balance_increase_le_than_amount) = uint256_le(balance_increase, amount)
 
         if is_balance_increase_le_than_amount == TRUE:
-            let (local amount_to_burn) = ray_sub(amount_ray, balance_increase)
-            Transfer.emit(user, 0, amount_to_burn.ray)
-            Burn.emit(user, target, amount_to_burn.ray, balance_increase.ray, index)
+            let (local amount_to_burn) = WadRayMath.ray_sub(amount_ray, balance_increase)
+            Transfer.emit(user, 0, amount_to_burn)
+            Burn.emit(user, target, amount_to_burn, balance_increase, index)
             return ()
         else:
-            let (local amount_to_mint) = ray_sub(balance_increase, amount_ray)
-            Transfer.emit(0, user, amount_to_mint.ray)
-            Mint.emit(user, user, amount_to_mint.ray, balance_increase.ray, index)
+            let (local amount_to_mint) = WadRayMath.ray_sub(balance_increase, amount_ray)
+            Transfer.emit(0, user, amount_to_mint)
+            Mint.emit(user, user, amount_to_mint, balance_increase, index)
             return ()
         end
     end

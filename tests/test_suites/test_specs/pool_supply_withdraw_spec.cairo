@@ -6,7 +6,7 @@ from openzeppelin.token.erc20.IERC20 import IERC20
 
 from contracts.interfaces.i_pool import IPool
 from contracts.interfaces.i_a_token import IAToken
-from contracts.protocol.libraries.math.wad_ray_math import RAY
+from contracts.protocol.libraries.math.wad_ray_math import WadRayMath
 from contracts.protocol.libraries.types.data_types import DataTypes
 
 from tests.utils.constants import USER_1
@@ -39,7 +39,7 @@ namespace TestPoolSupplyWithdrawDeployed:
         let (user_tokens) = IERC20.balanceOf(test_token, USER_1)
         assert user_tokens = Uint256(900, 0)
 
-        %{ stop_mock = mock_call(ids.pool, "get_reserve_normalized_income", [ids.RAY, 0]) %}
+        %{ stop_mock = mock_call(ids.pool, "get_reserve_normalized_income", [ids.WadRayMath.RAY, 0]) %}
         let (user_a_tokens) = IAToken.balanceOf(a_token, USER_1)
         assert user_a_tokens = Uint256(100, 0)
         %{ stop_mock() %}
@@ -55,7 +55,7 @@ namespace TestPoolSupplyWithdrawDeployed:
         let (local pool, local test_token, local a_token) = get_contract_addresses()
         # Prank pool so that inside the contract, caller() is USER_1
         %{
-            stop_mock = mock_call(ids.pool, "get_reserve_normalized_income", [ids.RAY, 0])
+            stop_mock = mock_call(ids.pool, "get_reserve_normalized_income", [ids.WadRayMath.RAY, 0])
             stop_prank_pool= start_prank(ids.USER_1, target_contract_address=ids.pool)
         %}
         %{ expect_revert(error_message="User cannot withdraw more than the available balance") %}
@@ -78,7 +78,7 @@ namespace TestPoolSupplyWithdrawDeployed:
         _supply(pool, dai)
 
         %{
-            stop_mock = mock_call(ids.pool, "get_reserve_normalized_income", [ids.RAY, 0])
+            stop_mock = mock_call(ids.pool, "get_reserve_normalized_income", [ids.WadRayMath.RAY, 0])
             stop_prank_pool= start_prank(ids.USER_1, target_contract_address=ids.pool)
         %}
         IPool.withdraw(pool, dai, Uint256(50, 0), USER_1)
@@ -91,7 +91,7 @@ namespace TestPoolSupplyWithdrawDeployed:
         let (user_tokens) = IERC20.balanceOf(dai, USER_1)
         assert user_tokens = Uint256(950, 0)
 
-        %{ stop_mock = mock_call(ids.pool, "get_reserve_normalized_income", [ids.RAY, 0]) %}
+        %{ stop_mock = mock_call(ids.pool, "get_reserve_normalized_income", [ids.WadRayMath.RAY, 0]) %}
         let (user_a_tokens) = IAToken.balanceOf(aDAI, USER_1)
         assert user_a_tokens = Uint256(50, 0)
         %{ stop_mock() %}

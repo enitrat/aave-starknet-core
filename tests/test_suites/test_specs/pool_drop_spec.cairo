@@ -6,7 +6,7 @@ from starkware.starknet.common.syscalls import get_contract_address
 
 from contracts.interfaces.i_pool import IPool
 from contracts.protocol.libraries.helpers.constants import UINT128_MAX
-from contracts.protocol.libraries.math.wad_ray_math import RAY
+from contracts.protocol.libraries.math.wad_ray_math import WadRayMath
 
 from tests.interfaces.IERC20_Mintable import IERC20_Mintable
 from tests.utils.utils import array_includes, parse_ether
@@ -66,7 +66,7 @@ namespace TestPoolDropDeployed:
 
         deposit_funds_and_borrow(dai, weth, pool)
 
-        %{ stop_mock = mock_call(ids.pool, "get_reserve_normalized_income", [ids.RAY, 0]) %}
+        %{ stop_mock = mock_call(ids.pool, "get_reserve_normalized_income", [ids.WadRayMath.RAY, 0]) %}
         IPool.withdraw(pool, dai, Uint256(UINT128_MAX, UINT128_MAX), deployer)
         %{ stop_mock() %}
         let (reserves_count, reserves_list) = IPool.get_reserves_list(pool)
