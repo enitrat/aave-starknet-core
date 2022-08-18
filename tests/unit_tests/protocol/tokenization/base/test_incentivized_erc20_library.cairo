@@ -65,8 +65,9 @@ func test_balance_of{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_che
     %{ store(ids.contract_address, "IncentivizedERC20_user_state", [ids.user_state.balance, ids.user_state.additional_data], key=[ids.USER_1]) %}
 
     let (balance) = IncentivizedERC20.balance_of(USER_1)
-    assert balance = AMOUNT_1
-
+    let (amount_256) = to_uint256(AMOUNT_1)
+    let (is_eq) = uint256_eq(balance, amount_256)
+    assert is_eq = TRUE
     return ()
 end
 

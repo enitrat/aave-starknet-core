@@ -35,24 +35,24 @@ func get_context{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_p
 ):
     alloc_locals
     local deployer
-    local acl
+    local acl_manager
     local pool_addresses_provider
     local sequencer_oracle
     local price_oracle_sentinel
     %{
         ids.deployer = context.deployer
-        ids.acl = context.acl
+        ids.acl_manager = context.acl_manager
         ids.pool_addresses_provider = context.pool_addresses_provider
         ids.sequencer_oracle = context.sequencer_oracle
         ids.price_oracle_sentinel = context.price_oracle_sentinel
     %}
 
     %{ stop_prank = start_prank(ids.deployer, target_contract_address= ids.pool_addresses_provider) %}
-    IPoolAddressesProvider.set_ACL_manager(pool_addresses_provider, acl)
+    IPoolAddressesProvider.set_ACL_manager(pool_addresses_provider, acl_manager)
     let (acl_manager) = IPoolAddressesProvider.get_ACL_manager(pool_addresses_provider)
-    assert acl_manager = acl
+    assert acl_manager = acl_manager
     %{ stop_prank() %}
-    return (acl, pool_addresses_provider, sequencer_oracle, price_oracle_sentinel)
+    return (acl_manager, pool_addresses_provider, sequencer_oracle, price_oracle_sentinel)
 end
 
 namespace TestPriceOracleSentinel:

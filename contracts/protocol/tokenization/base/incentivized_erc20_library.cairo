@@ -72,10 +72,10 @@ func _transfer{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr
 
     let (sender_state) = IncentivizedERC20_user_state.read(sender)
     let old_sender_balance = sender_state.balance
+    let (old_sender_balance_256) = to_uint256(old_sender_balance)
     with_attr error_message("IncentivizedERC20: transfer amount exceeds balance"):
         assert_le_felt(amount_felt, old_sender_balance)
     end
-    let (old_sender_balance_uint_256) = to_uint256(old_sender_balance)
 
     let new_sender_balance = old_sender_balance - amount_felt
 
@@ -84,7 +84,7 @@ func _transfer{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr
 
     let (recipient_state) = IncentivizedERC20_user_state.read(recipient)
     let recipient_balance = recipient_state.balance
-    let (recipient_balance_uint_256) = to_uint256(recipient_balance)
+    let (recipient_balance_256) = to_uint256(recipient_balance)
     let new_recipient_balance = recipient_balance + amount_felt
     let new_recipient_state = DataTypes.UserState(
         new_recipient_balance, recipient_state.additional_data
@@ -102,7 +102,7 @@ func _transfer{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr
         IAaveIncentivesController.handle_action(
             contract_address=incentives_controller,
             account=sender,
-            user_balance=old_sender_balance_uint_256,
+            user_balance=old_sender_balance_256,
             total_supply=total_supply,
         )
         let (sender_not_the_recipient) = is_not_zero(sender - recipient)
@@ -110,7 +110,7 @@ func _transfer{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr
             IAaveIncentivesController.handle_action(
                 contract_address=incentives_controller,
                 account=recipient,
-                user_balance=recipient_balance_uint_256,
+                user_balance=recipient_balance_256,
                 total_supply=total_supply,
             )
             return ()
@@ -154,7 +154,7 @@ namespace IncentivizedERC20:
         let (is_pool_admin) = IACLManager.is_pool_admin(
             contract_address=acl_manager_address, admin_address=caller
         )
-        with_attr error_message("IncentivizedERC20: Caller is not pool admin"):
+        with_attr error_message("The caller of the function is not a pool admin"):
             assert is_pool_admin = TRUE
         end
         return ()
@@ -167,13 +167,20 @@ namespace IncentivizedERC20:
         alloc_locals
         let (caller_address) = get_caller_address()
         let (pool) = IncentivizedERC20_pool.read()
-        with_attr error_message("IncentivizedERC20: Caller must be pool"):
+        with_attr error_message("The caller of this function must be a pool"):
             assert caller_address = pool
         end
         return ()
     end
 
     # Getters
+
+    func get_pool{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr}() -> (
+        pool : felt
+    ):
+        let (pool) = IncentivizedERC20_pool.read()
+        return (pool)
+    end
 
     #
     # @notice Returns the address of the Incentives Controller contract
@@ -202,9 +209,10 @@ namespace IncentivizedERC20:
 
     func balance_of{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr}(
         account : felt
-    ) -> (balance : felt):
+    ) -> (balance : Uint256):
         let (state) = IncentivizedERC20_user_state.read(account)
-        return (state.balance)
+        let (balance_uint256) = to_uint256(state.balance)
+        return (balance_uint256)
     end
 
     func allowance{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr}(
@@ -214,13 +222,14 @@ namespace IncentivizedERC20:
         return (remaining)
     end
 
+    # Setters
+
     func set_balance{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr}(
         account : felt, balance : felt
     ):
         let (old_user_state) = IncentivizedERC20_user_state.read(account)
         let new_user_state = DataTypes.UserState(balance, old_user_state.additional_data)
         IncentivizedERC20_user_state.write(account, new_user_state)
-
         return ()
     end
 
@@ -249,11 +258,18 @@ namespace IncentivizedERC20:
         return ()
     end
 
+    func set_user_state{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr}(
+        account : felt, user_state : DataTypes.UserState
+    ):
+        IncentivizedERC20_user_state.write(account, user_state)
+        return ()
+    end
+
     #
     # Main functions
     #
 
-    func initializer{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr}(
+    func initialize{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr}(
         pool : felt, name : felt, symbol : felt, decimals : felt
     ):
         ERC20.initializer(name=name, symbol=symbol, decimals=decimals)

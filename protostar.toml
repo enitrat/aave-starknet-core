@@ -1,5 +1,5 @@
 ["protostar.config"]
-protostar_version = "0.2.3"
+protostar_version = "0.3.1"
 
 ["protostar.project"]
 libs_path = "lib"
@@ -18,9 +18,12 @@ aave_oracle = [
     "./contracts/misc/aave_oracle.cairo",
 ]
 
+stable_debt_token = [
+    "./contracts/protocol/tokenization/stable_debt_token.cairo",
+]
+
 ["protostar.shared_command_configs"]
 cairo_path = ["./lib/cairo_contracts/src"]
-stdout-on-success = true
 
 [profile.devnet.protostar.deploy]
 gateway-url = "http://127.0.0.1:5050/"

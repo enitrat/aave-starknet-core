@@ -34,7 +34,7 @@ func get_context{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_p
     local acl
     local pool_addresses_provider
     %{
-        ids.acl = context.acl
+        ids.acl = context.acl_manager
         ids.pool_addresses_provider = context.pool_addresses_provider
     %}
     return (acl, pool_addresses_provider)

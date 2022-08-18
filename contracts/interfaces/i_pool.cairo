@@ -6,6 +6,9 @@ from contracts.protocol.libraries.types.data_types import DataTypes
 
 @contract_interface
 namespace IPool:
+    func initialize(provider : felt):
+    end
+
     func supply(asset : felt, amount : Uint256, on_behalf_of : felt, referral_code : felt):
     end
 
