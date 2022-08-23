@@ -7,6 +7,8 @@ from starkware.starknet.common.syscalls import get_caller_address
 from starkware.cairo.common.math import assert_not_zero
 from starkware.cairo.common.math_cmp import is_not_zero
 
+from contracts.interfaces.i_pool_addresses_provider import IPoolAddressesProvider
+from contracts.interfaces.i_acl_manager import IACLManager
 from contracts.protocol.libraries.helpers.helpers import is_zero
 from contracts.protocol.libraries.helpers.bool_cmp import BoolCompare
 from contracts.protocol.pool.pool_storage import PoolStorage
@@ -25,21 +27,28 @@ const REVISION = 1
 func assert_only_pool_configurator{
     syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr
 }():
-    let (caller_address) = get_caller_address()
+    let (caller) = get_caller_address()
     let (addresses_provider) = PoolStorage.addresses_provider_read()
-    # TODO Check pool_provider address stored in address_provider contract
+    let (pool_configurator) = IPoolAddressesProvider.get_address(
+        addresses_provider, 'POOL_CONFIGURATOR'
+    )
     with_attr error_message("The caller of the function is not the pool configurator"):
-        # assert caller_address == pool_configurator
+        assert caller = pool_configurator
     end
     return ()
 end
 
 func assert_only_pool_admin{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr}():
-    let (caller_address) = get_caller_address()
+    let (caller) = get_caller_address()
     let (addresses_provider) = PoolStorage.addresses_provider_read()
-    # TODO Check pool_admin address stored in address_provider contract
-    with_attr error_message("The caller of the function is not the pool configurator"):
-        # assert caller_address == pool_admin
+    let (acl_manager_address) = IPoolAddressesProvider.get_ACL_manager(
+        contract_address=addresses_provider
+    )
+    let (is_pool_admin) = IACLManager.is_pool_admin(
+        contract_address=acl_manager_address, admin_address=caller
+    )
+    with_attr error_message("The caller of the function is not a pool admin"):
+        assert is_pool_admin = TRUE
     end
     return ()
 end

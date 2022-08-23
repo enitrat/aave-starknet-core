@@ -216,7 +216,7 @@ namespace UserConfiguration:
 
         return (res)
     end
-    # TODO: TESTING OF get_isolation_mode_state and get_siloed_borrowing_state
+
     # @notice Returns the Isolation Mode state of the user
     # @param user_address The address of a user
     # @return TRUE if the user is in isolation mode, FALSE otherwise

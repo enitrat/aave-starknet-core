@@ -2,6 +2,7 @@
 from starkware.starknet.common.syscalls import get_contract_address
 from starkware.cairo.common.cairo_builtins import HashBuiltin
 from starkware.cairo.common.alloc import alloc
+from starkware.cairo.common.bool import TRUE, FALSE
 
 from contracts.interfaces.i_a_token import IAToken
 from contracts.interfaces.i_proxy import IProxy
@@ -150,6 +151,9 @@ func __setup__{syscall_ptr : felt*, range_check_ptr}():
 
     IAToken.initialize(aDAI, pool, 1631863113, dai, 43232, 18, 123, 456)
     IAToken.initialize(aWETH, pool, 1631863113, weth, 43232, 18, 321, 654)
+
+    # TODO replace this mock with a call from poolConfigurator
+    %{ stop_mock_configurator = mock_call(context.pool_addresses_provider,"get_address",[ids.deployer]) %}
     IPool.init_reserve(pool, dai, aDAI, dai_stable_debt, dai_variable_debt, 0)
     IPool.init_reserve(pool, weth, aWETH, weth_stable_debt, 0, 0)
     # sets the pool config with a reserve_active set to true to be able to excute the supply & withdraw logic
@@ -163,7 +167,10 @@ func __setup__{syscall_ptr : felt*, range_check_ptr}():
         aWETH,
         DataTypes.ReserveConfigurationMap(0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
     )
-    %{ stop_mock_pool_admin = mock_call(ids.acl_manager,"is_pool_admin",[1]) %}
+    %{
+        stop_mock_configurator()
+        stop_mock_pool_admin = mock_call(ids.acl_manager,"is_pool_admin",[ids.TRUE])
+    %}
     # Initialize proxies for stable debt tokens
     let (dai_calldata : felt*) = alloc()
     IProxy.initialize(

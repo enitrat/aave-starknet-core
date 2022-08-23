@@ -134,7 +134,6 @@ namespace TestAaveOracle:
     func test_non_owner_sets_ticker{
         syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr
     }():
-        # TODO (depends on ACL Manager)
         alloc_locals
         let (oracle_address, erc20_address) = before_each()
         %{
