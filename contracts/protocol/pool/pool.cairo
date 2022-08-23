@@ -14,6 +14,7 @@ from contracts.protocol.libraries.aave_upgradeability.versioned_initializable_li
     VersionedInitializable,
 )
 from contracts.protocol.libraries.logic.pool_logic import PoolLogic
+from contracts.protocol.libraries.logic.reserve_logic import ReserveLogic
 from contracts.protocol.libraries.logic.reserve_configuration import ReserveConfiguration
 from contracts.protocol.libraries.logic.supply_logic import SupplyLogic
 from contracts.protocol.libraries.types.data_types import DataTypes
@@ -203,6 +204,13 @@ func get_reserve_data{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_ch
 ) -> (reserve_data : DataTypes.ReserveData):
     let (reserve) = PoolStorage.reserves_read(asset)
     return (reserve)
+end
+
+@view
+func get_reserve_normalized_variable_debt{
+    syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr
+}(asset : felt) -> (normalized_variable_debt : felt):
+    return ReserveLogic.get_normalized_debt(asset)
 end
 
 @view

@@ -1,5 +1,5 @@
 ["protostar.config"]
-protostar_version = "0.3.1"
+protostar_version = "0.3.2"
 
 ["protostar.project"]
 libs_path = "lib"
@@ -20,6 +20,10 @@ aave_oracle = [
 
 stable_debt_token = [
     "./contracts/protocol/tokenization/stable_debt_token.cairo",
+]
+
+variable_debt_token = [
+    "./contracts/protocol/tokenization/variable_debt_token.cairo",
 ]
 
 ["protostar.shared_command_configs"]

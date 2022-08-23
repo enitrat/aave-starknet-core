@@ -217,6 +217,25 @@ func test_set_incentives_controller{
 end
 
 @external
+func test_set_incentives_controller_not_pool_admin_revert{
+    syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr
+}():
+    let (test) = get_contract_address()
+    %{
+        store(ids.test, "IncentivizedERC20_addresses_provider",[ids.POOL_ADDRESSES_PROVIDER])
+        stop_mock_is_pool_admin_1 = mock_call(ids.POOL_ADDRESSES_PROVIDER, "get_ACL_manager", [ids.ACL_MANAGER])
+        stop_mock_is_pool_admin_2 = mock_call(ids.ACL_MANAGER, "is_pool_admin", [ids.FALSE])
+        expect_revert(error_message="The caller of the function is not a pool admin")
+    %}
+    IncentivizedERC20.set_incentives_controller(INCENTIVES_CONTROLLER)
+    %{
+        stop_mock_is_pool_admin_1()
+        stop_mock_is_pool_admin_2()
+    %}
+    return ()
+end
+
+@external
 func test_increase_allowance{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr}():
     alloc_locals
     let (local contract_address) = get_contract_address()

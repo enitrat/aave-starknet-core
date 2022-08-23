@@ -3,7 +3,7 @@
 from starkware.cairo.common.uint256 import Uint256
 
 @contract_interface
-namespace IStableDebtToken:
+namespace IVariableDebtToken:
     func initialize(
         initializing_pool : felt,
         underlying_asset : felt,
@@ -47,55 +47,39 @@ namespace IStableDebtToken:
     func set_incentives_controller(incentives_controller : felt):
     end
 
-    func principal_balance_of(user : felt) -> (balance : Uint256):
-    end
-
     func POOL() -> (pool : felt):
     end
 
     #
-    # StableDebtToken
+    # Inherited from ScaledBalanceToken
     #
+
+    func scaled_balance_of(user : felt) -> (balance : Uint256):
+    end
+
+    func scaled_total_supply() -> (total_supply : Uint256):
+    end
+
+    func get_scaled_user_balance_and_supply(user : felt) -> (balance : Uint256, supply : Uint256):
+    end
+
+    func get_previous_index() -> (index : Uint256):
+    end
 
     func get_revision() -> (revision : felt):
     end
 
-    func get_average_stable_rate() -> (avg_stable_rate : felt):
-    end
-
-    func get_user_last_updated(user : felt) -> (timestamp : felt):
-    end
-
-    func get_user_stable_rate(user : felt) -> (stable_rate : felt):
-    end
-
-    func balance_of(account : felt) -> (balance : Uint256):
-    end
-
-    func mint(user : felt, on_behalf_of : felt, amount : Uint256, rate : felt) -> (
-        is_first_borrow : felt, total_stable_debt : Uint256, avg_stable_borrow_rate : felt
-    ):
-    end
-
-    func burn(address_from : felt, amount : Uint256) -> (
-        next_supply : Uint256, next_avg_stable_rate : felt
-    ):
-    end
-
-    func get_supply_data() -> (
-        principal_supply : Uint256,
-        total_supply : Uint256,
-        avg_stable_rate : felt,
-        total_supply_timestamp : felt,
-    ):
-    end
-
-    func get_total_supply_and_avg_rate() -> (total_supply : Uint256, avg_rate : felt):
+    func balance_of(user : felt) -> (balance : Uint256):
     end
 
     func total_supply() -> (total_supply : Uint256):
     end
 
-    func get_total_supply_last_updated() -> (timestamp : felt):
+    func mint(user : felt, on_behalf_of : felt, amount : felt, index : felt) -> (
+        is_scaled_balance_null : felt, total_supply : Uint256
+    ):
+    end
+
+    func burn(address_from : felt, amount : Uint256, index : felt) -> (total_supply : Uint256):
     end
 end

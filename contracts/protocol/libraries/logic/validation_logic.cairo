@@ -13,6 +13,7 @@ from contracts.protocol.libraries.helpers.bool_cmp import BoolCompare
 from contracts.protocol.pool.pool_storage import PoolStorage
 from contracts.protocol.libraries.configuration.reserve_configuration import ReserveConfiguration
 from contracts.interfaces.i_a_token import IAToken
+from contracts.interfaces.i_variable_debt_token import IVariableDebtToken
 
 namespace ValidationLogic:
     # @notice Validates a supply action.
@@ -100,7 +101,14 @@ namespace ValidationLogic:
             assert asset_listed = TRUE
         end
 
-        # TODO verify that stable/var debt are zero
+        # TODO verify that stable debt is zero
+
+        let (variable_debt_supply) = IVariableDebtToken.total_supply(
+            contract_address=reserve.variable_debt_token_address
+        )
+        with_attr error_message("Variable debt supply is not zero"):
+            assert variable_debt_supply = Uint256(0, 0)
+        end
 
         let (a_token_supply) = IERC20.totalSupply(contract_address=reserve.a_token_address)
         with_attr error_message("AToken supply is not zero"):

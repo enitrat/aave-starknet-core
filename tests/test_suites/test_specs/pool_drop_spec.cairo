@@ -56,12 +56,14 @@ namespace TestPoolDropDeployed:
         local weth
         local pool
         local deployer
+        local dai_variable_debt
         %{
             ids.dai = context.dai
             ids.aDAI = context.aDAI
             ids.weth = context.weth
             ids.pool = context.pool
             ids.deployer = context.deployer
+            ids.dai_variable_debt = context.dai_variable_debt
         %}
 
         deposit_funds_and_borrow(dai, weth, pool)
@@ -70,9 +72,15 @@ namespace TestPoolDropDeployed:
         IPool.withdraw(pool, dai, Uint256(UINT128_MAX, UINT128_MAX), deployer)
         %{ stop_mock() %}
         let (reserves_count, reserves_list) = IPool.get_reserves_list(pool)
-        %{ stop_mock = mock_call(ids.aDAI, "totalSupply", [0,0]) %}
+        %{
+            stop_mock = mock_call(ids.aDAI, "totalSupply", [0,0])
+            stop_mock_debt = mock_call(ids.dai_variable_debt, "total_supply", [0,0])
+        %}
         IPool.drop_reserve(pool, dai)
-        %{ stop_mock() %}
+        %{
+            stop_mock()
+            stop_mock_debt()
+        %}
         let (new_count, new_reserves) = IPool.get_reserves_list(pool)
         assert new_count = reserves_count - 1
         let (is_dai_in_array) = array_includes(new_count, new_reserves, dai)

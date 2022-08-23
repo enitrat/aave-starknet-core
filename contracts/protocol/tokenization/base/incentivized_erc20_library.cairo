@@ -10,7 +10,6 @@ from starkware.starknet.common.syscalls import get_caller_address
 from openzeppelin.security.safemath.library import SafeUint256
 from openzeppelin.token.erc20.library import ERC20, Transfer, Approval
 
-from contracts.protocol.libraries.helpers.constants import UINT128_MAX
 from contracts.protocol.libraries.math.helpers import to_felt, to_uint256
 from contracts.protocol.libraries.types.data_types import DataTypes
 from contracts.interfaces.i_acl_manager import IACLManager
@@ -211,8 +210,8 @@ namespace IncentivizedERC20:
         account : felt
     ) -> (balance : Uint256):
         let (state) = IncentivizedERC20_user_state.read(account)
-        let (balance_uint256) = to_uint256(state.balance)
-        return (balance_uint256)
+        let (balance_256) = to_uint256(state.balance)
+        return (balance_256)
     end
 
     func allowance{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr}(

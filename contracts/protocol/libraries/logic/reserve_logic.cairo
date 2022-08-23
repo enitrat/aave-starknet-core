@@ -1,10 +1,13 @@
 %lang starknet
 
 from starkware.cairo.common.cairo_builtins import HashBuiltin
-from contracts.protocol.libraries.types.data_types import DataTypes
+from starkware.starknet.common.syscalls import get_block_timestamp
 
+from contracts.protocol.libraries.types.data_types import DataTypes
 from contracts.protocol.pool.pool_storage import PoolStorage
+from contracts.protocol.libraries.math.helpers import to_felt, to_uint256
 from contracts.protocol.libraries.math.wad_ray_math import WadRayMath
+from contracts.protocol.libraries.math.math_utils import MathUtils
 
 namespace ReserveLogic:
     # @notice Initializes a reserve.
@@ -41,6 +44,27 @@ namespace ReserveLogic:
         PoolStorage.reserves_write(a_token_address, new_reserve)
         # TODO add other params such as liq index, debt tokens addresses, use RayMath library
         return (new_reserve)
+    end
+
+    func get_normalized_debt{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr}(
+        asset : felt
+    ) -> (normalized_variable_debt : felt):
+        alloc_locals
+        let (reserve) = PoolStorage.reserves_read(asset)
+        let reserve_timestamp = reserve.last_update_timestamp
+        let (cur_timestamp) = get_block_timestamp()
+        if cur_timestamp == reserve_timestamp:
+            return (reserve.variable_borrow_index)
+        else:
+            let (variable_rate_256) = to_uint256(reserve.current_variable_borrow_rate)
+            let (variable_borrow_index_256) = to_uint256(reserve.variable_borrow_index)
+            let (compound_interest) = MathUtils.calculate_compounded_interest(
+                variable_rate_256, reserve_timestamp
+            )
+            let (result_256) = WadRayMath.ray_mul(compound_interest, variable_borrow_index_256)
+            let (result_felt) = to_felt(result_256)
+            return (result_felt)
+        end
     end
 
     # @notice Creates a cache object to avoid repeated storage reads and external contract calls when updating state and

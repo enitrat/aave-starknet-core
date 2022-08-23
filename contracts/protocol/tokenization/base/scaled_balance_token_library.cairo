@@ -239,4 +239,20 @@ namespace ScaledBalanceToken:
             return ()
         end
     end
+
+    func get_scaled_user_balance_and_supply{
+        syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr
+    }(user : felt) -> (balance : Uint256, supply : Uint256):
+        let (balance) = IncentivizedERC20.balance_of(user)
+        let (supply) = IncentivizedERC20.total_supply()
+        return (balance, supply)
+    end
+
+    func get_previous_index{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr}(
+        user : felt
+    ) -> (index : felt):
+        let (state) = IncentivizedERC20.get_user_state(user)
+        let index = state.additional_data
+        return (index)
+    end
 end

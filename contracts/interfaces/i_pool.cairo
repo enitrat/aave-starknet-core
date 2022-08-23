@@ -45,6 +45,9 @@ namespace IPool:
     func get_reserve_normalized_income(asset : felt) -> (res : Uint256):
     end
 
+    func get_reserve_normalized_variable_debt(asset : felt) -> (res : Uint256):
+    end
+
     func finalize_transfer(
         asset : felt,
         sender : felt,

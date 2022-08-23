@@ -103,7 +103,9 @@ func __setup__{syscall_ptr : felt*, range_check_ptr}():
         context.stable_debt_impl = declare("./contracts/protocol/tokenization/stable_debt_token.cairo").class_hash
         context.dai_stable_debt = deploy_contract("./contracts/protocol/libraries/aave_upgradeability/initializable_immutable_admin_upgradeability_proxy.cairo",{"proxy_admin": ids.deployer}).contract_address
         context.weth_stable_debt = deploy_contract("./contracts/protocol/libraries/aave_upgradeability/initializable_immutable_admin_upgradeability_proxy.cairo",{"proxy_admin": ids.deployer}).contract_address
-        # context.weth_stable_debt = deploy_contract("./contracts/protocol/tokenization/stable_debt_token.cairo").contract_address
+
+        context.variable_debt_impl = declare("./contracts/protocol/tokenization/variable_debt_token.cairo").class_hash
+        context.dai_variable_debt = deploy_contract("./contracts/protocol/libraries/aave_upgradeability/initializable_immutable_admin_upgradeability_proxy.cairo",{"proxy_admin": ids.deployer}).contract_address
 
         context.deployer = ids.deployer
     %}
@@ -113,9 +115,11 @@ func __setup__{syscall_ptr : felt*, range_check_ptr}():
     local weth
     local aDAI
     local aWETH
+    local stable_debt_impl
     local dai_stable_debt
     local weth_stable_debt
-    local stable_debt_impl
+    local variable_debt_impl
+    local dai_variable_debt
     local proxy
     local acl_manager
     local price_oracle_sentinel
@@ -130,9 +134,11 @@ func __setup__{syscall_ptr : felt*, range_check_ptr}():
         ids.aWETH = context.aWETH
         ids.proxy = context.proxy
         ids.acl_manager = context.acl_manager
+        ids.stable_debt_impl = context.stable_debt_impl
         ids.dai_stable_debt = context.dai_stable_debt
         ids.weth_stable_debt = context.weth_stable_debt
-        ids.stable_debt_impl = context.stable_debt_impl
+        ids.variable_debt_impl = context.variable_debt_impl
+        ids.dai_variable_debt = context.dai_variable_debt
         ids.pool_addresses_provider = context.pool_addresses_provider
         ids.sequencer_oracle = context.sequencer_oracle
         ids.price_oracle_sentinel = context.price_oracle_sentinel
@@ -144,7 +150,7 @@ func __setup__{syscall_ptr : felt*, range_check_ptr}():
 
     IAToken.initialize(aDAI, pool, 1631863113, dai, 43232, 18, 123, 456)
     IAToken.initialize(aWETH, pool, 1631863113, weth, 43232, 18, 321, 654)
-    IPool.init_reserve(pool, dai, aDAI, dai_stable_debt, 0, 0)
+    IPool.init_reserve(pool, dai, aDAI, dai_stable_debt, dai_variable_debt, 0)
     IPool.init_reserve(pool, weth, aWETH, weth_stable_debt, 0, 0)
     # sets the pool config with a reserve_active set to true to be able to excute the supply & withdraw logic
     IPool.set_configuration(
@@ -173,6 +179,13 @@ func __setup__{syscall_ptr : felt*, range_check_ptr}():
         INITIALIZE_SELECTOR,
         7,
         new (pool, weth, 0, 18, 'WETH Stable Debt Token', 'sWETH', ''),
+    )
+    IProxy.initialize(
+        dai_variable_debt,
+        variable_debt_impl,
+        INITIALIZE_SELECTOR,
+        7,
+        new (pool, weth, 0, 18, 'DAI Variable Debt Token', 'vDAI', ''),
     )
     %{ stop_mock_pool_admin() %}
     return ()
