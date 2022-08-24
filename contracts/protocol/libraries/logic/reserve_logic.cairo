@@ -8,6 +8,7 @@ from contracts.protocol.pool.pool_storage import PoolStorage
 from contracts.protocol.libraries.math.helpers import to_felt, to_uint256
 from contracts.protocol.libraries.math.wad_ray_math import WadRayMath
 from contracts.protocol.libraries.math.math_utils import MathUtils
+from contracts.protocol.libraries.helpers.errors import Errors
 
 namespace ReserveLogic:
     # @notice Initializes a reserve.
@@ -20,7 +21,8 @@ namespace ReserveLogic:
         variable_debt_token_address : felt,
         interest_rate_strategy_address : felt,
     ) -> (reserve : DataTypes.ReserveData):
-        with_attr error_message("Reserve already initialized"):
+        let error_code = Errors.RESERVE_ALREADY_INITIALIZED
+        with_attr error_message("{error_code}"):
             assert reserve.a_token_address = 0
         end
 

@@ -7,6 +7,7 @@ from openzeppelin.access.accesscontrol.library import AccessControl
 from openzeppelin.utils.constants.library import DEFAULT_ADMIN_ROLE
 
 from contracts.interfaces.i_pool_addresses_provider import IPoolAddressesProvider
+from contracts.protocol.libraries.helpers.errors import Errors
 
 # the 31 first characters are kept of keccak256 hash to make it short string
 # const X_Y_ROLE = substr(hash_keccak256('X_Y'), 31)
@@ -28,7 +29,8 @@ namespace ACLManager:
         ACLManager_addresses_provider.write(provider)
         let (local_provider) = ACLManager_addresses_provider.read()
         let (acl_admin) = IPoolAddressesProvider.get_ACL_admin(local_provider)
-        with_attr error_message("ACL Manager must not be the zero address"):
+        let error_code = Errors.ACL_ADMIN_CANNOT_BE_ZERO
+        with_attr error_message("{error_code}"):
             assert_not_zero(acl_admin)
         end
         AccessControl._grant_role(DEFAULT_ADMIN_ROLE, acl_admin)

@@ -8,7 +8,7 @@ from starkware.cairo.common.bool import TRUE, FALSE
 from contracts.protocol.libraries.math.wad_ray_math import WadRayMath
 from contracts.interfaces.i_pool import IPool
 from contracts.interfaces.i_a_token import IAToken
-
+from contracts.protocol.libraries.helpers.errors import Errors
 from tests.utils.constants import UNDEPLOYED_RESERVE, USER_1, USER_2
 
 func get_contract_addresses() -> (
@@ -32,7 +32,7 @@ namespace ATokenModifier:
         let (minted_true) = IAToken.mint(a_token, pool, USER_1, Uint256(1, 0), Uint256(1, 0))
         %{ stop_prank_pool() %}
         assert minted_true = TRUE
-        %{ expect_revert(error_message="Caller address should be {pool}") %}
+        %{ expect_revert(error_message=f"{ids.Errors.CALLER_MUST_BE_POOL}") %}
         IAToken.mint(a_token, USER_1, USER_1, Uint256(1, 0), Uint256(1, 0))
         return ()
     end
@@ -40,7 +40,7 @@ namespace ATokenModifier:
     func test_burn_wrong_pool{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr}():
         alloc_locals
         let (_, _, local a_token) = get_contract_addresses()
-        %{ expect_revert(error_message="Caller address should be {pool}") %}
+        %{ expect_revert(error_message=f"{ids.Errors.CALLER_MUST_BE_POOL}") %}
         IAToken.burn(a_token, USER_1, USER_1, Uint256(50, 0), Uint256(1, 0))
         return ()
     end
@@ -50,7 +50,7 @@ namespace ATokenModifier:
     }():
         alloc_locals
         let (_, _, local a_token) = get_contract_addresses()
-        %{ expect_revert(error_message="Caller address should be {pool}") %}
+        %{ expect_revert(error_message=f"{ids.Errors.CALLER_MUST_BE_POOL}") %}
         IAToken.transfer_on_liquidation(a_token, USER_1, USER_2, Uint256(10, 0))
         return ()
     end
@@ -60,7 +60,7 @@ namespace ATokenModifier:
     }():
         alloc_locals
         let (_, _, local a_token) = get_contract_addresses()
-        %{ expect_revert(error_message="Caller address should be {pool}") %}
+        %{ expect_revert(error_message=f"{ids.Errors.CALLER_MUST_BE_POOL}") %}
         IAToken.transfer_underlying_to(a_token, USER_1, Uint256(10, 0))
         return ()
     end

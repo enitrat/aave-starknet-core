@@ -7,7 +7,7 @@ from starkware.cairo.common.bool import TRUE, FALSE
 
 from contracts.interfaces.i_pool import IPool
 from contracts.interfaces.i_stable_debt_token import IStableDebtToken
-
+from contracts.protocol.libraries.helpers.errors import Errors
 from tests.utils.constants import UNDEPLOYED_RESERVE, USER_1, USER_2
 
 const MOCK_INCENTIVES_CONTROLLER = 11235813
@@ -68,7 +68,7 @@ namespace TestStableDebtTokenDeployed:
         let (pool, dai, dai_stable_debt) = get_contract_addresses()
         %{
             stop_prank_user1 = start_prank(ids.USER_1,target_contract_address=ids.dai_stable_debt) 
-            expect_revert(error_message="The caller of this function must be a pool")
+            expect_revert(error_message=f"{ids.Errors.CALLER_MUST_BE_POOL}")
         %}
         IStableDebtToken.mint(dai_stable_debt, USER_1, USER_1, Uint256(1, 0), 1)
         %{ stop_prank_user1() %}
@@ -82,7 +82,7 @@ namespace TestStableDebtTokenDeployed:
         let (pool, dai, dai_stable_debt) = get_contract_addresses()
         %{
             stop_prank_user1 = start_prank(ids.USER_1,target_contract_address=ids.dai_stable_debt) 
-            expect_revert(error_message="The caller of this function must be a pool")
+            expect_revert(error_message=f"{ids.Errors.CALLER_MUST_BE_POOL}")
         %}
         IStableDebtToken.burn(dai_stable_debt, USER_1, Uint256(1, 0))
         %{ stop_prank_user1() %}
@@ -157,7 +157,7 @@ namespace TestStableDebtTokenDeployed:
             stop_prank_user1 = start_prank(ids.USER_1, target_contract_address=ids.dai_stable_debt)
             stop_mock_is_pool_admin_1 = mock_call(context.pool_addresses_provider, "get_ACL_manager", [ids.MOCK_ACL_MANAGER])
             stop_mock_is_pool_admin_2 = mock_call(ids.MOCK_ACL_MANAGER, "is_pool_admin", [0])
-            expect_revert(error_message="The caller of the function is not a pool admin")
+            expect_revert(error_message=f"{ids.Errors.CALLER_NOT_POOL_ADMIN}")
         %}
         IStableDebtToken.set_incentives_controller(dai_stable_debt, MOCK_INCENTIVES_CONTROLLER)
         %{

@@ -16,6 +16,7 @@ from contracts.interfaces.i_acl_manager import IACLManager
 from contracts.interfaces.i_pool_addresses_provider import IPoolAddressesProvider
 from contracts.interfaces.i_aave_incentives_controller import IAaveIncentivesController
 from contracts.interfaces.i_pool import IPool
+from contracts.protocol.libraries.helpers.errors import Errors
 
 #
 # Storage
@@ -63,7 +64,8 @@ end
 func _transfer{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr}(
     sender : felt, recipient : felt, amount : Uint256
 ) -> ():
-    with_attr error_message("IncentivizedERC20: cannot transfer from the zero address"):
+    let error_code = Errors.ZERO_ADDRESS_NOT_VALID
+    with_attr error_message("{error_code}"):
         assert_not_zero(sender)
     end
 
@@ -72,7 +74,7 @@ func _transfer{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr
     let (sender_state) = IncentivizedERC20_user_state.read(sender)
     let old_sender_balance = sender_state.balance
     let (old_sender_balance_256) = to_uint256(old_sender_balance)
-    with_attr error_message("IncentivizedERC20: transfer amount exceeds balance"):
+    with_attr error_message("Transfer amount exceeds balance"):
         assert_le_felt(amount_felt, old_sender_balance)
     end
 
@@ -153,7 +155,8 @@ namespace IncentivizedERC20:
         let (is_pool_admin) = IACLManager.is_pool_admin(
             contract_address=acl_manager_address, admin_address=caller
         )
-        with_attr error_message("The caller of the function is not a pool admin"):
+        let error_code = Errors.CALLER_NOT_POOL_ADMIN
+        with_attr error_message("{error_code}"):
             assert is_pool_admin = TRUE
         end
         return ()
@@ -166,7 +169,8 @@ namespace IncentivizedERC20:
         alloc_locals
         let (caller_address) = get_caller_address()
         let (pool) = IncentivizedERC20_pool.read()
-        with_attr error_message("The caller of this function must be a pool"):
+        let error_code = Errors.CALLER_MUST_BE_POOL
+        with_attr error_message("{error_code}"):
             assert caller_address = pool
         end
         return ()
@@ -297,7 +301,7 @@ namespace IncentivizedERC20:
         let (local caller_address) = get_caller_address()
         let (allowance) = IncentivizedERC20_allowances.read(sender, caller_address)
 
-        with_attr error_message("IncentivizedERC20: Caller does not have enough allowance"):
+        with_attr error_message("Caller does not have enough allowance"):
             let (new_allowance) = SafeUint256.sub_le(allowance, amount)
         end
 
@@ -336,7 +340,7 @@ namespace IncentivizedERC20:
         let (caller_address) = get_caller_address()
         let (old_allowance) = IncentivizedERC20_allowances.read(caller_address, spender)
 
-        with_attr error_message("IncentivizedERC20: Increased allowance is not in range"):
+        with_attr error_message("Increased allowance overflows"):
             let (new_allowance) = SafeUint256.add(old_allowance, added_value)
         end
 
@@ -358,7 +362,7 @@ namespace IncentivizedERC20:
         let (caller_address) = get_caller_address()
         let (old_allowance) = IncentivizedERC20_allowances.read(caller_address, spender)
 
-        with_attr error_message("IncentivizedERC20: Decreased allowance is not in range"):
+        with_attr error_message("Decreased allowance overflow"):
             let (new_allowance) = SafeUint256.sub_le(old_allowance, subtracted_value)
         end
 

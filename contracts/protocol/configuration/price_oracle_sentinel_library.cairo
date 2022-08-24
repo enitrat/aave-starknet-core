@@ -10,6 +10,7 @@ from contracts.protocol.libraries.helpers.bool_cmp import BoolCompare
 from contracts.interfaces.i_pool_addresses_provider import IPoolAddressesProvider
 from contracts.interfaces.i_acl_manager import IACLManager
 from contracts.interfaces.i_sequencer_oracle import ISequencerOracle
+from contracts.protocol.libraries.helpers.errors import Errors
 
 # store address of IPoolAddressesProvider here
 @storage_var
@@ -40,7 +41,8 @@ func assert_only_pool_admin{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, ra
     let (acl) = IPoolAddressesProvider.get_ACL_manager(l_addresses_provider)
     let (caller_address) = get_caller_address()
     let (is_admin) = IACLManager.is_pool_admin(acl, caller_address)
-    with_attr error_message("caller address should be pool admin"):
+    let error_code = Errors.CALLER_NOT_POOL_ADMIN
+    with_attr error_message("{error_code}"):
         assert is_admin = TRUE
     end
     return ()
@@ -56,7 +58,8 @@ func assert_only_risk_or_pool_admin{
     let (is_pool_admin) = IACLManager.is_pool_admin(acl, caller_address)
     let (is_risk_admin) = IACLManager.is_risk_admin(acl, caller_address)
     let (allowance) = BoolCompare.either(is_pool_admin, is_risk_admin)
-    with_attr error_message("caller address should be pool or risk admin"):
+    let error_code = Errors.CALLER_NOT_RISK_OR_POOL_ADMIN
+    with_attr error_message("{error_code}"):
         assert allowance = TRUE
     end
     return ()

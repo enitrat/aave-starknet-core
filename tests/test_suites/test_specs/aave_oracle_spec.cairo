@@ -6,6 +6,7 @@ from starkware.starknet.common.syscalls import get_contract_address
 
 from contracts.interfaces.i_aave_oracle import IAaveOracle
 from contracts.misc.aave_oracle_library import AaveOracle
+from contracts.protocol.libraries.helpers.errors import Errors
 
 from tests.utils.constants import USER_1
 
@@ -110,7 +111,7 @@ namespace TestAaveOracle:
         alloc_locals
         let (oracle_address, erc20_address) = before_each()
         mock_owner()
-        %{ expect_revert(error_message="Array parameters that should be equal length are not") %}
+        %{ expect_revert(error_message=f"{ids.Errors.INCONSISTENT_PARAMS_LENGTH}") %}
         AaveOracle.set_assets_tickers(1, new (erc20_address), 0, new ())
         return ()
     end
@@ -140,7 +141,7 @@ namespace TestAaveOracle:
             stop_mock_1 = mock_call(ids.MOCK_POOL_ADDRESSES_PROVIDER,"get_ACL_manager",[ids.MOCK_ACL_MANAGER])
             stop_mock_2 = mock_call(ids.MOCK_ACL_MANAGER,"is_pool_admin",[0])
             stop_mock_3 = mock_call(ids.MOCK_ACL_MANAGER,"is_asset_listing_admin",[0])
-            expect_revert(error_message="The caller of the function is not an asset listing or pool admin")
+            expect_revert(error_message=f"{ids.Errors.CALLER_NOT_ASSET_LISTING_OR_POOL_ADMIN}")
         %}
         AaveOracle.set_assets_tickers(1, new (erc20_address), 0, new ())
         return ()

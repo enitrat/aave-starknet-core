@@ -12,6 +12,7 @@ from openzeppelin.token.erc20.IERC20 import IERC20
 from contracts.interfaces.i_pool import IPool
 from contracts.protocol.libraries.helpers.bool_cmp import BoolCompare
 from contracts.protocol.libraries.math.wad_ray_math import WadRayMath
+from contracts.protocol.libraries.helpers.errors import Errors
 # from contracts.protocol.tokenization.base.incentivized_erc20 import IncentivizedERC20
 # from contracts.protocol.tokenization.base.scaled_balance_token_base import ScaledBalanceTokenBase
 
@@ -68,7 +69,8 @@ namespace AToken:
         alloc_locals
         let (caller_address) = get_caller_address()
         let (pool) = POOL()
-        with_attr error_message("Caller address should be {pool}"):
+        let error_code = Errors.CALLER_MUST_BE_POOL
+        with_attr error_message("{error_code}"):
             assert pool = caller_address
         end
         return ()
@@ -224,7 +226,8 @@ namespace AToken:
         alloc_locals
         assert_only_pool_admin()
         let (underlying) = UNDERLYING_ASSET_ADDRESS()
-        with_attr error_message("Token {token} should be different from underlying {underlying}."):
+        let error_code = Errors.UNDERLYING_CANNOT_BE_RESCUED
+        with_attr error_message("{error_code}"):
             assert_not_equal(token, underlying)
         end
         IERC20.transfer(contract_address=token, recipient=to, amount=amount)

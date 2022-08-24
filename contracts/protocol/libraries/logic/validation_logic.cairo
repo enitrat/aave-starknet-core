@@ -15,6 +15,7 @@ from contracts.protocol.libraries.configuration.reserve_configuration import Res
 from contracts.interfaces.i_a_token import IAToken
 from contracts.interfaces.i_variable_debt_token import IVariableDebtToken
 from contracts.interfaces.i_stable_debt_token import IStableDebtToken
+from contracts.protocol.libraries.helpers.errors import Errors
 
 namespace ValidationLogic:
     # @notice Validates a supply action.
@@ -24,7 +25,8 @@ namespace ValidationLogic:
         reserve : DataTypes.ReserveData, amount : Uint256
     ):
         uint256_check(amount)
-        with_attr error_message("INVALID_AMOUNT"):
+        let error_code = Errors.INVALID_AMOUNT
+        with_attr error_message("{error_code}"):
             let (is_zero) = uint256_eq(amount, Uint256(0, 0))
             assert is_zero = FALSE
         end
@@ -33,13 +35,16 @@ namespace ValidationLogic:
             reserve.a_token_address
         )
 
-        with_attr error_message("RESERVE_INACTIVE"):
+        let error_code = Errors.RESERVE_INACTIVE
+        with_attr error_message("{error_code}"):
             assert is_active = TRUE
         end
-        with_attr error_message("RESERVE_PAUSED"):
+        let error_code = Errors.RESERVE_PAUSED
+        with_attr error_message("{error_code}"):
             assert is_paused = FALSE
         end
-        with_attr error_message("RESERVE_FROZEN"):
+        let error_code = Errors.RESERVE_FROZEN
+        with_attr error_message("{error_code}"):
             assert is_frozen = FALSE
         end
 
@@ -62,23 +67,27 @@ namespace ValidationLogic:
         alloc_locals
         uint256_check(amount)
 
-        with_attr error_message("Amount must be greater than 0"):
+        let error_code = Errors.INVALID_AMOUNT
+        with_attr error_message("{error_code}"):
             let (is_zero) = uint256_eq(amount, Uint256(0, 0))
             assert is_zero = FALSE
         end
 
         # Revert if withdrawing too much. Verify that amount<=balance
-        with_attr error_message("User cannot withdraw more than the available balance"):
+        let error_code = Errors.NOT_ENOUGH_AVAILABLE_USER_BALANCE
+        with_attr error_message("{error_code}"):
             let (is_le : felt) = uint256_le(amount, user_balance)
             assert is_le = TRUE
         end
         let (is_active, _, _, _, is_paused) = ReserveConfiguration.get_flags(
             reserve.a_token_address
         )
-        with_attr error_message("RESERVE_INACTIVE"):
+        let error_code = Errors.RESERVE_INACTIVE
+        with_attr error_message("{error_code}"):
             assert is_active = TRUE
         end
-        with_attr error_message("RESERVE_PAUSED"):
+        let error_code = Errors.RESERVE_PAUSED
+        with_attr error_message("{error_code}"):
             assert is_paused = FALSE
         end
         return ()
@@ -90,11 +99,13 @@ namespace ValidationLogic:
     func validate_drop_reserve{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr}(
         reserve : DataTypes.ReserveData, asset : felt
     ):
-        with_attr error_message("Zero address not valid"):
+        let error_code = Errors.ZERO_ADDRESS_NOT_VALID
+        with_attr error_message("{error_code}"):
             assert_not_zero(asset)
         end
 
-        with_attr error_message("Asset is not listed"):
+        let error_code = Errors.ASSET_NOT_LISTED
+        with_attr error_message("{error_code}"):
             let (is_id_not_zero) = is_not_zero(reserve.id)
             let (reserve_list_first) = PoolStorage.reserves_list_read(0)
             let (is_first_asset) = is_zero(reserve_list_first - asset)
@@ -105,19 +116,22 @@ namespace ValidationLogic:
         let (stable_debt_supply) = IStableDebtToken.total_supply(
             contract_address=reserve.stable_debt_token_address
         )
-        with_attr error_message("Stable debt supply is not zero"):
+        let error_code = Errors.STABLE_DEBT_NOT_ZERO
+        with_attr error_message("{error_code}"):
             assert stable_debt_supply = Uint256(0, 0)
         end
 
         let (variable_debt_supply) = IVariableDebtToken.total_supply(
             contract_address=reserve.variable_debt_token_address
         )
-        with_attr error_message("Variable debt supply is not zero"):
+        let error_code = Errors.VARIABLE_DEBT_SUPPLY_NOT_ZERO
+        with_attr error_message("{error_code}"):
             assert variable_debt_supply = Uint256(0, 0)
         end
 
         let (a_token_supply) = IERC20.totalSupply(contract_address=reserve.a_token_address)
-        with_attr error_message("AToken supply is not zero"):
+        let error_code = Errors.ATOKEN_SUPPLY_NOT_ZERO
+        with_attr error_message("{error_code}"):
             assert a_token_supply = Uint256(0, 0)
         end
         return ()

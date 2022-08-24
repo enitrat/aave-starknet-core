@@ -18,6 +18,7 @@ from contracts.protocol.libraries.math.helpers import to_felt
 from contracts.protocol.libraries.math.wad_ray_math import WadRayMath
 from contracts.protocol.libraries.types.data_types import DataTypes
 from contracts.protocol.tokenization.base.incentivized_erc20_library import IncentivizedERC20
+from contracts.protocol.libraries.helpers.errors import Errors
 
 #
 # The original contracts have an abstract one to handle the internal _mint
@@ -114,7 +115,7 @@ func _burn{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr}(
 
     # Set new total_supply
     let (local old_total_supply) = IncentivizedERC20.total_supply()
-    with_attr error_message("ScaledBalanceToken: amount larger than total supply"):
+    with_attr error_message("Amount larger than total supply"):
         let (local total_supply) = SafeUint256.sub_le(old_total_supply, amount)
     end
     IncentivizedERC20.set_total_supply(total_supply)
@@ -124,7 +125,7 @@ func _burn{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr}(
 
     # Set new user balance
     let (local old_user_balance_uint256) = to_uint256(old_user_balance)
-    with_attr error_message("ScaledBalanceToken: amount balance"):
+    with_attr error_message("Amount larger than balance"):
         let (local new_user_balance) = SafeUint256.sub_le(old_user_balance_uint256, amount)
     end
     let (local new_user_balance_felt) = to_felt(new_user_balance)
@@ -150,7 +151,8 @@ func _handle_state_change{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, rang
     # TODO: This error originally identifies whether it is mint or burn
     # There is no easy way to pass that as argument. Should we remove
     # this from this logic?
-    with_attr error_message("ScaledBalanceToken: Invalid amount"):
+    let error_code = Errors.INVALID_AMOUNT
+    with_attr error_message("{error_code}"):
         assert_not_zero_uint256(amount_scaled)
     end
 

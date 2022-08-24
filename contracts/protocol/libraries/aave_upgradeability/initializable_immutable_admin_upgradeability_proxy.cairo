@@ -7,6 +7,7 @@ from starkware.starknet.common.syscalls import library_call_l1_handler, library_
 from starkware.cairo.common.bool import TRUE, FALSE
 
 from contracts.protocol.libraries.aave_upgradeability.proxy_library import Proxy
+from contracts.protocol.libraries.helpers.errors import Errors
 
 #
 # Constructor
@@ -16,7 +17,8 @@ from contracts.protocol.libraries.aave_upgradeability.proxy_library import Proxy
 func constructor{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr}(
     proxy_admin : felt
 ):
-    with_attr error_message("Proxy: proxy admin address should be non zero."):
+    let error_code = Errors.ZERO_ADDRESS_NOT_VALID
+    with_attr error_message("{error_code}"):
         assert_not_zero(proxy_admin)
     end
     Proxy._set_admin(proxy_admin)
@@ -109,7 +111,8 @@ func change_proxy_admin{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_
     new_admin : felt
 ):
     Proxy.assert_only_admin()
-    with_attr error_message("Proxy: new admin address should be non zero."):
+    let error_code = Errors.ZERO_ADDRESS_NOT_VALID
+    with_attr error_message("{error_code}"):
         assert_not_zero(new_admin)
     end
 

@@ -5,13 +5,15 @@ from contracts.protocol.libraries.types.data_types import DataTypes
 from starkware.cairo.common.math_cmp import is_not_zero
 from starkware.cairo.common.math import assert_lt
 from starkware.cairo.common.bool import TRUE, FALSE
+from starkware.cairo.lang.compiler.lib.registers import get_fp_and_pc
+
 from contracts.protocol.libraries.helpers.helpers import is_zero
 from contracts.protocol.pool.pool_storage import PoolStorage
 from contracts.protocol.libraries.logic.reserve_logic import ReserveLogic
 from contracts.protocol.libraries.logic.validation_logic import ValidationLogic
 from contracts.protocol.libraries.helpers.bool_cmp import BoolCompare
 from contracts.protocol.libraries.helpers.helpers import update_struct
-from starkware.cairo.lang.compiler.lib.registers import get_fp_and_pc
+from contracts.protocol.libraries.helpers.errors import Errors
 
 namespace PoolLogic:
     # @notice Initialize an asset reserve and add the reserve to the list of reserves
@@ -36,7 +38,8 @@ namespace PoolLogic:
         let (first_listed_asset) = PoolStorage.reserves_list_read(0)
         let (is_asset_first) = is_zero(first_listed_asset - params.asset)
 
-        with_attr error_message("Reserve has already been added to reserve list"):
+        let error_code = Errors.ADDRESSES_PROVIDER_ALREADY_ADDED
+        with_attr error_message("{error_code}"):
             let (reserve_already_added) = BoolCompare.either(is_id_not_zero, is_asset_first)
             assert reserve_already_added = FALSE
         end
@@ -47,7 +50,8 @@ namespace PoolLogic:
             return (FALSE)
         end
 
-        with_attr error_message("Maximum amount of reserves in the pool reached"):
+        let error_code = Errors.NO_MORE_RESERVES_ALLOWED
+        with_attr error_message("{error_code}"):
             assert_lt(params.reserves_count, params.max_number_reserves)
         end
 

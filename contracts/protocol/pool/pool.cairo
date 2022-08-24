@@ -21,6 +21,7 @@ from contracts.protocol.libraries.logic.reserve_configuration import ReserveConf
 from contracts.protocol.libraries.logic.supply_logic import SupplyLogic
 from contracts.protocol.libraries.types.data_types import DataTypes
 from contracts.protocol.pool.pool_library import Pool
+from contracts.protocol.libraries.helpers.errors import Errors
 
 const REVISION = 1
 
@@ -32,7 +33,8 @@ func assert_only_pool_configurator{
     let (pool_configurator) = IPoolAddressesProvider.get_address(
         addresses_provider, 'POOL_CONFIGURATOR'
     )
-    with_attr error_message("The caller of the function is not the pool configurator"):
+    let error_code = Errors.CALLER_NOT_POOL_CONFIGURATOR
+    with_attr error_message("{error_code}"):
         assert caller = pool_configurator
     end
     return ()
@@ -47,7 +49,8 @@ func assert_only_pool_admin{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, ra
     let (is_pool_admin) = IACLManager.is_pool_admin(
         contract_address=acl_manager_address, admin_address=caller
     )
-    with_attr error_message("The caller of the function is not a pool admin"):
+    let error_code = Errors.CALLER_NOT_ASSET_LISTING_OR_POOL_ADMIN
+    with_attr error_message("{error_code}"):
         assert is_pool_admin = TRUE
     end
     return ()
@@ -184,7 +187,8 @@ func set_configuration{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_c
     asset : felt, config : DataTypes.ReserveConfigurationMap
 ):
     assert_only_pool_configurator()
-    with_attr error_message("Zero address not valid"):
+    let error_code = Errors.ZERO_ADDRESS_NOT_VALID
+    with_attr error_message("{error_code}"):
         assert_not_zero(asset)
     end
     let (reserve) = PoolStorage.reserves_read(asset)
@@ -192,7 +196,8 @@ func set_configuration{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_c
     let (first_listed_asset) = PoolStorage.reserves_list_read(0)
     let (is_asset_first) = is_zero(first_listed_asset - asset)
 
-    with_attr error_message("Asset not listed"):
+    let error_code = Errors.ASSET_NOT_LISTED
+    with_attr error_message("{error_code}"):
         let (reserve_already_added) = BoolCompare.either(is_id_not_zero, is_asset_first)
         assert reserve_already_added = FALSE
     end

@@ -4,6 +4,7 @@ from starkware.cairo.common.bool import FALSE, TRUE
 from starkware.cairo.common.cairo_builtins import HashBuiltin
 
 from contracts.protocol.configuration.price_oracle_sentinel_library import PriceOracleSentinel
+from contracts.protocol.libraries.helpers.errors import Errors
 
 const PROVIDER = 11111
 const ACL_MANAGER = 123456
@@ -43,7 +44,7 @@ end
 func test_setter_false{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr}():
     PriceOracleSentinel.initializer(PROVIDER, ORACLE, GRACE_PERIOD)
     mock_pool_admin_false()
-    %{ expect_revert(error_message="caller address should be pool or risk admin") %}
+    %{ expect_revert(error_message=f"{ids.Errors.CALLER_NOT_RISK_OR_POOL_ADMIN}") %}
     PriceOracleSentinel.set_grace_period(30)
     return ()
 end

@@ -7,11 +7,11 @@ from starkware.starknet.common.syscalls import get_contract_address
 from contracts.interfaces.i_pool import IPool
 from contracts.protocol.libraries.helpers.constants import UINT128_MAX
 from contracts.protocol.libraries.math.wad_ray_math import WadRayMath
+from contracts.protocol.libraries.helpers.errors import Errors
 
 from tests.interfaces.IERC20_Mintable import IERC20_Mintable
 from tests.utils.utils import array_includes, parse_ether
 from tests.utils.constants import UNDEPLOYED_RESERVE, USER_1
-
 # TODO test should integrate pool_configurator when implemented
 
 namespace TestPoolDropDeployed:
@@ -30,7 +30,7 @@ namespace TestPoolDropDeployed:
         %}
 
         deposit_funds_and_borrow(dai, weth, pool)
-        %{ expect_revert(error_message="AToken supply is not zero") %}
+        %{ expect_revert(error_message=f"{ids.Errors.ATOKEN_SUPPLY_NOT_ZERO}") %}
         IPool.drop_reserve(pool, dai)
 
         # TODO Tests should implement drop_reserves while borrowing verification once implemented
@@ -103,7 +103,7 @@ namespace TestPoolDropDeployed:
             ids.weth = context.weth
             ids.pool = context.pool
         %}
-        %{ expect_revert(error_message="Asset is not listed") %}
+        %{ expect_revert(error_message=f"{ids.Errors.ASSET_NOT_LISTED}") %}
         IPool.drop_reserve(pool, UNDEPLOYED_RESERVE)
 
         return ()
@@ -122,7 +122,7 @@ namespace TestPoolDropDeployed:
             ids.weth = context.weth
             ids.pool = context.pool
         %}
-        %{ expect_revert(error_message="Zero address not valid") %}
+        %{ expect_revert(error_message=f"{ids.Errors.ZERO_ADDRESS_NOT_VALID}") %}
         IPool.drop_reserve(pool, 0)
 
         return ()

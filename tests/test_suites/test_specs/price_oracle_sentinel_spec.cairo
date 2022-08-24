@@ -15,6 +15,7 @@ from contracts.interfaces.i_pool_addresses_provider import IPoolAddressesProvide
 from contracts.interfaces.i_sequencer_oracle import ISequencerOracle
 from contracts.interfaces.i_price_oracle_sentinel import IPriceOracleSentinel
 from contracts.protocol.configuration.price_oracle_sentinel_library import PriceOracleSentinel
+from contracts.protocol.libraries.helpers.errors import Errors
 
 const PRANK_ADMIN_ADDRESS = 2222
 const POOL_ADMIN_ADDRESS = 5555
@@ -171,7 +172,7 @@ namespace TestPriceOracleSentinel:
 
         # Try to change grace period with not admin
         %{ stop_prank = start_prank(ids.USER_1, target_contract_address = ids.price_oracle_sentinel) %}
-        %{ expect_revert(error_message="caller address should be pool or risk admin") %}
+        %{ expect_revert(error_message=f"{ids.Errors.CALLER_NOT_RISK_OR_POOL_ADMIN}") %}
         IPriceOracleSentinel.set_grace_period(price_oracle_sentinel, new_grace_period)
         %{ stop_prank() %}
         return ()
@@ -234,7 +235,7 @@ namespace TestPriceOracleSentinel:
 
         # Try to change grace period with not admin
         %{ stop_prank = start_prank(ids.USER_1, target_contract_address = ids.price_oracle_sentinel) %}
-        %{ expect_revert(error_message="caller address should be pool admin") %}
+        %{ expect_revert(error_message=f"{ids.Errors.CALLER_NOT_POOL_ADMIN}") %}
         IPriceOracleSentinel.set_sequencer_oracle(price_oracle_sentinel, new_sequencer_oracle)
         %{ stop_prank() %}
         return ()

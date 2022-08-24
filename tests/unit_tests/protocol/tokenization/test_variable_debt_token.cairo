@@ -10,6 +10,7 @@ from contracts.protocol.tokenization.variable_debt_token_library import Variable
 from contracts.protocol.tokenization.base.scaled_balance_token_library import ScaledBalanceToken
 from contracts.protocol.tokenization.base.debt_token_base_library import DebtTokenBase
 from contracts.protocol.tokenization.base.incentivized_erc20_library import IncentivizedERC20
+from contracts.protocol.libraries.helpers.errors import Errors
 from tests.utils.constants import (
     POOL,
     MOCK_TOKEN_1,
@@ -60,7 +61,7 @@ func test_mint_not_pool_revert{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*,
     %{
         # store a different pool address than our test address
         store(ids.test, "IncentivizedERC20_pool",[ids.POOL])  
-        expect_revert(error_message="The caller of this function must be a pool")
+        expect_revert(error_message=f"{ids.Errors.CALLER_MUST_BE_POOL}")
     %}
     VariableDebtToken.mint(USER_1, USER_1, Uint256(1, 0), 1)
     return ()
@@ -72,7 +73,7 @@ func test_burn_not_pool_revert{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*,
     let (test) = get_contract_address()
     %{
         store(ids.test, "IncentivizedERC20_pool",[ids.POOL])  
-        expect_revert(error_message="The caller of this function must be a pool")
+        expect_revert(error_message=f"{ids.Errors.CALLER_MUST_BE_POOL}")
     %}
     VariableDebtToken.burn(USER_1, Uint256(1, 0), 1)
     return ()
@@ -86,7 +87,7 @@ func test_mint_amount_null{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, ran
         # mock pool
         store(ids.test, "IncentivizedERC20_pool",[ids.POOL])  
         stop_prank_pool = start_prank(ids.POOL)
-        expect_revert(error_message="ScaledBalanceToken: Invalid amount")
+        expect_revert(error_message=f"{ids.Errors.INVALID_AMOUNT}")
     %}
     VariableDebtToken.mint(USER_1, USER_1, Uint256(0, 0), 1)
     return ()
@@ -101,7 +102,7 @@ func test_burn_amount_null{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, ran
         # mock pool
         store(ids.test, "IncentivizedERC20_pool",[ids.POOL])
         stop_prank_pool = start_prank(ids.POOL)
-        expect_revert(error_message="ScaledBalanceToken: Invalid amount")
+        expect_revert(error_message=f"{ids.Errors.INVALID_AMOUNT}")
     %}
     VariableDebtToken.burn(USER_1, Uint256(0, 0), 1)
     return ()

@@ -10,6 +10,7 @@ from openzeppelin.security.safemath.library import SafeUint256
 from contracts.protocol.libraries.math.helpers import to_uint256
 from contracts.protocol.libraries.types.data_types import DataTypes
 from contracts.protocol.tokenization.base.incentivized_erc20_library import IncentivizedERC20
+from contracts.protocol.libraries.helpers.errors import Errors
 from tests.utils.constants import (
     ACL_MANAGER,
     AMOUNT_1,
@@ -102,7 +103,7 @@ func test_transfer{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check
 
     # Do not let transfer more than balance
     %{ stop_prank_callable = start_prank(ids.USER_1) %}
-    %{ expect_revert(error_message="IncentivizedERC20: transfer amount exceeds balance") %}
+    %{ expect_revert(error_message="Transfer amount exceeds balance") %}
     IncentivizedERC20.transfer(USER_2, amount256)
     %{ stop_prank_callable() %}
 
@@ -225,7 +226,7 @@ func test_set_incentives_controller_not_pool_admin_revert{
         store(ids.test, "IncentivizedERC20_addresses_provider",[ids.POOL_ADDRESSES_PROVIDER])
         stop_mock_is_pool_admin_1 = mock_call(ids.POOL_ADDRESSES_PROVIDER, "get_ACL_manager", [ids.ACL_MANAGER])
         stop_mock_is_pool_admin_2 = mock_call(ids.ACL_MANAGER, "is_pool_admin", [ids.FALSE])
-        expect_revert(error_message="The caller of the function is not a pool admin")
+        expect_revert(error_message=f"{ids.Errors.CALLER_NOT_POOL_ADMIN}")
     %}
     IncentivizedERC20.set_incentives_controller(INCENTIVES_CONTROLLER)
     %{

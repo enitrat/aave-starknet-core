@@ -2,14 +2,14 @@
 
 from starkware.cairo.common.cairo_builtins import HashBuiltin
 from starkware.cairo.common.math import assert_le
+from starkware.cairo.common.registers import get_fp_and_pc
+from starkware.cairo.common.alloc import alloc
 
 from contracts.protocol.libraries.helpers.bool_cmp import BoolCompare
 from contracts.protocol.pool.pool_storage import PoolStorage
 from contracts.protocol.libraries.helpers.helpers import update_struct
 from contracts.protocol.libraries.types.data_types import DataTypes
-
-from starkware.cairo.common.registers import get_fp_and_pc
-from starkware.cairo.common.alloc import alloc
+from contracts.protocol.libraries.helpers.errors import Errors
 
 const MAX_VALID_LTV = 65535
 const MAX_VALID_LIQUIDATION_THRESHOLD = 65535
@@ -34,8 +34,8 @@ namespace ReserveConfiguration:
         reserve_asset : felt, value : felt
     ):
         alloc_locals
-
-        with_attr error_message("Invalid ltv parameter for the reserve"):
+        let error_code = Errors.INVALID_LTV
+        with_attr error_message("{error_code}"):
             assert_le(value, MAX_VALID_LTV)
         end
 
@@ -74,7 +74,8 @@ namespace ReserveConfiguration:
     }(reserve_asset : felt, value : felt):
         alloc_locals
 
-        with_attr error_message("Invalid liquidity threshold parameter for the reserve"):
+        let error_code = Errors.INVALID_LIQ_THRESHOLD
+        with_attr error_message("{error_code}"):
             assert_le(value, MAX_VALID_LIQUIDATION_THRESHOLD)
         end
 
@@ -113,7 +114,8 @@ namespace ReserveConfiguration:
     ):
         alloc_locals
 
-        with_attr error_message("Invalid liquidity bonus parameter for the reserve"):
+        let error_code = Errors.INVALID_LIQ_BONUS
+        with_attr error_message("{error_code}"):
             assert_le(value, MAX_VALID_LIQUIDATION_BONUS)
         end
 
@@ -152,8 +154,8 @@ namespace ReserveConfiguration:
     ):
         alloc_locals
 
-        with_attr error_message(
-                "Invalid decimals parameter of the underlying asset of the reserve"):
+        let error_code = Errors.INVALID_DECIMALS
+        with_attr error_message("{error_code}"):
             assert_le(value, MAX_VALID_DECIMALS)
         end
 
@@ -465,7 +467,8 @@ namespace ReserveConfiguration:
     ):
         alloc_locals
 
-        with_attr error_message("Invalid reserve factor parameter for the reserve"):
+        let error_code = Errors.INVALID_RESERVE_FACTOR
+        with_attr error_message("{error_code}"):
             assert_le(value, MAX_VALID_RESERVE_FACTOR)
         end
 
@@ -505,7 +508,8 @@ namespace ReserveConfiguration:
     ):
         alloc_locals
 
-        with_attr error_message("Invalid borrow cap for the reserve"):
+        let error_code = Errors.INVALID_BORROW_CAP
+        with_attr error_message("{error_code}"):
             assert_le(value, MAX_VALID_BORROW_CAP)
         end
 
@@ -546,7 +550,8 @@ namespace ReserveConfiguration:
     ):
         alloc_locals
 
-        with_attr error_message("Invalid supply cap for the reserve"):
+        let error_code = Errors.INVALID_SUPPLY_CAP
+        with_attr error_message("{error_code}"):
             assert_le(value, MAX_VALID_SUPPLY_CAP)
         end
 
@@ -586,7 +591,8 @@ namespace ReserveConfiguration:
     ):
         alloc_locals
 
-        with_attr error_message("Invalid debt ceiling for the reserve"):
+        let error_code = Errors.INVALID_DEBT_CEILING
+        with_attr error_message("{error_code}"):
             assert_le(ceiling, MAX_VALID_DEBT_CEILING)
         end
 
@@ -625,7 +631,8 @@ namespace ReserveConfiguration:
     }(reserve_asset : felt, value : felt):
         alloc_locals
 
-        with_attr error_message("Invalid liquidation protocol fee for the reserve"):
+        let error_code = Errors.INVALID_LIQUIDATION_PROTOCOL_FEE
+        with_attr error_message("{error_code}"):
             assert_le(value, MAX_VALID_LIQUIDATION_PROTOCOL_FEE)
         end
 
@@ -664,7 +671,8 @@ namespace ReserveConfiguration:
     ):
         alloc_locals
 
-        with_attr error_message("Invalid unbacked mint cap for the reserve"):
+        let error_code = Errors.INVALID_UNBACKED_MINT_CAP
+        with_attr error_message("{error_code}"):
             assert_le(value, MAX_VALID_UNBACKED_MINT_CAP)
         end
 
@@ -703,7 +711,8 @@ namespace ReserveConfiguration:
     ):
         alloc_locals
 
-        with_attr error_message("Invalid eMode category for the reserve"):
+        let error_code = Errors.INVALID_EMODE_CATEGORY_ASSIGNMENT
+        with_attr error_message("{error_code}"):
             assert_le(category, MAX_VALID_EMODE_CATEGORY)
         end
 

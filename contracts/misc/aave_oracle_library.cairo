@@ -11,6 +11,7 @@ from contracts.interfaces.i_pool_addresses_provider import IPoolAddressesProvide
 from contracts.interfaces.i_acl_manager import IACLManager
 from contracts.protocol.libraries.helpers.bool_cmp import BoolCompare
 from contracts.protocol.libraries.helpers.helpers import is_zero
+from contracts.protocol.libraries.helpers.errors import Errors
 
 @storage_var
 func AaveOracle_addresses_provider() -> (addresses_provider : felt):
@@ -65,7 +66,8 @@ func assert_only_asset_listing_or_pool_admin{
     let (is_asset_listing_admin) = IACLManager.is_asset_listing_admin(ACL_manager_address, caller)
     let (is_pool_admin) = IACLManager.is_pool_admin(ACL_manager_address, caller)
     let (either) = BoolCompare.either(is_asset_listing_admin, is_pool_admin)
-    with_attr error_message("The caller of the function is not an asset listing or pool admin"):
+    let error_code = Errors.CALLER_NOT_ASSET_LISTING_OR_POOL_ADMIN
+    with_attr error_message("{error_code}"):
         assert either = TRUE
     end
     return ()
@@ -210,7 +212,8 @@ end
 func _set_assets_tickers{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr}(
     assets_len : felt, assets : felt*, tickers_len : felt, tickers : felt*
 ):
-    with_attr error_message("Array parameters that should be equal length are not"):
+    let error_code = Errors.INCONSISTENT_PARAMS_LENGTH
+    with_attr error_message("{error_code}"):
         assert assets_len = tickers_len
     end
     if assets_len == 0:

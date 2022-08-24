@@ -8,7 +8,7 @@ from contracts.interfaces.i_pool import IPool
 from contracts.interfaces.i_a_token import IAToken
 from contracts.protocol.libraries.math.wad_ray_math import WadRayMath
 from contracts.protocol.libraries.types.data_types import DataTypes
-
+from contracts.protocol.libraries.helpers.errors import Errors
 from tests.utils.constants import USER_1
 from tests.interfaces.IERC20_Mintable import IERC20_Mintable
 
@@ -58,7 +58,7 @@ namespace TestPoolSupplyWithdrawDeployed:
             stop_mock = mock_call(ids.pool, "get_reserve_normalized_income", [ids.WadRayMath.RAY, 0])
             stop_prank_pool= start_prank(ids.USER_1, target_contract_address=ids.pool)
         %}
-        %{ expect_revert(error_message="User cannot withdraw more than the available balance") %}
+        %{ expect_revert(error_message=f"{ids.Errors.NOT_ENOUGH_AVAILABLE_USER_BALANCE}") %}
 
         IPool.withdraw(pool, test_token, Uint256(50, 0), USER_1)
         %{
