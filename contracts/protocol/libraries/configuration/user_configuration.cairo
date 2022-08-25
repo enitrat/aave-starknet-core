@@ -1,7 +1,7 @@
 %lang starknet
 
 from starkware.cairo.common.cairo_builtins import HashBuiltin
-from starkware.cairo.common.math_cmp import is_not_zero, is_le
+from starkware.cairo.common.math_cmp import is_not_zero
 from starkware.cairo.common.bool import TRUE, FALSE
 from contracts.protocol.libraries.configuration.reserve_index_operations import (
     ReserveIndex,
@@ -11,13 +11,7 @@ from contracts.protocol.libraries.configuration.reserve_index_operations import 
 from contracts.protocol.pool.pool_storage import PoolStorage
 from contracts.protocol.libraries.types.data_types import DataTypes
 from contracts.protocol.libraries.configuration.reserve_configuration import ReserveConfiguration
-from starkware.cairo.common.math import (
-    assert_lt,
-    assert_not_zero,
-    assert_in_range,
-    assert_not_equal,
-    assert_le,
-)
+from starkware.cairo.common.math import assert_not_zero, assert_le_felt
 from contracts.protocol.libraries.helpers.helpers import is_zero
 from contracts.protocol.libraries.helpers.bool_cmp import BoolCompare
 
@@ -34,7 +28,7 @@ namespace UserConfiguration:
         alloc_locals
 
         BoolCompare.is_valid(borrowing)
-        assert_le(reserve_index, MAX_RESERVES_COUNT)
+        assert_le_felt(reserve_index, MAX_RESERVES_COUNT)
         assert_not_zero(user_address)
 
         let (current_user_config) = PoolStorage.users_config_read(user_address, reserve_index)
@@ -62,7 +56,7 @@ namespace UserConfiguration:
         user_address : felt, reserve_index : felt, using_as_collateral : felt
     ):
         BoolCompare.is_valid(using_as_collateral)
-        assert_le(reserve_index, MAX_RESERVES_COUNT)
+        assert_le_felt(reserve_index, MAX_RESERVES_COUNT)
         assert_not_zero(user_address)
 
         let (current_user_config) = PoolStorage.users_config_read(user_address, reserve_index)
@@ -89,7 +83,7 @@ namespace UserConfiguration:
         syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr
     }(user_address : felt, reserve_index : felt) -> (res : felt):
         assert_not_zero(user_address)
-        assert_le(reserve_index, MAX_RESERVES_COUNT)
+        assert_le_felt(reserve_index, MAX_RESERVES_COUNT)
 
         let (user_config) = PoolStorage.users_config_read(user_address, reserve_index)
         let res_col = user_config.using_as_collateral
@@ -118,7 +112,7 @@ namespace UserConfiguration:
         user_address : felt, reserve_index : felt
     ) -> (res : felt):
         assert_not_zero(user_address)
-        assert_le(reserve_index, MAX_RESERVES_COUNT)
+        assert_le_felt(reserve_index, MAX_RESERVES_COUNT)
 
         let (user_config) = PoolStorage.users_config_read(user_address, reserve_index)
 
@@ -134,7 +128,7 @@ namespace UserConfiguration:
         user_address : felt, reserve_index : felt
     ) -> (res : felt):
         assert_not_zero(user_address)
-        assert_le(reserve_index, MAX_RESERVES_COUNT)
+        assert_le_felt(reserve_index, MAX_RESERVES_COUNT)
 
         let (user_config) = PoolStorage.users_config_read(user_address, reserve_index)
 

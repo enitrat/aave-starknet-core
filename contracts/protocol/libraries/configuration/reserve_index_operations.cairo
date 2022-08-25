@@ -1,16 +1,9 @@
 %lang starknet
 
 from starkware.cairo.common.cairo_builtins import HashBuiltin
-from starkware.cairo.common.math_cmp import is_not_zero, is_le
+from starkware.cairo.common.math_cmp import is_le_felt
 from starkware.cairo.common.bool import TRUE, FALSE
 from contracts.protocol.libraries.helpers.bool_cmp import BoolCompare
-from starkware.cairo.common.math import (
-    assert_lt,
-    assert_not_zero,
-    assert_in_range,
-    assert_not_equal,
-    assert_le,
-)
 
 # @notice Stores indices of reserve assets in a packed list
 # @dev using prefix UserConfiguration to prevent storage variable clashing
@@ -172,7 +165,7 @@ namespace ReserveIndex:
             return (last_lowest_index)
         end
 
-        let (last_is_smaller) = is_le(last_lowest_index, current_index)
+        let (last_is_smaller) = is_le_felt(last_lowest_index, current_index)
         if last_is_smaller == TRUE:
             index_to_next_function = last_lowest_index
         else:

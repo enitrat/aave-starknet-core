@@ -1,9 +1,9 @@
 %lang starknet
 
 from starkware.cairo.common.cairo_builtins import HashBuiltin
-from starkware.cairo.common.math import assert_le
 from starkware.cairo.common.registers import get_fp_and_pc
 from starkware.cairo.common.alloc import alloc
+from starkware.cairo.common.math import assert_le_felt
 
 from contracts.protocol.libraries.helpers.bool_cmp import BoolCompare
 from contracts.protocol.pool.pool_storage import PoolStorage
@@ -36,7 +36,7 @@ namespace ReserveConfiguration:
         alloc_locals
         let error_code = Errors.INVALID_LTV
         with_attr error_message("{error_code}"):
-            assert_le(value, MAX_VALID_LTV)
+            assert_le_felt(value, MAX_VALID_LTV)
         end
 
         let (__fp__, _) = get_fp_and_pc()
@@ -76,7 +76,7 @@ namespace ReserveConfiguration:
 
         let error_code = Errors.INVALID_LIQ_THRESHOLD
         with_attr error_message("{error_code}"):
-            assert_le(value, MAX_VALID_LIQUIDATION_THRESHOLD)
+            assert_le_felt(value, MAX_VALID_LIQUIDATION_THRESHOLD)
         end
 
         let (__fp__, _) = get_fp_and_pc()
@@ -116,7 +116,7 @@ namespace ReserveConfiguration:
 
         let error_code = Errors.INVALID_LIQ_BONUS
         with_attr error_message("{error_code}"):
-            assert_le(value, MAX_VALID_LIQUIDATION_BONUS)
+            assert_le_felt(value, MAX_VALID_LIQUIDATION_BONUS)
         end
 
         let (__fp__, _) = get_fp_and_pc()
@@ -156,7 +156,7 @@ namespace ReserveConfiguration:
 
         let error_code = Errors.INVALID_DECIMALS
         with_attr error_message("{error_code}"):
-            assert_le(value, MAX_VALID_DECIMALS)
+            assert_le_felt(value, MAX_VALID_DECIMALS)
         end
 
         let (__fp__, _) = get_fp_and_pc()
@@ -469,7 +469,7 @@ namespace ReserveConfiguration:
 
         let error_code = Errors.INVALID_RESERVE_FACTOR
         with_attr error_message("{error_code}"):
-            assert_le(value, MAX_VALID_RESERVE_FACTOR)
+            assert_le_felt(value, MAX_VALID_RESERVE_FACTOR)
         end
 
         let (__fp__, _) = get_fp_and_pc()
@@ -510,7 +510,7 @@ namespace ReserveConfiguration:
 
         let error_code = Errors.INVALID_BORROW_CAP
         with_attr error_message("{error_code}"):
-            assert_le(value, MAX_VALID_BORROW_CAP)
+            assert_le_felt(value, MAX_VALID_BORROW_CAP)
         end
 
         let (__fp__, _) = get_fp_and_pc()
@@ -552,7 +552,7 @@ namespace ReserveConfiguration:
 
         let error_code = Errors.INVALID_SUPPLY_CAP
         with_attr error_message("{error_code}"):
-            assert_le(value, MAX_VALID_SUPPLY_CAP)
+            assert_le_felt(value, MAX_VALID_SUPPLY_CAP)
         end
 
         let (__fp__, _) = get_fp_and_pc()
@@ -593,7 +593,7 @@ namespace ReserveConfiguration:
 
         let error_code = Errors.INVALID_DEBT_CEILING
         with_attr error_message("{error_code}"):
-            assert_le(ceiling, MAX_VALID_DEBT_CEILING)
+            assert_le_felt(ceiling, MAX_VALID_DEBT_CEILING)
         end
 
         let (__fp__, _) = get_fp_and_pc()
@@ -633,7 +633,7 @@ namespace ReserveConfiguration:
 
         let error_code = Errors.INVALID_LIQUIDATION_PROTOCOL_FEE
         with_attr error_message("{error_code}"):
-            assert_le(value, MAX_VALID_LIQUIDATION_PROTOCOL_FEE)
+            assert_le_felt(value, MAX_VALID_LIQUIDATION_PROTOCOL_FEE)
         end
 
         let (__fp__, _) = get_fp_and_pc()
@@ -673,7 +673,7 @@ namespace ReserveConfiguration:
 
         let error_code = Errors.INVALID_UNBACKED_MINT_CAP
         with_attr error_message("{error_code}"):
-            assert_le(value, MAX_VALID_UNBACKED_MINT_CAP)
+            assert_le_felt(value, MAX_VALID_UNBACKED_MINT_CAP)
         end
 
         let (__fp__, _) = get_fp_and_pc()
@@ -713,7 +713,7 @@ namespace ReserveConfiguration:
 
         let error_code = Errors.INVALID_EMODE_CATEGORY_ASSIGNMENT
         with_attr error_message("{error_code}"):
-            assert_le(category, MAX_VALID_EMODE_CATEGORY)
+            assert_le_felt(category, MAX_VALID_EMODE_CATEGORY)
         end
 
         let (__fp__, _) = get_fp_and_pc()

@@ -9,6 +9,7 @@ from starkware.cairo.common.uint256 import (
     uint256_add,
 )
 from starkware.cairo.common.bool import FALSE, TRUE
+from contracts.protocol.libraries.math.safe_uint256_cmp import SafeUint256Cmp
 
 const RANGE_CHECK_BOUND = 2 ** 128 - 1
 
@@ -38,7 +39,7 @@ namespace PercentageMath:
         tempvar max_uint_256 = Uint256(RANGE_CHECK_BOUND, RANGE_CHECK_BOUND)
         let (overflow_numerator) = uint256_sub(max_uint_256, Uint256(HALF_PERCENTAGE_FACTOR, 0))
         let (overflow_limit, _) = uint256_unsigned_div_rem(overflow_numerator, percentage)
-        let (is_value_not_overflowing) = uint256_le(value, overflow_limit)
+        let (is_value_not_overflowing) = SafeUint256Cmp.le(value, overflow_limit)
         with_attr error_message("value overflow"):
             assert is_value_not_overflowing = TRUE
         end
@@ -72,7 +73,7 @@ namespace PercentageMath:
         let (overflow_limit, _) = uint256_unsigned_div_rem(
             overflow_numerator, Uint256(PERCENTAGE_FACTOR, 0)
         )
-        let (is_value_not_overflowing) = uint256_le(value, overflow_limit)
+        let (is_value_not_overflowing) = SafeUint256Cmp.le(value, overflow_limit)
         with_attr error_message("value overflow"):
             assert is_value_not_overflowing = TRUE
         end

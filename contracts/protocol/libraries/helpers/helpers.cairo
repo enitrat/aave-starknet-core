@@ -1,7 +1,7 @@
 from starkware.cairo.common.math_cmp import is_not_zero
 from starkware.cairo.common.memcpy import memcpy
 from starkware.cairo.common.alloc import alloc
-from starkware.cairo.common.math import assert_lt
+from starkware.cairo.common.math import assert_lt_felt
 from starkware.cairo.common.cairo_builtins import HashBuiltin
 from starkware.cairo.common.uint256 import Uint256, uint256_sub, uint256_lt, uint256_check
 # Returns 0 if value != 0. Returns 1 otherwise.
@@ -19,7 +19,7 @@ func update_struct{range_check_ptr}(
     struct_fields : felt*, struct_size : felt, member_value_ptr : felt*, member_index : felt
 ) -> (modified_struct : felt*):
     alloc_locals
-    assert_lt(member_index, struct_size)
+    assert_lt_felt(member_index, struct_size)
     let (local res : felt*) = alloc()
 
     memcpy(res, struct_fields, member_index)  # copy member_index elems from struct_fields to res

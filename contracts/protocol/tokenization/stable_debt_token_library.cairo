@@ -19,6 +19,7 @@ from contracts.protocol.libraries.math.math_utils import MathUtils
 from contracts.protocol.libraries.math.wad_ray_math import WadRayMath
 from contracts.protocol.libraries.math.helpers import to_felt, to_uint256
 from contracts.interfaces.i_aave_incentives_controller import IAaveIncentivesController
+from contracts.protocol.libraries.math.safe_uint256_cmp import SafeUint256Cmp
 
 @event
 func Initialized(
@@ -315,7 +316,7 @@ namespace StableDebtToken:
         end
         StableDebtToken_total_supply_timestamp.write(block_timestamp)
 
-        let (is_amount_lt_increase) = uint256_lt(amount, balance_increase)
+        let (is_amount_lt_increase) = SafeUint256Cmp.lt(amount, balance_increase)
         if is_amount_lt_increase == TRUE:
             let (amount_to_mint) = SafeUint256.sub_le(balance_increase, amount)
             _mint(address_from, amount_to_mint, previous_supply)
@@ -523,7 +524,7 @@ func _calc_and_update_next_values{
     next_supply : Uint256, next_avg_stable_rate : felt
 ):
     alloc_locals
-    let (is_prev_supply_le_amount) = uint256_le(previous_supply, amount)
+    let (is_prev_supply_le_amount) = SafeUint256Cmp.le(previous_supply, amount)
     if is_prev_supply_le_amount == TRUE:
         StableDebtToken_avg_stable_rate.write(0)
         IncentivizedERC20.set_total_supply(Uint256(0, 0))
@@ -543,7 +544,7 @@ func _calc_and_update_next_values{
     let (first_term) = WadRayMath.ray_mul(avg_stable_rate_256, prev_supply_ray)
     let (second_term) = WadRayMath.ray_mul(user_stable_rate_256, amount_in_ray)
 
-    let (is_first_le_second) = uint256_le(first_term, second_term)
+    let (is_first_le_second) = SafeUint256Cmp.le(first_term, second_term)
     if is_first_le_second == TRUE:
         StableDebtToken_avg_stable_rate.write(0)
         IncentivizedERC20.set_total_supply(Uint256(0, 0))

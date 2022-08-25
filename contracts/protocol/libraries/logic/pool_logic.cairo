@@ -3,7 +3,7 @@
 from starkware.cairo.common.cairo_builtins import HashBuiltin
 from contracts.protocol.libraries.types.data_types import DataTypes
 from starkware.cairo.common.math_cmp import is_not_zero
-from starkware.cairo.common.math import assert_lt
+from starkware.cairo.common.math import assert_lt_felt
 from starkware.cairo.common.bool import TRUE, FALSE
 from starkware.cairo.lang.compiler.lib.registers import get_fp_and_pc
 
@@ -52,7 +52,7 @@ namespace PoolLogic:
 
         let error_code = Errors.NO_MORE_RESERVES_ALLOWED
         with_attr error_message("{error_code}"):
-            assert_lt(params.reserves_count, params.max_number_reserves)
+            assert_lt_felt(params.reserves_count, params.max_number_reserves)
         end
 
         let (__fp__, _) = get_fp_and_pc()

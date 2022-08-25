@@ -19,6 +19,7 @@ from contracts.protocol.libraries.math.wad_ray_math import WadRayMath
 from contracts.protocol.libraries.types.data_types import DataTypes
 from contracts.protocol.tokenization.base.incentivized_erc20_library import IncentivizedERC20
 from contracts.protocol.libraries.helpers.errors import Errors
+from contracts.protocol.libraries.math.safe_uint256_cmp import SafeUint256Cmp
 
 #
 # The original contracts have an abstract one to handle the internal _mint
@@ -227,7 +228,7 @@ namespace ScaledBalanceToken:
 
         _burn(user, amount_scaled)
 
-        let (is_balance_increase_le_than_amount) = uint256_le(balance_increase, amount)
+        let (is_balance_increase_le_than_amount) = SafeUint256Cmp.le(balance_increase, amount)
 
         if is_balance_increase_le_than_amount == TRUE:
             let (local amount_to_burn) = WadRayMath.ray_sub(amount_ray, balance_increase)

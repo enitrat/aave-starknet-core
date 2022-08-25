@@ -11,6 +11,8 @@ from starkware.cairo.common.bool import TRUE, FALSE
 
 from contracts.protocol.libraries.helpers.constants import UINT128_MAX
 
+from contracts.protocol.libraries.math.safe_uint256_cmp import SafeUint256Cmp
+
 namespace WadRayMath:
     # WAD = 1 * 10 ^ 18
     const WAD = 10 ** 18
@@ -68,7 +70,7 @@ namespace WadRayMath:
         with_attr error_message("WAD multiplication overflow"):
             let (bound) = uint256_sub(UINT256_MAX, HALF_WAD_UINT)
             let (quotient, rem) = uint256_unsigned_div_rem(bound, b)
-            let (le) = uint256_le(a, quotient)
+            let (le) = SafeUint256Cmp.le(a, quotient)
             assert le = TRUE
         end
 
@@ -92,7 +94,7 @@ namespace WadRayMath:
         with_attr error_message("WAD div overflow"):
             let (bound) = uint256_sub(UINT256_MAX, halfB)
             let (quo, _) = uint256_unsigned_div_rem(bound, WAD_UINT)
-            let (le) = uint256_le(a, quo)
+            let (le) = SafeUint256Cmp.le(a, quo)
             assert le = TRUE
         end
 
@@ -128,7 +130,7 @@ namespace WadRayMath:
         with_attr error_message("RAY div overflow"):
             let (bound) = uint256_sub(UINT256_MAX, HALF_RAY_UINT)
             let (quotient, rem) = uint256_unsigned_div_rem(bound, b)
-            let (le) = uint256_le(a, quotient)
+            let (le) = SafeUint256Cmp.le(a, quotient)
             assert le = TRUE
         end
 
@@ -152,7 +154,7 @@ namespace WadRayMath:
         with_attr error_message("RAY multiplication overflow"):
             let (bound) = uint256_sub(UINT256_MAX, halfB)
             let (quo, _) = uint256_unsigned_div_rem(bound, RAY_UINT)
-            let (le) = uint256_le(a, quo)
+            let (le) = SafeUint256Cmp.le(a, quo)
             assert le = TRUE
         end
 
@@ -240,7 +242,7 @@ namespace WadRayMath:
     end
 
     func wad_le{range_check_ptr}(a : Uint256, b : Uint256) -> (res : felt):
-        let (res) = uint256_le(a, b)
+        let (res) = SafeUint256Cmp.le(a, b)
         return (res)
     end
 end
