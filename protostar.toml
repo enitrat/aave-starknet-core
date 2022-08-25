@@ -5,6 +5,9 @@ protostar_version = "0.3.2"
 libs_path = "lib"
 
 ["protostar.contracts"]
+aave_oracle = [
+    "./contracts/misc/aave_oracle.cairo",
+]
 a_token = [
     "contracts/protocol/tokenization/a_token.cairo",
 ]
@@ -14,10 +17,6 @@ pool = [
 pool_addresses_provider = [
     "./contracts/protocol/configuration/pool_addresses_provider.cairo",
 ]
-aave_oracle = [
-    "./contracts/misc/aave_oracle.cairo",
-]
-
 stable_debt_token = [
     "./contracts/protocol/tokenization/stable_debt_token.cairo",
 ]

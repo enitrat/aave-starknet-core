@@ -30,7 +30,7 @@ To run the tests:
 
 ## Deploying on starknet-devnet
 
-While running (starknet-devnet)[https://github.com/Shard-Labs/starknet-devnet] with default parameters:
+While running [starknet-devnet](https://github.com/Shard-Labs/starknet-devnet) with default parameters:
 
 ```bash
  # Example with inputs:

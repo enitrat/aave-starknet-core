@@ -9,6 +9,7 @@ from contracts.protocol.libraries.math.helpers import to_felt, to_uint256
 from contracts.protocol.libraries.math.wad_ray_math import WadRayMath
 from contracts.protocol.libraries.math.math_utils import MathUtils
 from contracts.protocol.libraries.helpers.errors import Errors
+from contracts.protocol.libraries.helpers.constants import empty_reserve_configuration
 
 namespace ReserveLogic:
     # @notice Initializes a reserve.
@@ -27,7 +28,9 @@ namespace ReserveLogic:
         end
 
         # Write a_token_address in reserve
+        let (empty_config) = empty_reserve_configuration()
         let new_reserve = DataTypes.ReserveData(
+            configuration=empty_config,
             liquidity_index=WadRayMath.RAY,
             0,
             variable_borrow_index=WadRayMath.RAY,

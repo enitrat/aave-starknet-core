@@ -43,11 +43,11 @@ namespace ReserveConfiguration:
 
         let (local current_reserves_config) = PoolStorage.reserves_config_read(reserve_asset)
 
-        let (local updated_reserves_config : DataTypes.ReserveConfigurationMap*) = update_struct(
+        let (local updated_reserves_config : DataTypes.ReserveConfiguration*) = update_struct(
             &current_reserves_config,
-            DataTypes.ReserveConfigurationMap.SIZE,
+            DataTypes.ReserveConfiguration.SIZE,
             &value,
-            DataTypes.ReserveConfigurationMap.ltv,
+            DataTypes.ReserveConfiguration.ltv,
         )
 
         PoolStorage.reserves_config_write(reserve_asset, [updated_reserves_config])
@@ -83,11 +83,11 @@ namespace ReserveConfiguration:
 
         let (local current_reserves_config) = PoolStorage.reserves_config_read(reserve_asset)
 
-        let (local updated_reserves_config : DataTypes.ReserveConfigurationMap*) = update_struct(
+        let (local updated_reserves_config : DataTypes.ReserveConfiguration*) = update_struct(
             &current_reserves_config,
-            DataTypes.ReserveConfigurationMap.SIZE,
+            DataTypes.ReserveConfiguration.SIZE,
             &value,
-            DataTypes.ReserveConfigurationMap.liquidation_threshold,
+            DataTypes.ReserveConfiguration.liquidation_threshold,
         )
 
         PoolStorage.reserves_config_write(reserve_asset, [updated_reserves_config])
@@ -123,11 +123,11 @@ namespace ReserveConfiguration:
 
         let (local current_reserves_config) = PoolStorage.reserves_config_read(reserve_asset)
 
-        let (local updated_reserves_config : DataTypes.ReserveConfigurationMap*) = update_struct(
+        let (local updated_reserves_config : DataTypes.ReserveConfiguration*) = update_struct(
             &current_reserves_config,
-            DataTypes.ReserveConfigurationMap.SIZE,
+            DataTypes.ReserveConfiguration.SIZE,
             &value,
-            DataTypes.ReserveConfigurationMap.liquidation_bonus,
+            DataTypes.ReserveConfiguration.liquidation_bonus,
         )
 
         PoolStorage.reserves_config_write(reserve_asset, [updated_reserves_config])
@@ -163,11 +163,11 @@ namespace ReserveConfiguration:
 
         let (local current_reserves_config) = PoolStorage.reserves_config_read(reserve_asset)
 
-        let (local updated_reserves_config : DataTypes.ReserveConfigurationMap*) = update_struct(
+        let (local updated_reserves_config : DataTypes.ReserveConfiguration*) = update_struct(
             &current_reserves_config,
-            DataTypes.ReserveConfigurationMap.SIZE,
+            DataTypes.ReserveConfiguration.SIZE,
             &value,
-            DataTypes.ReserveConfigurationMap.decimals,
+            DataTypes.ReserveConfiguration.decimals,
         )
 
         PoolStorage.reserves_config_write(reserve_asset, [updated_reserves_config])
@@ -202,11 +202,11 @@ namespace ReserveConfiguration:
 
         let (local current_reserves_config) = PoolStorage.reserves_config_read(reserve_asset)
 
-        let (local updated_reserves_config : DataTypes.ReserveConfigurationMap*) = update_struct(
+        let (local updated_reserves_config : DataTypes.ReserveConfiguration*) = update_struct(
             &current_reserves_config,
-            DataTypes.ReserveConfigurationMap.SIZE,
+            DataTypes.ReserveConfiguration.SIZE,
             &active,
-            DataTypes.ReserveConfigurationMap.reserve_active,
+            DataTypes.ReserveConfiguration.reserve_active,
         )
 
         PoolStorage.reserves_config_write(reserve_asset, [updated_reserves_config])
@@ -241,11 +241,11 @@ namespace ReserveConfiguration:
 
         let (local current_reserves_config) = PoolStorage.reserves_config_read(reserve_asset)
 
-        let (local updated_reserves_config : DataTypes.ReserveConfigurationMap*) = update_struct(
+        let (local updated_reserves_config : DataTypes.ReserveConfiguration*) = update_struct(
             &current_reserves_config,
-            DataTypes.ReserveConfigurationMap.SIZE,
+            DataTypes.ReserveConfiguration.SIZE,
             &frozen,
-            DataTypes.ReserveConfigurationMap.reserve_frozen,
+            DataTypes.ReserveConfiguration.reserve_frozen,
         )
 
         PoolStorage.reserves_config_write(reserve_asset, [updated_reserves_config])
@@ -278,11 +278,11 @@ namespace ReserveConfiguration:
 
         let (local current_reserves_config) = PoolStorage.reserves_config_read(reserve_asset)
 
-        let (local updated_reserves_config : DataTypes.ReserveConfigurationMap*) = update_struct(
+        let (local updated_reserves_config : DataTypes.ReserveConfiguration*) = update_struct(
             &current_reserves_config,
-            DataTypes.ReserveConfigurationMap.SIZE,
+            DataTypes.ReserveConfiguration.SIZE,
             &paused,
-            DataTypes.ReserveConfigurationMap.asset_paused,
+            DataTypes.ReserveConfiguration.asset_paused,
         )
 
         PoolStorage.reserves_config_write(reserve_asset, [updated_reserves_config])
@@ -319,11 +319,11 @@ namespace ReserveConfiguration:
 
         let (local current_reserves_config) = PoolStorage.reserves_config_read(reserve_asset)
 
-        let (local updated_reserves_config : DataTypes.ReserveConfigurationMap*) = update_struct(
+        let (local updated_reserves_config : DataTypes.ReserveConfiguration*) = update_struct(
             &current_reserves_config,
-            DataTypes.ReserveConfigurationMap.SIZE,
+            DataTypes.ReserveConfiguration.SIZE,
             &borrowable,
-            DataTypes.ReserveConfigurationMap.borrowable_in_isolation,
+            DataTypes.ReserveConfiguration.borrowable_in_isolation,
         )
 
         PoolStorage.reserves_config_write(reserve_asset, [updated_reserves_config])
@@ -361,11 +361,11 @@ namespace ReserveConfiguration:
 
         let (local current_reserves_config) = PoolStorage.reserves_config_read(reserve_asset)
 
-        let (local updated_reserves_config : DataTypes.ReserveConfigurationMap*) = update_struct(
+        let (local updated_reserves_config : DataTypes.ReserveConfiguration*) = update_struct(
             &current_reserves_config,
-            DataTypes.ReserveConfigurationMap.SIZE,
+            DataTypes.ReserveConfiguration.SIZE,
             &siloed,
-            DataTypes.ReserveConfigurationMap.siloed_borrowing,
+            DataTypes.ReserveConfiguration.siloed_borrowing,
         )
 
         PoolStorage.reserves_config_write(reserve_asset, [updated_reserves_config])
@@ -399,11 +399,11 @@ namespace ReserveConfiguration:
 
         let (local current_reserves_config) = PoolStorage.reserves_config_read(reserve_asset)
 
-        let (local updated_reserves_config : DataTypes.ReserveConfigurationMap*) = update_struct(
+        let (local updated_reserves_config : DataTypes.ReserveConfiguration*) = update_struct(
             &current_reserves_config,
-            DataTypes.ReserveConfigurationMap.SIZE,
+            DataTypes.ReserveConfiguration.SIZE,
             &enabled,
-            DataTypes.ReserveConfigurationMap.borrowing_enabled,
+            DataTypes.ReserveConfiguration.borrowing_enabled,
         )
 
         PoolStorage.reserves_config_write(reserve_asset, [updated_reserves_config])
@@ -436,11 +436,11 @@ namespace ReserveConfiguration:
 
         let (local current_reserves_config) = PoolStorage.reserves_config_read(reserve_asset)
 
-        let (local updated_reserves_config : DataTypes.ReserveConfigurationMap*) = update_struct(
+        let (local updated_reserves_config : DataTypes.ReserveConfiguration*) = update_struct(
             &current_reserves_config,
-            DataTypes.ReserveConfigurationMap.SIZE,
+            DataTypes.ReserveConfiguration.SIZE,
             &enabled,
-            DataTypes.ReserveConfigurationMap.stable_rate_borrowing_enabled,
+            DataTypes.ReserveConfiguration.stable_rate_borrowing_enabled,
         )
 
         PoolStorage.reserves_config_write(reserve_asset, [updated_reserves_config])
@@ -476,11 +476,11 @@ namespace ReserveConfiguration:
 
         let (local current_reserves_config) = PoolStorage.reserves_config_read(reserve_asset)
 
-        let (local updated_reserves_config : DataTypes.ReserveConfigurationMap*) = update_struct(
+        let (local updated_reserves_config : DataTypes.ReserveConfiguration*) = update_struct(
             &current_reserves_config,
-            DataTypes.ReserveConfigurationMap.SIZE,
+            DataTypes.ReserveConfiguration.SIZE,
             &value,
-            DataTypes.ReserveConfigurationMap.reserve_factor,
+            DataTypes.ReserveConfiguration.reserve_factor,
         )
 
         PoolStorage.reserves_config_write(reserve_asset, [updated_reserves_config])
@@ -517,11 +517,11 @@ namespace ReserveConfiguration:
 
         let (local current_reserves_config) = PoolStorage.reserves_config_read(reserve_asset)
 
-        let (local updated_reserves_config : DataTypes.ReserveConfigurationMap*) = update_struct(
+        let (local updated_reserves_config : DataTypes.ReserveConfiguration*) = update_struct(
             &current_reserves_config,
-            DataTypes.ReserveConfigurationMap.SIZE,
+            DataTypes.ReserveConfiguration.SIZE,
             &value,
-            DataTypes.ReserveConfigurationMap.borrow_cap,
+            DataTypes.ReserveConfiguration.borrow_cap,
         )
 
         PoolStorage.reserves_config_write(reserve_asset, [updated_reserves_config])
@@ -559,11 +559,11 @@ namespace ReserveConfiguration:
 
         let (local current_reserves_config) = PoolStorage.reserves_config_read(reserve_asset)
 
-        let (local updated_reserves_config : DataTypes.ReserveConfigurationMap*) = update_struct(
+        let (local updated_reserves_config : DataTypes.ReserveConfiguration*) = update_struct(
             &current_reserves_config,
-            DataTypes.ReserveConfigurationMap.SIZE,
+            DataTypes.ReserveConfiguration.SIZE,
             &value,
-            DataTypes.ReserveConfigurationMap.supply_cap,
+            DataTypes.ReserveConfiguration.supply_cap,
         )
 
         PoolStorage.reserves_config_write(reserve_asset, [updated_reserves_config])
@@ -600,11 +600,11 @@ namespace ReserveConfiguration:
 
         let (local current_reserves_config) = PoolStorage.reserves_config_read(reserve_asset)
 
-        let (local updated_reserves_config : DataTypes.ReserveConfigurationMap*) = update_struct(
+        let (local updated_reserves_config : DataTypes.ReserveConfiguration*) = update_struct(
             &current_reserves_config,
-            DataTypes.ReserveConfigurationMap.SIZE,
+            DataTypes.ReserveConfiguration.SIZE,
             &ceiling,
-            DataTypes.ReserveConfigurationMap.debt_ceiling,
+            DataTypes.ReserveConfiguration.debt_ceiling,
         )
 
         PoolStorage.reserves_config_write(reserve_asset, [updated_reserves_config])
@@ -640,11 +640,11 @@ namespace ReserveConfiguration:
 
         let (local current_reserves_config) = PoolStorage.reserves_config_read(reserve_asset)
 
-        let (local updated_reserves_config : DataTypes.ReserveConfigurationMap*) = update_struct(
+        let (local updated_reserves_config : DataTypes.ReserveConfiguration*) = update_struct(
             &current_reserves_config,
-            DataTypes.ReserveConfigurationMap.SIZE,
+            DataTypes.ReserveConfiguration.SIZE,
             &value,
-            DataTypes.ReserveConfigurationMap.liquidation_protocol_fee,
+            DataTypes.ReserveConfiguration.liquidation_protocol_fee,
         )
 
         PoolStorage.reserves_config_write(reserve_asset, [updated_reserves_config])
@@ -680,11 +680,11 @@ namespace ReserveConfiguration:
 
         let (local current_reserves_config) = PoolStorage.reserves_config_read(reserve_asset)
 
-        let (local updated_reserves_config : DataTypes.ReserveConfigurationMap*) = update_struct(
+        let (local updated_reserves_config : DataTypes.ReserveConfiguration*) = update_struct(
             &current_reserves_config,
-            DataTypes.ReserveConfigurationMap.SIZE,
+            DataTypes.ReserveConfiguration.SIZE,
             &value,
-            DataTypes.ReserveConfigurationMap.unbacked_mint_cap,
+            DataTypes.ReserveConfiguration.unbacked_mint_cap,
         )
 
         PoolStorage.reserves_config_write(reserve_asset, [updated_reserves_config])
@@ -720,11 +720,11 @@ namespace ReserveConfiguration:
 
         let (local current_reserves_config) = PoolStorage.reserves_config_read(reserve_asset)
 
-        let (local updated_reserves_config : DataTypes.ReserveConfigurationMap*) = update_struct(
+        let (local updated_reserves_config : DataTypes.ReserveConfiguration*) = update_struct(
             &current_reserves_config,
-            DataTypes.ReserveConfigurationMap.SIZE,
+            DataTypes.ReserveConfiguration.SIZE,
             &category,
-            DataTypes.ReserveConfigurationMap.eMode_category,
+            DataTypes.ReserveConfiguration.eMode_category,
         )
 
         PoolStorage.reserves_config_write(reserve_asset, [updated_reserves_config])

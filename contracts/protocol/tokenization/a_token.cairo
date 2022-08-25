@@ -103,6 +103,13 @@ func POOL{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr}() -
     return (res)
 end
 
+@view
+func get_incentives_controller{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr}(
+    ) -> (res : felt):
+    let (res) = AToken.get_incentives_controller()
+    return (res)
+end
+
 #
 # Externals
 #

@@ -87,4 +87,7 @@ namespace IAToken:
 
     func scaled_total_supply() -> (total_supply : Uint256):
     end
+
+    func get_incentives_controller() -> (controller : felt):
+    end
 end

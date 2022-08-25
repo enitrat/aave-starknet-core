@@ -31,9 +31,8 @@ namespace ValidationLogic:
             assert is_zero = FALSE
         end
 
-        let (is_active, is_frozen, _, _, is_paused) = ReserveConfiguration.get_flags(
-            reserve.a_token_address
-        )
+        let (asset) = IAToken.UNDERLYING_ASSET_ADDRESS(reserve.a_token_address)
+        let (is_active, is_frozen, _, _, is_paused) = ReserveConfiguration.get_flags(asset)
 
         let error_code = Errors.RESERVE_INACTIVE
         with_attr error_message("{error_code}"):
@@ -79,9 +78,10 @@ namespace ValidationLogic:
             let (is_le : felt) = uint256_le(amount, user_balance)
             assert is_le = TRUE
         end
-        let (is_active, _, _, _, is_paused) = ReserveConfiguration.get_flags(
-            reserve.a_token_address
-        )
+
+        let (asset) = IAToken.UNDERLYING_ASSET_ADDRESS(reserve.a_token_address)
+        let (is_active, _, _, _, is_paused) = ReserveConfiguration.get_flags(asset)
+
         let error_code = Errors.RESERVE_INACTIVE
         with_attr error_message("{error_code}"):
             assert is_active = TRUE

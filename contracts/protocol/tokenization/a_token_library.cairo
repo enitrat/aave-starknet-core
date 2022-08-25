@@ -255,6 +255,13 @@ namespace AToken:
         return (res)
     end
 
+    func get_incentives_controller{
+        syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr
+    }() -> (res : felt):
+        let (controller) = _incentives_controller.read()
+        return (controller)
+    end
+
     # func DOMAIN_SEPARATOR{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr}():
     # end
 

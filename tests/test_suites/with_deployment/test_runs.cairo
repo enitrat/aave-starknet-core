@@ -159,13 +159,13 @@ func __setup__{syscall_ptr : felt*, range_check_ptr}():
     # sets the pool config with a reserve_active set to true to be able to excute the supply & withdraw logic
     IPool.set_configuration(
         pool,
-        aDAI,
-        DataTypes.ReserveConfigurationMap(0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+        dai,
+        DataTypes.ReserveConfiguration(0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
     )
     IPool.set_configuration(
         pool,
-        aWETH,
-        DataTypes.ReserveConfigurationMap(0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+        weth,
+        DataTypes.ReserveConfiguration(0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
     )
     %{
         stop_mock_configurator()

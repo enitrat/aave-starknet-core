@@ -1,19 +1,19 @@
 %lang starknet
 
 from starkware.cairo.common.cairo_builtins import HashBuiltin
-from contracts.protocol.libraries.types.data_types import DataTypes
-from starkware.cairo.common.math_cmp import is_not_zero
-from starkware.cairo.common.math import assert_lt_felt
 from starkware.cairo.common.bool import TRUE, FALSE
+from starkware.cairo.common.math import assert_lt_felt
+from starkware.cairo.common.math_cmp import is_not_zero
 from starkware.cairo.lang.compiler.lib.registers import get_fp_and_pc
 
-from contracts.protocol.libraries.helpers.helpers import is_zero
-from contracts.protocol.pool.pool_storage import PoolStorage
+from contracts.protocol.libraries.helpers.bool_cmp import BoolCompare
+from contracts.protocol.libraries.helpers.errors import Errors
+from contracts.protocol.libraries.helpers.constants import empty_reserve_data
+from contracts.protocol.libraries.helpers.helpers import is_zero, update_struct
 from contracts.protocol.libraries.logic.reserve_logic import ReserveLogic
 from contracts.protocol.libraries.logic.validation_logic import ValidationLogic
-from contracts.protocol.libraries.helpers.bool_cmp import BoolCompare
-from contracts.protocol.libraries.helpers.helpers import update_struct
-from contracts.protocol.libraries.helpers.errors import Errors
+from contracts.protocol.libraries.types.data_types import DataTypes
+from contracts.protocol.pool.pool_storage import PoolStorage
 
 namespace PoolLogic:
     # @notice Initialize an asset reserve and add the reserve to the list of reserves
@@ -57,7 +57,7 @@ namespace PoolLogic:
 
         let (__fp__, _) = get_fp_and_pc()
         let (updated_reserve_ptr : DataTypes.ReserveData*) = update_struct(
-            &reserve, DataTypes.ReserveData.SIZE, &params.reserves_count, 0
+            &reserve, DataTypes.ReserveData.SIZE, &params.reserves_count, DataTypes.ReserveData.id
         )
         let updated_reserve : DataTypes.ReserveData = [updated_reserve_ptr]
         PoolStorage.reserves_write(params.asset, updated_reserve)
@@ -76,9 +76,8 @@ namespace PoolLogic:
 
         PoolStorage.reserves_list_write(reserve.id, 0)
 
-        PoolStorage.reserves_write(
-            asset, DataTypes.ReserveData(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
-        )
+        let (empty_data) = empty_reserve_data()
+        PoolStorage.reserves_write(asset, empty_data)
         return ()
     end
 end
@@ -106,7 +105,7 @@ func init_reserve_append{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range
 
     if is_address_zero == TRUE:
         let (updated_reserve_ptr : DataTypes.ReserveData*) = update_struct(
-            &reserve, DataTypes.ReserveData.SIZE, &current_id, 0
+            &reserve, DataTypes.ReserveData.SIZE, &current_id, DataTypes.ReserveData.id
         )
 
         let updated_reserve : DataTypes.ReserveData = [updated_reserve_ptr]

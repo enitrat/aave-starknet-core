@@ -1,11 +1,11 @@
 %lang starknet
 
-from starkware.cairo.common.cairo_builtins import HashBuiltin
-from starkware.cairo.common.uint256 import Uint256
 from starkware.cairo.common.bool import TRUE, FALSE
-from starkware.starknet.common.syscalls import get_caller_address
+from starkware.cairo.common.cairo_builtins import HashBuiltin
 from starkware.cairo.common.math import assert_not_zero
 from starkware.cairo.common.math_cmp import is_not_zero
+from starkware.cairo.common.uint256 import Uint256
+from starkware.starknet.common.syscalls import get_caller_address
 
 from contracts.interfaces.i_pool_addresses_provider import IPoolAddressesProvider
 from contracts.interfaces.i_acl_manager import IACLManager
@@ -135,7 +135,6 @@ end
 # @dev Only callable by the PoolConfigurator contract
 # @param asset The address of the underlying asset of the reserve
 # @param a_token_address The address of the aToken that will be assigned to the reserve
-# TODO add the rest of reserves parameters (debt tokens, interest_rate_strategy, etc)
 @external
 func init_reserve{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr}(
     asset : felt,
@@ -180,12 +179,15 @@ func drop_reserve{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_
     return ()
 end
 
-# sets config of pool
-# @param ReserveConfigurationMap struct
+# @notice Set pool configuration
+# @dev Only callable by the PoolConfigurator contract
+# @param asset The address of the underlying asset of the reserve
+# @param configuration The configuration to set for the reserve
 @external
 func set_configuration{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr}(
-    asset : felt, config : DataTypes.ReserveConfigurationMap
+    asset : felt, configuration : DataTypes.ReserveConfiguration
 ):
+    alloc_locals
     assert_only_pool_configurator()
     let error_code = Errors.ZERO_ADDRESS_NOT_VALID
     with_attr error_message("{error_code}"):
@@ -193,15 +195,14 @@ func set_configuration{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_c
     end
     let (reserve) = PoolStorage.reserves_read(asset)
     let (is_id_not_zero) = is_not_zero(reserve.id)
-    let (first_listed_asset) = PoolStorage.reserves_list_read(0)
-    let (is_asset_first) = is_zero(first_listed_asset - asset)
-
+    let (first_asset) = Pool.get_reserve_address_by_id(0)
+    let (is_first_asset) = is_zero(first_asset - asset)
+    let (is_asset_listed) = BoolCompare.either(is_id_not_zero, is_first_asset)
     let error_code = Errors.ASSET_NOT_LISTED
     with_attr error_message("{error_code}"):
-        let (reserve_already_added) = BoolCompare.either(is_id_not_zero, is_asset_first)
-        assert reserve_already_added = FALSE
+        assert is_asset_listed = TRUE
     end
-    PoolStorage.reserves_config_write(asset, config)
+    PoolStorage.reserves_config_write(asset, configuration)
     return ()
 end
 
@@ -218,6 +219,15 @@ func get_reserve_data{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_ch
 ) -> (reserve_data : DataTypes.ReserveData):
     let (reserve) = PoolStorage.reserves_read(asset)
     return (reserve)
+end
+
+@view
+func get_configuration{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr}(
+    asset : felt
+) -> (config : DataTypes.ReserveConfiguration):
+    let (reserve) = PoolStorage.reserves_read(asset)
+    let config = reserve.configuration
+    return (config)
 end
 
 @view

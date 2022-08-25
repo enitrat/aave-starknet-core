@@ -13,7 +13,7 @@ func reserves(asset : felt) -> (reserve_data : DataTypes.ReserveData):
 end
 
 @storage_var
-func reserves_config(asset : felt) -> (res_config : DataTypes.ReserveConfigurationMap):
+func reserves_config(asset : felt) -> (res_config : DataTypes.ReserveConfiguration):
 end
 
 # Map of users address and their configuration data (user_address=> userConfiguration)
@@ -80,7 +80,7 @@ namespace PoolStorage:
 
     func reserves_config_read{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr}(
         address : felt
-    ) -> (res_config : DataTypes.ReserveConfigurationMap):
+    ) -> (res_config : DataTypes.ReserveConfiguration):
         let (res) = reserves_config.read(address)
         return (res)
     end
@@ -159,7 +159,7 @@ namespace PoolStorage:
     end
 
     func reserves_config_write{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr}(
-        address : felt, res_config : DataTypes.ReserveConfigurationMap
+        address : felt, res_config : DataTypes.ReserveConfiguration
     ):
         reserves_config.write(address, res_config)
         return ()

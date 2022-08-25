@@ -1,24 +1,7 @@
 from starkware.cairo.common.uint256 import Uint256
 
 namespace DataTypes:
-    struct ReserveData:
-        member liquidity_index : felt
-        member current_liquidity_rate : felt
-        member variable_borrow_index : felt
-        member current_variable_borrow_rate : felt
-        member current_stable_borrow_rate : felt
-        member last_update_timestamp : felt
-        member id : felt
-        member a_token_address : felt
-        member stable_debt_token_address : felt
-        member variable_debt_token_address : felt
-        member interest_rate_strategy_address : felt
-        member accrued_to_treasury : felt
-        member unbacked : felt
-        member isolation_mode_total_debt : felt
-    end
-
-    struct ReserveConfigurationMap:
+    struct ReserveConfiguration:
         member ltv : felt
         member liquidation_threshold : felt
         member liquidation_bonus : felt
@@ -37,6 +20,24 @@ namespace DataTypes:
         member eMode_category : felt
         member unbacked_mint_cap : felt
         member debt_ceiling : felt
+    end
+
+    struct ReserveData:
+        member configuration : ReserveConfiguration
+        member liquidity_index : felt
+        member current_liquidity_rate : felt
+        member variable_borrow_index : felt
+        member current_variable_borrow_rate : felt
+        member current_stable_borrow_rate : felt
+        member last_update_timestamp : felt
+        member id : felt
+        member a_token_address : felt
+        member stable_debt_token_address : felt
+        member variable_debt_token_address : felt
+        member interest_rate_strategy_address : felt
+        member accrued_to_treasury : felt
+        member unbacked : felt
+        member isolation_mode_total_debt : felt
     end
 
     struct ReserveCache:
@@ -59,6 +60,7 @@ namespace DataTypes:
         member variable_debt_token_address : felt
         member reserve_last_update_timestamp : felt
         member stable_debt_last_update_timestamp : felt
+        member configuration : ReserveConfiguration
     end
 
     struct InitReserveParams:

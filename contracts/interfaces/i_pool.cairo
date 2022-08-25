@@ -24,10 +24,13 @@ namespace IPool:
     ):
     end
 
-    func set_configuration(asset : felt, config : DataTypes.ReserveConfigurationMap) -> ():
+    func drop_reserve(asset : felt):
     end
 
-    func drop_reserve(asset : felt):
+    func set_configuration(asset : felt, configuration : DataTypes.ReserveConfiguration):
+    end
+
+    func get_configuration(asset : felt) -> (reserve_config : DataTypes.ReserveConfiguration):
     end
 
     func get_reserve_data(asset : felt) -> (reserve_data : DataTypes.ReserveData):
