@@ -2,6 +2,7 @@ from starkware.cairo.common.math_cmp import is_le_felt
 from starkware.cairo.common.math import assert_le_felt, assert_lt_felt
 from starkware.cairo.common.bool import FALSE, TRUE
 from contracts.protocol.libraries.helpers.bool_cmp import BoolCompare
+from contracts.protocol.libraries.helpers.constants import P, half_P, signed_MIN
 
 # @notice Function checks if the a < b. Interprets a, b in range [0, P)
 # @dev Internal function meant to only be used by functions of SafeCmp library
@@ -27,21 +28,6 @@ end
 #
 # @author Nethermind
 namespace SafeCmp:
-    #
-    #
-    # CONSTANTS
-    #
-    #
-
-    # P - the prime number defined in Cairo documentation. Every artithmetic operation is done with mod P.
-    # NOTE: This number shouldn't change for StartkNet, but if you are using Cairo with other P, please adjust this number to your needs.
-    const P = 2 ** 251 + 17 * 2 ** 192 + 1  # 3618502788666131213697322783095070105623107215331596699973092056135872020481 == 0
-    # signed_MIN - the lowest number possible in Cairo if felts are interpreted as signed integers.
-    # (Recall : floor(P/2) = (P-1)/2)
-    # (P-1/2) is done to be able to express floor(P/2) (no floor function in Cairo)
-    # +1 is added, because (P-1/2): highest signed integer and (P-1/2)+1: lowest signed integer
-    const signed_MIN = ((P - 1) / 2) + 1  # as signed: -1809251394333065606848661391547535052811553607665798349986546028067936010240 or as unsigned: 1809251394333065606848661391547535052811553607665798349986546028067936010241
-
     #
     #
     # UNSIGNED FELTS
@@ -135,7 +121,7 @@ namespace SafeCmp:
     # @param b Signed felt integer
     # @returns res Bool felt indicating if a <= b
     func is_le_signed{range_check_ptr}(a : felt, b : felt) -> (res : felt):
-        return is_le_felt(a + (P - 1) / 2, b + (P - 1) / 2)
+        return is_le_felt(a + half_P, b + half_P)
     end
 
     # @notice Checks if the a < b. Interprets a, b in range [floor(-P/2), floor(P/2)]
@@ -144,7 +130,7 @@ namespace SafeCmp:
     # @param b Signed felt integer
     # @returns res Bool felt indicating if a < b
     func is_lt_signed{range_check_ptr}(a : felt, b : felt) -> (res : felt):
-        return _is_lt_felt(a + (P - 1) / 2, b + (P - 1) / 2)
+        return _is_lt_felt(a + half_P, b + half_P)
     end
 
     # @notice Checks if the [low, high). Interprets value, low, high in range [floor(-P/2), floor(P/2)]
@@ -154,7 +140,7 @@ namespace SafeCmp:
     # @param high Signed felt integer, upper bound of the range
     # @returns res Bool felt indicating if value is in [low, high) range
     func is_in_range_signed{range_check_ptr}(value : felt, low : felt, high : felt) -> (res : felt):
-        return is_in_range_unsigned(value + (P - 1) / 2, low + (P - 1) / 2, high + (P - 1) / 2)
+        return is_in_range_unsigned(value + half_P, low + half_P, high + half_P)
     end
 
     # @notice Asserts that a is non-negative integer, i.e. 0 <= a < floor(P/2) + 1. Interprets a in range [floor(-P/2), floor(P/2)]
@@ -170,7 +156,7 @@ namespace SafeCmp:
     # @param a Signed felt integer
     # @param b Signed felt integer
     func assert_le_signed{range_check_ptr}(a : felt, b : felt):
-        assert_le_felt(a + (P - 1) / 2, b + (P - 1) / 2)
+        assert_le_felt(a + half_P, b + half_P)
         return ()
     end
 
@@ -179,7 +165,7 @@ namespace SafeCmp:
     # @param a Signed felt integer
     # @param b Signed felt integer
     func assert_lt_signed{range_check_ptr}(a : felt, b : felt):
-        assert_lt_felt(a + (P - 1) / 2, b + (P - 1) / 2)
+        assert_lt_felt(a + half_P, b + half_P)
         return ()
     end
 
@@ -189,7 +175,7 @@ namespace SafeCmp:
     # @param low Signed felt integer, lower bound of the range
     # @param high Signed felt integer, upper bound of the range
     func assert_in_range_signed{range_check_ptr}(value : felt, low : felt, high : felt):
-        assert_in_range_unsigned(value + (P - 1) / 2, low + (P - 1) / 2, high + (P - 1) / 2)
+        assert_in_range_unsigned(value + half_P, low + half_P, high + half_P)
         return ()
     end
 end

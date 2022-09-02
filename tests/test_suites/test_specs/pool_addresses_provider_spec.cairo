@@ -35,7 +35,7 @@ namespace TestPoolAddressesProvider:
         PoolAddressesProvider.transfer_ownership(USER_1)
 
         # Try to access it (using the 0 address in protostar)
-        %{ expect_revert(error_message="Ownable: caller is not the owner") %}
+        %{ expect_revert(error_message="Ownable: caller is the zero address") %}
         PoolAddressesProvider.set_market_id(1)
         return ()
     end
@@ -44,7 +44,7 @@ namespace TestPoolAddressesProvider:
         syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr
     }():
         PoolAddressesProvider.transfer_ownership(USER_1)
-        %{ expect_revert(error_message="Ownable: caller is not the owner") %}
+        %{ expect_revert(error_message="Ownable: caller is the zero address") %}
         PoolAddressesProvider.set_pool_impl(MOCKED_IMPLEMENTATION_HASH, 1234)
         return ()
     end
@@ -53,7 +53,7 @@ namespace TestPoolAddressesProvider:
         syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr
     }():
         PoolAddressesProvider.transfer_ownership(USER_1)
-        %{ expect_revert(error_message="Ownable: caller is not the owner") %}
+        %{ expect_revert(error_message="Ownable: caller is the zero address") %}
         PoolAddressesProvider.set_pool_configurator_impl(MOCKED_IMPLEMENTATION_HASH, 1234)
         return ()
     end
@@ -62,7 +62,7 @@ namespace TestPoolAddressesProvider:
         syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr
     }():
         PoolAddressesProvider.transfer_ownership(USER_1)
-        %{ expect_revert(error_message="Ownable: caller is not the owner") %}
+        %{ expect_revert(error_message="Ownable: caller is the zero address") %}
         PoolAddressesProvider.set_price_oracle(MOCKED_CONTRACT_ADDRESS)
         return ()
     end
@@ -71,7 +71,7 @@ namespace TestPoolAddressesProvider:
         syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr
     }():
         PoolAddressesProvider.transfer_ownership(USER_1)
-        %{ expect_revert(error_message="Ownable: caller is not the owner") %}
+        %{ expect_revert(error_message="Ownable: caller is the zero address") %}
         PoolAddressesProvider.set_ACL_admin(MOCKED_CONTRACT_ADDRESS)
         return ()
     end
@@ -80,7 +80,7 @@ namespace TestPoolAddressesProvider:
         syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr
     }():
         PoolAddressesProvider.transfer_ownership(USER_1)
-        %{ expect_revert(error_message="Ownable: caller is not the owner") %}
+        %{ expect_revert(error_message="Ownable: caller is the zero address") %}
         PoolAddressesProvider.set_ACL_manager(MOCKED_CONTRACT_ADDRESS)
         return ()
     end
@@ -89,7 +89,7 @@ namespace TestPoolAddressesProvider:
         syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr
     }():
         PoolAddressesProvider.transfer_ownership(USER_1)
-        %{ expect_revert(error_message="Ownable: caller is not the owner") %}
+        %{ expect_revert(error_message="Ownable: caller is the zero address") %}
         PoolAddressesProvider.set_price_oracle_sentinel(MOCKED_CONTRACT_ADDRESS)
         return ()
     end
@@ -98,7 +98,7 @@ namespace TestPoolAddressesProvider:
         syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr
     }():
         PoolAddressesProvider.transfer_ownership(USER_1)
-        %{ expect_revert(error_message="Ownable: caller is not the owner") %}
+        %{ expect_revert(error_message="Ownable: caller is the zero address") %}
         PoolAddressesProvider.set_pool_data_provider(MOCKED_CONTRACT_ADDRESS)
         return ()
     end
@@ -107,7 +107,7 @@ namespace TestPoolAddressesProvider:
         syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr
     }():
         PoolAddressesProvider.transfer_ownership(USER_1)
-        %{ expect_revert(error_message="Ownable: caller is not the owner") %}
+        %{ expect_revert(error_message="Ownable: caller is the zero address") %}
         PoolAddressesProvider.set_address('RANDOM_ID', MOCKED_CONTRACT_ADDRESS)
         return ()
     end
@@ -116,7 +116,7 @@ namespace TestPoolAddressesProvider:
         syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr
     }():
         PoolAddressesProvider.transfer_ownership(USER_1)
-        %{ expect_revert(error_message="Ownable: caller is not the owner") %}
+        %{ expect_revert(error_message="Ownable: caller is the zero address") %}
         PoolAddressesProvider.set_address_as_proxy('RANDOM_ID', MOCKED_IMPLEMENTATION_HASH, 1234)
         return ()
     end
