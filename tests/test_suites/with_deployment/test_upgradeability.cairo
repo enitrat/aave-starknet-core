@@ -4,14 +4,12 @@ from starkware.starknet.common.syscalls import get_contract_address
 from starkware.cairo.common.cairo_builtins import HashBuiltin
 
 from contracts.interfaces.i_proxy import IProxy
-from contracts.mocks.i_mock_initializable_implementation import IMockInitializableImplementation
 from contracts.protocol.libraries.helpers.constants import INITIALIZE_SELECTOR
 from tests.test_suites.test_specs.upgradeability_spec import (
     TestVersionedInitializable,
     TestInitializableImmutableAdminUpgradeabilityProxy,
     INIT_VALUE,
     INIT_TEXT,
-    PRANK_USER,
 )
 
 @external

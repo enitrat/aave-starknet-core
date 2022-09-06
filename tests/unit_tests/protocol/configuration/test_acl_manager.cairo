@@ -11,7 +11,7 @@ from contracts.protocol.configuration.acl_manager_library import (
     POOL_ADMIN_ROLE,
     EMERGENCY_ADMIN_ROLE,
 )
-from tests.utils.constants import USER_1, USER_2
+from tests.utils.constants import USER_1
 
 const PRANK_PROVIDER = 111
 const PRANK_ADMIN_ADDRESS = 222

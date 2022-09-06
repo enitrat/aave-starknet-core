@@ -7,7 +7,6 @@ from openzeppelin.token.erc20.IERC20 import IERC20
 from contracts.interfaces.i_pool import IPool
 from contracts.interfaces.i_a_token import IAToken
 from contracts.protocol.libraries.math.wad_ray_math import WadRayMath
-from contracts.protocol.libraries.types.data_types import DataTypes
 from contracts.protocol.libraries.helpers.errors import Errors
 from tests.utils.constants import USER_1
 from tests.interfaces.IERC20_Mintable import IERC20_Mintable

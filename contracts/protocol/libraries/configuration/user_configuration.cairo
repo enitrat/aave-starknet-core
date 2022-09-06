@@ -12,8 +12,7 @@ from contracts.protocol.pool.pool_storage import PoolStorage
 from contracts.protocol.libraries.types.data_types import DataTypes
 from contracts.protocol.libraries.configuration.reserve_configuration import ReserveConfiguration
 from starkware.cairo.common.math import assert_not_zero, assert_le_felt
-from contracts.protocol.libraries.helpers.helpers import is_zero
-from contracts.protocol.libraries.helpers.bool_cmp import BoolCompare
+from contracts.protocol.libraries.helpers.bool_cmp import BoolCmp
 
 namespace UserConfiguration:
     const MAX_RESERVES_COUNT = 128
@@ -27,7 +26,7 @@ namespace UserConfiguration:
     ):
         alloc_locals
 
-        BoolCompare.is_valid(borrowing)
+        BoolCmp.is_valid(borrowing)
         assert_le_felt(reserve_index, MAX_RESERVES_COUNT)
         assert_not_zero(user_address)
 
@@ -55,7 +54,7 @@ namespace UserConfiguration:
     func set_using_as_collateral{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr}(
         user_address : felt, reserve_index : felt, using_as_collateral : felt
     ):
-        BoolCompare.is_valid(using_as_collateral)
+        BoolCmp.is_valid(using_as_collateral)
         assert_le_felt(reserve_index, MAX_RESERVES_COUNT)
         assert_not_zero(user_address)
 
@@ -206,7 +205,7 @@ namespace UserConfiguration:
             USING_AS_COLLATERAL_TYPE, user_address
         )
 
-        let (res) = BoolCompare.both(is_borrowing_list_empty, is_using_collateral_list_empty)
+        let (res) = BoolCmp.both(is_borrowing_list_empty, is_using_collateral_list_empty)
 
         return (res)
     end

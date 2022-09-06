@@ -8,7 +8,7 @@ from openzeppelin.utils.constants.library import DEFAULT_ADMIN_ROLE
 from openzeppelin.access.accesscontrol.library import AccessControl
 
 from contracts.interfaces.i_acl_manager import IACLManager
-from contracts.protocol.configuration.acl_manager_library import ACLManager, FLASH_BORROWER_ROLE
+from contracts.protocol.configuration.acl_manager_library import FLASH_BORROWER_ROLE
 
 # prank addresses
 const FLASH_BORROW_ADMIN_ADDRESS = 1111

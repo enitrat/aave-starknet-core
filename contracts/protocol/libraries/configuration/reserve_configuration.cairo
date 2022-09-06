@@ -2,10 +2,9 @@
 
 from starkware.cairo.common.cairo_builtins import HashBuiltin
 from starkware.cairo.common.registers import get_fp_and_pc
-from starkware.cairo.common.alloc import alloc
 from starkware.cairo.common.math import assert_le_felt
 
-from contracts.protocol.libraries.helpers.bool_cmp import BoolCompare
+from contracts.protocol.libraries.helpers.bool_cmp import BoolCmp
 from contracts.protocol.pool.pool_storage import PoolStorage
 from contracts.protocol.libraries.helpers.helpers import update_struct
 from contracts.protocol.libraries.types.data_types import DataTypes
@@ -196,7 +195,7 @@ namespace ReserveConfiguration:
     ):
         alloc_locals
 
-        BoolCompare.is_valid(active)
+        BoolCmp.is_valid(active)
 
         let (__fp__, _) = get_fp_and_pc()
 
@@ -235,7 +234,7 @@ namespace ReserveConfiguration:
     ):
         alloc_locals
 
-        BoolCompare.is_valid(frozen)
+        BoolCmp.is_valid(frozen)
 
         let (__fp__, _) = get_fp_and_pc()
 
@@ -272,7 +271,7 @@ namespace ReserveConfiguration:
     ):
         alloc_locals
 
-        BoolCompare.is_valid(paused)
+        BoolCmp.is_valid(paused)
 
         let (__fp__, _) = get_fp_and_pc()
 
@@ -313,7 +312,7 @@ namespace ReserveConfiguration:
     }(reserve_asset : felt, borrowable : felt):
         alloc_locals
 
-        BoolCompare.is_valid(borrowable)
+        BoolCmp.is_valid(borrowable)
 
         let (__fp__, _) = get_fp_and_pc()
 
@@ -355,7 +354,7 @@ namespace ReserveConfiguration:
     ):
         alloc_locals
 
-        BoolCompare.is_valid(siloed)
+        BoolCmp.is_valid(siloed)
 
         let (__fp__, _) = get_fp_and_pc()
 
@@ -393,7 +392,7 @@ namespace ReserveConfiguration:
     ):
         alloc_locals
 
-        BoolCompare.is_valid(enabled)
+        BoolCmp.is_valid(enabled)
 
         let (__fp__, _) = get_fp_and_pc()
 
@@ -430,7 +429,7 @@ namespace ReserveConfiguration:
     }(reserve_asset : felt, enabled : felt):
         alloc_locals
 
-        BoolCompare.is_valid(enabled)
+        BoolCmp.is_valid(enabled)
 
         let (__fp__, _) = get_fp_and_pc()
 

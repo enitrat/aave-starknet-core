@@ -4,7 +4,6 @@ from starkware.cairo.common.bool import FALSE
 from starkware.cairo.common.cairo_builtins import HashBuiltin
 from starkware.cairo.common.uint256 import Uint256
 
-from contracts.interfaces.i_a_token import IAToken
 from contracts.protocol.libraries.math.wad_ray_math import WadRayMath
 from contracts.protocol.tokenization.a_token_library import AToken
 

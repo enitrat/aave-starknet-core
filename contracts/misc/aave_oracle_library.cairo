@@ -5,11 +5,10 @@ from starkware.cairo.common.math_cmp import is_nn
 from starkware.starknet.common.syscalls import get_caller_address
 from starkware.cairo.common.bool import TRUE
 from starkware.cairo.common.alloc import alloc
-from starkware.cairo.common.math import split_felt
 from contracts.dependencies.stork.i_oracle_proxy import IOracleProxy
 from contracts.interfaces.i_pool_addresses_provider import IPoolAddressesProvider
 from contracts.interfaces.i_acl_manager import IACLManager
-from contracts.protocol.libraries.helpers.bool_cmp import BoolCompare
+from contracts.protocol.libraries.helpers.bool_cmp import BoolCmp
 from contracts.protocol.libraries.helpers.helpers import is_zero
 from contracts.protocol.libraries.helpers.errors import Errors
 
@@ -65,7 +64,7 @@ func assert_only_asset_listing_or_pool_admin{
     let (caller) = get_caller_address()
     let (is_asset_listing_admin) = IACLManager.is_asset_listing_admin(ACL_manager_address, caller)
     let (is_pool_admin) = IACLManager.is_pool_admin(ACL_manager_address, caller)
-    let (either) = BoolCompare.either(is_asset_listing_admin, is_pool_admin)
+    let (either) = BoolCmp.either(is_asset_listing_admin, is_pool_admin)
     let error_code = Errors.CALLER_NOT_ASSET_LISTING_OR_POOL_ADMIN
     with_attr error_message("{error_code}"):
         assert either = TRUE
@@ -257,7 +256,7 @@ func _read_price_from_oracle{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, r
     local price = price_tick.value
     let (price_above_zero) = is_nn(price)
     let (price_is_zero) = is_zero(price)
-    let (either) = BoolCompare.either(price_above_zero, price_is_zero)
+    let (either) = BoolCmp.either(price_above_zero, price_is_zero)
     if either == TRUE:
         return (price)
     else:

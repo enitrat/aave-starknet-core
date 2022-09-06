@@ -1,4 +1,4 @@
-namespace BoolCompare:
+namespace BoolCmp:
     func is_valid(a : felt):
         with_attr error_message("Value should be either 0 or 1. Current value: {a}"):
             assert a * a = a

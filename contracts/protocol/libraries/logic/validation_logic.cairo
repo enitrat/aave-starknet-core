@@ -9,7 +9,7 @@ from openzeppelin.token.erc20.IERC20 import IERC20
 
 from contracts.protocol.libraries.types.data_types import DataTypes
 from contracts.protocol.libraries.helpers.helpers import is_zero
-from contracts.protocol.libraries.helpers.bool_cmp import BoolCompare
+from contracts.protocol.libraries.helpers.bool_cmp import BoolCmp
 from contracts.protocol.pool.pool_storage import PoolStorage
 from contracts.protocol.libraries.configuration.reserve_configuration import ReserveConfiguration
 from contracts.interfaces.i_a_token import IAToken
@@ -109,7 +109,7 @@ namespace ValidationLogic:
             let (is_id_not_zero) = is_not_zero(reserve.id)
             let (reserve_list_first) = PoolStorage.reserves_list_read(0)
             let (is_first_asset) = is_zero(reserve_list_first - asset)
-            let (asset_listed) = BoolCompare.either(is_id_not_zero, is_first_asset)
+            let (asset_listed) = BoolCmp.either(is_id_not_zero, is_first_asset)
             assert asset_listed = TRUE
         end
 

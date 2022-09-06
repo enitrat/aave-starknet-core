@@ -2,7 +2,7 @@
 
 from starkware.cairo.common.bool import FALSE, TRUE
 from starkware.cairo.common.cairo_builtins import HashBuiltin
-from starkware.cairo.common.uint256 import Uint256, uint256_eq, uint256_add
+from starkware.cairo.common.uint256 import Uint256, uint256_eq
 from starkware.starknet.common.syscalls import get_contract_address
 
 from openzeppelin.security.safemath.library import SafeUint256

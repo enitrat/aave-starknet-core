@@ -1,7 +1,6 @@
 %lang starknet
 
 from starkware.cairo.common.cairo_builtins import HashBuiltin
-from starkware.starknet.common.syscalls import get_block_timestamp
 
 from contracts.mocks.oracle.price_oracle_library import PriceOracle
 

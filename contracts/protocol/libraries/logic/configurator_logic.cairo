@@ -1,15 +1,12 @@
 %lang starknet
 
-from starkware.cairo.common.bool import TRUE, FALSE
+from starkware.cairo.common.bool import TRUE
 from starkware.cairo.common.cairo_builtins import HashBuiltin
 from starkware.starknet.common.syscalls import deploy, get_contract_address
 
 from contracts.interfaces.i_pool import IPool
 from contracts.interfaces.i_proxy import IProxy
-from contracts.protocol.libraries.helpers.bool_cmp import BoolCompare
 from contracts.protocol.libraries.helpers.constants import INITIALIZE_SELECTOR
-from contracts.protocol.libraries.logic.reserve_logic import ReserveLogic
-from contracts.protocol.libraries.logic.validation_logic import ValidationLogic
 from contracts.protocol.libraries.types.configurator_input_types import ConfiguratorInputTypes
 from contracts.protocol.libraries.types.data_types import DataTypes
 

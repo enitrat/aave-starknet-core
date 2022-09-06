@@ -1,11 +1,9 @@
 %lang starknet
 
-from starkware.cairo.common.bool import FALSE
 from starkware.cairo.common.cairo_builtins import HashBuiltin
 from starkware.cairo.common.uint256 import Uint256
 from starkware.starknet.common.syscalls import get_contract_address
 
-from contracts.protocol.libraries.math.wad_ray_math import WadRayMath
 from contracts.protocol.tokenization.variable_debt_token_library import VariableDebtToken
 from contracts.protocol.tokenization.base.scaled_balance_token_library import ScaledBalanceToken
 from contracts.protocol.tokenization.base.debt_token_base_library import DebtTokenBase
@@ -13,7 +11,7 @@ from contracts.protocol.tokenization.base.incentivized_erc20_library import Ince
 from contracts.protocol.libraries.helpers.errors import Errors
 from tests.utils.constants import (
     POOL,
-    MOCK_TOKEN_1,
+    MOCK_ASSET_1,
     INCENTIVES_CONTROLLER,
     USER_1,
     POOL_ADDRESSES_PROVIDER,
@@ -33,11 +31,11 @@ func test_initializer{syscall_ptr : felt*, range_check_ptr, pedersen_ptr : HashB
         stop_mock_is_pool_admin_2 = mock_call(ids.ACL_MANAGER, "is_pool_admin", [1])
     %}
     VariableDebtToken.initialize(
-        POOL, MOCK_TOKEN_1, INCENTIVES_CONTROLLER, DECIMALS, NAME, SYMBOL, ''
+        POOL, MOCK_ASSET_1, INCENTIVES_CONTROLLER, DECIMALS, NAME, SYMBOL, ''
     )
 
     let (asset_after) = DebtTokenBase.get_underlying_asset()
-    assert asset_after = MOCK_TOKEN_1
+    assert asset_after = MOCK_ASSET_1
     let (pool_after) = IncentivizedERC20.get_pool()
     assert pool_after = POOL
     let (incentives_controller_after) = IncentivizedERC20.get_incentives_controller()

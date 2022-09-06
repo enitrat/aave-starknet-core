@@ -2,7 +2,6 @@ from starkware.cairo.common.math_cmp import is_not_zero
 from starkware.cairo.common.memcpy import memcpy
 from starkware.cairo.common.alloc import alloc
 from starkware.cairo.common.math import assert_lt_felt
-from starkware.cairo.common.cairo_builtins import HashBuiltin
 from starkware.cairo.common.uint256 import Uint256, uint256_sub, uint256_lt, uint256_check
 # Returns 0 if value != 0. Returns 1 otherwise.
 func is_zero(value) -> (res : felt):

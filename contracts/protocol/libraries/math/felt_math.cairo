@@ -1,9 +1,9 @@
-from starkware.cairo.common.math_cmp import is_le_felt, is_not_zero
+from starkware.cairo.common.math_cmp import is_le_felt
 from starkware.cairo.common.bool import TRUE, FALSE
-from starkware.cairo.common.cairo_builtins import HashBuiltin
-from contracts.protocol.libraries.helpers.bool_cmp import BoolCompare
-from contracts.protocol.libraries.math.safecmp import SafeCmp
-from contracts.protocol.libraries.helpers.constants import P, half_P
+
+from contracts.protocol.libraries.helpers.bool_cmp import BoolCmp
+from contracts.protocol.libraries.math.safe_cmp import SafeCmp
+from contracts.protocol.libraries.helpers.constants import MAX_SIGNED_FELT
 
 # @notice Library to safely compare felts interpreted as unsigned or signed integers.
 #
@@ -33,7 +33,7 @@ namespace FeltMath:
         let res = a + b
         let (carry_a) = SafeCmp.is_lt_unsigned(res, a)
         let (carry_b) = SafeCmp.is_lt_unsigned(res, b)
-        let (overflow) = BoolCompare.either(carry_a, carry_b)
+        let (overflow) = BoolCmp.either(carry_a, carry_b)
         return (res, overflow)
     end
 
@@ -122,7 +122,7 @@ namespace FeltMath:
     ) -> (res : felt, overflow : felt):
         let (res, overflow) = mul_unsigned(acc, base)
         let new_counter = counter - 1
-        let (new_flag_overflow) = BoolCompare.either(flag_overflow, overflow)
+        let (new_flag_overflow) = BoolCmp.either(flag_overflow, overflow)
         if new_counter == 0:
             return (res, new_flag_overflow)
         end
@@ -146,13 +146,13 @@ namespace FeltMath:
         let (is_nn_signed_b) = SafeCmp.is_nn_signed(b)
 
         let res = a + b
-        let (cmp_signs) = BoolCompare.eq(is_nn_signed_a, is_nn_signed_b)
+        let (cmp_signs) = BoolCmp.eq(is_nn_signed_a, is_nn_signed_b)
         if cmp_signs == TRUE:
             if is_nn_signed_a == TRUE:
-                let (overflow) = SafeCmp.is_lt_unsigned(half_P, res)
+                let (overflow) = SafeCmp.is_lt_unsigned(MAX_SIGNED_FELT, res)
                 return (res, overflow)
             end
-            let (overflow) = is_le_felt(res, half_P)
+            let (overflow) = is_le_felt(res, MAX_SIGNED_FELT)
             return (res, overflow)
         end
 

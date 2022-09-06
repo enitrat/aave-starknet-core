@@ -6,21 +6,17 @@ from starkware.starknet.common.syscalls import get_contract_address
 
 from contracts.interfaces.i_a_token import IAToken
 from contracts.interfaces.i_stable_debt_token import IStableDebtToken
-from contracts.protocol.libraries.helpers.constants import (
-    empty_reserve_configuration,
-    INITIALIZE_SELECTOR,
-)
+from contracts.protocol.libraries.helpers.constants import INITIALIZE_SELECTOR
 from contracts.protocol.libraries.logic.configurator_logic import ConfiguratorLogic
 from contracts.protocol.libraries.types.configurator_input_types import ConfiguratorInputTypes
-from contracts.protocol.libraries.types.data_types import DataTypes
 from tests.utils.constants import (
     USER_1,
     INCENTIVES_CONTROLLER,
     INCENTIVES_CONTROLLER_2,
     POOL,
     POOL_2,
-    MOCK_TOKEN_1,
-    MOCK_TOKEN_2,
+    MOCK_ASSET_1,
+    MOCK_ASSET_2,
     TREASURY_1,
     TREASURY_2,
     NAME_1,
@@ -70,7 +66,7 @@ func test_init_token_with_proxy{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*
         proxy_hash,
         PRANK_SALT_A_TOKEN,
         7,
-        cast(new (POOL, TREASURY_1, MOCK_TOKEN_1, INCENTIVES_CONTROLLER, DECIMALS_1, NAME_1, SYMBOL_1), felt*),
+        cast(new (POOL, TREASURY_1, MOCK_ASSET_1, INCENTIVES_CONTROLLER, DECIMALS_1, NAME_1, SYMBOL_1), felt*),
     )
 
     %{ stop_prank_user = start_prank(ids.USER_1, target_contract_address=ids.proxy) %}
@@ -82,7 +78,7 @@ func test_init_token_with_proxy{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*
     assert treasury = TREASURY_1
 
     let (asset) = IAToken.UNDERLYING_ASSET_ADDRESS(proxy)
-    assert asset = MOCK_TOKEN_1
+    assert asset = MOCK_ASSET_1
 
     let (controller) = IAToken.get_incentives_controller(proxy)
     assert controller = INCENTIVES_CONTROLLER
@@ -118,7 +114,7 @@ func test_upgrade_token_implementation{
         proxy_hash,
         PRANK_SALT_A_TOKEN,
         7,
-        cast(new (POOL, TREASURY_1, MOCK_TOKEN_1, INCENTIVES_CONTROLLER, DECIMALS_1, NAME_1, SYMBOL_1), felt*),
+        cast(new (POOL, TREASURY_1, MOCK_ASSET_1, INCENTIVES_CONTROLLER, DECIMALS_1, NAME_1, SYMBOL_1), felt*),
     )
 
     ConfiguratorLogic._upgrade_token_implementation(
@@ -126,7 +122,7 @@ func test_upgrade_token_implementation{
         a_token_hash,
         INITIALIZE_SELECTOR,
         7,
-        cast(new (POOL_2, TREASURY_2, MOCK_TOKEN_2, INCENTIVES_CONTROLLER_2, DECIMALS_2, NAME_2, SYMBOL_2), felt*),
+        cast(new (POOL_2, TREASURY_2, MOCK_ASSET_2, INCENTIVES_CONTROLLER_2, DECIMALS_2, NAME_2, SYMBOL_2), felt*),
     )
 
     %{ stop_prank_user = start_prank(ids.USER_1, target_contract_address=ids.proxy) %}
@@ -138,7 +134,7 @@ func test_upgrade_token_implementation{
     assert treasury = TREASURY_2
 
     let (asset) = IAToken.UNDERLYING_ASSET_ADDRESS(proxy)
-    assert asset = MOCK_TOKEN_2
+    assert asset = MOCK_ASSET_2
 
     let (controller) = IAToken.get_incentives_controller(proxy)
     assert controller = INCENTIVES_CONTROLLER_2
@@ -179,7 +175,7 @@ func test_execute_init_reserve{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*,
         variable_debt_hash,
         DECIMALS_1,
         0,
-        MOCK_TOKEN_1,
+        MOCK_ASSET_1,
         TREASURY_1,
         INCENTIVES_CONTROLLER,
         NAME_1,
@@ -201,7 +197,7 @@ func test_execute_init_reserve{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*,
         stop_provider = mock_call(ids.MOCK_POOL_ADDRESSES_PROVIDER, "get_ACL_manager", [ids.MOCK_ACL_MANAGER])
         stop_acl = mock_call(ids.MOCK_ACL_MANAGER, "is_pool_admin", [ids.TRUE])
         # following mocks are needed to call as pool configurator
-        store(ids.pool, "addresses_provider", [ids.MOCK_POOL_ADDRESSES_PROVIDER])
+        store(ids.pool, "PoolStorage_addresses_provider", [ids.MOCK_POOL_ADDRESSES_PROVIDER])
         stop_configurator = mock_call(ids.MOCK_POOL_ADDRESSES_PROVIDER, "get_address", [ids.MOCK_POOL_CONFIGURATOR])
         stop_prank_configurator = start_prank(ids.MOCK_POOL_CONFIGURATOR, target_contract_address = ids.pool)
     %}
@@ -227,7 +223,7 @@ func test_execute_init_reserve{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*,
     assert treasury = TREASURY_1
 
     let (asset) = IAToken.UNDERLYING_ASSET_ADDRESS(a_token)
-    assert asset = MOCK_TOKEN_1
+    assert asset = MOCK_ASSET_1
 
     let (controller) = IAToken.get_incentives_controller(a_token)
     assert controller = INCENTIVES_CONTROLLER
@@ -251,7 +247,7 @@ func test_execute_init_reserve{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*,
     assert pool_ = pool
 
     let (asset) = IStableDebtToken.UNDERLYING_ASSET_ADDRESS(stable_debt_token)
-    assert asset = MOCK_TOKEN_1
+    assert asset = MOCK_ASSET_1
 
     let (controller) = IStableDebtToken.get_incentives_controller(stable_debt_token)
     assert controller = INCENTIVES_CONTROLLER
@@ -297,7 +293,7 @@ func test_execute_update_a_token{syscall_ptr : felt*, pedersen_ptr : HashBuiltin
         variable_debt_hash,
         DECIMALS_1,
         0,
-        MOCK_TOKEN_1,
+        MOCK_ASSET_1,
         TREASURY_1,
         INCENTIVES_CONTROLLER,
         NAME_1,
@@ -319,7 +315,7 @@ func test_execute_update_a_token{syscall_ptr : felt*, pedersen_ptr : HashBuiltin
         stop_provider = mock_call(ids.MOCK_POOL_ADDRESSES_PROVIDER, "get_ACL_manager", [ids.MOCK_ACL_MANAGER])
         stop_acl = mock_call(ids.MOCK_ACL_MANAGER, "is_pool_admin", [ids.TRUE])
         # following mocks are needed to call as pool configurator
-        store(ids.pool, "addresses_provider", [ids.MOCK_POOL_ADDRESSES_PROVIDER])
+        store(ids.pool, "PoolStorage_addresses_provider", [ids.MOCK_POOL_ADDRESSES_PROVIDER])
         stop_configurator = mock_call(ids.MOCK_POOL_ADDRESSES_PROVIDER, "get_address", [ids.MOCK_POOL_CONFIGURATOR])
         stop_prank_configurator = start_prank(ids.MOCK_POOL_CONFIGURATOR, target_contract_address = ids.pool)
     %}
@@ -335,7 +331,7 @@ func test_execute_update_a_token{syscall_ptr : felt*, pedersen_ptr : HashBuiltin
     %}
 
     let update_input = ConfiguratorInputTypes.UpdateATokenInput(
-        MOCK_TOKEN_1, TREASURY_2, INCENTIVES_CONTROLLER_2, NAME_2, SYMBOL_2, a_token_hash, 0
+        MOCK_ASSET_1, TREASURY_2, INCENTIVES_CONTROLLER_2, NAME_2, SYMBOL_2, a_token_hash, 0
     )
 
     ConfiguratorLogic.execute_update_a_token(pool, update_input)
@@ -346,7 +342,7 @@ func test_execute_update_a_token{syscall_ptr : felt*, pedersen_ptr : HashBuiltin
     assert treasury = TREASURY_2
 
     let (asset) = IAToken.UNDERLYING_ASSET_ADDRESS(a_token)
-    assert asset = MOCK_TOKEN_1
+    assert asset = MOCK_ASSET_1
 
     let (controller) = IAToken.get_incentives_controller(a_token)
     assert controller = INCENTIVES_CONTROLLER_2

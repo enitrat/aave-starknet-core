@@ -4,7 +4,7 @@ from starkware.cairo.common.alloc import alloc
 from starkware.cairo.common.cairo_builtins import HashBuiltin
 from starkware.cairo.common.math import assert_not_zero
 from starkware.starknet.common.syscalls import library_call_l1_handler, library_call
-from starkware.cairo.common.bool import TRUE, FALSE
+from starkware.cairo.common.bool import FALSE
 
 from contracts.protocol.libraries.aave_upgradeability.proxy_library import Proxy
 from contracts.protocol.libraries.helpers.errors import Errors

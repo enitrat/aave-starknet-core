@@ -2,12 +2,11 @@
 from starkware.starknet.common.syscalls import get_contract_address
 from starkware.cairo.common.cairo_builtins import HashBuiltin
 from starkware.cairo.common.alloc import alloc
-from starkware.cairo.common.bool import TRUE, FALSE
+from starkware.cairo.common.bool import TRUE
 
 from contracts.interfaces.i_a_token import IAToken
 from contracts.interfaces.i_proxy import IProxy
 from contracts.interfaces.i_pool import IPool
-from contracts.interfaces.i_stable_debt_token import IStableDebtToken
 from contracts.interfaces.i_pool_addresses_provider import IPoolAddressesProvider
 from contracts.protocol.libraries.types.data_types import DataTypes
 from contracts.protocol.libraries.helpers.constants import INITIALIZE_SELECTOR

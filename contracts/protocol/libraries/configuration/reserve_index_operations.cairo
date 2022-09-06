@@ -3,7 +3,6 @@
 from starkware.cairo.common.cairo_builtins import HashBuiltin
 from starkware.cairo.common.math_cmp import is_le_felt
 from starkware.cairo.common.bool import TRUE, FALSE
-from contracts.protocol.libraries.helpers.bool_cmp import BoolCompare
 
 # @notice Stores indices of reserve assets in a packed list
 # @dev using prefix UserConfiguration to prevent storage variable clashing

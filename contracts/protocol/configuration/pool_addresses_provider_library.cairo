@@ -1,7 +1,6 @@
 %lang starknet
 
 from starkware.cairo.common.cairo_builtins import HashBuiltin
-from starkware.cairo.common.alloc import alloc
 from starkware.starknet.common.syscalls import deploy, get_contract_address
 
 from openzeppelin.access.ownable.library import Ownable

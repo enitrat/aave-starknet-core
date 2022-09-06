@@ -2,7 +2,6 @@
 
 from starkware.cairo.common.cairo_builtins import HashBuiltin
 from openzeppelin.access.ownable.library import Ownable
-from contracts.interfaces.i_sequencer_oracle import ISequencerOracle
 from contracts.mocks.oracle.sequencer_oracle_library import SequencerOracle
 
 const PRANK_PROVIDER = 100

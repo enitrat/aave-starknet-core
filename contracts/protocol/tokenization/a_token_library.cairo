@@ -1,6 +1,6 @@
 %lang starknet
 
-from starkware.starknet.common.syscalls import get_caller_address, get_contract_address
+from starkware.starknet.common.syscalls import get_caller_address
 from starkware.cairo.common.cairo_builtins import HashBuiltin
 from starkware.cairo.common.bool import TRUE, FALSE
 from starkware.cairo.common.math import assert_not_equal
@@ -10,7 +10,7 @@ from openzeppelin.token.erc20.library import ERC20
 from openzeppelin.token.erc20.IERC20 import IERC20
 
 from contracts.interfaces.i_pool import IPool
-from contracts.protocol.libraries.helpers.bool_cmp import BoolCompare
+from contracts.protocol.libraries.helpers.bool_cmp import BoolCmp
 from contracts.protocol.libraries.math.wad_ray_math import WadRayMath
 from contracts.protocol.libraries.helpers.errors import Errors
 # from contracts.protocol.tokenization.base.incentivized_erc20 import IncentivizedERC20
@@ -45,21 +45,21 @@ end
 #
 
 @storage_var
-func _treasury() -> (res : felt):
+func AToken_treasury() -> (res : felt):
 end
 
 @storage_var
-func _underlying_asset() -> (res : felt):
-end
-
-# should be defined in IncentivizedERC20
-@storage_var
-func _pool() -> (res : felt):
+func AToken_underlying_asset() -> (res : felt):
 end
 
 # should be defined in IncentivizedERC20
 @storage_var
-func _incentives_controller() -> (res : felt):
+func AToken_pool() -> (res : felt):
+end
+
+# should be defined in IncentivizedERC20
+@storage_var
+func AToken_incentives_controller() -> (res : felt):
 end
 
 namespace AToken:
@@ -98,10 +98,10 @@ namespace AToken:
 
         ERC20.initializer(a_token_name, a_token_symbol, a_token_decimals)
 
-        _treasury.write(treasury)
-        _underlying_asset.write(underlying_asset)
-        _incentives_controller.write(incentives_controller)
-        _pool.write(pool)
+        AToken_treasury.write(treasury)
+        AToken_underlying_asset.write(underlying_asset)
+        AToken_incentives_controller.write(incentives_controller)
+        AToken_pool.write(pool)
 
         Initialized.emit(
             underlying_asset,
@@ -239,26 +239,26 @@ namespace AToken:
     func RESERVE_TREASURY_ADDRESS{
         syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr
     }() -> (res : felt):
-        let (res) = _treasury.read()
+        let (res) = AToken_treasury.read()
         return (res)
     end
 
     func UNDERLYING_ASSET_ADDRESS{
         syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr
     }() -> (res : felt):
-        let (res) = _underlying_asset.read()
+        let (res) = AToken_underlying_asset.read()
         return (res)
     end
 
     func POOL{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr}() -> (res : felt):
-        let (res) = _pool.read()
+        let (res) = AToken_pool.read()
         return (res)
     end
 
     func get_incentives_controller{
         syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr
     }() -> (res : felt):
-        let (controller) = _incentives_controller.read()
+        let (controller) = AToken_incentives_controller.read()
         return (controller)
     end
 
@@ -278,7 +278,7 @@ namespace AToken:
     ):
         alloc_locals
 
-        BoolCompare.is_valid(validate)
+        BoolCmp.is_valid(validate)
 
         let (pool) = POOL()
         let (underlying_asset) = UNDERLYING_ASSET_ADDRESS()

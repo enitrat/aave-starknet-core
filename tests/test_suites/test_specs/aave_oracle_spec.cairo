@@ -4,11 +4,8 @@ from starkware.cairo.common.cairo_builtins import HashBuiltin
 from starkware.cairo.common.math import assert_not_zero
 from starkware.starknet.common.syscalls import get_contract_address
 
-from contracts.interfaces.i_aave_oracle import IAaveOracle
 from contracts.misc.aave_oracle_library import AaveOracle
 from contracts.protocol.libraries.helpers.errors import Errors
-
-from tests.utils.constants import USER_1
 
 const MOCK_STORK_ORACLE = 1248760124
 const MOCK_POOL_ADDRESSES_PROVIDER = 7698124

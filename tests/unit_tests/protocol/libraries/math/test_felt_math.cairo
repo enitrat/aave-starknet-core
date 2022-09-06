@@ -2,9 +2,12 @@
 
 from starkware.cairo.common.bool import FALSE, TRUE
 
-from contracts.protocol.libraries.math.feltmath import FeltMath
-from contracts.protocol.libraries.helpers.constants import P, half_P, signed_MIN
-from contracts.protocol.libraries.helpers.bool_cmp import BoolCompare
+from contracts.protocol.libraries.math.felt_math import FeltMath
+from contracts.protocol.libraries.helpers.constants import (
+    CAIRO_FIELD_ORDER,
+    MAX_SIGNED_FELT,
+    MAX_UNSIGNED_FELT,
+)
 
 @view
 func test_add_unsigned{range_check_ptr}():
@@ -12,11 +15,11 @@ func test_add_unsigned{range_check_ptr}():
     assert sum = 1
     assert is_overflow = FALSE
 
-    let (sum, is_overflow) = FeltMath.add_unsigned(half_P, half_P)
-    assert sum = (half_P * 2)
+    let (sum, is_overflow) = FeltMath.add_unsigned(MAX_SIGNED_FELT, MAX_SIGNED_FELT)
+    assert sum = (MAX_SIGNED_FELT * 2)
     assert is_overflow = FALSE
 
-    let (sum, is_overflow) = FeltMath.add_unsigned(half_P, half_P + 1)
+    let (sum, is_overflow) = FeltMath.add_unsigned(MAX_SIGNED_FELT, MAX_SIGNED_FELT + 1)
     assert sum = 0
     assert is_overflow = TRUE
 
@@ -29,16 +32,16 @@ func test_sub_unsigned{range_check_ptr}():
     assert sub = 0
     assert is_underflow = FALSE
 
-    let (sub, is_underflow) = FeltMath.sub_unsigned(half_P, 0)
-    assert sub = half_P
+    let (sub, is_underflow) = FeltMath.sub_unsigned(MAX_SIGNED_FELT, 0)
+    assert sub = MAX_SIGNED_FELT
     assert is_underflow = FALSE
 
-    let (sub, is_underflow) = FeltMath.sub_unsigned(P - 1, half_P)
-    assert sub = half_P
+    let (sub, is_underflow) = FeltMath.sub_unsigned(MAX_UNSIGNED_FELT, MAX_SIGNED_FELT)
+    assert sub = MAX_SIGNED_FELT
     assert is_underflow = FALSE
 
     let (sub, is_underflow) = FeltMath.sub_unsigned(1, 2)
-    assert sub = P - 1
+    assert sub = MAX_UNSIGNED_FELT
     assert is_underflow = TRUE
 
     return ()
@@ -50,16 +53,16 @@ func test_mul_unsigned{range_check_ptr}():
     assert mul = 6
     assert is_overflow = FALSE
 
-    let (mul, is_overflow) = FeltMath.mul_unsigned(half_P, 2)
-    assert mul = P - 1
+    let (mul, is_overflow) = FeltMath.mul_unsigned(MAX_SIGNED_FELT, 2)
+    assert mul = MAX_UNSIGNED_FELT
     assert is_overflow = FALSE
 
-    let (mul, is_overflow) = FeltMath.mul_unsigned(half_P, 3)
-    assert mul = half_P - 1
+    let (mul, is_overflow) = FeltMath.mul_unsigned(MAX_SIGNED_FELT, 3)
+    assert mul = MAX_SIGNED_FELT - 1
     assert is_overflow = TRUE
 
-    let (mul, is_overflow) = FeltMath.mul_unsigned(half_P, 4)
-    assert mul = P - 2
+    let (mul, is_overflow) = FeltMath.mul_unsigned(MAX_SIGNED_FELT, 4)
+    assert mul = CAIRO_FIELD_ORDER - 2
     assert is_overflow = TRUE
 
     return ()
@@ -80,7 +83,7 @@ func test_pow_unsigned{range_check_ptr}():
     assert is_overflow = FALSE
 
     let (pow, is_overflow) = FeltMath.pow_unsigned(2, 252)
-    assert pow = (P - 17 * 2 ** 192 - 1) * 2
+    assert pow = (CAIRO_FIELD_ORDER - 17 * 2 ** 192 - 1) * 2
     assert is_overflow = TRUE
 
     return ()
@@ -96,12 +99,12 @@ func test_add_signed{range_check_ptr}():
     assert sum = 0
     assert is_overflow = FALSE
 
-    let (sum, is_overflow) = FeltMath.add_signed(half_P + 1, half_P + 1)
+    let (sum, is_overflow) = FeltMath.add_signed(MAX_SIGNED_FELT + 1, MAX_SIGNED_FELT + 1)
     assert sum = 1
     assert is_overflow = TRUE
 
-    let (sum, is_overflow) = FeltMath.add_signed(half_P, half_P)
-    assert sum = P - 1
+    let (sum, is_overflow) = FeltMath.add_signed(MAX_SIGNED_FELT, MAX_SIGNED_FELT)
+    assert sum = MAX_UNSIGNED_FELT
     assert is_overflow = TRUE
 
     return ()
@@ -117,12 +120,12 @@ func test_sub_signed{range_check_ptr}():
     assert sum = -2
     assert is_overflow = FALSE
 
-    let (sum, is_overflow) = FeltMath.sub_signed(half_P, half_P + 1)
+    let (sum, is_overflow) = FeltMath.sub_signed(MAX_SIGNED_FELT, MAX_SIGNED_FELT + 1)
     assert sum = -1
     assert is_overflow = TRUE
 
-    let (sum, is_overflow) = FeltMath.sub_signed(-half_P, half_P)
-    assert sum = (-P) + 1
+    let (sum, is_overflow) = FeltMath.sub_signed(-MAX_SIGNED_FELT, MAX_SIGNED_FELT)
+    assert sum = (-CAIRO_FIELD_ORDER) + 1
     assert is_overflow = TRUE
 
     return ()

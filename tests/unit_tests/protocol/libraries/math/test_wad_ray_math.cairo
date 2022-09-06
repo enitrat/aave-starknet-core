@@ -1,6 +1,5 @@
 %lang starknet
 # Starware imports
-from starkware.cairo.common.cairo_builtins import HashBuiltin
 from starkware.cairo.common.uint256 import (
     Uint256,
     uint256_sub,
@@ -10,7 +9,7 @@ from starkware.cairo.common.uint256 import (
 )
 # Internal imports
 from contracts.protocol.libraries.math.wad_ray_math import WadRayMath
-from contracts.protocol.libraries.helpers.constants import UINT128_MAX, uint256_max
+from contracts.protocol.libraries.helpers.constants import uint256_max
 
 #
 # Below are test for expected results when wad/ray inputs are provided to wad/ray functions:

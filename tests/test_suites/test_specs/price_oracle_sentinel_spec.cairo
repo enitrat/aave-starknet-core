@@ -1,20 +1,12 @@
 %lang starknet
 
-from starkware.cairo.common.bool import FALSE, TRUE
 from starkware.cairo.common.cairo_builtins import HashBuiltin
-from starkware.cairo.common.math import assert_not_zero
 from starkware.starknet.common.syscalls import get_contract_address
 
-from openzeppelin.utils.constants.library import DEFAULT_ADMIN_ROLE
-from openzeppelin.access.accesscontrol.library import AccessControl
-from openzeppelin.access.ownable.library import Ownable, Ownable_owner
-
 from contracts.interfaces.i_acl_manager import IACLManager
-from contracts.protocol.configuration.acl_manager_library import ACLManager, FLASH_BORROWER_ROLE
 from contracts.interfaces.i_pool_addresses_provider import IPoolAddressesProvider
 from contracts.interfaces.i_sequencer_oracle import ISequencerOracle
 from contracts.interfaces.i_price_oracle_sentinel import IPriceOracleSentinel
-from contracts.protocol.configuration.price_oracle_sentinel_library import PriceOracleSentinel
 from contracts.protocol.libraries.helpers.errors import Errors
 
 const PRANK_ADMIN_ADDRESS = 2222

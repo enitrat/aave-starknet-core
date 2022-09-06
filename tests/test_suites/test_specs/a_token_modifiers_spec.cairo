@@ -1,15 +1,13 @@
 %lang starknet
 
 from starkware.cairo.common.cairo_builtins import HashBuiltin
-from starkware.starknet.common.syscalls import get_contract_address, get_caller_address
+from starkware.starknet.common.syscalls import get_contract_address
 from starkware.cairo.common.uint256 import Uint256
-from starkware.cairo.common.bool import TRUE, FALSE
+from starkware.cairo.common.bool import TRUE
 
-from contracts.protocol.libraries.math.wad_ray_math import WadRayMath
-from contracts.interfaces.i_pool import IPool
 from contracts.interfaces.i_a_token import IAToken
 from contracts.protocol.libraries.helpers.errors import Errors
-from tests.utils.constants import UNDEPLOYED_RESERVE, USER_1, USER_2
+from tests.utils.constants import USER_1, USER_2
 
 func get_contract_addresses() -> (
     pool_address : felt, token_address : felt, a_token_address : felt

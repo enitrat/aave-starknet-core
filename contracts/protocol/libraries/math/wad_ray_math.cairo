@@ -5,7 +5,6 @@ from starkware.cairo.common.uint256 import (
     uint256_sub,
     uint256_mul,
     uint256_unsigned_div_rem,
-    uint256_le,
 )
 from starkware.cairo.common.bool import TRUE, FALSE
 

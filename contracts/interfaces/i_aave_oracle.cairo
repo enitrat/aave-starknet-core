@@ -1,8 +1,5 @@
 %lang starknet
 
-from starkware.cairo.common.cairo_builtins import HashBuiltin
-from contracts.misc.aave_oracle_library import AaveOracle
-
 @contract_interface
 namespace IAaveOracle:
     func ADDRESSES_PROVIDER() -> (provider : felt):

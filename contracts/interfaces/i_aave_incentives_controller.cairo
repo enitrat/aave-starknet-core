@@ -1,9 +1,6 @@
 %lang starknet
 
-from starkware.cairo.common.cairo_builtins import HashBuiltin
 from starkware.cairo.common.uint256 import Uint256
-
-from contracts.misc.aave_oracle_library import AaveOracle
 
 @contract_interface
 namespace IAaveIncentivesController:

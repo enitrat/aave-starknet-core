@@ -1,8 +1,8 @@
 from starkware.cairo.common.math_cmp import is_le_felt
 from starkware.cairo.common.math import assert_le_felt, assert_lt_felt
 from starkware.cairo.common.bool import FALSE, TRUE
-from contracts.protocol.libraries.helpers.bool_cmp import BoolCompare
-from contracts.protocol.libraries.helpers.constants import P, half_P, signed_MIN
+from contracts.protocol.libraries.helpers.bool_cmp import BoolCmp
+from contracts.protocol.libraries.helpers.constants import MAX_SIGNED_FELT, MIN_SIGNED_FELT
 
 # @notice Function checks if the a < b. Interprets a, b in range [0, P)
 # @dev Internal function meant to only be used by functions of SafeCmp library
@@ -65,7 +65,7 @@ namespace SafeCmp:
         end
         let (ok_low) = is_le_felt(low, value)
         let (ok_high) = _is_lt_felt(value, high)
-        let (res) = BoolCompare.both(ok_low, ok_high)
+        let (res) = BoolCmp.both(ok_low, ok_high)
         return (res)
     end
 
@@ -112,7 +112,7 @@ namespace SafeCmp:
     # @param a Signed felt integer
     # @returns res Bool felt indicating if 0 <= value < floor(P/2) + 1 (Recall : floor(P/2) = (P-1)/2)
     func is_nn_signed{range_check_ptr}(value : felt) -> (res : felt):
-        return _is_lt_felt(value, signed_MIN)
+        return _is_lt_felt(value, MIN_SIGNED_FELT)
     end
 
     # @notice Checks if the a <= b. Interprets a, b in range [floor(-P/2), floor(P/2)] (Recall : floor(P/2) = (P-1)/2)
@@ -121,7 +121,7 @@ namespace SafeCmp:
     # @param b Signed felt integer
     # @returns res Bool felt indicating if a <= b
     func is_le_signed{range_check_ptr}(a : felt, b : felt) -> (res : felt):
-        return is_le_felt(a + half_P, b + half_P)
+        return is_le_felt(a + MAX_SIGNED_FELT, b + MAX_SIGNED_FELT)
     end
 
     # @notice Checks if the a < b. Interprets a, b in range [floor(-P/2), floor(P/2)]
@@ -130,7 +130,7 @@ namespace SafeCmp:
     # @param b Signed felt integer
     # @returns res Bool felt indicating if a < b
     func is_lt_signed{range_check_ptr}(a : felt, b : felt) -> (res : felt):
-        return _is_lt_felt(a + half_P, b + half_P)
+        return _is_lt_felt(a + MAX_SIGNED_FELT, b + MAX_SIGNED_FELT)
     end
 
     # @notice Checks if the [low, high). Interprets value, low, high in range [floor(-P/2), floor(P/2)]
@@ -140,14 +140,16 @@ namespace SafeCmp:
     # @param high Signed felt integer, upper bound of the range
     # @returns res Bool felt indicating if value is in [low, high) range
     func is_in_range_signed{range_check_ptr}(value : felt, low : felt, high : felt) -> (res : felt):
-        return is_in_range_unsigned(value + half_P, low + half_P, high + half_P)
+        return is_in_range_unsigned(
+            value + MAX_SIGNED_FELT, low + MAX_SIGNED_FELT, high + MAX_SIGNED_FELT
+        )
     end
 
     # @notice Asserts that a is non-negative integer, i.e. 0 <= a < floor(P/2) + 1. Interprets a in range [floor(-P/2), floor(P/2)]
     # @dev Note that floor(-P/2) is equal to floor(P/2) + 1. If felt is signed, then negative numbers are [floor(P/2)+1, P-1]
     # @param a Signed felt integer
     func assert_nn_signed{range_check_ptr}(value : felt):
-        assert_lt_felt(value, signed_MIN)
+        assert_lt_felt(value, MIN_SIGNED_FELT)
         return ()
     end
 
@@ -156,7 +158,7 @@ namespace SafeCmp:
     # @param a Signed felt integer
     # @param b Signed felt integer
     func assert_le_signed{range_check_ptr}(a : felt, b : felt):
-        assert_le_felt(a + half_P, b + half_P)
+        assert_le_felt(a + MAX_SIGNED_FELT, b + MAX_SIGNED_FELT)
         return ()
     end
 
@@ -165,7 +167,7 @@ namespace SafeCmp:
     # @param a Signed felt integer
     # @param b Signed felt integer
     func assert_lt_signed{range_check_ptr}(a : felt, b : felt):
-        assert_lt_felt(a + half_P, b + half_P)
+        assert_lt_felt(a + MAX_SIGNED_FELT, b + MAX_SIGNED_FELT)
         return ()
     end
 
@@ -175,7 +177,9 @@ namespace SafeCmp:
     # @param low Signed felt integer, lower bound of the range
     # @param high Signed felt integer, upper bound of the range
     func assert_in_range_signed{range_check_ptr}(value : felt, low : felt, high : felt):
-        assert_in_range_unsigned(value + half_P, low + half_P, high + half_P)
+        assert_in_range_unsigned(
+            value + MAX_SIGNED_FELT, low + MAX_SIGNED_FELT, high + MAX_SIGNED_FELT
+        )
         return ()
     end
 end

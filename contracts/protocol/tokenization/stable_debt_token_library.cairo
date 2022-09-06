@@ -2,7 +2,7 @@
 
 from starkware.cairo.common.cairo_builtins import HashBuiltin
 from starkware.cairo.common.math_cmp import is_not_zero
-from starkware.cairo.common.uint256 import Uint256, uint256_eq, uint256_le, uint256_lt
+from starkware.cairo.common.uint256 import Uint256, uint256_eq
 from starkware.cairo.common.bool import TRUE
 from starkware.starknet.common.syscalls import get_block_timestamp
 

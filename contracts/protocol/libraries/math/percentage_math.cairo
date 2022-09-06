@@ -2,8 +2,6 @@ from starkware.cairo.common.uint256 import (
     Uint256,
     uint256_eq,
     uint256_sub,
-    uint256_le,
-    uint256_lt,
     uint256_unsigned_div_rem,
     uint256_mul,
     uint256_add,

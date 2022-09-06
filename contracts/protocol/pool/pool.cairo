@@ -1,6 +1,6 @@
 %lang starknet
 
-from starkware.cairo.common.bool import TRUE, FALSE
+from starkware.cairo.common.bool import TRUE
 from starkware.cairo.common.cairo_builtins import HashBuiltin
 from starkware.cairo.common.math import assert_not_zero
 from starkware.cairo.common.math_cmp import is_not_zero
@@ -10,7 +10,7 @@ from starkware.starknet.common.syscalls import get_caller_address
 from contracts.interfaces.i_pool_addresses_provider import IPoolAddressesProvider
 from contracts.interfaces.i_acl_manager import IACLManager
 from contracts.protocol.libraries.helpers.helpers import is_zero
-from contracts.protocol.libraries.helpers.bool_cmp import BoolCompare
+from contracts.protocol.libraries.helpers.bool_cmp import BoolCmp
 from contracts.protocol.pool.pool_storage import PoolStorage
 from contracts.protocol.libraries.aave_upgradeability.versioned_initializable_library import (
     VersionedInitializable,
@@ -158,7 +158,7 @@ func init_reserve{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_
         ),
     )
     if appended == TRUE:
-        PoolStorage.reserve_count_write(reserves_count + 1)
+        PoolStorage.reserves_count_write(reserves_count + 1)
         tempvar syscall_ptr = syscall_ptr
         tempvar pedersen_ptr = pedersen_ptr
         tempvar range_check_ptr = range_check_ptr
@@ -197,7 +197,7 @@ func set_configuration{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_c
     let (is_id_not_zero) = is_not_zero(reserve.id)
     let (first_asset) = Pool.get_reserve_address_by_id(0)
     let (is_first_asset) = is_zero(first_asset - asset)
-    let (is_asset_listed) = BoolCompare.either(is_id_not_zero, is_first_asset)
+    let (is_asset_listed) = BoolCmp.either(is_id_not_zero, is_first_asset)
     let error_code = Errors.ASSET_NOT_LISTED
     with_attr error_message("{error_code}"):
         assert is_asset_listed = TRUE

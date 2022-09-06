@@ -6,17 +6,20 @@ on:
       - main
   pull_request:
 
+env:
+  CAIRO_VERSION: "0.9.1"
+
 jobs:
   test:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: ["3.7"]
+        python-version: ["3.7"] # Cairo was tested with this version
     steps:
       - uses: actions/checkout@v3
 
       - name: install cairo
-        run: pip install cairo-lang
+        run: pip install cairo-lang==$CAIRO_VERSION
 
       - name: format contracts
         run: find contracts/ -iname '*.cairo' -exec cairo-format -c {} +

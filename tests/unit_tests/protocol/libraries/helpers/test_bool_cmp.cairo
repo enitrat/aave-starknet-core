@@ -2,21 +2,21 @@
 
 from starkware.cairo.common.bool import TRUE, FALSE
 
-from contracts.protocol.libraries.helpers.bool_cmp import BoolCompare
+from contracts.protocol.libraries.helpers.bool_cmp import BoolCmp
 
 @external
 func test_is_valid{range_check_ptr}():
-    BoolCompare.is_valid(0)
-    BoolCompare.is_valid(1)
+    BoolCmp.is_valid(0)
+    BoolCmp.is_valid(1)
     %{ expect_revert(error_message="Value should be either 0 or 1. Current value: 2") %}
-    BoolCompare.is_valid(2)
+    BoolCmp.is_valid(2)
     return ()
 end
 
 @external
 func test_eq{range_check_ptr}():
-    let (true) = BoolCompare.eq(0, 0)
-    let (false) = BoolCompare.eq(1, 0)
+    let (true) = BoolCmp.eq(0, 0)
+    let (false) = BoolCmp.eq(1, 0)
     assert true = TRUE
     assert false = FALSE
     return ()
@@ -24,9 +24,9 @@ end
 
 @external
 func test_either{range_check_ptr}():
-    let (false) = BoolCompare.either(0, 0)
-    let (true_1) = BoolCompare.either(1, 1)
-    let (true_2) = BoolCompare.either(1, 0)
+    let (false) = BoolCmp.either(0, 0)
+    let (true_1) = BoolCmp.either(1, 1)
+    let (true_2) = BoolCmp.either(1, 0)
     assert true_1 = TRUE
     assert true_2 = TRUE
     assert false = FALSE
@@ -35,10 +35,10 @@ end
 
 @external
 func test_both{range_check_ptr}():
-    let (true) = BoolCompare.both(1, 1)
-    let (false_1) = BoolCompare.both(1, 0)
-    let (false_2) = BoolCompare.both(0, 1)
-    let (false_3) = BoolCompare.both(0, 0)
+    let (true) = BoolCmp.both(1, 1)
+    let (false_1) = BoolCmp.both(1, 0)
+    let (false_2) = BoolCmp.both(0, 1)
+    let (false_3) = BoolCmp.both(0, 0)
     assert true = TRUE
     assert false_1 = FALSE
     assert false_2 = FALSE
@@ -48,8 +48,8 @@ end
 
 @external
 func test_not{range_check_ptr}():
-    let (true) = BoolCompare.not(0)
-    let (false) = BoolCompare.not(1)
+    let (true) = BoolCmp.not(0)
+    let (false) = BoolCmp.not(1)
     assert true = TRUE
     assert false = FALSE
     return ()

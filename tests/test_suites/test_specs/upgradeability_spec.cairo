@@ -4,14 +4,10 @@ from starkware.cairo.common.cairo_builtins import HashBuiltin
 
 from contracts.interfaces.i_proxy import IProxy
 from contracts.protocol.libraries.helpers.constants import INITIALIZE_SELECTOR
-from contracts.mocks.i_mock_initializable_implementation import (
-    IMockInitializableImplementation,
-    IMockInitializableReentrantImplementation,
-)
+from contracts.mocks.i_mock_initializable_implementation import IMockInitializableImplementation
 from contracts.mocks.mock_initializable_implementation_library import (
     MockInitializableImplementation,
 )
-from tests.utils.constants import USER_1
 
 const INIT_VALUE = 10
 const INIT_TEXT = 'text'

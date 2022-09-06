@@ -1,12 +1,11 @@
 %lang starknet
 
-from starkware.cairo.common.alloc import alloc
 from starkware.cairo.common.cairo_builtins import HashBuiltin
 from starkware.starknet.common.syscalls import get_contract_address
 
 from contracts.interfaces.i_proxy import IProxy
 from contracts.protocol.libraries.helpers.constants import INITIALIZE_SELECTOR
-from tests.utils.constants import USER_1, USER_2
+from tests.utils.constants import USER_1
 
 @contract_interface
 namespace IToken:

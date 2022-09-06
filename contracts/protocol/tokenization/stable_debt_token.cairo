@@ -8,7 +8,6 @@ from openzeppelin.token.erc20.library import ERC20
 from contracts.protocol.tokenization.base.incentivized_erc20_library import IncentivizedERC20
 from contracts.protocol.tokenization.base.debt_token_base_library import DebtTokenBase
 from contracts.protocol.tokenization.stable_debt_token_library import StableDebtToken
-from contracts.protocol.libraries.types.data_types import DataTypes
 
 @external
 func initialize{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr}(

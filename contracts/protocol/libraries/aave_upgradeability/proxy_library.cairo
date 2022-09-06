@@ -2,7 +2,7 @@
 
 from starkware.starknet.common.syscalls import get_caller_address
 from starkware.cairo.common.cairo_builtins import HashBuiltin
-from starkware.cairo.common.bool import TRUE, FALSE
+from starkware.cairo.common.bool import TRUE
 from starkware.cairo.common.math import assert_not_zero
 
 #

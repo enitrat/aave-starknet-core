@@ -5,11 +5,11 @@ from starkware.cairo.common.cairo_builtins import HashBuiltin
 from openzeppelin.access.ownable.library import Ownable
 
 @storage_var
-func _SequencerOracle_is_down() -> (is_down : felt):
+func SequencerOracle_is_down() -> (is_down : felt):
 end
 
 @storage_var
-func _SequencerOracle_timestamp_got_up() -> (timestamp : felt):
+func SequencerOracle_timestamp_got_up() -> (timestamp : felt):
 end
 
 namespace SequencerOracle:
@@ -26,8 +26,8 @@ namespace SequencerOracle:
         is_down : felt, timestamp : felt
     ):
         Ownable.assert_only_owner()
-        _SequencerOracle_is_down.write(is_down)
-        _SequencerOracle_timestamp_got_up.write(timestamp)
+        SequencerOracle_is_down.write(is_down)
+        SequencerOracle_timestamp_got_up.write(timestamp)
         return ()
     end
 
@@ -38,8 +38,8 @@ namespace SequencerOracle:
         update_at : felt,
         answered_in_round : felt,
     ):
-        let (is_down) = _SequencerOracle_is_down.read()
-        let (ts) = _SequencerOracle_timestamp_got_up.read()
+        let (is_down) = SequencerOracle_is_down.read()
+        let (ts) = SequencerOracle_timestamp_got_up.read()
         if is_down == 1:
             return (0, 1, 0, ts, 0)
         else:

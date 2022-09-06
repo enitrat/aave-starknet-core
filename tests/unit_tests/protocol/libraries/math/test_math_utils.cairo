@@ -1,5 +1,5 @@
 %lang starknet
-from starkware.starknet.common.syscalls import get_block_timestamp
+
 from starkware.cairo.common.cairo_builtins import HashBuiltin
 from starkware.cairo.common.uint256 import Uint256
 from contracts.protocol.libraries.math.wad_ray_math import WadRayMath

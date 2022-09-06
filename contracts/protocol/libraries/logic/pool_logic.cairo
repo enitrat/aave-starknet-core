@@ -6,7 +6,7 @@ from starkware.cairo.common.math import assert_lt_felt
 from starkware.cairo.common.math_cmp import is_not_zero
 from starkware.cairo.lang.compiler.lib.registers import get_fp_and_pc
 
-from contracts.protocol.libraries.helpers.bool_cmp import BoolCompare
+from contracts.protocol.libraries.helpers.bool_cmp import BoolCmp
 from contracts.protocol.libraries.helpers.errors import Errors
 from contracts.protocol.libraries.helpers.constants import empty_reserve_data
 from contracts.protocol.libraries.helpers.helpers import is_zero, update_struct
@@ -40,7 +40,7 @@ namespace PoolLogic:
 
         let error_code = Errors.ADDRESSES_PROVIDER_ALREADY_ADDED
         with_attr error_message("{error_code}"):
-            let (reserve_already_added) = BoolCompare.either(is_id_not_zero, is_asset_first)
+            let (reserve_already_added) = BoolCmp.either(is_id_not_zero, is_asset_first)
             assert reserve_already_added = FALSE
         end
 
