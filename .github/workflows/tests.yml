@@ -4,7 +4,12 @@ on:
   push:
     branches:
       - main
+    paths-ignore:
+      - "**.md"
+      - ".github/docs/**"
   pull_request:
+    paths-ignore:
+      - "**.md"
 
 env:
   PROTOSTAR_VERSION: "0.3.2"
@@ -14,7 +19,13 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: ["3.7"] # Cairo was tested with this version
+        tests:
+          [
+            "unit_tests",
+            "test_suites/with_deployment",
+            "test_suites/without_deployment",
+          ]
+        python-version: ["3.7"]
     steps:
       - uses: actions/checkout@v3
 
@@ -35,4 +46,4 @@ jobs:
 
       - name: Run tests
         run: |
-          export PATH="$PATH:/home/runner/.protostar/dist/protostar" && protostar test ./tests
+          export PATH="$PATH:/home/runner/.protostar/dist/protostar" && protostar test ./tests/${{ matrix.tests }}
