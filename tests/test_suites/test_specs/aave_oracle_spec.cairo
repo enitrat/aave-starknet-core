@@ -7,7 +7,9 @@ from starkware.starknet.common.syscalls import get_contract_address
 from contracts.misc.aave_oracle_library import AaveOracle
 from contracts.protocol.libraries.helpers.errors import Errors
 
-const MOCK_STORK_ORACLE = 1248760124
+from tests.utils.constants import USER_1
+
+const MOCK_EMPIRIC_ORACLE = 1248760124
 const MOCK_POOL_ADDRESSES_PROVIDER = 7698124
 const MOCK_ACL_MANAGER = 78039852
 const MOCK_ERC20 = 098798235
@@ -18,9 +20,9 @@ func before_each{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_p
     oracle_address : felt, erc20_address : felt
 ):
     let (contract_address) = get_contract_address()
-    %{ store(ids.contract_address, "AaveOracle_oracle_address",[ids.MOCK_STORK_ORACLE]) %}
+    %{ store(ids.contract_address, "AaveOracle_oracle_address",[ids.MOCK_EMPIRIC_ORACLE]) %}
     %{ store(ids.contract_address, "AaveOracle_addresses_provider",[ids.MOCK_POOL_ADDRESSES_PROVIDER]) %}
-    return (MOCK_STORK_ORACLE, MOCK_ERC20)
+    return (MOCK_EMPIRIC_ORACLE, MOCK_ERC20)
 end
 
 func mock_owner{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr}():
@@ -45,10 +47,10 @@ namespace TestAaveOracle:
             stored_address = load(ids.contract_address,"AaveOracle_oracle_address", "felt") 
             ids.stored_address = stored_address[0]
         %}
-        assert stored_address = MOCK_STORK_ORACLE
+        assert stored_address = MOCK_EMPIRIC_ORACLE
 
         # Verify asset is not registered
-        %{ stop_mock_get_value = mock_call(ids.MOCK_STORK_ORACLE, "get_value",[0,0,0,0,0]) %}
+        %{ stop_mock_get_value = mock_call(ids.MOCK_EMPIRIC_ORACLE, "get_value",[0, 0, 0, 0]) %}
         let (prior_ticker) = AaveOracle.get_ticker_of_asset(erc20_address)
         let (prior_asset_price) = AaveOracle.get_asset_price(erc20_address)
         let (prior_assets_prices_len, prior_assets_prices) = AaveOracle.get_assets_prices(
@@ -65,7 +67,7 @@ namespace TestAaveOracle:
 
         # Verify asset is registered and price is returned
         let (asset_ticker) = AaveOracle.get_ticker_of_asset(erc20_address)
-        %{ stop_mock_get_value = mock_call(ids.MOCK_STORK_ORACLE, "get_value",[0,ids.ERC20_PRICE,0,0,0]) %}
+        %{ stop_mock_get_value = mock_call(ids.MOCK_EMPIRIC_ORACLE, "get_value",[ids.ERC20_PRICE, 0, 0, 0]) %}
         let (asset_price) = AaveOracle.get_asset_price(erc20_address)
         let (assets_prices_len, assets_prices) = AaveOracle.get_assets_prices(
             1, new (erc20_address)
@@ -93,7 +95,7 @@ namespace TestAaveOracle:
         AaveOracle.set_assets_tickers(1, new (erc20_address), 1, new (ERC20_TICKER))
 
         # Verify update
-        %{ stop_mock_get_value = mock_call(ids.MOCK_STORK_ORACLE, "get_value",[0,ids.ERC20_PRICE,0,0,0]) %}
+        %{ stop_mock_get_value = mock_call(ids.MOCK_EMPIRIC_ORACLE, "get_value",[ids.ERC20_PRICE, 0, 0, 0]) %}
         let (asset_ticker) = AaveOracle.get_ticker_of_asset(erc20_address)
         let (asset_price) = AaveOracle.get_asset_price(erc20_address)
         assert asset_ticker = ERC20_TICKER

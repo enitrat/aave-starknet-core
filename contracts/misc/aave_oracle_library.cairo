@@ -5,7 +5,8 @@ from starkware.cairo.common.math_cmp import is_nn
 from starkware.starknet.common.syscalls import get_caller_address
 from starkware.cairo.common.bool import TRUE
 from starkware.cairo.common.alloc import alloc
-from contracts.dependencies.stork.i_oracle_proxy import IOracleProxy
+from starkware.cairo.common.math import split_felt
+from contracts.dependencies.empiric.i_oracle_proxy import IEmpiricOracle, EmpiricAggregationModes
 from contracts.interfaces.i_pool_addresses_provider import IPoolAddressesProvider
 from contracts.interfaces.i_acl_manager import IACLManager
 from contracts.protocol.libraries.helpers.bool_cmp import BoolCmp
@@ -252,8 +253,9 @@ func _read_price_from_oracle{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, r
 ) -> (price : felt):
     alloc_locals
     let (oracle_address) = AaveOracle_oracle_address.read()
-    let (price_tick) = IOracleProxy.get_value(oracle_address, ticker)
-    local price = price_tick.value
+    let (price, _, _, _) = IEmpiricOracle.get_value(
+        oracle_address, ticker, EmpiricAggregationModes.MEDIAN
+    )
     let (price_above_zero) = is_nn(price)
     let (price_is_zero) = is_zero(price)
     let (either) = BoolCmp.either(price_above_zero, price_is_zero)
