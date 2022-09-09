@@ -25,7 +25,7 @@ To install dependencies:
 To run the tests:
 
 ```bash
- protostar test ./tests/
+ protostar test
 ```
 
 ## Deploying on starknet-devnet

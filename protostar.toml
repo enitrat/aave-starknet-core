@@ -17,10 +17,12 @@ pool = [
 pool_addresses_provider = [
     "./contracts/protocol/configuration/pool_addresses_provider.cairo",
 ]
+pool_configurator = [
+    "./contracts/protocol/pool/pool_configurator.cairo",
+]
 stable_debt_token = [
     "./contracts/protocol/tokenization/stable_debt_token.cairo",
 ]
-
 variable_debt_token = [
     "./contracts/protocol/tokenization/variable_debt_token.cairo",
 ]

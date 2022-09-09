@@ -30,7 +30,7 @@ namespace BoolCmp:
 
     func not(x : felt) -> (res : felt):
         assert x * x = x
-        let res = (x - 1) * (x - 1)
+        let res = (1 - x)
         return (res=res)
     end
 end

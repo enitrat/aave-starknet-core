@@ -21,7 +21,7 @@ func __setup__{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr
     let (deployer) = get_contract_address()
     %{
         context.proxy_address = deploy_contract("./contracts/protocol/libraries/aave_upgradeability/initializable_immutable_admin_upgradeability_proxy.cairo", {"proxy_admin": ids.deployer}).contract_address
-        context.implementation_hash = declare("./tests/contracts/mock_token.cairo").class_hash
+        context.implementation_hash = declare("./tests/mocks/mock_token.cairo").class_hash
     %}
 
     tempvar proxy

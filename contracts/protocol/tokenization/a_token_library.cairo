@@ -4,7 +4,7 @@ from starkware.starknet.common.syscalls import get_caller_address
 from starkware.cairo.common.cairo_builtins import HashBuiltin
 from starkware.cairo.common.bool import TRUE, FALSE
 from starkware.cairo.common.math import assert_not_equal
-from starkware.cairo.common.uint256 import Uint256
+from starkware.cairo.common.uint256 import Uint256, uint256_eq
 
 from openzeppelin.token.erc20.library import ERC20
 from openzeppelin.token.erc20.IERC20 import IERC20
@@ -13,7 +13,7 @@ from contracts.interfaces.i_pool import IPool
 from contracts.protocol.libraries.helpers.bool_cmp import BoolCmp
 from contracts.protocol.libraries.math.wad_ray_math import WadRayMath
 from contracts.protocol.libraries.helpers.errors import Errors
-# from contracts.protocol.tokenization.base.incentivized_erc20 import IncentivizedERC20
+from contracts.protocol.tokenization.base.incentivized_erc20_library import IncentivizedERC20
 # from contracts.protocol.tokenization.base.scaled_balance_token_base import ScaledBalanceTokenBase
 
 #
@@ -189,18 +189,21 @@ namespace AToken:
         return (balance)
     end
 
-    # func total_supply{
-    #     syscall_ptr : felt*,
-    #     pedersen_ptr : HashBuiltin*,
-    #     range_check_ptr
-    # }() -> (supply : felt):
-    #     let (current_supply_scaled) = IncentivizedERC20.total_supply()
-    #     if current_supply_scaled == 0:
-    #         return (supply=0)
-    #     end
-    #     let (supply) = ray_mul(current_supply_scaled, IPool.get_reserve_normalized_income(_pool.read(), _underlying_asset.read()))
-    #     return (supply)
-    # end
+    func total_supply{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr}() -> (
+        supply : Uint256
+    ):
+        alloc_locals
+        let (current_supply_scaled) = IncentivizedERC20.total_supply()
+        let (is_zero) = uint256_eq(current_supply_scaled, Uint256(0, 0))
+        if is_zero == TRUE:
+            return (supply=Uint256(0, 0))
+        end
+        let (pool) = AToken_pool.read()
+        let (asset) = AToken_underlying_asset.read()
+        let (rate) = IPool.get_reserve_normalized_income(pool, asset)
+        let (supply) = WadRayMath.ray_mul(current_supply_scaled, rate)
+        return (supply)
+    end
 
     func transfer_underlying_to{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr}(
         target : felt, amount : Uint256

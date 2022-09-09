@@ -59,7 +59,7 @@ func __setup__{syscall_ptr : felt*, range_check_ptr}():
         # declare class implementation of Pool
         context.implementation_hash = declare("./contracts/protocol/pool/pool.cairo").class_hash
         # declare class implementation of mock_pool_v2
-        context.new_implementation_hash = declare("./tests/contracts/mock_pool_v2.cairo").class_hash
+        context.new_implementation_hash = declare("./tests/mocks/mock_pool_v2.cairo").class_hash
 
         # declare proxy_class_hash so that starknet knows about it. It's required to deploy proxies from PoolAddressesProvider
         declared_proxy = declare("./contracts/protocol/libraries/aave_upgradeability/initializable_immutable_admin_upgradeability_proxy.cairo")

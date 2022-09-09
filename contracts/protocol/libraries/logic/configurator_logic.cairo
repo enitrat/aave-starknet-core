@@ -62,7 +62,6 @@ namespace ConfiguratorLogic:
             cast(new (pool, input.underlying_asset, input.incentives_controller, input.underlying_asset_decimals, input.stable_debt_token_name, input.stable_debt_token_symbol, input.params), felt*),
         )
 
-        # TODO: update this once we implement variable debt token
         let (variable_debt_token_proxy_address) = _init_token_with_proxy(
             input.variable_debt_token_impl,
             input.proxy_class_hash,
@@ -111,9 +110,7 @@ namespace ConfiguratorLogic:
         alloc_locals
 
         let (reserve) = IPool.get_reserve_data(pool, input.asset)
-
         let (config) = IPool.get_configuration(pool, input.asset)
-        let decimals = config.decimals
 
         _upgrade_token_implementation(
             reserve.a_token_address,
@@ -125,7 +122,7 @@ namespace ConfiguratorLogic:
             input.treasury,
             input.asset,
             input.incentives_controller,
-            decimals,
+            config.decimals,
             input.name,
             input.symbol
             ), felt*),
@@ -142,8 +139,7 @@ namespace ConfiguratorLogic:
         alloc_locals
 
         let (reserve) = IPool.get_reserve_data(pool, input.asset)
-
-        let (decimals) = IPool.get_configuration(pool, input.underlying_asset).decimals
+        let (config) = IPool.get_configuration(pool, input.asset)
 
         _upgrade_token_implementation(
             reserve.stable_debt_token_address,
@@ -154,7 +150,7 @@ namespace ConfiguratorLogic:
             pool,
             input.asset,
             input.incentives_controller,
-            decimals,
+            config.decimals,
             input.name,
             input.symbol,
             input.params,
@@ -174,8 +170,7 @@ namespace ConfiguratorLogic:
         alloc_locals
 
         let (reserve) = IPool.get_reserve_data(pool, input.asset)
-
-        let (decimals) = IPool.get_configuration(pool, input.underlying_asset).decimals
+        let (config) = IPool.get_configuration(pool, input.asset)
 
         _upgrade_token_implementation(
             reserve.variable_debt_token_address,
@@ -186,7 +181,7 @@ namespace ConfiguratorLogic:
             pool,
             input.asset,
             input.incentives_controller,
-            decimals,
+            config.decimals,
             input.name,
             input.symbol,
             input.params,

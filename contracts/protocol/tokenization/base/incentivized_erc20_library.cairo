@@ -50,93 +50,6 @@ end
 func IncentivizedERC20_owner() -> (owner : felt):
 end
 
-#
-# Internal
-#
-
-#
-# @notice Transfers tokens between two users and apply incentives if defined.
-# @param sender The source address
-# @param recipient The destination address
-# @param amount The amount getting transferred
-# @dev the amount should be passed as uint128 according to solidity code. TODO: should it?
-#
-func _transfer{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr}(
-    sender : felt, recipient : felt, amount : Uint256
-) -> ():
-    let error_code = Errors.ZERO_ADDRESS_NOT_VALID
-    with_attr error_message("{error_code}"):
-        assert_not_zero(sender)
-    end
-
-    let (amount_felt) = to_felt(amount)
-
-    let (sender_state) = IncentivizedERC20_user_state.read(sender)
-    let old_sender_balance = sender_state.balance
-    let (old_sender_balance_256) = to_uint256(old_sender_balance)
-    with_attr error_message("Transfer amount exceeds balance"):
-        assert_le_felt(amount_felt, old_sender_balance)
-    end
-
-    let new_sender_balance = old_sender_balance - amount_felt
-
-    let new_sender_state = DataTypes.UserState(new_sender_balance, sender_state.additional_data)
-    IncentivizedERC20_user_state.write(sender, new_sender_state)
-
-    let (recipient_state) = IncentivizedERC20_user_state.read(recipient)
-    let recipient_balance = recipient_state.balance
-    let (recipient_balance_256) = to_uint256(recipient_balance)
-    let new_recipient_balance = recipient_balance + amount_felt
-    let new_recipient_state = DataTypes.UserState(
-        new_recipient_balance, recipient_state.additional_data
-    )
-    IncentivizedERC20_user_state.write(recipient, new_recipient_state)
-
-    Transfer.emit(sender, recipient, amount)
-
-    let (incentives_controller) = IncentivizedERC20_incentives_controller.read()
-    let (incentives_controller_not_zero) = is_not_zero(incentives_controller)
-
-    let (total_supply) = IncentivizedERC20_total_supply.read()
-
-    if incentives_controller_not_zero == TRUE:
-        IAaveIncentivesController.handle_action(
-            contract_address=incentives_controller,
-            account=sender,
-            user_balance=old_sender_balance_256,
-            total_supply=total_supply,
-        )
-        let (sender_not_the_recipient) = is_not_zero(sender - recipient)
-        if sender_not_the_recipient == TRUE:
-            IAaveIncentivesController.handle_action(
-                contract_address=incentives_controller,
-                account=recipient,
-                user_balance=recipient_balance_256,
-                total_supply=total_supply,
-            )
-            return ()
-        end
-        return ()
-    end
-    return ()
-end
-
-#
-# @notice Approve `spender` to use `amount` of `owner`s balance
-# @param owner The address owning the tokens
-# @param spender The address approved for spending
-# @param amount The amount of tokens to approve spending of
-#
-func _approve{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr}(
-    owner : felt, spender : felt, amount : Uint256
-) -> ():
-    IncentivizedERC20_allowances.write(owner, spender, amount)
-
-    Approval.emit(owner, spender, amount)
-
-    return ()
-end
-
 namespace IncentivizedERC20:
     #
     # Modifiers
@@ -257,7 +170,7 @@ namespace IncentivizedERC20:
         syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr
     }(incentives_controller : felt):
         assert_only_pool_admin()
-        IncentivizedERC20_incentives_controller.write(incentives_controller)
+        _set_incentives_controller(incentives_controller)
         return ()
     end
 
@@ -369,5 +282,103 @@ namespace IncentivizedERC20:
         _approve(caller_address, spender, new_allowance)
 
         return (TRUE)
+    end
+
+    #
+    # Internal
+    #
+
+    #
+    # @notice Sets address of incentives controller as storage variable
+    # @param incentives_controller The address of incentives controller
+    #
+    func _set_incentives_controller{
+        syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr
+    }(incentives_controller : felt) -> ():
+        IncentivizedERC20_incentives_controller.write(incentives_controller)
+        return ()
+    end
+
+    #
+    # @notice Transfers tokens between two users and apply incentives if defined.
+    # @param sender The source address
+    # @param recipient The destination address
+    # @param amount The amount getting transferred
+    # @dev the amount should be passed as uint128 according to solidity code. TODO: should it?
+    #
+    func _transfer{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr}(
+        sender : felt, recipient : felt, amount : Uint256
+    ) -> ():
+        let error_code = Errors.ZERO_ADDRESS_NOT_VALID
+        with_attr error_message("{error_code}"):
+            assert_not_zero(sender)
+        end
+
+        let (amount_felt) = to_felt(amount)
+
+        let (sender_state) = IncentivizedERC20_user_state.read(sender)
+        let old_sender_balance = sender_state.balance
+        let (old_sender_balance_256) = to_uint256(old_sender_balance)
+        with_attr error_message("Transfer amount exceeds balance"):
+            assert_le_felt(amount_felt, old_sender_balance)
+        end
+
+        let new_sender_balance = old_sender_balance - amount_felt
+
+        let new_sender_state = DataTypes.UserState(new_sender_balance, sender_state.additional_data)
+        IncentivizedERC20_user_state.write(sender, new_sender_state)
+
+        let (recipient_state) = IncentivizedERC20_user_state.read(recipient)
+        let recipient_balance = recipient_state.balance
+        let (recipient_balance_256) = to_uint256(recipient_balance)
+        let new_recipient_balance = recipient_balance + amount_felt
+        let new_recipient_state = DataTypes.UserState(
+            new_recipient_balance, recipient_state.additional_data
+        )
+        IncentivizedERC20_user_state.write(recipient, new_recipient_state)
+
+        Transfer.emit(sender, recipient, amount)
+
+        let (incentives_controller) = IncentivizedERC20_incentives_controller.read()
+        let (incentives_controller_not_zero) = is_not_zero(incentives_controller)
+
+        let (total_supply) = IncentivizedERC20_total_supply.read()
+
+        if incentives_controller_not_zero == TRUE:
+            IAaveIncentivesController.handle_action(
+                contract_address=incentives_controller,
+                account=sender,
+                user_balance=old_sender_balance_256,
+                total_supply=total_supply,
+            )
+            let (sender_not_the_recipient) = is_not_zero(sender - recipient)
+            if sender_not_the_recipient == TRUE:
+                IAaveIncentivesController.handle_action(
+                    contract_address=incentives_controller,
+                    account=recipient,
+                    user_balance=recipient_balance_256,
+                    total_supply=total_supply,
+                )
+                return ()
+            end
+            return ()
+        end
+        return ()
+    end
+
+    #
+    # @notice Approve `spender` to use `amount` of `owner`s balance
+    # @param owner The address owning the tokens
+    # @param spender The address approved for spending
+    # @param amount The amount of tokens to approve spending of
+    #
+    func _approve{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr}(
+        owner : felt, spender : felt, amount : Uint256
+    ) -> ():
+        IncentivizedERC20_allowances.write(owner, spender, amount)
+
+        Approval.emit(owner, spender, amount)
+
+        return ()
     end
 end

@@ -10,8 +10,9 @@ from contracts.protocol.libraries.aave_upgradeability.versioned_initializable_li
 from contracts.protocol.tokenization.base.incentivized_erc20_library import IncentivizedERC20
 from contracts.protocol.tokenization.base.debt_token_base_library import DebtTokenBase
 from contracts.protocol.tokenization.base.scaled_balance_token_library import ScaledBalanceToken
-from contracts.protocol.libraries.math.wad_ray_math import WadRayMath
 from contracts.protocol.libraries.helpers.helpers import is_zero
+from contracts.protocol.libraries.math.wad_ray_math import WadRayMath
+from contracts.protocol.libraries.math.helpers import to_uint256
 from contracts.interfaces.i_pool import IPool
 
 @event
@@ -44,7 +45,7 @@ namespace VariableDebtToken:
             initializing_pool, debt_token_name, debt_token_symbol, debt_token_decimals
         )
         DebtTokenBase.set_underlying_asset(underlying_asset)
-        IncentivizedERC20.set_incentives_controller(incentives_controller)
+        IncentivizedERC20._set_incentives_controller(incentives_controller)
 
         Initialized.emit(
             underlying_asset,
@@ -77,7 +78,8 @@ namespace VariableDebtToken:
         let (normalized_variable_debt) = IPool.get_reserve_normalized_variable_debt(
             pool, underlying
         )
-        let (balance) = WadRayMath.ray_mul(scaled_balance, normalized_variable_debt)
+        let (normalized_variable_debt_256) = to_uint256(normalized_variable_debt)
+        let (balance) = WadRayMath.ray_mul(scaled_balance, normalized_variable_debt_256)
         return (balance)
     end
 
@@ -122,7 +124,8 @@ namespace VariableDebtToken:
         let (normalized_variable_debt) = IPool.get_reserve_normalized_variable_debt(
             pool, underlying
         )
-        let (scaled_supply) = WadRayMath.ray_mul(raw_supply, normalized_variable_debt)
+        let (normalized_variable_debt_256) = to_uint256(normalized_variable_debt)
+        let (scaled_supply) = WadRayMath.ray_mul(raw_supply, normalized_variable_debt_256)
         return (scaled_supply)
     end
 end

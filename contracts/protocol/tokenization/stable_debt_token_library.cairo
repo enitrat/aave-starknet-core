@@ -109,7 +109,7 @@ namespace StableDebtToken:
             initializing_pool, debt_token_name, debt_token_symbol, debt_token_decimals
         )
         DebtTokenBase.set_underlying_asset(underlying_asset)
-        IncentivizedERC20.set_incentives_controller(incentives_controller)
+        IncentivizedERC20._set_incentives_controller(incentives_controller)
 
         Initialized.emit(
             underlying_asset,

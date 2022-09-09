@@ -50,13 +50,13 @@ func symbol{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr}()
     return (symbol)
 end
 
-# @view
-# func totalSupply{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr}() -> (
-#     totalSupply : Uint256
-# ):
-#     let (totalSupply : Uint256) = AToken.total_supply()
-#     return (totalSupply)
-# end
+@view
+func totalSupply{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr}() -> (
+    totalSupply : Uint256
+):
+    let (totalSupply : Uint256) = AToken.total_supply()
+    return (totalSupply)
+end
 
 @view
 func decimals{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr}() -> (

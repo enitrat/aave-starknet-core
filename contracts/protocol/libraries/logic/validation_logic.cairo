@@ -5,17 +5,15 @@ from starkware.cairo.common.math import assert_not_zero
 from starkware.cairo.common.math_cmp import is_not_zero
 from starkware.cairo.common.uint256 import Uint256, uint256_eq, uint256_le, uint256_check
 
-from openzeppelin.token.erc20.IERC20 import IERC20
-
-from contracts.protocol.libraries.types.data_types import DataTypes
-from contracts.protocol.libraries.helpers.helpers import is_zero
-from contracts.protocol.libraries.helpers.bool_cmp import BoolCmp
-from contracts.protocol.pool.pool_storage import PoolStorage
-from contracts.protocol.libraries.configuration.reserve_configuration import ReserveConfiguration
 from contracts.interfaces.i_a_token import IAToken
-from contracts.interfaces.i_variable_debt_token import IVariableDebtToken
 from contracts.interfaces.i_stable_debt_token import IStableDebtToken
+from contracts.interfaces.i_variable_debt_token import IVariableDebtToken
+from contracts.protocol.libraries.configuration.reserve_configuration import ReserveConfiguration
+from contracts.protocol.libraries.helpers.bool_cmp import BoolCmp
 from contracts.protocol.libraries.helpers.errors import Errors
+from contracts.protocol.libraries.helpers.helpers import is_zero
+from contracts.protocol.libraries.types.data_types import DataTypes
+from contracts.protocol.pool.pool_storage import PoolStorage
 
 namespace ValidationLogic:
     # @notice Validates a supply action.
@@ -129,7 +127,7 @@ namespace ValidationLogic:
             assert variable_debt_supply = Uint256(0, 0)
         end
 
-        let (a_token_supply) = IERC20.totalSupply(contract_address=reserve.a_token_address)
+        let (a_token_supply) = IAToken.totalSupply(contract_address=reserve.a_token_address)
         let error_code = Errors.ATOKEN_SUPPLY_NOT_ZERO
         with_attr error_message("{error_code}"):
             assert a_token_supply = Uint256(0, 0)
