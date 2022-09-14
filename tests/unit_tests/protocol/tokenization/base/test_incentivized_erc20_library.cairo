@@ -22,269 +22,269 @@ from tests.utils.constants import (
     USER_3,
 )
 
-func store_external_contracts{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr}():
-    let (contract_address) = get_contract_address()
+func store_external_contracts{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}() {
+    let (contract_address) = get_contract_address();
     %{
         store(ids.contract_address, "IncentivizedERC20_pool",[ids.POOL]) 
         store(ids.contract_address, "IncentivizedERC20_incentives_controller",[ids.INCENTIVES_CONTROLLER]) 
         store(ids.contract_address, "IncentivizedERC20_addresses_provider",[ids.POOL_ADDRESSES_PROVIDER])
     %}
-    return ()
-end
+    return ();
+}
 
-func mock_is_pool_admin{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr}():
+func mock_is_pool_admin{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}() {
     %{
         stop_mock_is_pool_admin_1 = mock_call(ids.POOL_ADDRESSES_PROVIDER, "get_ACL_manager", [ids.ACL_MANAGER])
         stop_mock_is_pool_admin_2 = mock_call(ids.ACL_MANAGER, "is_pool_admin", [ids.TRUE])
     %}
-    return ()
-end
+    return ();
+}
 
-func stop_mock_is_pool_admin{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr}():
+func stop_mock_is_pool_admin{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}() {
     %{
         stop_mock_is_pool_admin_1()
         stop_mock_is_pool_admin_2()
     %}
-    return ()
-end
+    return ();
+}
 
-func mock_is_not_pool_admin{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr}():
+func mock_is_not_pool_admin{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}() {
     %{
         stop_mock_is_not_pool_admin_1 = mock_call(ids.POOL_ADDRESSES_PROVIDER, "get_ACL_manager", [ids.ACL_MANAGER])
         stop_mock_is_not_pool_admin_2 = mock_call(ids.ACL_MANAGER, "is_pool_admin", [ids.FALSE])
     %}
-    return ()
-end
+    return ();
+}
 
 @external
-func test_balance_of{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr}():
-    alloc_locals
-    let (local contract_address) = get_contract_address()
+func test_balance_of{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}() {
+    alloc_locals;
+    let (local contract_address) = get_contract_address();
 
-    # Mock balance
-    tempvar user_state = DataTypes.UserState(balance=AMOUNT_1, additional_data=0)
+    // Mock balance
+    tempvar user_state = DataTypes.UserState(balance=AMOUNT_1, additional_data=0);
     %{ store(ids.contract_address, "IncentivizedERC20_user_state", [ids.user_state.balance, ids.user_state.additional_data], key=[ids.USER_1]) %}
 
-    let (balance) = IncentivizedERC20.balance_of(USER_1)
-    let (amount_256) = to_uint256(AMOUNT_1)
-    let (is_eq) = uint256_eq(balance, amount_256)
-    assert is_eq = TRUE
-    return ()
-end
+    let (balance) = IncentivizedERC20.balance_of(USER_1);
+    let (amount_256) = to_uint256(AMOUNT_1);
+    let (is_eq) = uint256_eq(balance, amount_256);
+    assert is_eq = TRUE;
+    return ();
+}
 
 @external
-func test_transfer{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr}():
-    alloc_locals
+func test_transfer{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}() {
+    alloc_locals;
 
-    store_external_contracts()
-    let (local contract_address) = get_contract_address()
-    let (local amount256) = to_uint256(AMOUNT_1)
+    store_external_contracts();
+    let (local contract_address) = get_contract_address();
+    let (local amount256) = to_uint256(AMOUNT_1);
 
-    tempvar user_state = DataTypes.UserState(balance=AMOUNT_1, additional_data=0)
+    tempvar user_state = DataTypes.UserState(balance=AMOUNT_1, additional_data=0);
     %{ store(ids.contract_address, "IncentivizedERC20_user_state", [ids.user_state.balance, ids.user_state.additional_data], key=[ids.USER_1]) %}
 
     %{ stop_mock_handle_action = mock_call(ids.INCENTIVES_CONTROLLER, "handle_action", [ids.TRUE]) %}
 
-    # Amount sent
+    // Amount sent
     %{ stop_prank_callable = start_prank(ids.USER_1) %}
     %{ expect_events({"name": "Transfer", "data": [ids.USER_1, ids.USER_2, ids.amount256.low, ids.amount256.high]}) %}
-    IncentivizedERC20.transfer(USER_2, amount256)
+    IncentivizedERC20.transfer(USER_2, amount256);
     %{ stop_prank_callable() %}
 
-    # Check amount was received
-    tempvar receiver_user_state : DataTypes.UserState
+    // Check amount was received
+    tempvar receiver_user_state: DataTypes.UserState;
     %{ (ids.receiver_user_state.balance, ids.receiver_user_state.additional_data) = load(ids.contract_address, "IncentivizedERC20_user_state", "UserState", key=[ids.USER_2]) %}
-    assert receiver_user_state.balance = AMOUNT_1
+    assert receiver_user_state.balance = AMOUNT_1;
 
-    # Check sender balance
-    tempvar after_send_user_state : DataTypes.UserState
+    // Check sender balance
+    tempvar after_send_user_state: DataTypes.UserState;
     %{ (ids.after_send_user_state.balance, ids.after_send_user_state.additional_data) = load(ids.contract_address, "IncentivizedERC20_user_state", "UserState", key=[ids.USER_1]) %}
-    assert after_send_user_state.balance = 0
+    assert after_send_user_state.balance = 0;
 
-    # Do not let transfer more than balance
+    // Do not let transfer more than balance
     %{ stop_prank_callable = start_prank(ids.USER_1) %}
     %{ expect_revert(error_message="Transfer amount exceeds balance") %}
-    IncentivizedERC20.transfer(USER_2, amount256)
+    IncentivizedERC20.transfer(USER_2, amount256);
     %{ stop_prank_callable() %}
 
     %{ stop_mock_handle_action() %}
 
-    return ()
-end
+    return ();
+}
 
 @external
-func test_transfer_from{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr}():
-    alloc_locals
+func test_transfer_from{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}() {
+    alloc_locals;
 
-    store_external_contracts()
-    let (local contract_address) = get_contract_address()
+    store_external_contracts();
+    let (local contract_address) = get_contract_address();
 
-    # Set balances and allowances
-    tempvar user_state = DataTypes.UserState(balance=AMOUNT_1, additional_data=0)
+    // Set balances and allowances
+    tempvar user_state = DataTypes.UserState(balance=AMOUNT_1, additional_data=0);
     %{ store(ids.contract_address, "IncentivizedERC20_user_state", [ids.user_state.balance, ids.user_state.additional_data], key=[ids.USER_2]) %}
-    let (local amount256) = to_uint256(AMOUNT_1)
+    let (local amount256) = to_uint256(AMOUNT_1);
 
     %{ store(ids.contract_address, "IncentivizedERC20_allowances", [ids.amount256.low, ids.amount256.high], key=[ids.USER_2, ids.USER_1]) %}
 
     %{ stop_mock_handle_action = mock_call(ids.INCENTIVES_CONTROLLER, "handle_action", [ids.TRUE]) %}
 
-    # Amount sent
+    // Amount sent
     %{ stop_prank_callable = start_prank(ids.USER_1) %}
     %{ expect_events({"name": "Transfer", "data": [ids.USER_2, ids.USER_3, ids.amount256.low, ids.amount256.high]}) %}
-    IncentivizedERC20.transfer_from(USER_2, USER_3, amount256)
+    IncentivizedERC20.transfer_from(USER_2, USER_3, amount256);
     %{ stop_prank_callable() %}
 
-    # Check amount was received
-    tempvar receiver_user_state : DataTypes.UserState
+    // Check amount was received
+    tempvar receiver_user_state: DataTypes.UserState;
     %{ (ids.receiver_user_state.balance, ids.receiver_user_state.additional_data) = load(ids.contract_address, "IncentivizedERC20_user_state", "UserState", key=[ids.USER_3]) %}
-    assert receiver_user_state.balance = AMOUNT_1
+    assert receiver_user_state.balance = AMOUNT_1;
 
-    # Check sender balance
-    tempvar after_send_user_state : DataTypes.UserState
+    // Check sender balance
+    tempvar after_send_user_state: DataTypes.UserState;
     %{ (ids.after_send_user_state.balance, ids.after_send_user_state.additional_data) = load(ids.contract_address, "IncentivizedERC20_user_state", "UserState", key=[ids.USER_2]) %}
-    assert after_send_user_state.balance = 0
+    assert after_send_user_state.balance = 0;
 
-    # Do not let transfer more than balance
+    // Do not let transfer more than balance
     %{ stop_prank_callable = start_prank(ids.USER_1) %}
     %{ expect_revert() %}
-    IncentivizedERC20.transfer_from(USER_2, USER_2, amount256)
+    IncentivizedERC20.transfer_from(USER_2, USER_2, amount256);
     %{ stop_prank_callable() %}
 
     %{ stop_mock_handle_action() %}
 
-    return ()
-end
+    return ();
+}
 
 @external
-func test_approve{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr}():
-    alloc_locals
-    let (local contract_address) = get_contract_address()
-    let (local amount256) = to_uint256(AMOUNT_1)
+func test_approve{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}() {
+    alloc_locals;
+    let (local contract_address) = get_contract_address();
+    let (local amount256) = to_uint256(AMOUNT_1);
 
-    # Approve an ammount
+    // Approve an ammount
     %{ stop_prank_callable = start_prank(ids.USER_1) %}
     %{ expect_events({"name": "Approval", "data": [ids.USER_1, ids.USER_2, ids.amount256.low, ids.amount256.high]}) %}
-    IncentivizedERC20.approve(USER_2, amount256)
+    IncentivizedERC20.approve(USER_2, amount256);
     %{ stop_prank_callable() %}
 
-    # Verify ammount was approved
-    local allowance : Uint256
+    // Verify ammount was approved
+    local allowance: Uint256;
     %{ (ids.allowance.low, ids.allowance.high) = load(ids.contract_address, "IncentivizedERC20_allowances", "Uint256", key=[ids.USER_1, ids.USER_2]) %}
-    let (is_the_allowance_expected) = uint256_eq(amount256, allowance)
-    assert is_the_allowance_expected = TRUE
+    let (is_the_allowance_expected) = uint256_eq(amount256, allowance);
+    assert is_the_allowance_expected = TRUE;
 
-    return ()
-end
+    return ();
+}
 
 @external
-func test_allowance{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr}():
-    alloc_locals
-    let (local contract_address) = get_contract_address()
+func test_allowance{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}() {
+    alloc_locals;
+    let (local contract_address) = get_contract_address();
 
-    # Set allowance
-    let (local amount256) = to_uint256(AMOUNT_1)
+    // Set allowance
+    let (local amount256) = to_uint256(AMOUNT_1);
     %{ store(ids.contract_address, "IncentivizedERC20_allowances", [ids.amount256.low, ids.amount256.high], key=[ids.USER_1, ids.USER_2]) %}
 
-    # Check allowance is correct
-    let (allowance) = IncentivizedERC20.allowance(USER_1, USER_2)
-    let (is_the_allowance_expected) = uint256_eq(amount256, allowance)
-    assert is_the_allowance_expected = TRUE
+    // Check allowance is correct
+    let (allowance) = IncentivizedERC20.allowance(USER_1, USER_2);
+    let (is_the_allowance_expected) = uint256_eq(amount256, allowance);
+    assert is_the_allowance_expected = TRUE;
 
-    return ()
-end
+    return ();
+}
 
 @external
 func test_set_incentives_controller{
-    syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr
-}():
-    alloc_locals
-    let (local contract_address) = get_contract_address()
-    store_external_contracts()
+    syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr
+}() {
+    alloc_locals;
+    let (local contract_address) = get_contract_address();
+    store_external_contracts();
 
-    # Test success
-    mock_is_pool_admin()
-    IncentivizedERC20.set_incentives_controller(INCENTIVES_CONTROLLER)
-    let (incentives_controller) = IncentivizedERC20.get_incentives_controller()
-    assert INCENTIVES_CONTROLLER = incentives_controller
+    // Test success
+    mock_is_pool_admin();
+    IncentivizedERC20.set_incentives_controller(INCENTIVES_CONTROLLER);
+    let (incentives_controller) = IncentivizedERC20.get_incentives_controller();
+    assert INCENTIVES_CONTROLLER = incentives_controller;
 
-    stop_mock_is_pool_admin()
+    stop_mock_is_pool_admin();
 
-    # Test failure if not pool_admin
+    // Test failure if not pool_admin
     %{ expect_revert() %}
-    mock_is_not_pool_admin()
-    IncentivizedERC20.set_incentives_controller(INCENTIVES_CONTROLLER)
+    mock_is_not_pool_admin();
+    IncentivizedERC20.set_incentives_controller(INCENTIVES_CONTROLLER);
 
-    return ()
-end
+    return ();
+}
 
 @external
 func test_set_incentives_controller_not_pool_admin_revert{
-    syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr
-}():
-    let (test) = get_contract_address()
+    syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr
+}() {
+    let (test) = get_contract_address();
     %{
         store(ids.test, "IncentivizedERC20_addresses_provider",[ids.POOL_ADDRESSES_PROVIDER])
         stop_mock_is_pool_admin_1 = mock_call(ids.POOL_ADDRESSES_PROVIDER, "get_ACL_manager", [ids.ACL_MANAGER])
         stop_mock_is_pool_admin_2 = mock_call(ids.ACL_MANAGER, "is_pool_admin", [ids.FALSE])
         expect_revert(error_message=f"{ids.Errors.CALLER_NOT_POOL_ADMIN}")
     %}
-    IncentivizedERC20.set_incentives_controller(INCENTIVES_CONTROLLER)
+    IncentivizedERC20.set_incentives_controller(INCENTIVES_CONTROLLER);
     %{
         stop_mock_is_pool_admin_1()
         stop_mock_is_pool_admin_2()
     %}
-    return ()
-end
+    return ();
+}
 
 @external
-func test_increase_allowance{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr}():
-    alloc_locals
-    let (local contract_address) = get_contract_address()
+func test_increase_allowance{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}() {
+    alloc_locals;
+    let (local contract_address) = get_contract_address();
 
-    # Set an allowance
-    let (local amount256) = to_uint256(AMOUNT_1)
+    // Set an allowance
+    let (local amount256) = to_uint256(AMOUNT_1);
     %{ store(ids.contract_address, "IncentivizedERC20_allowances", [ids.amount256.low, ids.amount256.high], key=[ids.USER_1, ids.USER_2]) %}
 
-    let (new_allowance) = SafeUint256.add(amount256, amount256)
+    let (new_allowance) = SafeUint256.add(amount256, amount256);
 
-    # Increase it AMMOUNT
+    // Increase it AMMOUNT
     %{ stop_prank_callable = start_prank(ids.USER_1) %}
     %{ expect_events({"name": "Approval", "data": [ids.USER_1, ids.USER_2, ids.new_allowance.low, ids.new_allowance.high]}) %}
-    let (is_allowance_increased) = IncentivizedERC20.increase_allowance(USER_2, amount256)
+    let (is_allowance_increased) = IncentivizedERC20.increase_allowance(USER_2, amount256);
     %{ stop_prank_callable() %}
-    assert is_allowance_increased = TRUE
+    assert is_allowance_increased = TRUE;
 
-    # Check allowance
-    let (allowance) = IncentivizedERC20.allowance(USER_1, USER_2)
-    let (is_the_allowance_expected) = uint256_eq(new_allowance, allowance)
-    assert is_the_allowance_expected = TRUE
+    // Check allowance
+    let (allowance) = IncentivizedERC20.allowance(USER_1, USER_2);
+    let (is_the_allowance_expected) = uint256_eq(new_allowance, allowance);
+    assert is_the_allowance_expected = TRUE;
 
-    return ()
-end
+    return ();
+}
 
 @external
-func test_decrease_allowance{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr}():
-    alloc_locals
-    let (local contract_address) = get_contract_address()
+func test_decrease_allowance{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}() {
+    alloc_locals;
+    let (local contract_address) = get_contract_address();
 
-    # Set an allowance
-    let (local amount256) = to_uint256(AMOUNT_1)
+    // Set an allowance
+    let (local amount256) = to_uint256(AMOUNT_1);
     %{ store(ids.contract_address, "IncentivizedERC20_allowances", [ids.amount256.low, ids.amount256.high], key=[ids.USER_1, ids.USER_2]) %}
 
-    # Zero
-    let new_allowance : Uint256 = SafeUint256.sub_le(amount256, amount256)
+    // Zero
+    let new_allowance: Uint256 = SafeUint256.sub_le(amount256, amount256);
 
-    # Decrease it AMMOUNT
+    // Decrease it AMMOUNT
     %{ stop_prank_callable = start_prank(ids.USER_1) %}
     %{ expect_events({"name": "Approval", "data": [ids.USER_1, ids.USER_2, ids.new_allowance.low, ids.new_allowance.high]}) %}
-    let (is_allowance_decreased) = IncentivizedERC20.decrease_allowance(USER_2, amount256)
+    let (is_allowance_decreased) = IncentivizedERC20.decrease_allowance(USER_2, amount256);
     %{ stop_prank_callable() %}
-    assert is_allowance_decreased = TRUE
+    assert is_allowance_decreased = TRUE;
 
-    # Check allowance
-    let (allowance) = IncentivizedERC20.allowance(USER_1, USER_2)
-    let (is_the_allowance_expected) = uint256_eq(new_allowance, allowance)
-    assert is_the_allowance_expected = TRUE
+    // Check allowance
+    let (allowance) = IncentivizedERC20.allowance(USER_1, USER_2);
+    let (is_the_allowance_expected) = uint256_eq(new_allowance, allowance);
+    assert is_the_allowance_expected = TRUE;
 
-    return ()
-end
+    return ();
+}

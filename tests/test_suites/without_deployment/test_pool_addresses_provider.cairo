@@ -2,12 +2,12 @@
 from starkware.cairo.common.cairo_builtins import HashBuiltin
 from tests.test_suites.test_specs.pool_addresses_provider_spec import TestPoolAddressesProvider
 
-const MOCKED_PROXY_ADDRESS = 8930645
-const MOCKED_IMPLEMENTATION_HASH = 192083
-const MOCKED_CONTRACT_ADDRESS = 349678
+const MOCKED_PROXY_ADDRESS = 8930645;
+const MOCKED_IMPLEMENTATION_HASH = 192083;
+const MOCKED_CONTRACT_ADDRESS = 349678;
 
 @external
-func __setup__{syscall_ptr : felt*, range_check_ptr}():
+func __setup__{syscall_ptr: felt*, range_check_ptr}() {
     %{
         def str_to_felt(text):
             MAX_LEN_FELT = 31
@@ -19,155 +19,150 @@ func __setup__{syscall_ptr : felt*, range_check_ptr}():
         context.RANDOM_NON_PROXIED = str_to_felt("RANDOM_NON_PROXIED")
         context.NEW_MARKET_ID = str_to_felt("NEW_MARKET_ID")
     %}
-    return ()
-end
+    return ();
+}
 
-#
-# Function guards tests
-#
-
-@external
-func test_only_owner_set_market_id{
-    syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr
-}():
-    TestPoolAddressesProvider.test_only_owner_set_market_id()
-    return ()
-end
+//
+// Function guards tests
+//
 
 @external
-func test_only_owner_set_pool_impl{
-    syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr
-}():
-    TestPoolAddressesProvider.test_only_owner_set_pool_impl()
-    return ()
-end
+func test_only_owner_set_market_id{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}(
+    ) {
+    TestPoolAddressesProvider.test_only_owner_set_market_id();
+    return ();
+}
+
+@external
+func test_only_owner_set_pool_impl{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}(
+    ) {
+    TestPoolAddressesProvider.test_only_owner_set_pool_impl();
+    return ();
+}
 
 @external
 func test_only_owner_set_pool_configurator_impl{
-    syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr
-}():
-    TestPoolAddressesProvider.test_only_owner_set_pool_configurator_impl()
-    return ()
-end
+    syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr
+}() {
+    TestPoolAddressesProvider.test_only_owner_set_pool_configurator_impl();
+    return ();
+}
 
 @external
 func test_only_owner_set_price_oracle{
-    syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr
-}():
-    TestPoolAddressesProvider.test_only_owner_set_price_oracle()
-    return ()
-end
+    syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr
+}() {
+    TestPoolAddressesProvider.test_only_owner_set_price_oracle();
+    return ();
+}
 
 @external
-func test_only_owner_set_ACL_admin{
-    syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr
-}():
-    TestPoolAddressesProvider.test_only_owner_set_ACL_admin()
-    return ()
-end
+func test_only_owner_set_ACL_admin{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}(
+    ) {
+    TestPoolAddressesProvider.test_only_owner_set_ACL_admin();
+    return ();
+}
 
 @external
 func test_only_owner_set_ACL_manager{
-    syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr
-}():
-    TestPoolAddressesProvider.test_only_owner_set_ACL_manager()
-    return ()
-end
+    syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr
+}() {
+    TestPoolAddressesProvider.test_only_owner_set_ACL_manager();
+    return ();
+}
 
 @external
 func test_only_owner_set_price_oracle_sentinel{
-    syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr
-}():
-    TestPoolAddressesProvider.test_only_owner_set_price_oracle_sentinel()
-    return ()
-end
+    syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr
+}() {
+    TestPoolAddressesProvider.test_only_owner_set_price_oracle_sentinel();
+    return ();
+}
 
 @external
 func test_only_owner_set_pool_data_provider{
-    syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr
-}():
-    TestPoolAddressesProvider.test_only_owner_set_pool_data_provider()
-    return ()
-end
+    syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr
+}() {
+    TestPoolAddressesProvider.test_only_owner_set_pool_data_provider();
+    return ();
+}
 
 @external
-func test_only_owner_set_address{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr}(
-    ):
-    TestPoolAddressesProvider.test_only_owner_set_address()
-    return ()
-end
+func test_only_owner_set_address{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}(
+    ) {
+    TestPoolAddressesProvider.test_only_owner_set_address();
+    return ();
+}
 
 @external
 func test_only_owner_set_address_as_proxy{
-    syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr
-}():
-    TestPoolAddressesProvider.test_only_owner_set_address_as_proxy()
-    return ()
-end
+    syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr
+}() {
+    TestPoolAddressesProvider.test_only_owner_set_address_as_proxy();
+    return ();
+}
 
-#
-# Getters / Setters tests
-#
+//
+// Getters / Setters tests
+//
 
-# Owner adds a new address with no proxy
+// Owner adds a new address with no proxy
 @external
 func test_owner_adds_new_address_with_no_proxy{
-    syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr
-}():
-    TestPoolAddressesProvider.test_owner_adds_new_address_with_no_proxy()
-    return ()
-end
+    syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr
+}() {
+    TestPoolAddressesProvider.test_owner_adds_new_address_with_no_proxy();
+    return ();
+}
 
-# Owner updates the MarketId
+// Owner updates the MarketId
 @external
-func test_owner_updates_market_id{
-    syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr
-}():
-    TestPoolAddressesProvider.test_owner_updates_market_id()
-    return ()
-end
+func test_owner_updates_market_id{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}(
+    ) {
+    TestPoolAddressesProvider.test_owner_updates_market_id();
+    return ();
+}
 
-# Owner updates the PriceOracle
+// Owner updates the PriceOracle
 @external
 func test_owner_updates_price_oracle{
-    syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr
-}():
-    TestPoolAddressesProvider.test_owner_updates_price_oracle()
-    return ()
-end
+    syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr
+}() {
+    TestPoolAddressesProvider.test_owner_updates_price_oracle();
+    return ();
+}
 
-# Owner updates the ACL manager
+// Owner updates the ACL manager
 @external
 func test_owner_updates_ACL_manager{
-    syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr
-}():
-    TestPoolAddressesProvider.test_owner_updates_ACL_manager()
-    return ()
-end
+    syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr
+}() {
+    TestPoolAddressesProvider.test_owner_updates_ACL_manager();
+    return ();
+}
 
-# Owner updates the ACL admin
+// Owner updates the ACL admin
 @external
-func test_owner_updates_ACL_admin{
-    syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr
-}():
-    TestPoolAddressesProvider.test_owner_updates_ACL_admin()
-    return ()
-end
+func test_owner_updates_ACL_admin{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}(
+    ) {
+    TestPoolAddressesProvider.test_owner_updates_ACL_admin();
+    return ();
+}
 
-# Owner updates the DataProvider
+// Owner updates the DataProvider
 @external
 func test_owner_updates_price_oracle_sentinel{
-    syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr
-}():
-    TestPoolAddressesProvider.test_owner_updates_price_oracle_sentinel()
-    return ()
-end
+    syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr
+}() {
+    TestPoolAddressesProvider.test_owner_updates_price_oracle_sentinel();
+    return ();
+}
 
-# Owner updates the DataProvider
+// Owner updates the DataProvider
 @external
 func test_owner_updates_pool_data_provider{
-    syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr
-}():
-    TestPoolAddressesProvider.test_owner_updates_pool_data_provider()
-    return ()
-end
+    syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr
+}() {
+    TestPoolAddressesProvider.test_owner_updates_pool_data_provider();
+    return ();
+}

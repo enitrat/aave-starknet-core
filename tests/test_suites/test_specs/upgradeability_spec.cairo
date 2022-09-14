@@ -9,64 +9,64 @@ from contracts.mocks.mock_initializable_implementation_library import (
     MockInitializableImplementation,
 )
 
-const INIT_VALUE = 10
-const INIT_TEXT = 'text'
-const PRANK_USER = 123
+const INIT_VALUE = 10;
+const INIT_TEXT = 'text';
+const PRANK_USER = 123;
 
-#
-# VersionedInitializable tests
-#
+//
+// VersionedInitializable tests
+//
 
-namespace TestVersionedInitializable:
+namespace TestVersionedInitializable {
     func test_initialize_when_already_initialized{
-        syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr
-    }():
-        MockInitializableImplementation.initialize(INIT_VALUE, INIT_TEXT)
+        syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr
+    }() {
+        MockInitializableImplementation.initialize(INIT_VALUE, INIT_TEXT);
         %{ expect_revert(error_message="Contract instance has already been initialized") %}
-        MockInitializableImplementation.initialize(INIT_VALUE, INIT_TEXT)
-        return ()
-    end
-end
+        MockInitializableImplementation.initialize(INIT_VALUE, INIT_TEXT);
+        return ();
+    }
+}
 
-#
-# InitializableImmutableAdminUpgradeabilityProxy tests
-#
-namespace TestInitializableImmutableAdminUpgradeabilityProxy:
+//
+// InitializableImmutableAdminUpgradeabilityProxy tests
+//
+namespace TestInitializableImmutableAdminUpgradeabilityProxy {
     func test_initialize_impl_version_is_correct{
-        syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr
-    }():
-        alloc_locals
-        local impl_address
+        syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr
+    }() {
+        alloc_locals;
+        local impl_address;
         %{ ids.impl_address = context.proxy %}
         %{ stop_prank_user = start_prank(ids.PRANK_USER, target_contract_address = ids.impl_address) %}
-        let (revision) = IMockInitializableImplementation.get_revision(impl_address)
+        let (revision) = IMockInitializableImplementation.get_revision(impl_address);
         %{ stop_prank_user() %}
-        assert revision = 1
-        return ()
-    end
+        assert revision = 1;
+        return ();
+    }
 
     func test_initialize_impl_initialization_is_correct{
-        syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr
-    }():
-        alloc_locals
-        local impl_address
+        syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr
+    }() {
+        alloc_locals;
+        local impl_address;
         %{ ids.impl_address = context.proxy %}
         %{ stop_prank_user = start_prank(ids.PRANK_USER, target_contract_address = ids.impl_address) %}
-        let (value) = IMockInitializableImplementation.get_value(impl_address)
-        let (text) = IMockInitializableImplementation.get_text(impl_address)
+        let (value) = IMockInitializableImplementation.get_value(impl_address);
+        let (text) = IMockInitializableImplementation.get_text(impl_address);
         %{ stop_prank_user() %}
 
-        assert value = INIT_VALUE
-        assert text = INIT_TEXT
-        return ()
-    end
+        assert value = INIT_VALUE;
+        assert text = INIT_TEXT;
+        return ();
+    }
 
     func test_initialize_from_non_admin_when_already_initialized{
-        syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr
-    }():
-        alloc_locals
-        local impl_address
-        local impl_hash
+        syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr
+    }() {
+        alloc_locals;
+        local impl_address;
+        local impl_hash;
         %{
             ids.impl_address = context.proxy
             ids.impl_hash = context.mock_initializable_v1
@@ -78,42 +78,42 @@ namespace TestInitializableImmutableAdminUpgradeabilityProxy:
             INITIALIZE_SELECTOR,
             2,
             cast(new (INIT_VALUE, INIT_TEXT), felt*),
-        )
-        return ()
-    end
+        );
+        return ();
+    }
 
     func test_upgrade_to_new_impl_from_admin{
-        syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr
-    }():
-        alloc_locals
-        local proxy_address
-        local new_impl
+        syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr
+    }() {
+        alloc_locals;
+        local proxy_address;
+        local new_impl;
         %{
             ids.proxy_address = context.proxy
             ids.new_impl = context.mock_initializable_v2
         %}
 
-        # Upgrade from v1 to v2, and initialize v2
+        // Upgrade from v1 to v2, and initialize v2
         IProxy.upgrade_to_and_call(
             proxy_address, new_impl, INITIALIZE_SELECTOR, 2, cast(new (20, 'new text'), felt*)
-        )
+        );
 
-        # Check new values of v2 implementation
+        // Check new values of v2 implementation
         %{ stop_prank_user = start_prank(ids.PRANK_USER, target_contract_address = ids.proxy_address) %}
-        let (value) = IMockInitializableImplementation.get_value(proxy_address)
-        let (text) = IMockInitializableImplementation.get_text(proxy_address)
+        let (value) = IMockInitializableImplementation.get_value(proxy_address);
+        let (text) = IMockInitializableImplementation.get_text(proxy_address);
         %{ stop_prank_user() %}
-        assert value = 20
-        assert text = 'new text'
+        assert value = 20;
+        assert text = 'new text';
 
-        # This initialize fail because we already initialized v2
+        // This initialize fail because we already initialized v2
         %{ expect_revert(error_message="Contract instance has already been initialized") %}
         IProxy.upgrade_to_and_call(
             proxy_address, new_impl, INITIALIZE_SELECTOR, 2, cast(new (30, 100), felt*)
-        )
-        # IMockInitializableImplementation.initialize(proxy_address, 30, 100)
-        return ()
-    end
+        );
+        // IMockInitializableImplementation.initialize(proxy_address, 30, 100)
+        return ();
+    }
 
-    # TODO further testing is required when InitializableImmutableAdminUpgradeabilityProxy is implemented
-end
+    // TODO further testing is required when InitializableImmutableAdminUpgradeabilityProxy is implemented
+}

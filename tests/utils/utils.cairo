@@ -6,37 +6,35 @@ from starkware.cairo.common.bool import TRUE, FALSE
 from starkware.cairo.common.cairo_builtins import HashBuiltin
 from openzeppelin.security.safemath.library import SafeUint256
 
-func parse_units{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr}(
-    amount : felt, decimals : felt
-) -> (res : Uint256):
-    alloc_locals
-    let (local power) = pow(10, decimals)
-    let (res) = SafeUint256.mul(Uint256(amount, 0), Uint256(power, 0))
-    return (res)
-end
+func parse_units{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}(
+    amount: felt, decimals: felt
+) -> (res: Uint256) {
+    alloc_locals;
+    let (local power) = pow(10, decimals);
+    let (res) = SafeUint256.mul(Uint256(amount, 0), Uint256(power, 0));
+    return (res,);
+}
 
-func parse_ether{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr}(
-    amount : felt
-) -> (res : Uint256):
-    let (power) = pow(10, 18)
-    let (res) = SafeUint256.mul(Uint256(amount, 0), Uint256(power, 0))
-    return (res)
-end
+func parse_ether{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}(amount: felt) -> (
+    res: Uint256
+) {
+    let (power) = pow(10, 18);
+    let (res) = SafeUint256.mul(Uint256(amount, 0), Uint256(power, 0));
+    return (res,);
+}
 
-func array_includes{range_check_ptr}(array_len : felt, array : felt*, value : felt) -> (res : felt):
-    return _array_includes(array_len, array, value)
-end
+func array_includes{range_check_ptr}(array_len: felt, array: felt*, value: felt) -> (res: felt) {
+    return _array_includes(array_len, array, value);
+}
 
-func _array_includes{range_check_ptr}(array_len : felt, array : felt*, value : felt) -> (
-    res : felt
-):
-    if array_len == 0:
-        return (FALSE)
-    end
+func _array_includes{range_check_ptr}(array_len: felt, array: felt*, value: felt) -> (res: felt) {
+    if (array_len == 0) {
+        return (FALSE,);
+    }
 
-    if [array] == value:
-        return (TRUE)
-    end
+    if ([array] == value) {
+        return (TRUE,);
+    }
 
-    return _array_includes(array_len - 1, array + 1, value)
-end
+    return _array_includes(array_len - 1, array + 1, value);
+}

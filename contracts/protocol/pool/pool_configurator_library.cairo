@@ -17,260 +17,259 @@ from contracts.protocol.libraries.logic.configurator_logic import ConfiguratorLo
 from contracts.protocol.libraries.types.configurator_input_types import ConfiguratorInputTypes
 from contracts.protocol.libraries.types.data_types import DataTypes
 
-#
-# Events
-#
+//
+// Events
+//
 
 @event
-func ReserveDropped(asset : felt):
-end
+func ReserveDropped(asset: felt) {
+}
 
 @event
-func ReserveBorrowing(asset : felt, enabled : felt):
-end
+func ReserveBorrowing(asset: felt, enabled: felt) {
+}
 
-#
-# Storage
-#
-
-@storage_var
-func PoolConfigurator_pool() -> (res : felt):
-end
+//
+// Storage
+//
 
 @storage_var
-func PoolConfigurator_addresses_provider() -> (res : felt):
-end
+func PoolConfigurator_pool() -> (res: felt) {
+}
 
-#
-# Namespace
-#
+@storage_var
+func PoolConfigurator_addresses_provider() -> (res: felt) {
+}
 
-namespace PoolConfigurator:
-    # Constants
+//
+// Namespace
+//
 
-    const REVISION = 1
+namespace PoolConfigurator {
+    // Constants
 
-    # Authorization
+    const REVISION = 1;
 
-    func assert_only_pool_admin{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr}(
-        ):
-        alloc_locals
-        let (caller_address) = get_caller_address()
-        let (addresses_provider) = PoolConfigurator_addresses_provider.read()
-        let (acl_manager) = IPoolAddressesProvider.get_ACL_manager(addresses_provider)
+    // Authorization
 
-        let (is_caller_pool_admin) = IACLManager.is_pool_admin(acl_manager, caller_address)
-        with_attr error_message("Caller is not pool admin."):
-            assert is_caller_pool_admin = TRUE
-        end
+    func assert_only_pool_admin{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}() {
+        alloc_locals;
+        let (caller_address) = get_caller_address();
+        let (addresses_provider) = PoolConfigurator_addresses_provider.read();
+        let (acl_manager) = IPoolAddressesProvider.get_ACL_manager(addresses_provider);
 
-        return ()
-    end
+        let (is_caller_pool_admin) = IACLManager.is_pool_admin(acl_manager, caller_address);
+        with_attr error_message("Caller is not pool admin.") {
+            assert is_caller_pool_admin = TRUE;
+        }
+
+        return ();
+    }
 
     func assert_only_emergency_admin{
-        syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr
-    }():
-        alloc_locals
-        let (caller_address) = get_caller_address()
-        let (addresses_provider) = PoolConfigurator_addresses_provider.read()
-        let (acl_manager) = IPoolAddressesProvider.get_ACL_manager(addresses_provider)
+        syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr
+    }() {
+        alloc_locals;
+        let (caller_address) = get_caller_address();
+        let (addresses_provider) = PoolConfigurator_addresses_provider.read();
+        let (acl_manager) = IPoolAddressesProvider.get_ACL_manager(addresses_provider);
 
         let (is_caller_emergency_admin) = IACLManager.is_emergency_admin(
             acl_manager, caller_address
-        )
-        with_attr error_message("Caller is not emergency admin."):
-            assert is_caller_emergency_admin = TRUE
-        end
+        );
+        with_attr error_message("Caller is not emergency admin.") {
+            assert is_caller_emergency_admin = TRUE;
+        }
 
-        return ()
-    end
+        return ();
+    }
 
     func assert_only_pool_or_emergency_admin{
-        syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr
-    }():
-        alloc_locals
-        let (caller_address) = get_caller_address()
-        let (addresses_provider) = PoolConfigurator_addresses_provider.read()
-        let (acl_manager) = IPoolAddressesProvider.get_ACL_manager(addresses_provider)
+        syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr
+    }() {
+        alloc_locals;
+        let (caller_address) = get_caller_address();
+        let (addresses_provider) = PoolConfigurator_addresses_provider.read();
+        let (acl_manager) = IPoolAddressesProvider.get_ACL_manager(addresses_provider);
 
-        let (is_caller_pool_admin) = IACLManager.is_pool_admin(acl_manager, caller_address)
+        let (is_caller_pool_admin) = IACLManager.is_pool_admin(acl_manager, caller_address);
         let (is_caller_emergency_admin) = IACLManager.is_emergency_admin(
             acl_manager, caller_address
-        )
+        );
         let (is_pool_or_emergency_admin) = BoolCmp.either(
             is_caller_pool_admin, is_caller_emergency_admin
-        )
-        with_attr error_message("Caller is not emergency or pool admin."):
-            assert is_pool_or_emergency_admin = TRUE
-        end
+        );
+        with_attr error_message("Caller is not emergency or pool admin.") {
+            assert is_pool_or_emergency_admin = TRUE;
+        }
 
-        return ()
-    end
+        return ();
+    }
 
     func assert_only_asset_listing_or_pool_admins{
-        syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr
-    }():
-        alloc_locals
-        let (caller_address) = get_caller_address()
-        let (addresses_provider) = PoolConfigurator_addresses_provider.read()
-        let (acl_manager) = IPoolAddressesProvider.get_ACL_manager(addresses_provider)
+        syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr
+    }() {
+        alloc_locals;
+        let (caller_address) = get_caller_address();
+        let (addresses_provider) = PoolConfigurator_addresses_provider.read();
+        let (acl_manager) = IPoolAddressesProvider.get_ACL_manager(addresses_provider);
 
-        let (is_caller_pool_admin) = IACLManager.is_pool_admin(acl_manager, caller_address)
+        let (is_caller_pool_admin) = IACLManager.is_pool_admin(acl_manager, caller_address);
         let (is_caller_asset_listing_admin) = IACLManager.is_asset_listing_admin(
             acl_manager, caller_address
-        )
+        );
         let (is_asset_listing_or_pool_admin) = BoolCmp.either(
             is_caller_pool_admin, is_caller_asset_listing_admin
-        )
-        with_attr error_message("Caller is not asset listing or pool admin."):
-            assert is_asset_listing_or_pool_admin = TRUE
-        end
+        );
+        with_attr error_message("Caller is not asset listing or pool admin.") {
+            assert is_asset_listing_or_pool_admin = TRUE;
+        }
 
-        return ()
-    end
+        return ();
+    }
 
     func assert_only_risk_or_pool_admins{
-        syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr
-    }():
-        alloc_locals
-        let (caller_address) = get_caller_address()
-        let (addresses_provider) = PoolConfigurator_addresses_provider.read()
-        let (acl_manager) = IPoolAddressesProvider.get_ACL_manager(addresses_provider)
+        syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr
+    }() {
+        alloc_locals;
+        let (caller_address) = get_caller_address();
+        let (addresses_provider) = PoolConfigurator_addresses_provider.read();
+        let (acl_manager) = IPoolAddressesProvider.get_ACL_manager(addresses_provider);
 
-        let (is_caller_pool_admin) = IACLManager.is_pool_admin(acl_manager, caller_address)
-        let (is_caller_risk_admin) = IACLManager.is_risk_admin(acl_manager, caller_address)
-        let (is_risk_or_pool_admin) = BoolCmp.either(is_caller_pool_admin, is_caller_risk_admin)
-        with_attr error_message("Caller is not risk or pool admin."):
-            assert is_risk_or_pool_admin = TRUE
-        end
+        let (is_caller_pool_admin) = IACLManager.is_pool_admin(acl_manager, caller_address);
+        let (is_caller_risk_admin) = IACLManager.is_risk_admin(acl_manager, caller_address);
+        let (is_risk_or_pool_admin) = BoolCmp.either(is_caller_pool_admin, is_caller_risk_admin);
+        with_attr error_message("Caller is not risk or pool admin.") {
+            assert is_risk_or_pool_admin = TRUE;
+        }
 
-        return ()
-    end
+        return ();
+    }
 
-    # Externals
+    // Externals
 
-    func initialize{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr}(
-        provider : felt
-    ):
-        VersionedInitializable.initializer(REVISION)
-        PoolConfigurator_addresses_provider.write(provider)
-        let (pool) = IPoolAddressesProvider.get_pool(provider)
-        PoolConfigurator_pool.write(pool)
-        return ()
-    end
+    func initialize{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}(
+        provider: felt
+    ) {
+        VersionedInitializable.initializer(REVISION);
+        PoolConfigurator_addresses_provider.write(provider);
+        let (pool) = IPoolAddressesProvider.get_pool(provider);
+        PoolConfigurator_pool.write(pool);
+        return ();
+    }
 
-    func init_reserves{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr}(
-        input_len : felt, input : ConfiguratorInputTypes.InitReserveInput*
-    ):
-        assert_only_asset_listing_or_pool_admins()
-        let (pool) = PoolConfigurator_pool.read()
-        _init_reserves_inner(pool, input_len, input)
-        return ()
-    end
+    func init_reserves{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}(
+        input_len: felt, input: ConfiguratorInputTypes.InitReserveInput*
+    ) {
+        assert_only_asset_listing_or_pool_admins();
+        let (pool) = PoolConfigurator_pool.read();
+        _init_reserves_inner(pool, input_len, input);
+        return ();
+    }
 
-    func drop_reserve{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr}(
-        asset : felt
-    ):
-        assert_only_pool_admin()
-        let (pool) = PoolConfigurator_pool.read()
-        IPool.drop_reserve(pool, asset)
-        ReserveDropped.emit(asset)
-        return ()
-    end
+    func drop_reserve{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}(
+        asset: felt
+    ) {
+        assert_only_pool_admin();
+        let (pool) = PoolConfigurator_pool.read();
+        IPool.drop_reserve(pool, asset);
+        ReserveDropped.emit(asset);
+        return ();
+    }
 
-    func update_a_token{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr}(
-        input : ConfiguratorInputTypes.UpdateATokenInput
-    ):
-        assert_only_pool_admin()
-        let (pool) = PoolConfigurator_pool.read()
-        ConfiguratorLogic.execute_update_a_token(pool, input)
-        return ()
-    end
+    func update_a_token{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}(
+        input: ConfiguratorInputTypes.UpdateATokenInput
+    ) {
+        assert_only_pool_admin();
+        let (pool) = PoolConfigurator_pool.read();
+        ConfiguratorLogic.execute_update_a_token(pool, input);
+        return ();
+    }
 
-    func update_stable_debt_token{
-        syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr
-    }(input : ConfiguratorInputTypes.UpdateDebtTokenInput):
-        assert_only_pool_admin()
-        let (pool) = PoolConfigurator_pool.read()
-        ConfiguratorLogic.execute_update_stable_debt_token(pool, input)
-        return ()
-    end
+    func update_stable_debt_token{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}(
+        input: ConfiguratorInputTypes.UpdateDebtTokenInput
+    ) {
+        assert_only_pool_admin();
+        let (pool) = PoolConfigurator_pool.read();
+        ConfiguratorLogic.execute_update_stable_debt_token(pool, input);
+        return ();
+    }
 
     func update_variable_debt_token{
-        syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr
-    }(input : ConfiguratorInputTypes.UpdateDebtTokenInput):
-        assert_only_pool_admin()
-        let (pool) = PoolConfigurator_pool.read()
-        ConfiguratorLogic.execute_update_variable_debt_token(pool, input)
-        return ()
-    end
+        syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr
+    }(input: ConfiguratorInputTypes.UpdateDebtTokenInput) {
+        assert_only_pool_admin();
+        let (pool) = PoolConfigurator_pool.read();
+        ConfiguratorLogic.execute_update_variable_debt_token(pool, input);
+        return ();
+    }
 
-    func set_reserve_borrowing{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr}(
-        asset : felt, enabled : felt
-    ):
-        alloc_locals
-        assert_only_risk_or_pool_admins()
-        BoolCmp.is_valid(enabled)
+    func set_reserve_borrowing{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}(
+        asset: felt, enabled: felt
+    ) {
+        alloc_locals;
+        assert_only_risk_or_pool_admins();
+        BoolCmp.is_valid(enabled);
 
-        let (pool) = PoolConfigurator_pool.read()
-        let (local config) = IPool.get_configuration(pool, asset)
+        let (pool) = PoolConfigurator_pool.read();
+        let (local config) = IPool.get_configuration(pool, asset);
 
-        if enabled == FALSE:
-            with_attr error_message("Stable borrowing is enabled"):
-                let is_stable_rate_borrow_enabled = config.stable_rate_borrowing_enabled
-                assert is_stable_rate_borrow_enabled = FALSE
-            end
-        end
+        if (enabled == FALSE) {
+            with_attr error_message("Stable borrowing is enabled") {
+                let is_stable_rate_borrow_enabled = config.stable_rate_borrowing_enabled;
+                assert is_stable_rate_borrow_enabled = FALSE;
+            }
+        }
 
-        let (__fp__, _) = get_fp_and_pc()
+        let (__fp__, _) = get_fp_and_pc();
 
-        let (local updated_config : DataTypes.ReserveConfiguration*) = update_struct(
+        let (local updated_config: DataTypes.ReserveConfiguration*) = update_struct(
             &config,
             DataTypes.ReserveConfiguration.SIZE,
             &enabled,
             DataTypes.ReserveConfiguration.stable_rate_borrowing_enabled,
-        )
+        );
 
-        IPool.set_configuration(pool, asset, [updated_config])
+        IPool.set_configuration(pool, asset, [updated_config]);
 
-        ReserveBorrowing.emit(asset, enabled)
+        ReserveBorrowing.emit(asset, enabled);
 
-        return ()
-    end
+        return ();
+    }
 
-    # Internals
+    // Internals
 
-    func _init_reserves_inner{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr}(
-        pool : felt, input_len : felt, input : ConfiguratorInputTypes.InitReserveInput*
-    ):
-        if input_len == 0:
-            return ()
-        end
-        ConfiguratorLogic.execute_init_reserve(pool, [input])
+    func _init_reserves_inner{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}(
+        pool: felt, input_len: felt, input: ConfiguratorInputTypes.InitReserveInput*
+    ) {
+        if (input_len == 0) {
+            return ();
+        }
+        ConfiguratorLogic.execute_init_reserve(pool, [input]);
         _init_reserves_inner(
             pool, input_len - 1, input + ConfiguratorInputTypes.InitReserveInput.SIZE
-        )
-        return ()
-    end
+        );
+        return ();
+    }
 
-    # Getters
+    // Getters
 
-    func get_revision{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr}() -> (
-        revision : felt
-    ):
-        return (REVISION)
-    end
+    func get_revision{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}() -> (
+        revision: felt
+    ) {
+        return (REVISION,);
+    }
 
-    func get_pool{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr}() -> (
-        pool : felt
-    ):
-        let (pool) = PoolConfigurator_pool.read()
-        return (pool)
-    end
+    func get_pool{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}() -> (
+        pool: felt
+    ) {
+        let (pool) = PoolConfigurator_pool.read();
+        return (pool,);
+    }
 
-    func get_addresses_provider{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr}(
-        ) -> (addresses_provider : felt):
-        let (addresses_provider) = PoolConfigurator_addresses_provider.read()
-        return (addresses_provider)
-    end
-end
+    func get_addresses_provider{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}(
+        ) -> (addresses_provider: felt) {
+        let (addresses_provider) = PoolConfigurator_addresses_provider.read();
+        return (addresses_provider,);
+    }
+}

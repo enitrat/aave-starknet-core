@@ -18,13 +18,13 @@ from tests.utils.constants import (
     ACL_MANAGER,
 )
 
-const DECIMALS = 18
-const NAME = 'Variable Debt Token'
-const SYMBOL = 'VDT'
+const DECIMALS = 18;
+const NAME = 'Variable Debt Token';
+const SYMBOL = 'VDT';
 
 @external
-func test_initializer{syscall_ptr : felt*, range_check_ptr, pedersen_ptr : HashBuiltin*}():
-    let (test) = get_contract_address()
+func test_initializer{syscall_ptr: felt*, range_check_ptr, pedersen_ptr: HashBuiltin*}() {
+    let (test) = get_contract_address();
     %{
         stop_mock_1 = mock_call(ids.POOL,"get_addresses_provider", [ids.POOL_ADDRESSES_PROVIDER])
         stop_mock_is_pool_admin_1 = mock_call(ids.POOL_ADDRESSES_PROVIDER, "get_ACL_manager", [ids.ACL_MANAGER])
@@ -32,69 +32,69 @@ func test_initializer{syscall_ptr : felt*, range_check_ptr, pedersen_ptr : HashB
     %}
     VariableDebtToken.initialize(
         POOL, MOCK_ASSET_1, INCENTIVES_CONTROLLER, DECIMALS, NAME, SYMBOL, ''
-    )
+    );
 
-    let (asset_after) = DebtTokenBase.get_underlying_asset()
-    assert asset_after = MOCK_ASSET_1
-    let (pool_after) = IncentivizedERC20.get_pool()
-    assert pool_after = POOL
-    let (incentives_controller_after) = IncentivizedERC20.get_incentives_controller()
-    assert incentives_controller_after = INCENTIVES_CONTROLLER
+    let (asset_after) = DebtTokenBase.get_underlying_asset();
+    assert asset_after = MOCK_ASSET_1;
+    let (pool_after) = IncentivizedERC20.get_pool();
+    assert pool_after = POOL;
+    let (incentives_controller_after) = IncentivizedERC20.get_incentives_controller();
+    assert incentives_controller_after = INCENTIVES_CONTROLLER;
     let (scaled_balance, scaled_supply) = ScaledBalanceToken.get_scaled_user_balance_and_supply(
         USER_1
-    )
-    assert scaled_balance = Uint256(0, 0)
-    assert scaled_supply = Uint256(0, 0)
+    );
+    assert scaled_balance = Uint256(0, 0);
+    assert scaled_supply = Uint256(0, 0);
 
-    # TODO Deposit tokens and borrow some in variable mode. Eventually move this test case in a variable_debt_token_spec for integration with deployed contracts.
+    // TODO Deposit tokens and borrow some in variable mode. Eventually move this test case in a variable_debt_token_spec for integration with deployed contracts.
 
     %{ stop_mock_1() %}
-    return ()
-end
+    return ();
+}
 
-# Tries to mint not being the Pool (revert expected)
+// Tries to mint not being the Pool (revert expected)
 @external
-func test_mint_not_pool_revert{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr}():
-    let (test) = get_contract_address()
+func test_mint_not_pool_revert{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}() {
+    let (test) = get_contract_address();
     %{
         # store a different pool address than our test address
         store(ids.test, "IncentivizedERC20_pool",[ids.POOL])  
         expect_revert(error_message=f"{ids.Errors.CALLER_MUST_BE_POOL}")
     %}
-    VariableDebtToken.mint(USER_1, USER_1, Uint256(1, 0), 1)
-    return ()
-end
+    VariableDebtToken.mint(USER_1, USER_1, Uint256(1, 0), 1);
+    return ();
+}
 
-# Tries to burn not being the Pool (revert expected)
+// Tries to burn not being the Pool (revert expected)
 @external
-func test_burn_not_pool_revert{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr}():
-    let (test) = get_contract_address()
+func test_burn_not_pool_revert{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}() {
+    let (test) = get_contract_address();
     %{
         store(ids.test, "IncentivizedERC20_pool",[ids.POOL])  
         expect_revert(error_message=f"{ids.Errors.CALLER_MUST_BE_POOL}")
     %}
-    VariableDebtToken.burn(USER_1, Uint256(1, 0), 1)
-    return ()
-end
+    VariableDebtToken.burn(USER_1, Uint256(1, 0), 1);
+    return ();
+}
 
-# Tries to mint with amountScaled == 0 (revert expected)
+// Tries to mint with amountScaled == 0 (revert expected)
 @external
-func test_mint_amount_null{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr}():
-    let (test) = get_contract_address()
+func test_mint_amount_null{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}() {
+    let (test) = get_contract_address();
     %{
         # mock pool
         store(ids.test, "IncentivizedERC20_pool",[ids.POOL])  
         stop_prank_pool = start_prank(ids.POOL)
         expect_revert(error_message=f"{ids.Errors.INVALID_AMOUNT}")
     %}
-    VariableDebtToken.mint(USER_1, USER_1, Uint256(0, 0), 1)
-    return ()
-end
+    VariableDebtToken.mint(USER_1, USER_1, Uint256(0, 0), 1);
+    return ();
+}
 
-# Tries to mint with amountScaled == 0 (revert expected)
+// Tries to mint with amountScaled == 0 (revert expected)
 @external
-func test_burn_amount_null{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr}():
-    let (test) = get_contract_address()
+func test_burn_amount_null{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}() {
+    let (test) = get_contract_address();
 
     %{
         # mock pool
@@ -102,8 +102,8 @@ func test_burn_amount_null{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, ran
         stop_prank_pool = start_prank(ids.POOL)
         expect_revert(error_message=f"{ids.Errors.INVALID_AMOUNT}")
     %}
-    VariableDebtToken.burn(USER_1, Uint256(0, 0), 1)
-    return ()
-end
+    VariableDebtToken.burn(USER_1, Uint256(0, 0), 1);
+    return ();
+}
 
-# TODO Write a testcase for on_behalf borrowing behavior (see aave-v3 codebase). Eventually, write it in a variable_debt_token_spec for integration with deployed contracts.
+// TODO Write a testcase for on_behalf borrowing behavior (see aave-v3 codebase). Eventually, write it in a variable_debt_token_spec for integration with deployed contracts.

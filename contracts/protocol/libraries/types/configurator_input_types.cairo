@@ -1,44 +1,44 @@
 %lang starknet
 
-namespace ConfiguratorInputTypes:
-    struct InitReserveInput:
-        member a_token_impl : felt
-        member stable_debt_token_impl : felt
-        member variable_debt_token_impl : felt
-        member underlying_asset_decimals : felt
-        member interest_rate_strategy_address : felt
-        member underlying_asset : felt
-        member treasury : felt
-        member incentives_controller : felt
-        member a_token_name : felt
-        member a_token_symbol : felt
-        member variable_debt_token_name : felt
-        member variable_debt_token_symbol : felt
-        member stable_debt_token_name : felt
-        member stable_debt_token_symbol : felt
-        member params : felt
-        member proxy_class_hash : felt
-        member salt_a_token : felt
-        member salt_stable_debt_token : felt
-        member salt_variable_debt_token : felt
-    end
+namespace ConfiguratorInputTypes {
+    struct InitReserveInput {
+        a_token_impl: felt,
+        stable_debt_token_impl: felt,
+        variable_debt_token_impl: felt,
+        underlying_asset_decimals: felt,
+        interest_rate_strategy_address: felt,
+        underlying_asset: felt,
+        treasury: felt,
+        incentives_controller: felt,
+        a_token_name: felt,
+        a_token_symbol: felt,
+        variable_debt_token_name: felt,
+        variable_debt_token_symbol: felt,
+        stable_debt_token_name: felt,
+        stable_debt_token_symbol: felt,
+        params: felt,
+        proxy_class_hash: felt,
+        salt_a_token: felt,
+        salt_stable_debt_token: felt,
+        salt_variable_debt_token: felt,
+    }
 
-    struct UpdateATokenInput:
-        member asset : felt
-        member treasury : felt
-        member incentives_controller : felt
-        member name : felt
-        member symbol : felt
-        member implementation_hash : felt
-        member params : felt
-    end
+    struct UpdateATokenInput {
+        asset: felt,
+        treasury: felt,
+        incentives_controller: felt,
+        name: felt,
+        symbol: felt,
+        implementation_hash: felt,
+        params: felt,
+    }
 
-    struct UpdateDebtTokenInput:
-        member asset : felt
-        member incentives_controller : felt
-        member name : felt
-        member symbol : felt
-        member implementation_hash : felt
-        member params : felt
-    end
-end
+    struct UpdateDebtTokenInput {
+        asset: felt,
+        incentives_controller: felt,
+        name: felt,
+        symbol: felt,
+        implementation_hash: felt,
+        params: felt,
+    }
+}

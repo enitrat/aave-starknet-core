@@ -12,100 +12,99 @@ from contracts.protocol.libraries.math.helpers import (
     assert_not_zero_uint256,
 )
 
-# Values chosen randomly where: Uint(LOW, HIGH) = VALUE
-const HIGH_LARGE = 21
-const LOW_LARGE = 37
-const VALUE_LARGE = 7145929705339707732730866756067132440613
+// Values chosen randomly where: Uint(LOW, HIGH) = VALUE
+const HIGH_LARGE = 21;
+const LOW_LARGE = 37;
+const VALUE_LARGE = 7145929705339707732730866756067132440613;
 
-const HIGH_SMALL = 0
-const LOW_SMALL = 2 ** 127 + 1
-const VALUE_SMALL = LOW_SMALL
+const HIGH_SMALL = 0;
+const LOW_SMALL = 2 ** 127 + 1;
+const VALUE_SMALL = LOW_SMALL;
 
-# Largest Uint256 possible, will not fit felt
-const VALUE_NEGATIVE = -1
-
-@view
-func test_to_felt{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr}():
-    alloc_locals
-    let uint_256 = Uint256(LOW_LARGE, HIGH_LARGE)
-    let (value_felt) = to_felt(uint_256)
-
-    assert value_felt = VALUE_LARGE
-
-    return ()
-end
+// Largest Uint256 possible, will not fit felt
+const VALUE_NEGATIVE = -1;
 
 @view
-func test_to_uint256{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr}():
-    alloc_locals
-    let uint_256_constructed = Uint256(LOW_SMALL, HIGH_SMALL)
-    let (uint_256_from_library) = to_uint256(VALUE_SMALL)
+func test_to_felt{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}() {
+    alloc_locals;
+    let uint_256 = Uint256(LOW_LARGE, HIGH_LARGE);
+    let (value_felt) = to_felt(uint_256);
 
-    let (are_equal) = uint256_eq(uint_256_from_library, uint_256_constructed)
-    assert are_equal = TRUE
+    assert value_felt = VALUE_LARGE;
 
-    return ()
-end
+    return ();
+}
 
 @view
-func test_failure_to_felt{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr}():
-    alloc_locals
-    let uint_256 = Uint256(UINT128_MAX, UINT128_MAX)
+func test_to_uint256{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}() {
+    alloc_locals;
+    let uint_256_constructed = Uint256(LOW_SMALL, HIGH_SMALL);
+    let (uint_256_from_library) = to_uint256(VALUE_SMALL);
+
+    let (are_equal) = uint256_eq(uint_256_from_library, uint_256_constructed);
+    assert are_equal = TRUE;
+
+    return ();
+}
+
+@view
+func test_failure_to_felt{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}() {
+    alloc_locals;
+    let uint_256 = Uint256(UINT128_MAX, UINT128_MAX);
     %{ expect_revert() %}
-    let (value_felt) = to_felt(uint_256)
+    let (value_felt) = to_felt(uint_256);
 
-    return ()
-end
+    return ();
+}
 
-# TODO: research more as to range_checks, it might make sense to stick to uint_128
-# Right now, it will convert negative valued felts to Uint_256
+// TODO: research more as to range_checks, it might make sense to stick to uint_128
+// Right now, it will convert negative valued felts to Uint_256
 @view
-func test_failure_to_uint256{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr}():
+func test_failure_to_uint256{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}() {
     %{ expect_revert() %}
-    let (value_felt) = to_uint256(VALUE_NEGATIVE)
-    return ()
-end
+    let (value_felt) = to_uint256(VALUE_NEGATIVE);
+    return ();
+}
 
 @view
 func test_assert_nonnegative_uint256{
-    syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr
-}():
-    let (sample_uint_256) = to_uint256(VALUE_SMALL)
-    assert_nonnegative_uint256(sample_uint_256)
-    return ()
-end
+    syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr
+}() {
+    let (sample_uint_256) = to_uint256(VALUE_SMALL);
+    assert_nonnegative_uint256(sample_uint_256);
+    return ();
+}
 
 @view
 func test_revert_assert_nonnegative_uint256{
-    syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr
-}():
-    # TODO: Check with lower values.
-    # Right now, this assert fails when values are relatively small.
-    # for example: negative_uint_256 = Uint256(VALUE_NEGATIVE, 0)
-    # won't revert, considering the main function is is using a standard
-    # library function, and that, in theory, this check shouldn't be needed
-    # for uint values, this function should be double checked before release.
-    tempvar negative_uint_256 = Uint256(0, VALUE_NEGATIVE)
+    syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr
+}() {
+    // TODO: Check with lower values.
+    // Right now, this assert fails when values are relatively small.
+    // for example: negative_uint_256 = Uint256(VALUE_NEGATIVE, 0)
+    // won't revert, considering the main function is is using a standard
+    // library function, and that, in theory, this check shouldn't be needed
+    // for uint values, this function should be double checked before release.
+    tempvar negative_uint_256 = Uint256(0, VALUE_NEGATIVE);
     %{ expect_revert() %}
-    assert_nonnegative_uint256(negative_uint_256)
-    return ()
-end
+    assert_nonnegative_uint256(negative_uint_256);
+    return ();
+}
 
 @view
-func test_assert_not_zero_uint256{
-    syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr
-}():
-    let (not_zero_uint_256) = to_uint256(VALUE_SMALL)
-    assert_not_zero_uint256(not_zero_uint_256)
-    return ()
-end
+func test_assert_not_zero_uint256{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}(
+    ) {
+    let (not_zero_uint_256) = to_uint256(VALUE_SMALL);
+    assert_not_zero_uint256(not_zero_uint_256);
+    return ();
+}
 
 @view
 func test_revert_assert_not_zero_uint256{
-    syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr
-}():
-    let (zero_uint_256) = to_uint256(0)
+    syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr
+}() {
+    let (zero_uint_256) = to_uint256(0);
     %{ expect_revert() %}
-    assert_not_zero_uint256(zero_uint_256)
-    return ()
-end
+    assert_not_zero_uint256(zero_uint_256);
+    return ();
+}

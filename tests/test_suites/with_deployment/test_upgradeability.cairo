@@ -13,11 +13,11 @@ from tests.test_suites.test_specs.upgradeability_spec import (
 )
 
 @external
-func __setup__{syscall_ptr : felt*, range_check_ptr}():
-    alloc_locals
-    let (deployer) = get_contract_address()
-    local proxy_address
-    local mock_initializable_v1
+func __setup__{syscall_ptr: felt*, range_check_ptr}() {
+    alloc_locals;
+    let (deployer) = get_contract_address();
+    local proxy_address;
+    local mock_initializable_v1;
     %{
         def str_to_felt(text):
             MAX_LEN_FELT = 31
@@ -44,56 +44,56 @@ func __setup__{syscall_ptr : felt*, range_check_ptr}():
         INITIALIZE_SELECTOR,
         2,
         cast(new (INIT_VALUE, INIT_TEXT), felt*),
-    )
-    return ()
-end
+    );
+    return ();
+}
 
-#
-# VersionedInitializable tests
-#
+//
+// VersionedInitializable tests
+//
 
 @external
 func test_initialize_when_already_initialized{
-    syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr
-}():
-    TestVersionedInitializable.test_initialize_when_already_initialized()
-    return ()
-end
+    syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr
+}() {
+    TestVersionedInitializable.test_initialize_when_already_initialized();
+    return ();
+}
 
-#
-# InitializableImmutableAdminUpgradeabilityProxy tests
-#
+//
+// InitializableImmutableAdminUpgradeabilityProxy tests
+//
 
 @external
 func test_initialize_impl_version_is_correct{
-    syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr
-}():
-    TestInitializableImmutableAdminUpgradeabilityProxy.test_initialize_impl_version_is_correct()
-    return ()
-end
+    syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr
+}() {
+    TestInitializableImmutableAdminUpgradeabilityProxy.test_initialize_impl_version_is_correct();
+    return ();
+}
 
 @external
 func test_initialize_impl_initialization_is_correct{
-    syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr
-}():
+    syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr
+}() {
     TestInitializableImmutableAdminUpgradeabilityProxy.test_initialize_impl_initialization_is_correct(
-        )
-    return ()
-end
+        );
+    return ();
+}
 
 @external
 func test_initialize_from_non_admin_when_already_initialized{
-    syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr
-}():
+    syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr
+}() {
     TestInitializableImmutableAdminUpgradeabilityProxy.test_initialize_from_non_admin_when_already_initialized(
-        )
-    return ()
-end
+        );
+    return ();
+}
 
 @external
 func test_upgrade_to_new_impl_from_admin{
-    syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr
-}():
-    TestInitializableImmutableAdminUpgradeabilityProxy.test_upgrade_to_new_impl_from_admin()
-    return ()
-end
+    syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr
+}() {
+    TestInitializableImmutableAdminUpgradeabilityProxy.test_upgrade_to_new_impl_from_admin();
+    return ();
+}
