@@ -2,9 +2,7 @@
 
 ## Installation
 
-To enable pre-commit hooks using [pre-commit-cairo](https://github.com/franalgaba/pre-commit-cairo).
-
-Make sure you run the following once:
+To enable pre-commit hook based on `protostar format`, make sure you run the following once:
 
 ```bash
 ./pre-commit-install.sh

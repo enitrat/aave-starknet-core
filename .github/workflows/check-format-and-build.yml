@@ -1,4 +1,4 @@
-name: Tests
+name: Check format and build contracts
 
 on:
   push:
@@ -19,12 +19,6 @@ jobs:
     strategy:
       matrix:
         python-version: ["3.9"]
-        tests:
-          [
-            "unit_tests",
-            "test_suites/with_deployment",
-            "test_suites/without_deployment",
-          ]
     steps:
       - uses: actions/checkout@v3
 
@@ -37,6 +31,10 @@ jobs:
         run: |
           export PATH="$PATH:/home/runner/.protostar/dist/protostar" && protostar install
 
-      - name: Run tests
+      - name: Check format
         run: |
-          export PATH="$PATH:/home/runner/.protostar/dist/protostar" && protostar test ./tests/${{ matrix.tests }}
+          export PATH="$PATH:/home/runner/.protostar/dist/protostar" && protostar format contracts --check && protostar format tests --check
+
+      - name: Build contracts
+        run: |
+          export PATH="$PATH:/home/runner/.protostar/dist/protostar" && protostar build
