@@ -28,6 +28,13 @@ namespace BoolCmp {
         return (res=res);
     }
 
+    func neither(x: felt, y: felt) -> (res: felt) {
+        assert x * x = x;
+        assert y * y = y;
+        let (res) = eq((x + y), 0);
+        return (res=res);
+    }
+
     func not(x: felt) -> (res: felt) {
         assert x * x = x;
         let res = (1 - x);

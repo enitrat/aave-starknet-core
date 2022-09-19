@@ -17,14 +17,12 @@ func to_felt{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}(va
 }
 
 // Takes felt of any size and turns it into uint256
-func to_uint256{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}(value: felt) -> (
-    res: Uint256
-) {
+func to_uint256{range_check_ptr}(value: felt) -> (res: Uint256) {
     alloc_locals;
 
-    with_attr error_message("to_uint256: Not a positive value or overflown") {
-        assert_nn(value);
-    }
+    // with_attr error_message("to_uint256: Not a positive value or overflown"):
+    //    assert_nn(value)
+    // end
 
     with_attr error_message("to_uint256: invalid uint") {
         let (local high, local low) = split_felt(value);

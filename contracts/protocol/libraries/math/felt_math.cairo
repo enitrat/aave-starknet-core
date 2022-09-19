@@ -1,9 +1,14 @@
+from starkware.cairo.common.cairo_builtins import HashBuiltin
 from starkware.cairo.common.math_cmp import is_le_felt
+from starkware.cairo.common.math import unsigned_div_rem
 from starkware.cairo.common.bool import TRUE, FALSE
+from starkware.cairo.common.uint256 import Uint256, uint256_unsigned_div_rem, uint256_eq
 
 from contracts.protocol.libraries.helpers.bool_cmp import BoolCmp
 from contracts.protocol.libraries.math.safe_cmp import SafeCmp
-from contracts.protocol.libraries.helpers.constants import MAX_SIGNED_FELT
+from contracts.protocol.libraries.helpers.constants import MAX_SIGNED_FELT, MAX_UNSIGNED_FELT
+from contracts.protocol.libraries.math.helpers import to_uint256
+from contracts.protocol.libraries.math.safe_uint256_cmp import SafeUint256Cmp
 
 // @notice Library to safely compare felts interpreted as unsigned or signed integers.
 //
@@ -47,7 +52,6 @@ namespace FeltMath {
         let (underflow) = SafeCmp.is_lt_unsigned(a, b);
         return (res, underflow);
     }
-
     // @notice Multiplies two integers, and return output and overflow flag. Interprets a, b in range [0, P)
     // @dev Utilizes internal recursive function to better track the overflow occurence
     // @param a Unsigned felt integer
@@ -55,47 +59,17 @@ namespace FeltMath {
     // @returns res Product of a and b
     // @returns overflow Bool flag indicating if overflow occured
     func mul_unsigned{range_check_ptr}(a: felt, b: felt) -> (res: felt, overflow: felt) {
-        // minimize steps
-        let (is_a_smaller) = SafeCmp.is_lt_unsigned(a, b);
-        if (is_a_smaller == TRUE) {
-            return mul_unsigned(b, a);
-        }
-
-        if (b == 0) {
-            return (0, 0);
-        }
-
-        if (b == 1) {
-            return (a, 0);
-        }
-
-        return _mul_inner(0, 0, a, b);
-    }
-
-    // @notice Inner function to mul_unsigned
-    // @dev Tail-recursive function
-    // @param acc Accumulated result from the previous recursive calls
-    // @param flag_overflow Bool flag indicating if overflow happened
-    // @param base Unsigned integer - multiplicant
-    // @param counter Unsigned integer - multiplier
-    // @returns res Sum of acc and base or end product if overflow happened
-    // @returns overflow Bool flag indicating if overflow happened
-    func _mul_inner{range_check_ptr}(acc: felt, flag_overflow: felt, base: felt, counter: felt) -> (
-        res: felt, overflow: felt
-    ) {
         alloc_locals;
-        if (flag_overflow == TRUE) {
-            return ((base * counter) + acc, TRUE);
-        }
-
-        let (res, overflow) = add_unsigned(acc, base);
-        let new_counter = counter - 1;
-        if (new_counter == 0) {
-            return (res, overflow);
-        }
-        return _mul_inner(res, overflow, base, new_counter);
+        // minimize steps with checking if overflow occured
+        // conversion to Uint256 because of division of MAX_UNSIGNED_FELT
+        let (MAX_UNSIGNED_UINT: Uint256) = to_uint256(MAX_UNSIGNED_FELT);
+        let (a_uint256: Uint256) = to_uint256(a);
+        let (q: Uint256, r: Uint256) = uint256_unsigned_div_rem(MAX_UNSIGNED_UINT, a_uint256);
+        let (b_uint256: Uint256) = to_uint256(b);
+        let (overflow) = SafeUint256Cmp.lt(q, b_uint256);
+        let res = a * b;
+        return (res, overflow);
     }
-
     // @notice Calculates exponention of an integer, and return output and an overflow flag. Interprets base, power in range [0, P)
     // @dev Utilizes internal recursive function to better track the overflow occurence
     // @param base Unsigned felt integer

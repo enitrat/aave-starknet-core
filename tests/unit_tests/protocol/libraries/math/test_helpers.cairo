@@ -57,15 +57,6 @@ func test_failure_to_felt{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_
     return ();
 }
 
-// TODO: research more as to range_checks, it might make sense to stick to uint_128
-// Right now, it will convert negative valued felts to Uint_256
-@view
-func test_failure_to_uint256{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}() {
-    %{ expect_revert() %}
-    let (value_felt) = to_uint256(VALUE_NEGATIVE);
-    return ();
-}
-
 @view
 func test_assert_nonnegative_uint256{
     syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr
