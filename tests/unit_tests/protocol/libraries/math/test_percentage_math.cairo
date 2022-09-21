@@ -1,11 +1,12 @@
 %lang starknet
 
+from starkware.cairo.common.cairo_builtins import HashBuiltin
 from starkware.cairo.common.uint256 import Uint256
 
 from contracts.protocol.libraries.math.percentage_math import PercentageMath
 
 @external
-func test_percent_math_mul{range_check_ptr}() {
+func test_percent_math_mul{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}() {
     alloc_locals;
     // Test with an unrounded value
     local percentage: Uint256 = Uint256(100, 0);  // 1%
@@ -24,7 +25,9 @@ func test_percent_math_mul{range_check_ptr}() {
 }
 
 @external
-func test_percent_math_mul_overflow{range_check_ptr}() {
+func test_percent_math_mul_overflow{
+    syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr
+}() {
     alloc_locals;
     // Overflow limit is Uint256(190558125475725539539489780161790198365, 3402823669209384634633746074317682114) (higher than solidity's)
     local percentage: Uint256 = Uint256(100, 0);  // 1%
@@ -41,7 +44,7 @@ func test_percent_math_mul_overflow{range_check_ptr}() {
 }
 
 @external
-func test_percent_math_mul_zero{range_check_ptr}() {
+func test_percent_math_mul_zero{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}() {
     alloc_locals;
     local percentage: Uint256 = Uint256(0, 0);  // 1%
 
@@ -52,7 +55,7 @@ func test_percent_math_mul_zero{range_check_ptr}() {
 }
 
 @external
-func test_percent_math_div{range_check_ptr}() {
+func test_percent_math_div{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}() {
     alloc_locals;
     // Test with an unrounded value
     local value: Uint256 = Uint256(1000, 0);
@@ -73,7 +76,9 @@ func test_percent_math_div{range_check_ptr}() {
 }
 
 @external
-func test_percent_math_div_overflow{range_check_ptr}() {
+func test_percent_math_div_overflow{
+    syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr
+}() {
     alloc_locals;
     // Overflow limit is Uint256(49545112623688640280267342842065451587, 34028236692093846346337460743176821) (same as solidity)
     local value_not_overflowing: Uint256 = Uint256(49545112623688640280267342842065451587, 34028236692093846346337460743176821);
@@ -89,7 +94,7 @@ func test_percent_math_div_overflow{range_check_ptr}() {
 }
 
 @external
-func test_percent_math_div_zero{range_check_ptr}() {
+func test_percent_math_div_zero{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}() {
     alloc_locals;
     local percentage: Uint256 = Uint256(0, 0);  // 0%
 

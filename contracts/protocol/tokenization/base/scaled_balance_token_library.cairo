@@ -196,7 +196,12 @@ namespace ScaledBalanceToken {
         _mint(on_behalf_of, amount_scaled);
 
         // TODO Should revert on overflow?
-        let (local amount_to_mint: Uint256, _) = WadRayMath.ray_add(amount_ray, balance_increase);
+        let (local amount_to_mint: Uint256, add_overflow) = WadRayMath.ray_add(
+            amount_ray, balance_increase
+        );
+        with_attr error_message("mint_scaled: Addition overflow") {
+            assert add_overflow = FALSE;
+        }
 
         Transfer.emit(0, on_behalf_of, amount_to_mint);
         Mint.emit(caller, on_behalf_of, amount_to_mint, balance_increase, index);

@@ -3,7 +3,7 @@
 from starkware.cairo.common.cairo_builtins import HashBuiltin
 from starkware.cairo.common.math_cmp import is_not_zero
 from starkware.cairo.common.uint256 import Uint256, uint256_eq
-from starkware.cairo.common.bool import TRUE
+from starkware.cairo.common.bool import TRUE, FALSE
 from starkware.starknet.common.syscalls import get_block_timestamp
 
 from openzeppelin.security.safemath.library import SafeUint256
@@ -109,7 +109,8 @@ namespace StableDebtToken {
             initializing_pool, debt_token_name, debt_token_symbol, debt_token_decimals
         );
         DebtTokenBase.set_underlying_asset(underlying_asset);
-        IncentivizedERC20._set_incentives_controller(incentives_controller);
+
+        IncentivizedERC20.set_incentives_controller(incentives_controller);
 
         Initialized.emit(
             underlying_asset,
@@ -232,7 +233,12 @@ namespace StableDebtToken {
             current_avg_stable_rate_256, current_balance_ray
         );
         let (amount_mul_rate_ray) = WadRayMath.ray_mul(amount_in_ray, rate_256);
-        let (numerator, _) = WadRayMath.ray_add(cur_rate_mul_balance_ray, amount_mul_rate_ray);
+        let (numerator, add_overflow) = WadRayMath.ray_add(
+            cur_rate_mul_balance_ray, amount_mul_rate_ray
+        );
+        with_attr error_message("mint: Addition overflow") {
+            assert add_overflow = FALSE;
+        }
 
         let (current_balance_plus_amt) = SafeUint256.add(current_balance, amount);
         let (denominator) = WadRayMath.wad_to_ray(current_balance_plus_amt);
@@ -256,9 +262,12 @@ namespace StableDebtToken {
             current_avg_stable_rate_256, previous_supply_ray
         );
         let (rate_mul_amount_ray) = WadRayMath.ray_mul(rate_256, amount_in_ray);
-        let (numerator, _) = WadRayMath.ray_add(
+        let (numerator, add_overflow) = WadRayMath.ray_add(
             current_rate_mul_prev_supply_ray, rate_mul_amount_ray
         );
+        with_attr error_message("mint: Addition overflow") {
+            assert add_overflow = FALSE;
+        }
         let (current_avg_stable_rate_256) = WadRayMath.ray_div(numerator, next_supply_ray);
         let (current_avg_stable_rate) = to_felt(current_avg_stable_rate_256);
         StableDebtToken_avg_stable_rate.write(current_avg_stable_rate);
