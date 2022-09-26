@@ -21,9 +21,6 @@ const HIGH_SMALL = 0;
 const LOW_SMALL = 2 ** 127 + 1;
 const VALUE_SMALL = LOW_SMALL;
 
-// Largest Uint256 possible, will not fit felt
-const VALUE_NEGATIVE = -1;
-
 @view
 func test_to_felt{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}() {
     alloc_locals;
@@ -43,6 +40,17 @@ func test_to_uint256{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check
 
     let (are_equal) = uint256_eq(uint_256_from_library, uint_256_constructed);
     assert are_equal = TRUE;
+
+    return ();
+}
+
+@view
+func test_felt_to_uint256_to_felt{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}(
+    ) {
+    alloc_locals;
+    let (uint_256_val: Uint256) = to_uint256(VALUE_SMALL);
+    let (felt_val: felt) = to_felt(uint_256_val);
+    assert VALUE_SMALL = felt_val;
 
     return ();
 }
@@ -72,11 +80,11 @@ func test_revert_assert_nonnegative_uint256{
 }() {
     // TODO: Check with lower values.
     // Right now, this assert fails when values are relatively small.
-    // for example: negative_uint_256 = Uint256(VALUE_NEGATIVE, 0)
+    // for example: negative_uint_256 = Uint256(UINT128_MAX, 0)
     // won't revert, considering the main function is is using a standard
     // library function, and that, in theory, this check shouldn't be needed
     // for uint values, this function should be double checked before release.
-    tempvar negative_uint_256 = Uint256(0, VALUE_NEGATIVE);
+    tempvar negative_uint_256 = Uint256(0, UINT128_MAX);
     %{ expect_revert() %}
     assert_nonnegative_uint256(negative_uint_256);
     return ();

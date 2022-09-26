@@ -1,16 +1,24 @@
 from starkware.cairo.common.cairo_builtins import HashBuiltin
-from starkware.cairo.common.uint256 import Uint256, uint256_signed_nn, uint256_eq
+from starkware.cairo.common.uint256 import Uint256, uint256_signed_nn, uint256_eq, uint256_check
 from starkware.cairo.common.bool import TRUE, FALSE
 from starkware.cairo.common.math import assert_250_bit, assert_nn, split_felt, assert_not_equal
+
+from contracts.protocol.libraries.math.felt_math import FeltMath
 
 // Takes Uint256 as input and returns a felt
 func to_felt{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}(value: Uint256) -> (
     res: felt
 ) {
-    let res = value.low + value.high * (2 ** 128);
+    uint256_check(value);
 
+    let (res1, mul_overflow) = FeltMath.mul_unsigned(value.high, 2 ** 128);
     with_attr error_message("to_felt: Value doesn't fit in a felt") {
-        assert_250_bit(res);
+        assert mul_overflow = FALSE;
+    }
+
+    let (res, add_overflow) = FeltMath.add_unsigned(value.low, res1);
+    with_attr error_message("to_felt: Value doesn't fit in a felt") {
+        assert add_overflow = FALSE;
     }
 
     return (res,);
@@ -19,10 +27,6 @@ func to_felt{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}(va
 // Takes felt of any size and turns it into uint256
 func to_uint256{range_check_ptr}(value: felt) -> (res: Uint256) {
     alloc_locals;
-
-    // with_attr error_message("to_uint256: Not a positive value or overflown"):
-    //    assert_nn(value)
-    // end
 
     with_attr error_message("to_uint256: invalid uint") {
         let (local high, local low) = split_felt(value);

@@ -1,13 +1,12 @@
 from starkware.cairo.common.cairo_builtins import HashBuiltin
 from starkware.cairo.common.math_cmp import is_le_felt
-from starkware.cairo.common.math import unsigned_div_rem
+from starkware.cairo.common.math import unsigned_div_rem, split_felt
 from starkware.cairo.common.bool import TRUE, FALSE
 from starkware.cairo.common.uint256 import Uint256, uint256_unsigned_div_rem, uint256_eq
 
 from contracts.protocol.libraries.helpers.bool_cmp import BoolCmp
 from contracts.protocol.libraries.math.safe_cmp import SafeCmp
 from contracts.protocol.libraries.helpers.constants import MAX_SIGNED_FELT, MAX_UNSIGNED_FELT
-from contracts.protocol.libraries.math.helpers import to_uint256
 from contracts.protocol.libraries.math.safe_uint256_cmp import SafeUint256Cmp
 
 // @notice Library to safely compare felts interpreted as unsigned or signed integers.
@@ -60,6 +59,12 @@ namespace FeltMath {
     // @returns overflow Bool flag indicating if overflow occured
     func mul_unsigned{range_check_ptr}(a: felt, b: felt) -> (res: felt, overflow: felt) {
         alloc_locals;
+        if (a == 0) {
+            return (0, 0);
+        }
+        if (b == 0) {
+            return (0, 0);
+        }
         // minimize steps with checking if overflow occured
         // conversion to Uint256 because of division of MAX_UNSIGNED_FELT
         let (MAX_UNSIGNED_UINT: Uint256) = to_uint256(MAX_UNSIGNED_FELT);
@@ -141,4 +146,15 @@ namespace FeltMath {
     func sub_signed{range_check_ptr}(a: felt, b: felt) -> (res: felt, carry: felt) {
         return add_signed(a, -b);
     }
+}
+
+func to_uint256{range_check_ptr}(value: felt) -> (res: Uint256) {
+    alloc_locals;
+
+    with_attr error_message("to_uint256: invalid uint") {
+        let (local high, local low) = split_felt(value);
+    }
+
+    let res = Uint256(low, high);
+    return (res,);
 }
