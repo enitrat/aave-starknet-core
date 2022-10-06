@@ -17,7 +17,7 @@ from contracts.protocol.tokenization.base.debt_token_base_library import DebtTok
 from contracts.protocol.libraries.types.data_types import DataTypes
 from contracts.protocol.libraries.math.math_utils import MathUtils
 from contracts.protocol.libraries.math.wad_ray_math import WadRayMath
-from contracts.protocol.libraries.math.helpers import to_felt, to_uint256
+from contracts.protocol.libraries.math.felt_math import to_felt, to_uint256
 from contracts.interfaces.i_aave_incentives_controller import IAaveIncentivesController
 from contracts.protocol.libraries.math.safe_uint256_cmp import SafeUint256Cmp
 

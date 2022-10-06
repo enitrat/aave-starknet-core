@@ -5,7 +5,8 @@ from starkware.cairo.common.uint256 import Uint256, uint256_add, uint256_sub
 from starkware.cairo.common.bool import FALSE
 from starkware.starknet.common.syscalls import get_contract_address
 
-from contracts.protocol.libraries.math.helpers import to_uint256, assert_eq_uint256
+from contracts.protocol.libraries.math.helpers import assert_eq_uint256
+from contracts.protocol.libraries.math.felt_math import to_uint256
 from contracts.protocol.libraries.math.wad_ray_math import WadRayMath
 from contracts.protocol.tokenization.base.incentivized_erc20_library import IncentivizedERC20
 from contracts.protocol.tokenization.base.scaled_balance_token_library import ScaledBalanceToken

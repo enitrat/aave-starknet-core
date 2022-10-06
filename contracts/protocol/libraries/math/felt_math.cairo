@@ -2,7 +2,12 @@ from starkware.cairo.common.cairo_builtins import HashBuiltin
 from starkware.cairo.common.math_cmp import is_le_felt
 from starkware.cairo.common.math import unsigned_div_rem, split_felt
 from starkware.cairo.common.bool import TRUE, FALSE
-from starkware.cairo.common.uint256 import Uint256, uint256_unsigned_div_rem, uint256_eq
+from starkware.cairo.common.uint256 import (
+    Uint256,
+    uint256_unsigned_div_rem,
+    uint256_eq,
+    uint256_check,
+)
 
 from contracts.protocol.libraries.helpers.bool_cmp import BoolCmp
 from contracts.protocol.libraries.math.safe_cmp import SafeCmp
@@ -52,7 +57,6 @@ namespace FeltMath {
         return (res, underflow);
     }
     // @notice Multiplies two integers, and return output and overflow flag. Interprets a, b in range [0, P)
-    // @dev Utilizes internal recursive function to better track the overflow occurence
     // @param a Unsigned felt integer
     // @param b Unsigned felt integer
     // @returns res Product of a and b
@@ -74,6 +78,23 @@ namespace FeltMath {
         let (overflow) = SafeUint256Cmp.lt(q, b_uint256);
         let res = a * b;
         return (res, overflow);
+    }
+
+    // @notice Divides two felts, and return the quotient and the remainder. Interprets a, b in range [0, P)
+    // @param a Unsigned felt integer
+    // @param b Unsigned felt integer
+    // @returns q quotient of a divided by b
+    // @returns r remainder of a divided by b
+    func div_unsigned{range_check_ptr}(a: felt, b: felt) -> (q: felt, r: felt) {
+        alloc_locals;
+        // conversion to Uint256 because using unsigned_div_rem requires 0 <= q < rc_bound and doesn't
+        // allow us to use the full range of a felt for a division.
+        let (a_uint256: Uint256) = to_uint256(a);
+        let (b_uint256: Uint256) = to_uint256(b);
+        let (q: Uint256, r: Uint256) = uint256_unsigned_div_rem(a_uint256, b_uint256);
+        let (q_felt) = to_felt(q);
+        let (r_felt) = to_felt(r);
+        return (q_felt, r_felt);
     }
     // @notice Calculates exponention of an integer, and return output and an overflow flag. Interprets base, power in range [0, P)
     // @dev Utilizes internal recursive function to better track the overflow occurence
@@ -156,5 +177,22 @@ func to_uint256{range_check_ptr}(value: felt) -> (res: Uint256) {
     }
 
     let res = Uint256(low, high);
+    return (res,);
+}
+
+// Takes Uint256 as input and returns a felt
+func to_felt{range_check_ptr}(value: Uint256) -> (res: felt) {
+    uint256_check(value);
+
+    let (res1, mul_overflow) = FeltMath.mul_unsigned(value.high, 2 ** 128);
+    with_attr error_message("to_felt: Value doesn't fit in a felt") {
+        assert mul_overflow = FALSE;
+    }
+
+    let (res, add_overflow) = FeltMath.add_unsigned(value.low, res1);
+    with_attr error_message("to_felt: Value doesn't fit in a felt") {
+        assert add_overflow = FALSE;
+    }
+
     return (res,);
 }

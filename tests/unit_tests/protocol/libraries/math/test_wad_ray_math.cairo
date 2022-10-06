@@ -17,6 +17,7 @@ from contracts.protocol.libraries.helpers.constants import uint256_max
 
 //
 // ray_mul with different inputs:
+// general formula is: power_of_a + power_of_b - 27
 // ray_mul(a : Ray, b : Ray) -> 1e27
 // ray_mul(a : Wad, b : Wad) -> 1e9
 // ray_mul(a : Wad, b : Ray) -> 1e18
@@ -27,7 +28,7 @@ func test_unexpected_results_ray_mul{range_check_ptr}() {
     alloc_locals;
     let (wad_) = WadRayMath.wad();
     let (ray_) = WadRayMath.ray();
-    let _1e9 = Uint256(1000000000, 0);
+    let _1e9 = Uint256(10 ** 9, 0);
 
     // wad-wad
     let (two_wad_, _) = uint256_mul(Uint256(2, 0), wad_);
@@ -51,6 +52,7 @@ func test_unexpected_results_ray_mul{range_check_ptr}() {
 
 //
 // wad_mul with non-Wad inputs:
+// general formula is: power_of_a + power_of_b - 18
 // wad_mul(a : Wad, b : Wad) -> 1e18
 // wad_mul(a : Ray, b : Ray) -> 1e36
 // wad_mul(a : Wad, b : Ray) -> 1e27
@@ -61,7 +63,7 @@ func test_unexpected_results_wad_mul{range_check_ptr}() {
     alloc_locals;
     let (wad_) = WadRayMath.wad();
     let (ray_) = WadRayMath.ray();
-    let _1e36 = Uint256(1000000000000000000000000000000000000, 0);
+    let _1e36 = Uint256(10 ** 36, 0);
 
     // ray-ray
     let (two_ray_, _) = uint256_mul(Uint256(2, 0), ray_);
@@ -88,14 +90,14 @@ func test_unexpected_results_wad_mul{range_check_ptr}() {
 // ray_div(a : Ray, b : Ray) -> 1e27
 // ray_div(a : Wad, b : Wad) -> 1e27
 // ray_div(a : Wad, b : Ray) -> 1e18
-// ray_div(a : Wad, b : Wad) -> 1e36
+// ray_div(a : Ray, b : Wad) -> 1e36
 //
 @external
 func test_unexpected_results_ray_div{range_check_ptr}() {
     alloc_locals;
     let (wad_) = WadRayMath.wad();
     let (ray_) = WadRayMath.ray();
-    let _1e36 = Uint256(1000000000000000000000000000000000000, 0);
+    let _1e36 = Uint256(10 ** 36, 0);
 
     // wad-wad
     let (six_wad_, _) = uint256_mul(Uint256(6, 0), wad_);
@@ -129,7 +131,7 @@ func test_unexpected_results_wad_div{range_check_ptr}() {
     alloc_locals;
     let (wad_) = WadRayMath.wad();
     let (ray_) = WadRayMath.ray();
-    let _1e9 = Uint256(1000000000, 0);
+    let _1e9 = Uint256(10 ** 9, 0);
 
     // ray-ray
     let (six_ray_, _) = uint256_mul(Uint256(6, 0), ray_);
@@ -400,7 +402,7 @@ func test_exceptions_div{range_check_ptr}() {
     assert res = Uint256(1000, 0);
 
     // underflow test
-    let (res) = WadRayMath.wad_div(Uint256(1, 0), Uint256(0, 10000000000000000000));
+    let (res) = WadRayMath.wad_div(Uint256(1, 0), Uint256(0, 10 ** 19));
     assert res = Uint256(0, 0);
 
     // division by 0
@@ -420,7 +422,7 @@ func test_exceptions_div{range_check_ptr}() {
     assert res = Uint256(1000, 0);
 
     // underflow test
-    let (res) = WadRayMath.ray_div(Uint256(1, 0), Uint256(0, 100000000000000000000));
+    let (res) = WadRayMath.ray_div(Uint256(1, 0), Uint256(0, 10 ** 19));
     assert res = Uint256(0, 0);
 
     // division by 0

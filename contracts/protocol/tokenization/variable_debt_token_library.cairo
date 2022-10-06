@@ -12,7 +12,7 @@ from contracts.protocol.tokenization.base.debt_token_base_library import DebtTok
 from contracts.protocol.tokenization.base.scaled_balance_token_library import ScaledBalanceToken
 from contracts.protocol.libraries.helpers.helpers import is_zero
 from contracts.protocol.libraries.math.wad_ray_math import WadRayMath
-from contracts.protocol.libraries.math.helpers import to_uint256
+from contracts.protocol.libraries.math.felt_math import to_uint256
 from contracts.interfaces.i_pool import IPool
 
 @event

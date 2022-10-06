@@ -10,11 +10,10 @@ from openzeppelin.token.erc20.library import Transfer
 
 from contracts.interfaces.i_aave_incentives_controller import IAaveIncentivesController
 from contracts.protocol.libraries.math.helpers import (
-    to_uint256,
     assert_nonnegative_uint256,
     assert_not_zero_uint256,
 )
-from contracts.protocol.libraries.math.helpers import to_felt
+from contracts.protocol.libraries.math.felt_math import to_felt, to_uint256
 from contracts.protocol.libraries.math.wad_ray_math import WadRayMath
 from contracts.protocol.libraries.types.data_types import DataTypes
 from contracts.protocol.tokenization.base.incentivized_erc20_library import IncentivizedERC20

@@ -5,7 +5,7 @@ from starkware.starknet.common.syscalls import get_block_timestamp
 
 from contracts.protocol.libraries.types.data_types import DataTypes
 from contracts.protocol.pool.pool_storage import PoolStorage
-from contracts.protocol.libraries.math.helpers import to_felt, to_uint256
+from contracts.protocol.libraries.math.felt_math import to_felt, to_uint256
 from contracts.protocol.libraries.math.wad_ray_math import WadRayMath
 from contracts.protocol.libraries.math.math_utils import MathUtils
 from contracts.protocol.libraries.helpers.errors import Errors
