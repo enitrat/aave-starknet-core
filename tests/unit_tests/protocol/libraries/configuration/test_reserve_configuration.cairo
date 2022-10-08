@@ -161,12 +161,12 @@ func test_unbacked_mint_cap{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, rang
 }
 
 @external
-func test_eMode_category{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}() {
-    let (eMode_category) = ReserveConfiguration.get_eMode_category(TEST_RESERVE_ASSET);
-    assert eMode_category = 0;
-    ReserveConfiguration.set_eMode_category(TEST_RESERVE_ASSET, 10);
-    let (eMode_category) = ReserveConfiguration.get_eMode_category(TEST_RESERVE_ASSET);
-    assert eMode_category = 10;
+func test_e_mode_category{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}() {
+    let (e_mode_category) = ReserveConfiguration.get_e_mode_category(TEST_RESERVE_ASSET);
+    assert e_mode_category = 0;
+    ReserveConfiguration.set_e_mode_category(TEST_RESERVE_ASSET, 10);
+    let (e_mode_category) = ReserveConfiguration.get_e_mode_category(TEST_RESERVE_ASSET);
+    assert e_mode_category = 10;
     return ();
 }
 
@@ -197,7 +197,7 @@ struct Params {
     liquidation_bonus: felt,
     decimals: felt,
     reserve_factor: felt,
-    eMode_category: felt,
+    e_mode_category: felt,
 }
 
 @external
@@ -207,7 +207,7 @@ func test_params{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr
     ReserveConfiguration.set_liquidation_bonus(TEST_RESERVE_ASSET, 30);
     ReserveConfiguration.set_decimals(TEST_RESERVE_ASSET, 18);
     ReserveConfiguration.set_reserve_factor(TEST_RESERVE_ASSET, 20);
-    ReserveConfiguration.set_eMode_category(TEST_RESERVE_ASSET, 3);
+    ReserveConfiguration.set_e_mode_category(TEST_RESERVE_ASSET, 3);
     let res = ReserveConfiguration.get_params(TEST_RESERVE_ASSET);
     let params = Params(res[0], res[1], res[2], res[3], res[4], res[5]);
     assert params = Params(10, 20, 30, 18, 20, 3);

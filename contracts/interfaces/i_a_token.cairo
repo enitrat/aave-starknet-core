@@ -30,6 +30,9 @@ namespace IAToken {
     func balanceOf(account: felt) -> (balance: Uint256) {
     }
 
+    func scaled_balance_of(account: felt) -> (balance: Uint256) {
+    }
+
     func allowance(owner: felt, spender: felt) -> (remaining: Uint256) {
     }
 

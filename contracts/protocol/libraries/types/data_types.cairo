@@ -17,7 +17,7 @@ namespace DataTypes {
         borrow_cap: felt,
         supply_cap: felt,
         liquidation_protocol_fee: felt,
-        eMode_category: felt,
+        e_mode_category: felt,
         unbacked_mint_cap: felt,
         debt_ceiling: felt,
     }
@@ -91,8 +91,8 @@ namespace DataTypes {
         to: felt,
         reserves_count: felt,
         // TODO add the rest of the fields
-        // member oracle  : felt
-        // member user_eMode_category  : felt
+        //  oracle  : felt
+        //  user_e_mode_category  : felt
     }
 
     // @dev UserState - additionalData is a flexible field.
@@ -101,5 +101,23 @@ namespace DataTypes {
     struct UserState {
         balance: felt,
         additional_data: felt,
+    }
+
+    struct EModeCategory {
+        // each e_mode category has a custom ltv and liquidation threshold
+        ltv: felt,
+        liquidation_threshold: felt,
+        liquidation_bonus: felt,
+        // each e_mode category may or may not have a custom oracle to override the individual assets price oracles
+        price_source: felt,
+        label: felt,
+    }
+
+    struct CalculateUserAccountDataParams {
+        user_config: UserConfigurationMap,
+        reserve_count: felt,
+        user: felt,
+        oracle: felt,
+        user_e_mode_category: felt,
     }
 }

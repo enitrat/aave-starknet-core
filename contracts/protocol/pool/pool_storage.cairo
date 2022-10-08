@@ -18,7 +18,7 @@ func PoolStorage_reserves_config(asset: felt) -> (res_config: DataTypes.ReserveC
 
 // Map of users address and their configuration data (user_address=> userConfiguration)
 @storage_var
-func PoolStorage_users_config(user_address: felt, reserve_index: felt) -> (
+func PoolStorage_users_config(user_address: felt, reserve_id: felt) -> (
     user_config: DataTypes.UserConfigurationMap
 ) {
 }
@@ -28,11 +28,14 @@ func PoolStorage_users_config(user_address: felt, reserve_index: felt) -> (
 func PoolStorage_reserves_list(reserve_id: felt) -> (address: felt) {
 }
 
-// TODO List of eMode_categories
-
-// Map of users address and their eMode category (userAddress => eModeCategoryId)
+// List of e_mode_categories
 @storage_var
-func PoolStorage_users_eMode_category(address: felt) -> (category_id: felt) {
+func PoolStorage_e_mode_categories(category_id: felt) -> (category: DataTypes.EModeCategory) {
+}
+
+// Map of users address and their e_mode category (user_address => e_mode_category_id)
+@storage_var
+func PoolStorage_users_e_mode_category(user_address: felt) -> (category_id: felt) {
 }
 
 // Fee of the protocol bridge, expressed in bps
@@ -86,9 +89,9 @@ namespace PoolStorage {
     }
 
     func users_config_read{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}(
-        user_address: felt, reserve_index: felt
+        user_address: felt, reserve_id: felt
     ) -> (user_config: DataTypes.UserConfigurationMap) {
-        let (user_config) = PoolStorage_users_config.read(user_address, reserve_index);
+        let (user_config) = PoolStorage_users_config.read(user_address, reserve_id);
         return (user_config,);
     }
 
@@ -99,11 +102,18 @@ namespace PoolStorage {
         return (address,);
     }
 
-    func users_eMode_category_read{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}(
-        address: felt
-    ) -> (category_id: felt) {
-        let (category_id) = PoolStorage_users_eMode_category.read(address);
+    func users_e_mode_category_read{
+        syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr
+    }(user_address: felt) -> (category_id: felt) {
+        let (category_id) = PoolStorage_users_e_mode_category.read(user_address);
         return (category_id,);
+    }
+
+    func e_mode_categories_read{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}(
+        category_id: felt
+    ) -> (category: DataTypes.EModeCategory) {
+        let (category) = PoolStorage_e_mode_categories.read(category_id);
+        return (category,);
     }
 
     func bridge_protocol_fee_read{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}(
@@ -166,9 +176,9 @@ namespace PoolStorage {
     }
 
     func users_config_write{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}(
-        user_address: felt, reserve_index: felt, user_config: DataTypes.UserConfigurationMap
+        user_address: felt, reserve_id: felt, user_config: DataTypes.UserConfigurationMap
     ) {
-        PoolStorage_users_config.write(user_address, reserve_index, user_config);
+        PoolStorage_users_config.write(user_address, reserve_id, user_config);
         return ();
     }
 
@@ -179,10 +189,17 @@ namespace PoolStorage {
         return ();
     }
 
-    func users_eMode_category_write{
+    func e_mode_categories_write{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}(
+        category_id: felt, category: DataTypes.EModeCategory
+    ) -> () {
+        PoolStorage_e_mode_categories.write(category_id, category);
+        return ();
+    }
+
+    func users_e_mode_category_write{
         syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr
-    }(address: felt, category_id: felt) {
-        PoolStorage_users_eMode_category.write(address, category_id);
+    }(user_address: felt, category_id: felt) {
+        PoolStorage_users_e_mode_category.write(user_address, category_id);
         return ();
     }
 

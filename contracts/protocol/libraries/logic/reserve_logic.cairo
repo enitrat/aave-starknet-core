@@ -51,6 +51,33 @@ namespace ReserveLogic {
         return (new_reserve,);
     }
 
+    //
+    // @notice Returns the ongoing normalized income for the reserve.
+    // @param asset The underlying asset of which we want to compute the income
+    // @return The normalized income, expressed in ray
+    //
+    func get_normalized_income{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}(
+        asset: felt
+    ) -> (normalized_income: felt) {
+        alloc_locals;
+        let (reserve) = PoolStorage.reserves_read(asset);
+
+        let current_timestamp = reserve.last_update_timestamp;
+
+        let (block_timestamp) = get_block_timestamp();
+        if (current_timestamp == block_timestamp) {
+            return (reserve.liquidity_index,);
+        }
+        let (current_liquidity_rate_256) = to_uint256(reserve.current_liquidity_rate);
+        let (current_liquidity_index_256) = to_uint256(reserve.liquidity_index);
+        let (linear_interest) = MathUtils.calculate_linear_interest(
+            current_liquidity_rate_256, current_timestamp
+        );
+        let (res_256) = WadRayMath.ray_mul(linear_interest, current_liquidity_index_256);
+        let (normalized_income) = to_felt(res_256);
+        return (normalized_income,);
+    }
+
     func get_normalized_debt{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}(
         asset: felt
     ) -> (normalized_variable_debt: felt) {

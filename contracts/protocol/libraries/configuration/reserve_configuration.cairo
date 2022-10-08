@@ -703,9 +703,9 @@ namespace ReserveConfiguration {
         return (res,);
     }
 
-    // @notice Sets the eMode asset category
-    // @param category The asset category when the user selects the eMode
-    func set_eMode_category{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}(
+    // @notice Sets the e_mode asset category
+    // @param category The asset category when the user selects the e_mode
+    func set_e_mode_category{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}(
         reserve_asset: felt, category: felt
     ) {
         alloc_locals;
@@ -723,7 +723,7 @@ namespace ReserveConfiguration {
             &current_reserves_config,
             DataTypes.ReserveConfiguration.SIZE,
             &category,
-            DataTypes.ReserveConfiguration.eMode_category,
+            DataTypes.ReserveConfiguration.e_mode_category,
         );
 
         PoolStorage.reserves_config_write(reserve_asset, [updated_reserves_config]);
@@ -731,14 +731,14 @@ namespace ReserveConfiguration {
         return ();
     }
 
-    // @dev Gets the eMode asset category
-    // @return The eMode category for the asset
-    func get_eMode_category{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}(
+    // @dev Gets the e_mode asset category
+    // @return The e_mode category for the asset
+    func get_e_mode_category{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}(
         reserve_asset: felt
     ) -> (value: felt) {
         let (current_reserves_config) = PoolStorage.reserves_config_read(reserve_asset);
 
-        let res = current_reserves_config.eMode_category;
+        let res = current_reserves_config.e_mode_category;
 
         return (res,);
     }
@@ -775,7 +775,7 @@ namespace ReserveConfiguration {
     // @return The state param representing liquidation bonus
     // @return The state param representing reserve decimals
     // @return The state param representing reserve factor
-    // @return The state param representing eMode category
+    // @return The state param representing e_mode category
     func get_params{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}(
         reserve_asset: felt
     ) -> (
@@ -784,7 +784,7 @@ namespace ReserveConfiguration {
         liquidation_bonus_value: felt,
         decimals_value: felt,
         reserve_factor_value: felt,
-        eMode_category_value: felt,
+        e_mode_category_value: felt,
     ) {
         let (reserves_config) = PoolStorage.reserves_config_read(reserve_asset);
 
@@ -793,7 +793,7 @@ namespace ReserveConfiguration {
         let liquidation_bonus_value = reserves_config.liquidation_bonus;
         let decimals_value = reserves_config.decimals;
         let reserve_factor_value = reserves_config.reserve_factor;
-        let eMode_category_value = reserves_config.eMode_category;
+        let e_mode_category_value = reserves_config.e_mode_category;
 
         return (
             ltv_value,
@@ -801,7 +801,7 @@ namespace ReserveConfiguration {
             liquidation_bonus_value,
             decimals_value,
             reserve_factor_value,
-            eMode_category_value,
+            e_mode_category_value,
         );
     }
     // @notice Gets the caps parameters of the reserve from storage

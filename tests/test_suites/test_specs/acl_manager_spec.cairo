@@ -220,7 +220,7 @@ namespace TestACLManager {
         return ();
     }
 
-    // # Grant EMERGENCY_ADMIN role to EMERGENCY_ADMIN_ADDRESS
+    // Grant EMERGENCY_ADMIN role to EMERGENCY_ADMIN_ADDRESS
     func test_grant_emergency_admin_role{
         syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr
     }() {

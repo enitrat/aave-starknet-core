@@ -1,6 +1,6 @@
 %lang starknet
 
-from starkware.cairo.common.bool import TRUE
+from starkware.cairo.common.bool import TRUE, FALSE
 from starkware.cairo.common.cairo_builtins import HashBuiltin
 from starkware.starknet.common.syscalls import deploy, get_contract_address
 
@@ -110,7 +110,9 @@ namespace ConfiguratorLogic {
         alloc_locals;
 
         let (reserve) = IPool.get_reserve_data(pool, input.asset);
+
         let (config) = IPool.get_configuration(pool, input.asset);
+        let decimals = config.decimals;
 
         _upgrade_token_implementation(
             reserve.a_token_address,
@@ -122,7 +124,7 @@ namespace ConfiguratorLogic {
             input.treasury,
             input.asset,
             input.incentives_controller,
-            config.decimals,
+            decimals,
             input.name,
             input.symbol
             ), felt*),
@@ -139,6 +141,7 @@ namespace ConfiguratorLogic {
         alloc_locals;
 
         let (reserve) = IPool.get_reserve_data(pool, input.asset);
+
         let (config) = IPool.get_configuration(pool, input.asset);
 
         _upgrade_token_implementation(
@@ -170,6 +173,7 @@ namespace ConfiguratorLogic {
         alloc_locals;
 
         let (reserve) = IPool.get_reserve_data(pool, input.asset);
+
         let (config) = IPool.get_configuration(pool, input.asset);
 
         _upgrade_token_implementation(

@@ -26,6 +26,9 @@ stable_debt_token = [
 variable_debt_token = [
     "./contracts/protocol/tokenization/variable_debt_token.cairo",
 ]
+price_oracle_sentinel = [
+    "./contracts/protocol/configuration/price_oracle_sentinel.cairo",
+]
 
 ["protostar.shared_command_configs"]
 cairo_path = ["./lib/cairo_contracts/src"]
