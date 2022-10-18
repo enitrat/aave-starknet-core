@@ -15,7 +15,7 @@ func assert_nonnegative_uint256{range_check_ptr}(value: Uint256) {
 }
 
 func assert_not_zero_uint256{range_check_ptr}(value: Uint256) {
-    let (value_felt) = to_felt(value);
+    let value_felt = to_felt(value);
     assert_not_equal(value_felt, 0);
     return ();
 }

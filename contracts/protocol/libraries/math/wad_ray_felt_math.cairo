@@ -34,7 +34,7 @@ namespace WadRayFelt {
         if (b == 0) {
             return 0;
         }
-        let (rounding) = SafeFeltMath.mul_add_unsigned(a, b, HALF_WAD);
+        let rounding = SafeFeltMath.mul_add_unsigned(a, b, HALF_WAD);
         let (scaled_prod, _) = FeltMath.div_unsigned(rounding, WAD);
         return scaled_prod;
     }
@@ -51,7 +51,7 @@ namespace WadRayFelt {
         if (b == 0) {
             return 0;
         }
-        let (prod) = SafeFeltMath.mul_unsigned(a, b);
+        let prod = SafeFeltMath.mul_unsigned(a, b);
         let (scaled_prod, _) = FeltMath.div_unsigned(prod, WAD);
         return scaled_prod;
     }
@@ -65,7 +65,7 @@ namespace WadRayFelt {
         assert_not_equal(b, 0);
 
         let (half_b, _) = FeltMath.div_unsigned(b, 2);
-        let (rounding) = SafeFeltMath.mul_add_unsigned(a, WAD, half_b);
+        let rounding = SafeFeltMath.mul_add_unsigned(a, WAD, half_b);
         let (q, _) = FeltMath.div_unsigned(rounding, b);
         return q;
     }
@@ -78,7 +78,7 @@ namespace WadRayFelt {
         alloc_locals;
         assert_not_equal(b, 0);
 
-        let (prod) = SafeFeltMath.mul_unsigned(a, WAD);
+        let prod = SafeFeltMath.mul_unsigned(a, WAD);
         let (q, _) = FeltMath.div_unsigned(prod, b);
         return q;
     }
@@ -95,7 +95,7 @@ namespace WadRayFelt {
         if (b == 0) {
             return 0;
         }
-        let (rounding) = SafeFeltMath.mul_add_unsigned(a, b, HALF_RAY);
+        let rounding = SafeFeltMath.mul_add_unsigned(a, b, HALF_RAY);
         let (scaled_prod, _) = FeltMath.div_unsigned(rounding, RAY);
         return scaled_prod;
     }
@@ -112,7 +112,7 @@ namespace WadRayFelt {
         if (b == 0) {
             return 0;
         }
-        let (prod) = SafeFeltMath.mul_unsigned(a, b);
+        let prod = SafeFeltMath.mul_unsigned(a, b);
         let (scaled_prod, _) = FeltMath.div_unsigned(prod, RAY);
         return scaled_prod;
     }
@@ -126,7 +126,7 @@ namespace WadRayFelt {
         assert_not_equal(b, 0);
 
         let (half_b, _) = FeltMath.div_unsigned(b, 2);
-        let (rounding) = SafeFeltMath.mul_add_unsigned(a, RAY, half_b);
+        let rounding = SafeFeltMath.mul_add_unsigned(a, RAY, half_b);
         let (q, _) = FeltMath.div_unsigned(rounding, b);
         return q;
     }
@@ -139,7 +139,7 @@ namespace WadRayFelt {
         alloc_locals;
         assert_not_equal(b, 0);
 
-        let (prod) = SafeFeltMath.mul_unsigned(a, RAY);
+        let prod = SafeFeltMath.mul_unsigned(a, RAY);
         let (q, _) = FeltMath.div_unsigned(prod, b);
         return q;
     }
@@ -152,8 +152,7 @@ namespace WadRayFelt {
     // @param n felt
     // @returns unsigned wad felt
     func felt_to_wad_unsigned{range_check_ptr}(n: felt) -> Wad {
-        let (wad) = SafeFeltMath.mul_unsigned(n, WAD);
-        return wad;
+        return SafeFeltMath.mul_unsigned(n, WAD);
     }
 
     // @notice converts a wad to an unsigned felt
@@ -170,7 +169,7 @@ namespace WadRayFelt {
     // @param n wad number
     // @returns unsigned felt
     func wad_to_felt_unsigned{range_check_ptr}(n: Wad) -> felt {
-        let (n_rounded) = SafeFeltMath.add_unsigned(n, HALF_WAD);
+        let n_rounded = SafeFeltMath.add_unsigned(n, HALF_WAD);
         let (res, _) = FeltMath.div_unsigned(n_rounded, WAD);
         return res;
     }
@@ -179,8 +178,7 @@ namespace WadRayFelt {
     // @param n unsigned wad felt
     // @returns unsigned ray
     func wad_to_ray_unsigned{range_check_ptr}(n: Wad) -> Ray {
-        let (ray) = SafeFeltMath.mul_unsigned(n, WAD_RAY_RATIO);
-        return ray;
+        return SafeFeltMath.mul_unsigned(n, WAD_RAY_RATIO);
     }
 
     // @notice converts a ray to an unsigned felt
@@ -197,7 +195,7 @@ namespace WadRayFelt {
     // @param n unsigned ray felt
     // @returns unsigned felt
     func ray_to_felt_unsigned{range_check_ptr}(n: Ray) -> felt {
-        let (n_rounded) = SafeFeltMath.add_unsigned(n, HALF_RAY);
+        let n_rounded = SafeFeltMath.add_unsigned(n, HALF_RAY);
         let (res, _) = FeltMath.div_unsigned(n_rounded, RAY);
         return res;
     }
@@ -218,8 +216,8 @@ namespace WadRayFelt {
     func ray_to_wad_unsigned{range_check_ptr}(a: Ray) -> Wad {
         alloc_locals;
 
-        let (res) = SafeFeltMath.add_unsigned(a, HALF_WAD_RAY_RATIO);
-        let (res, _) = FeltMath.div_unsigned(res, WAD_RAY_RATIO);
+        let rounding = SafeFeltMath.add_unsigned(a, HALF_WAD_RAY_RATIO);
+        let (res, _) = FeltMath.div_unsigned(rounding, WAD_RAY_RATIO);
         return res;
     }
 }

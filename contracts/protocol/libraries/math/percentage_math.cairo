@@ -26,7 +26,7 @@ namespace PercentageMath {
     // @return result value percentmul percentage
     func percent_mul{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}(
         value: Uint256, percentage: Uint256
-    ) -> (result: Uint256) {
+    ) -> Uint256 {
         alloc_locals;
         // to avoid overflow, value <= (type(uint256).max - HALF_PERCENTAGE_FACTOR) / percentage
         let (is_percentage_zero) = uint256_eq(percentage, Uint256(0, 0));
@@ -40,9 +40,8 @@ namespace PercentageMath {
             max_uint_256, Uint256(HALF_PERCENTAGE_FACTOR, 0)
         );
         let (overflow_limit, _) = SafeUint256.div_rem(overflow_numerator, percentage);
-        let (is_value_not_overflowing) = SafeUint256Cmp.le(value, overflow_limit);
         with_attr error_message("value overflow") {
-            assert is_value_not_overflowing = TRUE;
+            assert SafeUint256Cmp.le(value, overflow_limit) = TRUE;
         }
 
         let (value_mul_percentage) = SafeUint256.mul(value, percentage);
@@ -53,7 +52,7 @@ namespace PercentageMath {
 
         let (result, _) = SafeUint256.div_rem(intermediate_res_1, Uint256(PERCENTAGE_FACTOR, 0));
 
-        return (result,);
+        return result;
     }
 
     // @notice Executes a percentage division
@@ -62,7 +61,7 @@ namespace PercentageMath {
     // @return result value percentdiv percentage
     func percent_div{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}(
         value: Uint256, percentage: Uint256
-    ) -> (result: Uint256) {
+    ) -> Uint256 {
         alloc_locals;
         // to avoid overflow, value <= (type(uint256).max - half_percentage) / PERCENTAGE_FACTOR
         let (is_percentage_zero) = uint256_eq(percentage, Uint256(0, 0));
@@ -76,9 +75,8 @@ namespace PercentageMath {
         let (overflow_limit, _) = SafeUint256.div_rem(
             overflow_numerator, Uint256(PERCENTAGE_FACTOR, 0)
         );
-        let (is_value_not_overflowing) = SafeUint256Cmp.le(value, overflow_limit);
         with_attr error_message("value overflow") {
-            assert is_value_not_overflowing = TRUE;
+            assert SafeUint256Cmp.le(value, overflow_limit) = TRUE;
         }
 
         let (value_mul_percentage_factor) = SafeUint256.mul(value, Uint256(PERCENTAGE_FACTOR, 0));
@@ -86,6 +84,6 @@ namespace PercentageMath {
 
         let (result, _) = SafeUint256.div_rem(intermediate_res_1, percentage);
 
-        return (result,);
+        return result;
     }
 }

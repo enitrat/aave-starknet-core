@@ -196,7 +196,7 @@ func set_configuration{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_che
     let is_id_not_zero = is_not_zero(reserve.id);
     let (first_asset) = Pool.get_reserve_address_by_id(0);
     let (is_first_asset) = is_zero(first_asset - asset);
-    let (is_asset_listed) = BoolCmp.either(is_id_not_zero, is_first_asset);
+    let is_asset_listed = BoolCmp.either(is_id_not_zero, is_first_asset);
     let error_code = Errors.ASSET_NOT_LISTED;
     with_attr error_message("{error_code}") {
         assert is_asset_listed = TRUE;

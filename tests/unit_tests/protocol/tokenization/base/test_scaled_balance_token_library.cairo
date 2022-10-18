@@ -35,7 +35,7 @@ func mock_balances{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_p
     alloc_locals;
     let (local contract_address) = get_contract_address();
 
-    let (total_supply: Uint256) = to_uint256(AMOUNT_3 * WadRayMath.WAD);
+    let total_supply = to_uint256(AMOUNT_3 * WadRayMath.WAD);
     let user_balance = AMOUNT_2 * WadRayMath.WAD;
 
     // Mock total supply and balance
@@ -64,7 +64,7 @@ func load_new_balances{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_che
 func test_mint_scaled{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}() {
     alloc_locals;
     let (local contract_address) = get_contract_address();
-    let (local amount_1_wad) = to_uint256(AMOUNT_1 * WadRayMath.WAD);
+    let amount_1_wad = to_uint256(AMOUNT_1 * WadRayMath.WAD);
     tempvar index = 1 * WadRayMath.RAY;
 
     // Mock and mint
@@ -94,7 +94,7 @@ func test_mint_scaled{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_chec
 func test_mint_scaled_percent{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}() {
     alloc_locals;
     let (local contract_address) = get_contract_address();
-    let (local amount_1_wad) = to_uint256(AMOUNT_1 * WadRayMath.WAD);
+    let amount_1_wad = to_uint256(AMOUNT_1 * WadRayMath.WAD);
     // Augment interest by 1%
     tempvar index = 1 * WadRayMath.RAY + (1 * WadRayMath.RAY / 10 ** 2);
     let (local initial_total_supply, local initial_balance) = mock_balances(
@@ -109,7 +109,7 @@ func test_mint_scaled_percent{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, ra
     let (local new_total_supply, local new_balance, local new_additional_data) = load_new_balances(
         USER_2
     );
-    let (local expected_new_total_supply: Uint256) = to_uint256(MINT_EXPECTED_NEW_TOTAL_SUPPLY);
+    let expected_new_total_supply = to_uint256(MINT_EXPECTED_NEW_TOTAL_SUPPLY);
     assert_eq_uint256(expected_new_total_supply, new_total_supply);
     assert MINT_EXPECTED_NEW_BALANCE = new_balance;
     assert mint_result = FALSE;
@@ -122,7 +122,7 @@ func test_burn_scaled{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_chec
     alloc_locals;
     let (local contract_address) = get_contract_address();
 
-    let (local amount_1_wad) = to_uint256(AMOUNT_1 * WadRayMath.WAD);
+    let amount_1_wad = to_uint256(AMOUNT_1 * WadRayMath.WAD);
     local index = 1 * WadRayMath.RAY;
 
     let (local initial_total_supply, local initial_balance) = mock_balances(
@@ -151,7 +151,7 @@ func test_burn_scaled_percent{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, ra
     alloc_locals;
     let (local contract_address) = get_contract_address();
 
-    let (local amount_1_wad) = to_uint256(AMOUNT_1 * WadRayMath.WAD);
+    let amount_1_wad = to_uint256(AMOUNT_1 * WadRayMath.WAD);
     // Augment interest by 1%
     tempvar index = 1 * WadRayMath.RAY + (1 * WadRayMath.RAY / 10 ** 2);
 
@@ -167,7 +167,7 @@ func test_burn_scaled_percent{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, ra
         USER_1
     );
 
-    let (local expected_new_total_supply: Uint256) = to_uint256(BURN_EXPECTED_NEW_TOTAL_SUPPLY);
+    let expected_new_total_supply = to_uint256(BURN_EXPECTED_NEW_TOTAL_SUPPLY);
     assert_eq_uint256(expected_new_total_supply, new_total_supply);
     assert BURN_EXPECTED_NEW_BALANCE = new_balance;
 
@@ -180,7 +180,7 @@ func test_burn_scaled_percent_mint{syscall_ptr: felt*, pedersen_ptr: HashBuiltin
     alloc_locals;
     let (local contract_address) = get_contract_address();
 
-    let (local amount_1_wad) = to_uint256(AMOUNT_1 * WadRayMath.WAD);
+    let amount_1_wad = to_uint256(AMOUNT_1 * WadRayMath.WAD);
     // Augment interest by 20%
     tempvar index = 1 * WadRayMath.RAY + (20 * WadRayMath.RAY / 10 ** 2);
 
@@ -196,7 +196,7 @@ func test_burn_scaled_percent_mint{syscall_ptr: felt*, pedersen_ptr: HashBuiltin
         USER_1
     );
 
-    let (local expected_new_total_supply: Uint256) = to_uint256(BURN_EXPECTED_NEW_TOTAL_SUPPLY_20);
+    let expected_new_total_supply = to_uint256(BURN_EXPECTED_NEW_TOTAL_SUPPLY_20);
     assert_eq_uint256(expected_new_total_supply, new_total_supply);
     assert BURN_EXPECTED_NEW_BALANCE_20 = new_balance;
 

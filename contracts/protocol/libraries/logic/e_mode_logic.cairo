@@ -38,7 +38,7 @@ namespace EModeLogic {
     ) -> (is_in_e_mode: felt) {
         let is_not_zero_e_mode_user_category = is_not_zero(e_mode_user_category);
         let (same_category) = is_zero(e_mode_user_category - e_mode_asset_category);
-        let (is_in_e_mode) = BoolCmp.both(is_not_zero_e_mode_user_category, same_category);
+        let is_in_e_mode = BoolCmp.both(is_not_zero_e_mode_user_category, same_category);
         return (is_in_e_mode,);
     }
 }

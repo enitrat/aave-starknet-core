@@ -171,11 +171,11 @@ namespace StableDebtToken {
         }
 
         let (last_updated) = get_user_last_updated(account);
-        let (stable_rate_256) = to_uint256(stable_rate);
-        let (cumulated_interest) = MathUtils.calculate_compounded_interest(
+        let stable_rate_256 = to_uint256(stable_rate);
+        let cumulated_interest = MathUtils.calculate_compounded_interest(
             stable_rate_256, last_updated
         );
-        let (balance) = WadRayMath.ray_mul(account_balance, cumulated_interest);
+        let balance = WadRayMath.ray_mul(account_balance, cumulated_interest);
         return (balance,);
     }
 
@@ -213,26 +213,26 @@ namespace StableDebtToken {
 
         let (previous_supply) = total_supply();
         let (current_avg_stable_rate) = StableDebtToken_avg_stable_rate.read();
-        let (current_avg_stable_rate_256) = to_uint256(current_avg_stable_rate);
+        let current_avg_stable_rate_256 = to_uint256(current_avg_stable_rate);
         let (next_supply) = SafeUint256.add(previous_supply, amount);
         IncentivizedERC20.set_total_supply(next_supply);
 
         let (delegator_state) = IncentivizedERC20.get_user_state(on_behalf_of);
         let current_stable_rate = delegator_state.additional_data;
-        let (current_stable_rate_256) = to_uint256(current_stable_rate);
+        let current_stable_rate_256 = to_uint256(current_stable_rate);
 
         // Cast | convert values to Ray
-        let (amount_in_ray) = WadRayMath.wad_to_ray(amount);
-        let (rate_256) = to_uint256(rate);
-        let (previous_supply_ray) = WadRayMath.wad_to_ray(previous_supply);
-        let (current_balance_ray) = WadRayMath.wad_to_ray(current_balance);
-        let (next_supply_ray) = WadRayMath.wad_to_ray(next_supply);
+        let amount_in_ray = WadRayMath.wad_to_ray(amount);
+        let rate_256 = to_uint256(rate);
+        let previous_supply_ray = WadRayMath.wad_to_ray(previous_supply);
+        let current_balance_ray = WadRayMath.wad_to_ray(current_balance);
+        let next_supply_ray = WadRayMath.wad_to_ray(next_supply);
 
         // Next stable rate calc
-        let (cur_rate_mul_balance_ray) = WadRayMath.ray_mul(
+        let cur_rate_mul_balance_ray = WadRayMath.ray_mul(
             current_avg_stable_rate_256, current_balance_ray
         );
-        let (amount_mul_rate_ray) = WadRayMath.ray_mul(amount_in_ray, rate_256);
+        let amount_mul_rate_ray = WadRayMath.ray_mul(amount_in_ray, rate_256);
         let (numerator, add_overflow) = WadRayMath.ray_add(
             cur_rate_mul_balance_ray, amount_mul_rate_ray
         );
@@ -241,10 +241,10 @@ namespace StableDebtToken {
         }
 
         let (current_balance_plus_amt) = SafeUint256.add(current_balance, amount);
-        let (denominator) = WadRayMath.wad_to_ray(current_balance_plus_amt);
+        let denominator = WadRayMath.wad_to_ray(current_balance_plus_amt);
 
-        let (next_stable_rate_256) = WadRayMath.ray_div(numerator, denominator);
-        let (next_rate_felt) = to_felt(next_stable_rate_256);
+        let next_stable_rate_256 = WadRayMath.ray_div(numerator, denominator);
+        let next_rate_felt = to_felt(next_stable_rate_256);
 
         // Update user with the updated rate
         IncentivizedERC20.set_user_state(
@@ -258,18 +258,18 @@ namespace StableDebtToken {
         StableDebtToken_total_supply_timestamp.write(block_timestamp);
 
         // Calculate updated average stable rate
-        let (current_rate_mul_prev_supply_ray) = WadRayMath.ray_mul(
+        let current_rate_mul_prev_supply_ray = WadRayMath.ray_mul(
             current_avg_stable_rate_256, previous_supply_ray
         );
-        let (rate_mul_amount_ray) = WadRayMath.ray_mul(rate_256, amount_in_ray);
+        let rate_mul_amount_ray = WadRayMath.ray_mul(rate_256, amount_in_ray);
         let (numerator, add_overflow) = WadRayMath.ray_add(
             current_rate_mul_prev_supply_ray, rate_mul_amount_ray
         );
         with_attr error_message("mint: Addition overflow") {
             assert add_overflow = FALSE;
         }
-        let (current_avg_stable_rate_256) = WadRayMath.ray_div(numerator, next_supply_ray);
-        let (current_avg_stable_rate) = to_felt(current_avg_stable_rate_256);
+        let current_avg_stable_rate_256 = WadRayMath.ray_div(numerator, next_supply_ray);
+        let current_avg_stable_rate = to_felt(current_avg_stable_rate_256);
         StableDebtToken_avg_stable_rate.write(current_avg_stable_rate);
 
         let (amount_to_mint) = SafeUint256.add(amount, balance_increase);
@@ -311,12 +311,12 @@ namespace StableDebtToken {
         let (previous_supply) = total_supply();
         let (user_state) = IncentivizedERC20.get_user_state(address_from);
         let user_stable_rate = user_state.additional_data;
-        let (user_stable_rate_256) = to_uint256(user_stable_rate);
+        let user_stable_rate_256 = to_uint256(user_stable_rate);
 
         let (next_supply, next_avg_stable_rate) = _calc_and_update_next_values(
             previous_supply, amount, user_stable_rate
         );
-        let (next_avg_stable_rate_256) = to_uint256(next_avg_stable_rate);
+        let next_avg_stable_rate_256 = to_uint256(next_avg_stable_rate);
         let (block_timestamp) = get_block_timestamp();
         let (is_amount_eq_balance) = uint256_eq(amount, current_balance);
         if (is_amount_eq_balance == TRUE) {
@@ -329,8 +329,7 @@ namespace StableDebtToken {
         }
         StableDebtToken_total_supply_timestamp.write(block_timestamp);
 
-        let (is_amount_lt_increase) = SafeUint256Cmp.lt(amount, balance_increase);
-        if (is_amount_lt_increase == TRUE) {
+        if (SafeUint256Cmp.lt(amount, balance_increase) == TRUE) {
             let (amount_to_mint) = SafeUint256.sub_le(balance_increase, amount);
             _mint(address_from, amount_to_mint, previous_supply);
             Transfer.emit(0, address_from, amount_to_mint);
@@ -425,12 +424,12 @@ func _calc_total_supply{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_ch
     if (is_supply_zero == TRUE) {
         return (Uint256(0, 0),);
     }
-    let (avg_rate_256) = to_uint256(avg_rate);
+    let avg_rate_256 = to_uint256(avg_rate);
     let (total_supply_timestamp) = StableDebtToken_total_supply_timestamp.read();
-    let (cumulated_interest) = MathUtils.calculate_compounded_interest(
+    let cumulated_interest = MathUtils.calculate_compounded_interest(
         avg_rate_256, total_supply_timestamp
     );
-    let (cumulated_total_supply) = WadRayMath.ray_mul(total_supply, cumulated_interest);
+    let cumulated_total_supply = WadRayMath.ray_mul(total_supply, cumulated_interest);
     return (cumulated_total_supply,);
 }
 
@@ -464,10 +463,10 @@ func _calculate_balance_increase{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*,
 func _mint{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}(
     account: felt, amount: Uint256, old_total_supply: Uint256
 ) {
-    let (amount_felt) = to_felt(amount);
+    let amount_felt = to_felt(amount);
     let (user_state) = IncentivizedERC20.get_user_state(account);
     let old_balance = user_state.balance;
-    let (old_balance_256) = to_uint256(old_balance);
+    let old_balance_256 = to_uint256(old_balance);
     let new_balance = amount_felt + old_balance;
     IncentivizedERC20.set_user_state(
         account, DataTypes.UserState(new_balance, user_state.additional_data)
@@ -496,10 +495,10 @@ func _mint{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}(
 func _burn{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}(
     account: felt, amount: Uint256, old_total_supply: Uint256
 ) {
-    let (amount_felt) = to_felt(amount);
+    let amount_felt = to_felt(amount);
     let (user_state) = IncentivizedERC20.get_user_state(account);
     let old_balance = user_state.balance;
-    let (old_balance_256) = to_uint256(old_balance);
+    let old_balance_256 = to_uint256(old_balance);
     let new_balance = old_balance - amount_felt;
 
     IncentivizedERC20.set_user_state(
@@ -533,8 +532,7 @@ func _calc_and_update_next_values{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*
     previous_supply: Uint256, amount: Uint256, user_stable_rate: felt
 ) -> (next_supply: Uint256, next_avg_stable_rate: felt) {
     alloc_locals;
-    let (is_prev_supply_le_amount) = SafeUint256Cmp.le(previous_supply, amount);
-    if (is_prev_supply_le_amount == TRUE) {
+    if (SafeUint256Cmp.le(previous_supply, amount) == TRUE) {
         StableDebtToken_avg_stable_rate.write(0);
         IncentivizedERC20.set_total_supply(Uint256(0, 0));
         return (Uint256(0, 0), 0);
@@ -544,24 +542,23 @@ func _calc_and_update_next_values{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*
     IncentivizedERC20.set_total_supply(next_supply);
 
     let (avg_stable_rate) = StableDebtToken_avg_stable_rate.read();
-    let (avg_stable_rate_256) = to_uint256(avg_stable_rate);
-    let (user_stable_rate_256) = to_uint256(user_stable_rate);
-    let (prev_supply_ray) = WadRayMath.wad_to_ray(previous_supply);
-    let (amount_in_ray) = WadRayMath.wad_to_ray(amount);
-    let (next_supply_ray) = WadRayMath.wad_to_ray(next_supply);
+    let avg_stable_rate_256 = to_uint256(avg_stable_rate);
+    let user_stable_rate_256 = to_uint256(user_stable_rate);
+    let prev_supply_ray = WadRayMath.wad_to_ray(previous_supply);
+    let amount_in_ray = WadRayMath.wad_to_ray(amount);
+    let next_supply_ray = WadRayMath.wad_to_ray(next_supply);
 
-    let (first_term) = WadRayMath.ray_mul(avg_stable_rate_256, prev_supply_ray);
-    let (second_term) = WadRayMath.ray_mul(user_stable_rate_256, amount_in_ray);
+    let first_term = WadRayMath.ray_mul(avg_stable_rate_256, prev_supply_ray);
+    let second_term = WadRayMath.ray_mul(user_stable_rate_256, amount_in_ray);
 
-    let (is_first_le_second) = SafeUint256Cmp.le(first_term, second_term);
-    if (is_first_le_second == TRUE) {
+    if (SafeUint256Cmp.le(first_term, second_term) == TRUE) {
         StableDebtToken_avg_stable_rate.write(0);
         IncentivizedERC20.set_total_supply(Uint256(0, 0));
         return (Uint256(0, 0), 0);
     }
-    let (first_sub_second) = WadRayMath.ray_sub(first_term, second_term);
-    let (next_avg_stable_rate_256) = WadRayMath.ray_div(first_sub_second, next_supply_ray);
-    let (next_avg_stable_rate) = to_felt(next_avg_stable_rate_256);
+    let first_sub_second = WadRayMath.ray_sub(first_term, second_term);
+    let next_avg_stable_rate_256 = WadRayMath.ray_div(first_sub_second, next_supply_ray);
+    let next_avg_stable_rate = to_felt(next_avg_stable_rate_256);
     StableDebtToken_avg_stable_rate.write(next_avg_stable_rate);
 
     return (next_supply, next_avg_stable_rate);

@@ -40,9 +40,9 @@ namespace FeltMath {
     func add_unsigned{range_check_ptr}(a: felt, b: felt) -> (res: felt, carry: felt) {
         alloc_locals;
         let res = a + b;
-        let (carry_a) = SafeCmp.is_lt_unsigned(res, a);
-        let (carry_b) = SafeCmp.is_lt_unsigned(res, b);
-        let (overflow) = BoolCmp.either(carry_a, carry_b);
+        let carry_a = SafeCmp.is_lt_unsigned(res, a);
+        let carry_b = SafeCmp.is_lt_unsigned(res, b);
+        let overflow = BoolCmp.either(carry_a, carry_b);
         return (res, overflow);
     }
 
@@ -53,7 +53,7 @@ namespace FeltMath {
     // @returns underflow Bool flag indicating if underflow occured
     func sub_unsigned{range_check_ptr}(a: felt, b: felt) -> (res: felt, underflow: felt) {
         let res = a - b;
-        let (underflow) = SafeCmp.is_lt_unsigned(a, b);
+        let underflow = SafeCmp.is_lt_unsigned(a, b);
         return (res, underflow);
     }
     // @notice Multiplies two integers, and return output and overflow flag. Interprets a, b in range [0, P)
@@ -71,11 +71,11 @@ namespace FeltMath {
         }
         // minimize steps with checking if overflow occured
         // conversion to Uint256 because of division of MAX_UNSIGNED_FELT
-        let (MAX_UNSIGNED_UINT: Uint256) = to_uint256(MAX_UNSIGNED_FELT);
-        let (a_uint256: Uint256) = to_uint256(a);
-        let (q: Uint256, r: Uint256) = uint256_unsigned_div_rem(MAX_UNSIGNED_UINT, a_uint256);
-        let (b_uint256: Uint256) = to_uint256(b);
-        let (overflow) = SafeUint256Cmp.lt(q, b_uint256);
+        let MAX_UNSIGNED_FELT_UINT = to_uint256(MAX_UNSIGNED_FELT);
+        let a_uint256 = to_uint256(a);
+        let (q: Uint256, r: Uint256) = uint256_unsigned_div_rem(MAX_UNSIGNED_FELT_UINT, a_uint256);
+        let b_uint256 = to_uint256(b);
+        let overflow = SafeUint256Cmp.lt(q, b_uint256);
         let res = a * b;
         return (res, overflow);
     }
@@ -89,11 +89,11 @@ namespace FeltMath {
         alloc_locals;
         // conversion to Uint256 because using unsigned_div_rem requires 0 <= q < rc_bound and doesn't
         // allow us to use the full range of a felt for a division.
-        let (a_uint256: Uint256) = to_uint256(a);
-        let (b_uint256: Uint256) = to_uint256(b);
+        let a_uint256 = to_uint256(a);
+        let b_uint256 = to_uint256(b);
         let (q: Uint256, r: Uint256) = uint256_unsigned_div_rem(a_uint256, b_uint256);
-        let (q_felt) = to_felt(q);
-        let (r_felt) = to_felt(r);
+        let q_felt = to_felt(q);
+        let r_felt = to_felt(r);
         return (q_felt, r_felt);
     }
     // @notice Calculates exponention of an integer, and return output and an overflow flag. Interprets base, power in range [0, P)
@@ -122,7 +122,7 @@ namespace FeltMath {
     ) {
         let (res, overflow) = mul_unsigned(acc, base);
         let new_counter = counter - 1;
-        let (new_flag_overflow) = BoolCmp.either(flag_overflow, overflow);
+        let new_flag_overflow = BoolCmp.either(flag_overflow, overflow);
         if (new_counter == 0) {
             return (res, new_flag_overflow);
         }
@@ -142,14 +142,14 @@ namespace FeltMath {
     // @returns carry Bool flag indicating if overflow occured
     func add_signed{range_check_ptr}(a: felt, b: felt) -> (res: felt, carry: felt) {
         alloc_locals;
-        let (is_nn_signed_a) = SafeCmp.is_nn_signed(a);
-        let (is_nn_signed_b) = SafeCmp.is_nn_signed(b);
+        let is_nn_signed_a = SafeCmp.is_nn_signed(a);
+        let is_nn_signed_b = SafeCmp.is_nn_signed(b);
 
         let res = a + b;
-        let (cmp_signs) = BoolCmp.eq(is_nn_signed_a, is_nn_signed_b);
+        let cmp_signs = BoolCmp.eq(is_nn_signed_a, is_nn_signed_b);
         if (cmp_signs == TRUE) {
             if (is_nn_signed_a == TRUE) {
-                let (overflow) = SafeCmp.is_lt_unsigned(MAX_SIGNED_FELT, res);
+                let overflow = SafeCmp.is_lt_unsigned(MAX_SIGNED_FELT, res);
                 return (res, overflow);
             }
             let overflow = is_le_felt(res, MAX_SIGNED_FELT);
@@ -169,7 +169,7 @@ namespace FeltMath {
     }
 }
 
-func to_uint256{range_check_ptr}(value: felt) -> (res: Uint256) {
+func to_uint256{range_check_ptr}(value: felt) -> Uint256 {
     alloc_locals;
 
     with_attr error_message("to_uint256: invalid uint") {
@@ -177,11 +177,11 @@ func to_uint256{range_check_ptr}(value: felt) -> (res: Uint256) {
     }
 
     let res = Uint256(low, high);
-    return (res,);
+    return res;
 }
 
 // Takes Uint256 as input and returns a felt
-func to_felt{range_check_ptr}(value: Uint256) -> (res: felt) {
+func to_felt{range_check_ptr}(value: Uint256) -> felt {
     uint256_check(value);
 
     let (res1, mul_overflow) = FeltMath.mul_unsigned(value.high, 2 ** 128);
@@ -194,5 +194,5 @@ func to_felt{range_check_ptr}(value: Uint256) -> (res: felt) {
         assert add_overflow = FALSE;
     }
 
-    return (res,);
+    return res;
 }

@@ -24,7 +24,7 @@ const VALUE_SMALL = LOW_SMALL;
 func test_to_felt{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}() {
     alloc_locals;
     let uint_256 = Uint256(LOW_LARGE, HIGH_LARGE);
-    let (value_felt) = to_felt(uint_256);
+    let value_felt = to_felt(uint_256);
 
     assert value_felt = VALUE_LARGE;
 
@@ -35,7 +35,7 @@ func test_to_felt{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_pt
 func test_to_uint256{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}() {
     alloc_locals;
     let uint_256_constructed = Uint256(LOW_SMALL, HIGH_SMALL);
-    let (uint_256_from_library) = to_uint256(VALUE_SMALL);
+    let uint_256_from_library = to_uint256(VALUE_SMALL);
 
     let (are_equal) = uint256_eq(uint_256_from_library, uint_256_constructed);
     assert are_equal = TRUE;
@@ -47,8 +47,8 @@ func test_to_uint256{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check
 func test_felt_to_uint256_to_felt{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}(
     ) {
     alloc_locals;
-    let (uint_256_val: Uint256) = to_uint256(VALUE_SMALL);
-    let (felt_val: felt) = to_felt(uint_256_val);
+    let uint_256_val = to_uint256(VALUE_SMALL);
+    let felt_val: felt = to_felt(uint_256_val);
     assert VALUE_SMALL = felt_val;
 
     return ();
@@ -59,7 +59,7 @@ func test_failure_to_felt{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_
     alloc_locals;
     let uint_256 = Uint256(UINT128_MAX, UINT128_MAX);
     %{ expect_revert() %}
-    let (value_felt) = to_felt(uint_256);
+    let value_felt = to_felt(uint_256);
 
     return ();
 }
@@ -68,7 +68,7 @@ func test_failure_to_felt{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_
 func test_assert_nonnegative_uint256{
     syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr
 }() {
-    let (sample_uint_256) = to_uint256(VALUE_SMALL);
+    let sample_uint_256 = to_uint256(VALUE_SMALL);
     assert_nonnegative_uint256(sample_uint_256);
     return ();
 }
@@ -92,7 +92,7 @@ func test_revert_assert_nonnegative_uint256{
 @view
 func test_assert_not_zero_uint256{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}(
     ) {
-    let (not_zero_uint_256) = to_uint256(VALUE_SMALL);
+    let not_zero_uint_256 = to_uint256(VALUE_SMALL);
     assert_not_zero_uint256(not_zero_uint_256);
     return ();
 }
@@ -101,7 +101,7 @@ func test_assert_not_zero_uint256{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*
 func test_revert_assert_not_zero_uint256{
     syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr
 }() {
-    let (zero_uint_256) = to_uint256(0);
+    let zero_uint_256 = to_uint256(0);
     %{ expect_revert() %}
     assert_not_zero_uint256(zero_uint_256);
     return ();

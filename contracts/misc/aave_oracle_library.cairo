@@ -65,7 +65,7 @@ func assert_only_asset_listing_or_pool_admin{
     let (caller) = get_caller_address();
     let (is_asset_listing_admin) = IACLManager.is_asset_listing_admin(ACL_manager_address, caller);
     let (is_pool_admin) = IACLManager.is_pool_admin(ACL_manager_address, caller);
-    let (either) = BoolCmp.either(is_asset_listing_admin, is_pool_admin);
+    let either = BoolCmp.either(is_asset_listing_admin, is_pool_admin);
     let error_code = Errors.CALLER_NOT_ASSET_LISTING_OR_POOL_ADMIN;
     with_attr error_message("{error_code}") {
         assert either = TRUE;
@@ -261,7 +261,7 @@ func _read_price_from_oracle{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, ran
     );
     let price_above_zero = is_nn(price);
     let (price_is_zero) = is_zero(price);
-    let (either) = BoolCmp.either(price_above_zero, price_is_zero);
+    let either = BoolCmp.either(price_above_zero, price_is_zero);
     if (either == TRUE) {
         return (price,);
     } else {

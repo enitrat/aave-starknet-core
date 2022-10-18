@@ -16,9 +16,7 @@ func test_calculate_linear_interest{
     const last_timestamp = 300;
     const current_timestamp = 301;
     %{ stop_warp = warp(ids.current_timestamp) %}
-    let (res: Uint256) = MathUtils.calculate_linear_interest(
-        Uint256(rate_in_ray, 0), last_timestamp
-    );
+    let res = MathUtils.calculate_linear_interest(Uint256(rate_in_ray, 0), last_timestamp);
     %{ stop_warp() %}
     // expected result (tested against  Solidity code with same values)
     assert res.low = 1000001078132927447995941146;
@@ -35,9 +33,7 @@ func test_calculate_compounded_interest{
     const current_timestamp = 305;
 
     %{ stop_warp = warp(ids.current_timestamp) %}
-    let (res_1: Uint256) = MathUtils.calculate_compounded_interest(
-        Uint256(rate_in_ray, 0), last_timestamp
-    );
+    let res_1 = MathUtils.calculate_compounded_interest(Uint256(rate_in_ray, 0), last_timestamp);
 
     // expected result (tested against Solidity code with same values)
     assert res_1.low = 1000005390676260958604081853;
@@ -45,9 +41,7 @@ func test_calculate_compounded_interest{
 
     // test when exp=0
     %{ stop_warp = warp(ids.current_timestamp-5) %}
-    let (res_2: Uint256) = MathUtils.calculate_compounded_interest(
-        Uint256(rate_in_ray, 0), last_timestamp
-    );
+    let res_2 = MathUtils.calculate_compounded_interest(Uint256(rate_in_ray, 0), last_timestamp);
 
     // should return one RAY
     assert res_2.low = WadRayMath.RAY;
@@ -56,9 +50,7 @@ func test_calculate_compounded_interest{
     // test when exp<2 (exp_minus_two term should be set to zero)
 
     %{ stop_warp = warp(ids.current_timestamp-4) %}
-    let (res_3: Uint256) = MathUtils.calculate_compounded_interest(
-        Uint256(rate_in_ray, 0), last_timestamp
-    );
+    let res_3 = MathUtils.calculate_compounded_interest(Uint256(rate_in_ray, 0), last_timestamp);
 
     // expected result (tested against  Solidity code with same values)
     assert res_3.low = 1000001078132927447995941146;

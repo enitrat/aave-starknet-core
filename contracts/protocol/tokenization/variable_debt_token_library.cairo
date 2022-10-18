@@ -78,8 +78,8 @@ namespace VariableDebtToken {
         let (normalized_variable_debt) = IPool.get_reserve_normalized_variable_debt(
             pool, underlying
         );
-        let (normalized_variable_debt_256) = to_uint256(normalized_variable_debt);
-        let (balance) = WadRayMath.ray_mul(scaled_balance, normalized_variable_debt_256);
+        let normalized_variable_debt_256 = to_uint256(normalized_variable_debt);
+        let balance = WadRayMath.ray_mul(scaled_balance, normalized_variable_debt_256);
         return (balance,);
     }
 
@@ -124,8 +124,8 @@ namespace VariableDebtToken {
         let (normalized_variable_debt) = IPool.get_reserve_normalized_variable_debt(
             pool, underlying
         );
-        let (normalized_variable_debt_256) = to_uint256(normalized_variable_debt);
-        let (scaled_supply) = WadRayMath.ray_mul(raw_supply, normalized_variable_debt_256);
+        let normalized_variable_debt_256 = to_uint256(normalized_variable_debt);
+        let scaled_supply = WadRayMath.ray_mul(raw_supply, normalized_variable_debt_256);
         return (scaled_supply,);
     }
 }

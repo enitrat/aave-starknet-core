@@ -19,10 +19,9 @@ from contracts.protocol.libraries.logic.e_mode_logic import EModeLogic
 from contracts.protocol.libraries.logic.reserve_logic import ReserveLogic
 from contracts.protocol.libraries.configuration.user_configuration import UserConfiguration
 from contracts.protocol.libraries.configuration.reserve_configuration import ReserveConfiguration
-from contracts.protocol.libraries.math.felt_math import FeltMath
+from contracts.protocol.libraries.math.felt_math import FeltMath, to_felt, to_uint256
 from contracts.protocol.libraries.math.percentage_math import PercentageMath
 from contracts.protocol.libraries.math.wad_ray_math import WadRayMath
-from contracts.protocol.libraries.math.helpers import to_felt, to_uint256
 from contracts.protocol.libraries.types.data_types import DataTypes
 
 namespace GenericLogic {
@@ -88,14 +87,14 @@ namespace GenericLogic {
             health_factor = MAX_UNSIGNED_FELT;
         } else {
             // cast to uint_256
-            let (total_collateral_in_base_currency_256) = to_uint256(
+            let total_collateral_in_base_currency_256 = to_uint256(
                 total_collateral_in_base_currency
             );
-            let (avg_liquidation_threshold_256) = to_uint256(avg_liquidation_threshold);
-            let (numerator) = PercentageMath.percent_mul(
+            let avg_liquidation_threshold_256 = to_uint256(avg_liquidation_threshold);
+            let numerator = PercentageMath.percent_mul(
                 total_collateral_in_base_currency_256, avg_liquidation_threshold_256
             );
-            let (quotient) = WadRayMath.wad_div(numerator, total_debt_in_base_currency);
+            let quotient = WadRayMath.wad_div(numerator, total_debt_in_base_currency);
 
             health_factor = to_felt(quotient);
         }
@@ -195,7 +194,7 @@ namespace GenericLogic {
             params, e_mode_ltv, e_mode_liq_th, e_mode_asset_price, reserve_index
         );
 
-        let (has_zero_ltv) = BoolCmp.either(has_zero_ltv, delta_has_zero_ltv);
+        let has_zero_ltv = BoolCmp.either(has_zero_ltv, delta_has_zero_ltv);
 
         return (
             sum_of_collateral + delta_collateral,
@@ -260,7 +259,7 @@ namespace GenericLogic {
         let (is_user_and_asset_same_e_mode_category) = is_zero(
             params.user_e_mode_category - e_mode_asset_category
         );
-        let (asset_price_condition) = BoolCmp.both(
+        let asset_price_condition = BoolCmp.both(
             is_e_mode_asset_price_not_zero, is_user_and_asset_same_e_mode_category
         );
         if (asset_price_condition == TRUE) {
@@ -283,7 +282,7 @@ namespace GenericLogic {
         let (is_using_as_col) = UserConfiguration.is_using_as_collateral(
             params.user, reserve_index
         );
-        let (user_balance_in_base_currency_condition) = BoolCmp.both(
+        let user_balance_in_base_currency_condition = BoolCmp.both(
             is_liq_th_not_zero, is_using_as_col
         );
         if (user_balance_in_base_currency_condition == TRUE) {
@@ -378,11 +377,11 @@ namespace GenericLogic {
             let (normalized_debt) = ReserveLogic.get_normalized_debt(
                 current_reserve.variable_debt_token_address
             );
-            let (normalized_debt_256) = to_uint256(normalized_debt);
-            let (mul_256) = WadRayMath.ray_mul(
+            let normalized_debt_256 = to_uint256(normalized_debt);
+            let mul_256 = WadRayMath.ray_mul(
                 user_scaled_balanced_variable_debt_u256, normalized_debt_256
             );
-            let (mul_felt) = to_felt(mul_256);
+            let mul_felt = to_felt(mul_256);
             user_total_variable_debt = mul_felt;
             tempvar syscall_ptr = syscall_ptr;
             tempvar pedersen_ptr = pedersen_ptr;
@@ -393,11 +392,13 @@ namespace GenericLogic {
             tempvar pedersen_ptr = pedersen_ptr;
             tempvar range_check_ptr = range_check_ptr;
         }
+        tempvar pedersen_ptr = pedersen_ptr;
 
         let (user_total_stable_debt_256) = IERC20.balanceOf(
             current_reserve.stable_debt_token_address, user
         );
-        let (user_total_stable_debt) = to_felt(user_total_stable_debt_256);
+
+        let user_total_stable_debt = to_felt(user_total_stable_debt_256);
 
         let (user_total_debt_base, overflow) = FeltMath.add_unsigned(
             user_total_variable_debt, user_total_stable_debt
@@ -433,12 +434,10 @@ namespace GenericLogic {
         let (normalized_income) = ReserveLogic.get_normalized_income(
             current_reserve.a_token_address
         );
-        let (normalized_income_256) = to_uint256(normalized_income);
+        let normalized_income_256 = to_uint256(normalized_income);
         let (scaled_balance_256) = IAToken.scaled_balance_of(current_reserve.a_token_address, user);
-        let (normalized_balance_256) = WadRayMath.ray_mul(
-            scaled_balance_256, normalized_income_256
-        );
-        let (normalized_balance) = to_felt(normalized_balance_256);
+        let normalized_balance_256 = WadRayMath.ray_mul(scaled_balance_256, normalized_income_256);
+        let normalized_balance = to_felt(normalized_balance_256);
 
         // felt
         let (balance, _) = FeltMath.mul_unsigned(normalized_balance, asset_price);

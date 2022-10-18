@@ -26,25 +26,25 @@ from contracts.protocol.libraries.helpers.constants import uint256_max
 @external
 func test_unexpected_results_ray_mul{range_check_ptr}() {
     alloc_locals;
-    let (wad_) = WadRayMath.wad();
-    let (ray_) = WadRayMath.ray();
+    let wad_ = WadRayMath.wad();
+    let ray_ = WadRayMath.ray();
     let _1e9 = Uint256(10 ** 9, 0);
 
     // wad-wad
     let (two_wad_, _) = uint256_mul(Uint256(2, 0), wad_);
     let (three_wad_, _) = uint256_mul(Uint256(3, 0), wad_);
     let (six_1e9, _) = uint256_mul(Uint256(6, 0), _1e9);
-    let (res) = WadRayMath.ray_mul(two_wad_, three_wad_);
+    let res = WadRayMath.ray_mul(two_wad_, three_wad_);
     assert res = six_1e9;
 
     // wad-ray
     let (three_ray_, _) = uint256_mul(Uint256(3, 0), ray_);
     let (six_wad_, _) = uint256_mul(Uint256(6, 0), wad_);
-    let (res) = WadRayMath.ray_mul(two_wad_, three_ray_);
+    let res = WadRayMath.ray_mul(two_wad_, three_ray_);
     assert res = six_wad_;
 
     // ray-wad
-    let (res) = WadRayMath.ray_mul(three_ray_, two_wad_);
+    let res = WadRayMath.ray_mul(three_ray_, two_wad_);
     assert res = six_wad_;
 
     return ();
@@ -61,25 +61,25 @@ func test_unexpected_results_ray_mul{range_check_ptr}() {
 @external
 func test_unexpected_results_wad_mul{range_check_ptr}() {
     alloc_locals;
-    let (wad_) = WadRayMath.wad();
-    let (ray_) = WadRayMath.ray();
+    let wad_ = WadRayMath.wad();
+    let ray_ = WadRayMath.ray();
     let _1e36 = Uint256(10 ** 36, 0);
 
     // ray-ray
     let (two_ray_, _) = uint256_mul(Uint256(2, 0), ray_);
     let (three_ray_, _) = uint256_mul(Uint256(3, 0), ray_);
     let (six_1e36, _) = uint256_mul(Uint256(6, 0), _1e36);
-    let (res) = WadRayMath.wad_mul(two_ray_, three_ray_);
+    let res = WadRayMath.wad_mul(two_ray_, three_ray_);
     assert res = six_1e36;
 
     // ray-wad
     let (three_wad_, _) = uint256_mul(Uint256(3, 0), wad_);
     let (six_ray_, _) = uint256_mul(Uint256(6, 0), ray_);
-    let (res) = WadRayMath.wad_mul(two_ray_, three_wad_);
+    let res = WadRayMath.wad_mul(two_ray_, three_wad_);
     assert res = six_ray_;
 
     // wad-ray
-    let (res) = WadRayMath.wad_mul(three_wad_, two_ray_);
+    let res = WadRayMath.wad_mul(three_wad_, two_ray_);
     assert res = six_ray_;
 
     return ();
@@ -95,25 +95,25 @@ func test_unexpected_results_wad_mul{range_check_ptr}() {
 @external
 func test_unexpected_results_ray_div{range_check_ptr}() {
     alloc_locals;
-    let (wad_) = WadRayMath.wad();
-    let (ray_) = WadRayMath.ray();
+    let wad_ = WadRayMath.wad();
+    let ray_ = WadRayMath.ray();
     let _1e36 = Uint256(10 ** 36, 0);
 
     // wad-wad
     let (six_wad_, _) = uint256_mul(Uint256(6, 0), wad_);
     let (three_wad_, _) = uint256_mul(Uint256(3, 0), wad_);
     let (two_ray_, _) = uint256_mul(Uint256(2, 0), ray_);
-    let (res) = WadRayMath.ray_div(six_wad_, three_wad_);
+    let res = WadRayMath.ray_div(six_wad_, three_wad_);
     assert res = two_ray_;
 
     // wad-ray
     let (three_ray_, _) = uint256_mul(Uint256(3, 0), ray_);
     let (two_wad_, _) = uint256_mul(Uint256(2, 0), wad_);
-    let (res) = WadRayMath.ray_div(six_wad_, three_ray_);
+    let res = WadRayMath.ray_div(six_wad_, three_ray_);
     assert res = two_wad_;
 
     // ray-wad
-    let (res) = WadRayMath.ray_div(six_wad_, three_ray_);
+    let res = WadRayMath.ray_div(six_wad_, three_ray_);
     assert res = two_wad_;
 
     return ();
@@ -129,27 +129,27 @@ func test_unexpected_results_ray_div{range_check_ptr}() {
 @external
 func test_unexpected_results_wad_div{range_check_ptr}() {
     alloc_locals;
-    let (wad_) = WadRayMath.wad();
-    let (ray_) = WadRayMath.ray();
+    let wad_ = WadRayMath.wad();
+    let ray_ = WadRayMath.ray();
     let _1e9 = Uint256(10 ** 9, 0);
 
     // ray-ray
     let (six_ray_, _) = uint256_mul(Uint256(6, 0), ray_);
     let (three_ray_, _) = uint256_mul(Uint256(3, 0), ray_);
     let (two_wad_, _) = uint256_mul(Uint256(2, 0), wad_);
-    let (res) = WadRayMath.wad_div(six_ray_, three_ray_);
+    let res = WadRayMath.wad_div(six_ray_, three_ray_);
     assert res = two_wad_;
 
     // wad-ray
     let (six_wad_, _) = uint256_mul(Uint256(6, 0), wad_);
     let (two_1e9, _) = uint256_mul(Uint256(2, 0), _1e9);
-    let (res) = WadRayMath.wad_div(six_wad_, three_ray_);
+    let res = WadRayMath.wad_div(six_wad_, three_ray_);
     assert res = two_1e9;
 
     // ray-wad
     let (three_wad_, _) = uint256_mul(Uint256(3, 0), wad_);
     let (two_ray_, _) = uint256_mul(Uint256(2, 0), ray_);
-    let (res) = WadRayMath.wad_div(six_ray_, three_wad_);
+    let res = WadRayMath.wad_div(six_ray_, three_wad_);
     assert res = two_ray_;
 
     return ();
@@ -162,8 +162,8 @@ func test_unexpected_results_wad_div{range_check_ptr}() {
 @external
 func test_wadMul{range_check_ptr}() {
     alloc_locals;
-    let (uint256_max_) = uint256_max();
-    let (half_wad_) = WadRayMath.half_wad();
+    let uint256_max_ = uint256_max();
+    let half_wad_ = WadRayMath.half_wad();
 
     let a = Uint256(134534543232342353231234, 0);
     let b = Uint256(13265462389132757665657, 0);
@@ -172,7 +172,7 @@ func test_wadMul{range_check_ptr}() {
     // b = 1.32E22
     // wadmul: a*b = 1.78E27
     let res_actual = Uint256(1784662923287792467070443765, 0);
-    let (res) = WadRayMath.wad_mul(a, b);
+    let res = WadRayMath.wad_mul(a, b);
     assert res_actual = res;
 
     // expect overflow
@@ -189,8 +189,8 @@ func test_wadMul{range_check_ptr}() {
 @external
 func test_wadDiv{range_check_ptr}() {
     alloc_locals;
-    let (uint256_max_) = uint256_max();
-    let (wad_) = WadRayMath.wad();
+    let uint256_max_ = uint256_max();
+    let wad_ = WadRayMath.wad();
 
     let a = Uint256(134534543232342353231234, 0);
     let b = Uint256(13265462389132757665657, 0);
@@ -199,7 +199,7 @@ func test_wadDiv{range_check_ptr}() {
     // b = 1.32E22
     // waddiv: a*b = 1.01E19
     let res_actual = Uint256(10141715327055228122, 0);
-    let (res) = WadRayMath.wad_div(a, b);
+    let res = WadRayMath.wad_div(a, b);
     assert res_actual = res;
 
     // expect revert
@@ -221,8 +221,8 @@ func test_wadDiv{range_check_ptr}() {
 @external
 func test_rayMul{range_check_ptr}() {
     alloc_locals;
-    let (uint256_max_) = uint256_max();
-    let (half_ray_) = WadRayMath.half_ray();
+    let uint256_max_ = uint256_max();
+    let half_ray_ = WadRayMath.half_ray();
 
     let a = Uint256(134534543232342353231234, 0);
     let b = Uint256(13265462389132757665657, 0);
@@ -231,7 +231,7 @@ func test_rayMul{range_check_ptr}() {
     // b = 1.32E22
     // raymul: a*b = 1.78E18
     let res_actual = Uint256(1784662923287792467, 0);
-    let (res) = WadRayMath.ray_mul(a, b);
+    let res = WadRayMath.ray_mul(a, b);
     assert res_actual = res;
 
     // expect overflow
@@ -248,8 +248,8 @@ func test_rayMul{range_check_ptr}() {
 @external
 func test_rayDiv{range_check_ptr}() {
     alloc_locals;
-    let (uint256_max_) = uint256_max();
-    let (ray_) = WadRayMath.ray();
+    let uint256_max_ = uint256_max();
+    let ray_ = WadRayMath.ray();
 
     let a = Uint256(134534543232342353231234, 0);
     let b = Uint256(13265462389132757665657, 0);
@@ -258,7 +258,7 @@ func test_rayDiv{range_check_ptr}() {
     // b = 1.32E22
     // raydiv: a*b = 1.01E28
     let res_actual = Uint256(10141715327055228122033939726, 0);
-    let (res) = WadRayMath.ray_div(a, b);
+    let res = WadRayMath.ray_div(a, b);
     assert res_actual = res;
 
     let (half_b, _) = uint256_unsigned_div_rem(b, Uint256(2, 0));
@@ -280,10 +280,10 @@ func test_rayDiv{range_check_ptr}() {
 @external
 func test_ray_to_wad{range_check_ptr}() {
     alloc_locals;
-    let (ray_) = WadRayMath.ray();
-    let (wad_) = WadRayMath.wad();
+    let ray_ = WadRayMath.ray();
+    let wad_ = WadRayMath.wad();
 
-    let (res) = WadRayMath.ray_to_wad(ray_);
+    let res = WadRayMath.ray_to_wad(ray_);
     assert res = wad_;
 
     return ();
@@ -292,10 +292,10 @@ func test_ray_to_wad{range_check_ptr}() {
 @external
 func test_wad_to_ray{range_check_ptr}() {
     alloc_locals;
-    let (ray_) = WadRayMath.ray();
-    let (wad_) = WadRayMath.wad();
+    let ray_ = WadRayMath.ray();
+    let wad_ = WadRayMath.wad();
 
-    let (res) = WadRayMath.wad_to_ray(wad_);
+    let res = WadRayMath.wad_to_ray(wad_);
     assert res = ray_;
 
     return ();
@@ -304,17 +304,17 @@ func test_wad_to_ray{range_check_ptr}() {
 @external
 func test_ray_to_wad_no_rounding{range_check_ptr}() {
     alloc_locals;
-    let (ray_) = WadRayMath.ray();
-    let (wad_) = WadRayMath.wad();
+    let ray_ = WadRayMath.ray();
+    let wad_ = WadRayMath.wad();
 
-    let (res) = WadRayMath.ray_to_wad_no_rounding(ray_);
+    let res = WadRayMath.ray_to_wad_no_rounding(ray_);
     assert res = wad_;
 
     // check rounding
 
-    let (ray_diminished) = WadRayMath.ray_sub(ray_, Uint256(1, 0));
-    let (wad_diminished) = WadRayMath.wad_sub(wad_, Uint256(1, 0));
-    let (res) = WadRayMath.ray_to_wad_no_rounding(ray_diminished);
+    let ray_diminished = WadRayMath.ray_sub(ray_, Uint256(1, 0));
+    let wad_diminished = WadRayMath.wad_sub(wad_, Uint256(1, 0));
+    let res = WadRayMath.ray_to_wad_no_rounding(ray_diminished);
     assert res = wad_diminished;
 
     return ();
@@ -325,30 +325,30 @@ func test_ray_to_wad_no_rounding{range_check_ptr}() {
 @external
 func test_exceptions_mul{range_check_ptr}() {
     alloc_locals;
-    let (wad_) = WadRayMath.wad();
-    let (ray_) = WadRayMath.ray();
-    let (uint256_max_) = uint256_max();
+    let wad_ = WadRayMath.wad();
+    let ray_ = WadRayMath.ray();
+    let uint256_max_ = uint256_max();
 
     //
     // WAD
     //
 
     // multiplication with zero
-    let (res) = WadRayMath.wad_mul(Uint256(0, 10000), Uint256(0, 0));
+    let res = WadRayMath.wad_mul(Uint256(0, 10000), Uint256(0, 0));
     assert res = Uint256(0, 0);
-    let (res) = WadRayMath.wad_mul(Uint256(0, 0), Uint256(0, 10000));
+    let res = WadRayMath.wad_mul(Uint256(0, 0), Uint256(0, 10000));
     assert res = Uint256(0, 0);
 
     // Multiplication with non-wad integers (<<1e18)
-    let (res) = WadRayMath.wad_mul(Uint256(0, 10000), wad_);
+    let res = WadRayMath.wad_mul(Uint256(0, 10000), wad_);
     assert res = Uint256(0, 10000);
-    let (res) = WadRayMath.wad_mul(wad_, Uint256(0, 10000));
+    let res = WadRayMath.wad_mul(wad_, Uint256(0, 10000));
     assert res = Uint256(0, 10000);
 
     // underflow test
-    let (res) = WadRayMath.wad_mul(Uint256(1000, 0), Uint256(1, 0));
+    let res = WadRayMath.wad_mul(Uint256(1000, 0), Uint256(1, 0));
     assert res = Uint256(0, 0);
-    let (res) = WadRayMath.wad_mul(Uint256(1, 0), Uint256(10000, 0));
+    let res = WadRayMath.wad_mul(Uint256(1, 0), Uint256(10000, 0));
     assert res = Uint256(0, 0);
 
     // overflow test
@@ -360,21 +360,21 @@ func test_exceptions_mul{range_check_ptr}() {
     //
 
     // multiplication with zero
-    let (res) = WadRayMath.ray_mul(Uint256(0, 10000), Uint256(0, 0));
+    let res = WadRayMath.ray_mul(Uint256(0, 10000), Uint256(0, 0));
     assert res = Uint256(0, 0);
-    let (res) = WadRayMath.ray_mul(Uint256(0, 0), Uint256(0, 10000));
+    let res = WadRayMath.ray_mul(Uint256(0, 0), Uint256(0, 10000));
     assert res = Uint256(0, 0);
 
     // Multiplication with non-ray integers (<< 1e27)
-    let (res) = WadRayMath.ray_mul(Uint256(0, 10000), ray_);
+    let res = WadRayMath.ray_mul(Uint256(0, 10000), ray_);
     assert res = Uint256(0, 10000);
-    let (res) = WadRayMath.ray_mul(ray_, Uint256(0, 10000));
+    let res = WadRayMath.ray_mul(ray_, Uint256(0, 10000));
     assert res = Uint256(0, 10000);
 
     // underflow test
-    let (res) = WadRayMath.ray_mul(Uint256(1000, 0), Uint256(1, 0));
+    let res = WadRayMath.ray_mul(Uint256(1000, 0), Uint256(1, 0));
     assert res = Uint256(0, 0);
-    let (res) = WadRayMath.ray_mul(Uint256(1, 0), Uint256(10000, 0));
+    let res = WadRayMath.ray_mul(Uint256(1, 0), Uint256(10000, 0));
     assert res = Uint256(0, 0);
 
     // overflow test
@@ -387,22 +387,22 @@ func test_exceptions_mul{range_check_ptr}() {
 @external
 func test_exceptions_div{range_check_ptr}() {
     alloc_locals;
-    let (wad_) = WadRayMath.wad();
-    let (half_wad_) = WadRayMath.half_wad();
-    let (one_ray) = WadRayMath.ray();
-    let (half_ray_) = WadRayMath.half_ray();
-    let (uint256_max_) = uint256_max();
+    let wad_ = WadRayMath.wad();
+    let half_wad_ = WadRayMath.half_wad();
+    let one_ray = WadRayMath.ray();
+    let half_ray_ = WadRayMath.half_ray();
+    let uint256_max_ = uint256_max();
 
     //
     // WAD
     //
 
     // division by 1
-    let (res) = WadRayMath.wad_div(Uint256(1000, 0), wad_);
+    let res = WadRayMath.wad_div(Uint256(1000, 0), wad_);
     assert res = Uint256(1000, 0);
 
     // underflow test
-    let (res) = WadRayMath.wad_div(Uint256(1, 0), Uint256(0, 10 ** 19));
+    let res = WadRayMath.wad_div(Uint256(1, 0), Uint256(0, 10 ** 19));
     assert res = Uint256(0, 0);
 
     // division by 0
@@ -418,11 +418,11 @@ func test_exceptions_div{range_check_ptr}() {
     //
 
     // division by 1
-    let (res) = WadRayMath.ray_div(Uint256(1000, 0), one_ray);
+    let res = WadRayMath.ray_div(Uint256(1000, 0), one_ray);
     assert res = Uint256(1000, 0);
 
     // underflow test
-    let (res) = WadRayMath.ray_div(Uint256(1, 0), Uint256(0, 10 ** 19));
+    let res = WadRayMath.ray_div(Uint256(1, 0), Uint256(0, 10 ** 19));
     assert res = Uint256(0, 0);
 
     // division by 0
@@ -439,25 +439,25 @@ func test_exceptions_div{range_check_ptr}() {
 @external
 func test_ray_mul_no_rounding{range_check_ptr}() {
     alloc_locals;
-    let (ray_) = WadRayMath.ray();
-    let (uint256_max_) = uint256_max();
+    let ray_ = WadRayMath.ray();
+    let uint256_max_ = uint256_max();
 
     // zero test
-    let (res) = WadRayMath.ray_mul_no_rounding(Uint256(0, 10000), Uint256(0, 0));
+    let res = WadRayMath.ray_mul_no_rounding(Uint256(0, 10000), Uint256(0, 0));
     assert res = Uint256(0, 0);
-    let (res) = WadRayMath.ray_mul_no_rounding(Uint256(0, 0), Uint256(0, 10000));
+    let res = WadRayMath.ray_mul_no_rounding(Uint256(0, 0), Uint256(0, 10000));
     assert res = Uint256(0, 0);
 
     // 1 test
-    let (res) = WadRayMath.ray_mul_no_rounding(Uint256(0, 10000), ray_);
+    let res = WadRayMath.ray_mul_no_rounding(Uint256(0, 10000), ray_);
     assert res = Uint256(0, 10000);
-    let (res) = WadRayMath.ray_mul_no_rounding(Uint256(10000, 0), ray_);
+    let res = WadRayMath.ray_mul_no_rounding(Uint256(10000, 0), ray_);
     assert res = Uint256(10000, 0);
 
     // underflow test
-    let (res) = WadRayMath.ray_mul_no_rounding(Uint256(1000, 0), Uint256(1, 0));
+    let res = WadRayMath.ray_mul_no_rounding(Uint256(1000, 0), Uint256(1, 0));
     assert res = Uint256(0, 0);
-    let (res) = WadRayMath.ray_mul_no_rounding(Uint256(1, 0), Uint256(10000, 0));
+    let res = WadRayMath.ray_mul_no_rounding(Uint256(1, 0), Uint256(10000, 0));
     assert res = Uint256(0, 0);
 
     // overflow test

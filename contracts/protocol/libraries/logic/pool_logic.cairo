@@ -40,7 +40,7 @@ namespace PoolLogic {
 
         let error_code = Errors.ADDRESSES_PROVIDER_ALREADY_ADDED;
         with_attr error_message("{error_code}") {
-            let (reserve_already_added) = BoolCmp.either(is_id_not_zero, is_asset_first);
+            let reserve_already_added = BoolCmp.either(is_id_not_zero, is_asset_first);
             assert reserve_already_added = FALSE;
         }
 

@@ -184,7 +184,7 @@ namespace AToken {
         let (pool) = POOL();
         let (underlying) = UNDERLYING_ASSET_ADDRESS();
         let (liquidity_index) = IPool.get_reserve_normalized_income(pool, underlying);
-        let (balance) = WadRayMath.ray_mul(balance_scaled, liquidity_index);
+        let balance = WadRayMath.ray_mul(balance_scaled, liquidity_index);
         return (balance,);
     }
 
@@ -200,7 +200,7 @@ namespace AToken {
         let (pool) = AToken_pool.read();
         let (asset) = AToken_underlying_asset.read();
         let (rate) = IPool.get_reserve_normalized_income(pool, asset);
-        let (supply) = WadRayMath.ray_mul(current_supply_scaled, rate);
+        let supply = WadRayMath.ray_mul(current_supply_scaled, rate);
         return (supply,);
     }
 
@@ -284,11 +284,11 @@ namespace AToken {
         let (index) = IPool.get_reserve_normalized_income(pool, underlying_asset);
 
         let (from_scaledbalance_before) = ERC20.balance_of(from_);
-        let (from_balance_before) = WadRayMath.ray_mul(from_scaledbalance_before, index);
+        let from_balance_before = WadRayMath.ray_mul(from_scaledbalance_before, index);
         let (to_scaledbalance_before) = ERC20.balance_of(to);
-        let (to_balance_before) = WadRayMath.ray_mul(to_scaledbalance_before, index);
+        let to_balance_before = WadRayMath.ray_mul(to_scaledbalance_before, index);
 
-        let (amount_over_index) = WadRayMath.ray_div(amount, index);
+        let amount_over_index = WadRayMath.ray_div(amount, index);
         ERC20._transfer(from_, to, amount_over_index);
 
         if (validate == TRUE) {

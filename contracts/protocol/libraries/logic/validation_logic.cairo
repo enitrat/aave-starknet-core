@@ -49,7 +49,7 @@ namespace ValidationLogic {
 
         // let (scaled_total_supply) = IAToken.scaled_total_supply(reserve.a_token_address)
         // let (reserve_cache)=ReserveConfiguration.get_cache(reserve.a_token_address)
-        // let (supply_mul_liq_index)=ray_mul(Ray(scaled_total_supply), Ray(reserve_cache.next_liquidity_index))
+        // let supply_mul_liq_index=ray_mul(Ray(scaled_total_supply), Ray(reserve_cache.next_liquidity_index))
 
         return ();
     }
@@ -107,7 +107,7 @@ namespace ValidationLogic {
             let is_id_not_zero = is_not_zero(reserve.id);
             let (reserve_list_first) = PoolStorage.reserves_list_read(0);
             let (is_first_asset) = is_zero(reserve_list_first - asset);
-            let (asset_listed) = BoolCmp.either(is_id_not_zero, is_first_asset);
+            let asset_listed = BoolCmp.either(is_id_not_zero, is_first_asset);
             assert asset_listed = TRUE;
         }
 

@@ -9,11 +9,11 @@ from contracts.protocol.libraries.helpers.constants import MAX_SIGNED_FELT, MIN_
 // @param a Unsigned felt integer
 // @param b Unsigned felt integer
 // @returns res Bool felt indicating if a < b
-func _is_lt_felt{range_check_ptr}(a: felt, b: felt) -> (res: felt) {
+func _is_lt_felt{range_check_ptr}(a: felt, b: felt) -> felt {
     if (a == b) {
-        return (FALSE,);
+        return FALSE;
     }
-    return (is_le_felt(a, b),);
+    return is_le_felt(a, b);
 }
 
 // @notice Library to safely compare felts interpreted as unsigned or signed integers.
@@ -38,15 +38,15 @@ namespace SafeCmp {
     // @param a Unsigned felt integer
     // @param b Unsigned felt integer
     // @returns res Bool felt indicating if a <= b
-    func is_le_unsigned{range_check_ptr}(a: felt, b: felt) -> (res: felt) {
-        return (is_le_felt(a, b),);
+    func is_le_unsigned{range_check_ptr}(a: felt, b: felt) -> felt {
+        return is_le_felt(a, b);
     }
 
     // @notice Checks if the a < b. Interprets a, b in range [0, P)
     // @param a Unsigned felt integer
     // @param b Unsigned felt integer
     // @returns res Bool felt indicating if a < b
-    func is_lt_unsigned{range_check_ptr}(a: felt, b: felt) -> (res: felt) {
+    func is_lt_unsigned{range_check_ptr}(a: felt, b: felt) -> felt {
         return _is_lt_felt(a, b);
     }
 
@@ -55,16 +55,16 @@ namespace SafeCmp {
     // @param low Unsigned felt integer, lower bound of the range
     // @param high Unsigned felt integer, upper bound of the range
     // @returns res Bool felt indicating if low <= value < high
-    func is_in_range_unsigned{range_check_ptr}(value: felt, low: felt, high: felt) -> (res: felt) {
+    func is_in_range_unsigned{range_check_ptr}(value: felt, low: felt, high: felt) -> felt {
         alloc_locals;
         with_attr error_message("Range definition error: low >= high") {
-            let (check) = _is_lt_felt(low, high);
+            let check = _is_lt_felt(low, high);
             assert check = TRUE;
         }
         let ok_low = is_le_felt(low, value);
-        let (ok_high) = _is_lt_felt(value, high);
-        let (res) = BoolCmp.both(ok_low, ok_high);
-        return (res,);
+        let ok_high = _is_lt_felt(value, high);
+        let res = BoolCmp.both(ok_low, ok_high);
+        return res;
     }
 
     // @notice Asserts that a <= b. Interprets a, b in range [0, P)
@@ -90,11 +90,11 @@ namespace SafeCmp {
     func assert_in_range_unsigned{range_check_ptr}(value: felt, low: felt, high: felt) {
         alloc_locals;
         with_attr error_message("Range definition error: low >= high") {
-            let (check) = _is_lt_felt(low, high);
+            let check = _is_lt_felt(low, high);
             assert check = TRUE;
         }
         let ok_low = is_le_felt(low, value);
-        let (ok_high) = _is_lt_felt(value, high);
+        let ok_high = _is_lt_felt(value, high);
         assert ok_low * ok_high = TRUE;
         return ();
     }
@@ -109,7 +109,7 @@ namespace SafeCmp {
     // @dev Note that floor(-P/2) is equal to floor(P/2) + 1. If felt is signed, then negative numbers are [floor(P/2)+1, P-1]
     // @param a Signed felt integer
     // @returns res Bool felt indicating if 0 <= value < floor(P/2) + 1 (Recall : floor(P/2) = (P-1)/2)
-    func is_nn_signed{range_check_ptr}(value: felt) -> (res: felt) {
+    func is_nn_signed{range_check_ptr}(value: felt) -> felt {
         return _is_lt_felt(value, MIN_SIGNED_FELT);
     }
 
@@ -118,8 +118,8 @@ namespace SafeCmp {
     // @param a Signed felt integer
     // @param b Signed felt integer
     // @returns res Bool felt indicating if a <= b
-    func is_le_signed{range_check_ptr}(a: felt, b: felt) -> (res: felt) {
-        return (is_le_felt(a + MAX_SIGNED_FELT, b + MAX_SIGNED_FELT),);
+    func is_le_signed{range_check_ptr}(a: felt, b: felt) -> felt {
+        return is_le_felt(a + MAX_SIGNED_FELT, b + MAX_SIGNED_FELT);
     }
 
     // @notice Checks if the a < b. Interprets a, b in range [floor(-P/2), floor(P/2)]
@@ -127,7 +127,7 @@ namespace SafeCmp {
     // @param a Signed felt integer
     // @param b Signed felt integer
     // @returns res Bool felt indicating if a < b
-    func is_lt_signed{range_check_ptr}(a: felt, b: felt) -> (res: felt) {
+    func is_lt_signed{range_check_ptr}(a: felt, b: felt) -> felt {
         return _is_lt_felt(a + MAX_SIGNED_FELT, b + MAX_SIGNED_FELT);
     }
 
@@ -137,7 +137,7 @@ namespace SafeCmp {
     // @param low Signed felt integer, lower bound of the range
     // @param high Signed felt integer, upper bound of the range
     // @returns res Bool felt indicating if value is in [low, high) range
-    func is_in_range_signed{range_check_ptr}(value: felt, low: felt, high: felt) -> (res: felt) {
+    func is_in_range_signed{range_check_ptr}(value: felt, low: felt, high: felt) -> felt {
         return is_in_range_unsigned(
             value + MAX_SIGNED_FELT, low + MAX_SIGNED_FELT, high + MAX_SIGNED_FELT
         );

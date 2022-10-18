@@ -68,13 +68,13 @@ namespace ReserveLogic {
         if (current_timestamp == block_timestamp) {
             return (reserve.liquidity_index,);
         }
-        let (current_liquidity_rate_256) = to_uint256(reserve.current_liquidity_rate);
-        let (current_liquidity_index_256) = to_uint256(reserve.liquidity_index);
-        let (linear_interest) = MathUtils.calculate_linear_interest(
+        let current_liquidity_rate_256 = to_uint256(reserve.current_liquidity_rate);
+        let current_liquidity_index_256 = to_uint256(reserve.liquidity_index);
+        let linear_interest = MathUtils.calculate_linear_interest(
             current_liquidity_rate_256, current_timestamp
         );
-        let (res_256) = WadRayMath.ray_mul(linear_interest, current_liquidity_index_256);
-        let (normalized_income) = to_felt(res_256);
+        let res_256 = WadRayMath.ray_mul(linear_interest, current_liquidity_index_256);
+        let normalized_income = to_felt(res_256);
         return (normalized_income,);
     }
 
@@ -88,13 +88,13 @@ namespace ReserveLogic {
         if (cur_timestamp == reserve_timestamp) {
             return (reserve.variable_borrow_index,);
         } else {
-            let (variable_rate_256) = to_uint256(reserve.current_variable_borrow_rate);
-            let (variable_borrow_index_256) = to_uint256(reserve.variable_borrow_index);
-            let (compound_interest) = MathUtils.calculate_compounded_interest(
+            let variable_rate_256 = to_uint256(reserve.current_variable_borrow_rate);
+            let variable_borrow_index_256 = to_uint256(reserve.variable_borrow_index);
+            let compound_interest = MathUtils.calculate_compounded_interest(
                 variable_rate_256, reserve_timestamp
             );
-            let (result_256) = WadRayMath.ray_mul(compound_interest, variable_borrow_index_256);
-            let (result_felt) = to_felt(result_256);
+            let result_256 = WadRayMath.ray_mul(compound_interest, variable_borrow_index_256);
+            let result_felt = to_felt(result_256);
             return (result_felt,);
         }
     }

@@ -207,7 +207,7 @@ namespace UserConfiguration {
             USING_AS_COLLATERAL_TYPE, user_address
         );
 
-        let (res) = BoolCmp.both(is_borrowing_list_empty, is_using_collateral_list_empty);
+        let res = BoolCmp.both(is_borrowing_list_empty, is_using_collateral_list_empty);
 
         return (res,);
     }

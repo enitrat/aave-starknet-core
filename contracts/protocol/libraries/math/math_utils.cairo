@@ -17,7 +17,7 @@ namespace MathUtils {
     // @return The interest rate linearly accumulated during the time_delta, in ray
     func calculate_linear_interest{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}(
         rate: Uint256, last_update_timestamp: felt
-    ) -> (interest: Uint256) {
+    ) -> Uint256 {
         alloc_locals;
         let (current_timestamp) = get_block_timestamp();
         let (time_delta) = SafeUint256.sub_le(
@@ -29,7 +29,7 @@ namespace MathUtils {
 
         let (interest) = SafeUint256.add(Uint256(WadRayMath.RAY, 0), result);
 
-        return (interest,);
+        return interest;
     }
 
     // @dev Calculates the compounded interest between the timestamp of the last update and the current block timestamp
@@ -38,13 +38,9 @@ namespace MathUtils {
     // @return The interest rate compounded between last_update_timestamp and current block timestamp
     func calculate_compounded_interest{
         syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr
-    }(rate: Uint256, last_update_timestamp: felt) -> (interest: Uint256) {
+    }(rate: Uint256, last_update_timestamp: felt) -> Uint256 {
         let (current_timestamp) = get_block_timestamp();
-        let (interest) = _calculate_compounded_interest(
-            rate, last_update_timestamp, current_timestamp
-        );
-
-        return (interest,);
+        return _calculate_compounded_interest(rate, last_update_timestamp, current_timestamp);
     }
 
     // @dev Function to calculate the interest using a compounded interest rate formula
@@ -61,7 +57,7 @@ namespace MathUtils {
     // @return The interest rate compounded during the time_delta, in ray
     func _calculate_compounded_interest{
         syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr
-    }(rate: Uint256, last_update_timestamp: felt, current_timestamp: felt) -> (interest: Uint256) {
+    }(rate: Uint256, last_update_timestamp: felt, current_timestamp: felt) -> Uint256 {
         alloc_locals;
         let (exp) = SafeUint256.sub_le(
             Uint256(current_timestamp, 0), Uint256(last_update_timestamp, 0)
@@ -69,14 +65,15 @@ namespace MathUtils {
 
         let (is_exp_zero) = uint256_eq(exp, Uint256(0, 0));
         if (is_exp_zero == TRUE) {
-            return (Uint256(WadRayMath.RAY, 0),);
+            let res = Uint256(WadRayMath.RAY, 0);
+            return res;
         }
 
         let (exp_minus_one) = SafeUint256.sub_le(exp, Uint256(1, 0));
 
         let (exp_minus_two) = uint256_checked_sub_return_zero_when_lt(exp, Uint256(2, 0));
 
-        let (rate_square) = WadRayMath.ray_mul(rate, rate);
+        let rate_square = WadRayMath.ray_mul(rate, rate);
 
         let (period_square) = SafeUint256.mul(
             Uint256(SECONDS_PER_YEAR, 0), Uint256(SECONDS_PER_YEAR, 0)
@@ -84,7 +81,7 @@ namespace MathUtils {
 
         let (base_power_two, _) = SafeUint256.div_rem(rate_square, period_square);
 
-        let (base_power_two_multiplied_by_rate) = WadRayMath.ray_mul(base_power_two, rate);
+        let base_power_two_multiplied_by_rate = WadRayMath.ray_mul(base_power_two, rate);
 
         let (base_power_three, _) = SafeUint256.div_rem(
             base_power_two_multiplied_by_rate, Uint256(SECONDS_PER_YEAR, 0)
@@ -116,6 +113,6 @@ namespace MathUtils {
 
         let (compounded_interest) = SafeUint256.add(first_part_rate, second_plus_third_term);
 
-        return (compounded_interest,);
+        return compounded_interest;
     }
 }

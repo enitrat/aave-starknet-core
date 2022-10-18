@@ -57,7 +57,7 @@ func assert_only_risk_or_pool_admin{
     let (caller_address) = get_caller_address();
     let (is_pool_admin) = IACLManager.is_pool_admin(acl, caller_address);
     let (is_risk_admin) = IACLManager.is_risk_admin(acl, caller_address);
-    let (allowance) = BoolCmp.either(is_pool_admin, is_risk_admin);
+    let allowance = BoolCmp.either(is_pool_admin, is_risk_admin);
     let error_code = Errors.CALLER_NOT_RISK_OR_POOL_ADMIN;
     with_attr error_message("{error_code}") {
         assert allowance = TRUE;
@@ -99,7 +99,7 @@ namespace PriceOracleSentinel {
         let is_grace_period_over = is_le(
             grace_period + 1, block_timestamp - last_updated_timestamp
         );
-        let (both) = BoolCmp.both(answer, is_grace_period_over);
+        let both = BoolCmp.both(answer, is_grace_period_over);
         return (both,);
     }
 

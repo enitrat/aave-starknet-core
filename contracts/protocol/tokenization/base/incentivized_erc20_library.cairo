@@ -125,7 +125,7 @@ namespace IncentivizedERC20 {
         account: felt
     ) -> (balance: Uint256) {
         let (state) = IncentivizedERC20_user_state.read(account);
-        let (balance_256) = to_uint256(state.balance);
+        let balance_256 = to_uint256(state.balance);
         return (balance_256,);
     }
 
@@ -312,11 +312,11 @@ namespace IncentivizedERC20 {
             assert_not_zero(sender);
         }
 
-        let (amount_felt) = to_felt(amount);
+        let amount_felt = to_felt(amount);
 
         let (sender_state) = IncentivizedERC20_user_state.read(sender);
         let old_sender_balance = sender_state.balance;
-        let (old_sender_balance_256) = to_uint256(old_sender_balance);
+        let old_sender_balance_256 = to_uint256(old_sender_balance);
         with_attr error_message("Transfer amount exceeds balance") {
             assert_le_felt(amount_felt, old_sender_balance);
         }
@@ -330,7 +330,7 @@ namespace IncentivizedERC20 {
 
         let (recipient_state) = IncentivizedERC20_user_state.read(recipient);
         let recipient_balance = recipient_state.balance;
-        let (recipient_balance_256) = to_uint256(recipient_balance);
+        let recipient_balance_256 = to_uint256(recipient_balance);
         let new_recipient_balance = recipient_balance + amount_felt;
         let new_recipient_state = DataTypes.UserState(
             new_recipient_balance, recipient_state.additional_data

@@ -96,7 +96,7 @@ namespace PoolConfigurator {
         let (is_caller_emergency_admin) = IACLManager.is_emergency_admin(
             acl_manager, caller_address
         );
-        let (is_pool_or_emergency_admin) = BoolCmp.either(
+        let is_pool_or_emergency_admin = BoolCmp.either(
             is_caller_pool_admin, is_caller_emergency_admin
         );
         with_attr error_message("Caller is not emergency or pool admin.") {
@@ -118,7 +118,7 @@ namespace PoolConfigurator {
         let (is_caller_asset_listing_admin) = IACLManager.is_asset_listing_admin(
             acl_manager, caller_address
         );
-        let (is_asset_listing_or_pool_admin) = BoolCmp.either(
+        let is_asset_listing_or_pool_admin = BoolCmp.either(
             is_caller_pool_admin, is_caller_asset_listing_admin
         );
         with_attr error_message("Caller is not asset listing or pool admin.") {
@@ -138,7 +138,7 @@ namespace PoolConfigurator {
 
         let (is_caller_pool_admin) = IACLManager.is_pool_admin(acl_manager, caller_address);
         let (is_caller_risk_admin) = IACLManager.is_risk_admin(acl_manager, caller_address);
-        let (is_risk_or_pool_admin) = BoolCmp.either(is_caller_pool_admin, is_caller_risk_admin);
+        let is_risk_or_pool_admin = BoolCmp.either(is_caller_pool_admin, is_caller_risk_admin);
         with_attr error_message("Caller is not risk or pool admin.") {
             assert is_risk_or_pool_admin = TRUE;
         }

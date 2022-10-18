@@ -66,7 +66,7 @@ func test_balance_of{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check
     %{ store(ids.contract_address, "IncentivizedERC20_user_state", [ids.user_state.balance, ids.user_state.additional_data], key=[ids.USER_1]) %}
 
     let (balance) = IncentivizedERC20.balance_of(USER_1);
-    let (amount_256) = to_uint256(AMOUNT_1);
+    let amount_256 = to_uint256(AMOUNT_1);
     let (is_eq) = uint256_eq(balance, amount_256);
     assert is_eq = TRUE;
     return ();
@@ -78,7 +78,7 @@ func test_transfer{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_p
 
     store_external_contracts();
     let (local contract_address) = get_contract_address();
-    let (local amount256) = to_uint256(AMOUNT_1);
+    let amount256 = to_uint256(AMOUNT_1);
 
     tempvar user_state = DataTypes.UserState(balance=AMOUNT_1, additional_data=0);
     %{ store(ids.contract_address, "IncentivizedERC20_user_state", [ids.user_state.balance, ids.user_state.additional_data], key=[ids.USER_1]) %}
@@ -122,7 +122,7 @@ func test_transfer_from{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_ch
     // Set balances and allowances
     tempvar user_state = DataTypes.UserState(balance=AMOUNT_1, additional_data=0);
     %{ store(ids.contract_address, "IncentivizedERC20_user_state", [ids.user_state.balance, ids.user_state.additional_data], key=[ids.USER_2]) %}
-    let (local amount256) = to_uint256(AMOUNT_1);
+    let amount256 = to_uint256(AMOUNT_1);
 
     %{ store(ids.contract_address, "IncentivizedERC20_allowances", [ids.amount256.low, ids.amount256.high], key=[ids.USER_2, ids.USER_1]) %}
 
@@ -159,7 +159,7 @@ func test_transfer_from{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_ch
 func test_approve{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}() {
     alloc_locals;
     let (local contract_address) = get_contract_address();
-    let (local amount256) = to_uint256(AMOUNT_1);
+    let amount256 = to_uint256(AMOUNT_1);
 
     // Approve an ammount
     %{ stop_prank_callable = start_prank(ids.USER_1) %}
@@ -182,7 +182,7 @@ func test_allowance{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_
     let (local contract_address) = get_contract_address();
 
     // Set allowance
-    let (local amount256) = to_uint256(AMOUNT_1);
+    let amount256 = to_uint256(AMOUNT_1);
     %{ store(ids.contract_address, "IncentivizedERC20_allowances", [ids.amount256.low, ids.amount256.high], key=[ids.USER_1, ids.USER_2]) %}
 
     // Check allowance is correct
@@ -242,7 +242,7 @@ func test_increase_allowance{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, ran
     let (local contract_address) = get_contract_address();
 
     // Set an allowance
-    let (local amount256) = to_uint256(AMOUNT_1);
+    let amount256 = to_uint256(AMOUNT_1);
     %{ store(ids.contract_address, "IncentivizedERC20_allowances", [ids.amount256.low, ids.amount256.high], key=[ids.USER_1, ids.USER_2]) %}
 
     let (new_allowance) = SafeUint256.add(amount256, amount256);
@@ -268,7 +268,7 @@ func test_decrease_allowance{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, ran
     let (local contract_address) = get_contract_address();
 
     // Set an allowance
-    let (local amount256) = to_uint256(AMOUNT_1);
+    let amount256 = to_uint256(AMOUNT_1);
     %{ store(ids.contract_address, "IncentivizedERC20_allowances", [ids.amount256.low, ids.amount256.high], key=[ids.USER_1, ids.USER_2]) %}
 
     // Zero

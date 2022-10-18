@@ -19,43 +19,36 @@ func test_max_unsigned_felt{range_check_ptr}() {
 @view
 func test_is_le_unsigned{range_check_ptr}() {
     // Regular tests
-    let (res_1) = SafeCmp.is_le_unsigned(1, 2);
-    assert res_1 = TRUE;
-    let (res_2) = SafeCmp.is_le_unsigned(2, 2);
-    assert res_2 = TRUE;
-    let (res_3) = SafeCmp.is_le_unsigned(3, 2);
-    assert res_3 = FALSE;
+    assert SafeCmp.is_le_unsigned(1, 2) = TRUE;
+    assert SafeCmp.is_le_unsigned(2, 2) = TRUE;
+    assert SafeCmp.is_le_unsigned(3, 2) = FALSE;
 
     // check boundaries
-    let (res_4) = SafeCmp.is_le_unsigned(MAX_SIGNED_FELT, MIN_SIGNED_FELT);
-    assert res_4 = TRUE;
-    let (res_5) = SafeCmp.is_le_unsigned(0, MIN_SIGNED_FELT);
-    assert res_5 = TRUE;
-    let (res_6) = SafeCmp.is_le_unsigned(MIN_SIGNED_FELT, MAX_UNSIGNED_FELT);
-    assert res_6 = TRUE;
-    let (res_7) = SafeCmp.is_le_unsigned(0, MAX_UNSIGNED_FELT);
-    assert res_7 = TRUE;
+    assert SafeCmp.is_le_unsigned(MAX_SIGNED_FELT, MIN_SIGNED_FELT) = TRUE;
+    assert SafeCmp.is_le_unsigned(0, MIN_SIGNED_FELT) = TRUE;
+    assert SafeCmp.is_le_unsigned(MIN_SIGNED_FELT, MAX_UNSIGNED_FELT) = TRUE;
+    assert SafeCmp.is_le_unsigned(0, MAX_UNSIGNED_FELT) = TRUE;
     return ();
 }
 
 @view
 func test_is_lt_unsigned{range_check_ptr}() {
     // Regular tests
-    let (res_1) = SafeCmp.is_lt_unsigned(1, 2);
+    let res_1 = SafeCmp.is_lt_unsigned(1, 2);
     assert res_1 = TRUE;
-    let (res_2) = SafeCmp.is_lt_unsigned(2, 2);
+    let res_2 = SafeCmp.is_lt_unsigned(2, 2);
     assert res_2 = FALSE;
-    let (res_3) = SafeCmp.is_lt_unsigned(3, 2);
+    let res_3 = SafeCmp.is_lt_unsigned(3, 2);
     assert res_3 = FALSE;
 
     // check boundaries
-    let (res_4) = SafeCmp.is_lt_unsigned(MAX_SIGNED_FELT, MIN_SIGNED_FELT);
+    let res_4 = SafeCmp.is_lt_unsigned(MAX_SIGNED_FELT, MIN_SIGNED_FELT);
     assert res_4 = TRUE;
-    let (res_5) = SafeCmp.is_lt_unsigned(0, MIN_SIGNED_FELT);
+    let res_5 = SafeCmp.is_lt_unsigned(0, MIN_SIGNED_FELT);
     assert res_5 = TRUE;
-    let (res_6) = SafeCmp.is_lt_unsigned(MIN_SIGNED_FELT, MAX_UNSIGNED_FELT);
+    let res_6 = SafeCmp.is_lt_unsigned(MIN_SIGNED_FELT, MAX_UNSIGNED_FELT);
     assert res_6 = TRUE;
-    let (res_7) = SafeCmp.is_lt_unsigned(0, MAX_UNSIGNED_FELT);
+    let res_7 = SafeCmp.is_lt_unsigned(0, MAX_UNSIGNED_FELT);
     assert res_7 = TRUE;
 
     return ();
@@ -63,13 +56,13 @@ func test_is_lt_unsigned{range_check_ptr}() {
 
 @view
 func test_is_in_range_unsigned{range_check_ptr}() {
-    let (res_1) = SafeCmp.is_in_range_unsigned(3, 0, 5);
+    let res_1 = SafeCmp.is_in_range_unsigned(3, 0, 5);
     assert res_1 = TRUE;
-    let (res_2) = SafeCmp.is_in_range_unsigned(3, 3, 5);
+    let res_2 = SafeCmp.is_in_range_unsigned(3, 3, 5);
     assert res_2 = TRUE;
-    let (res_3) = SafeCmp.is_in_range_unsigned(5, 3, 5);
+    let res_3 = SafeCmp.is_in_range_unsigned(5, 3, 5);
     assert res_3 = FALSE;
-    let (res_4) = SafeCmp.is_in_range_unsigned(6, 0, 2);
+    let res_4 = SafeCmp.is_in_range_unsigned(6, 0, 2);
     assert res_4 = FALSE;
 
     %{ expect_revert(error_message="Range definition error: low >= high") %}
@@ -158,17 +151,17 @@ func test_assert_in_range_unsigned_4{range_check_ptr}() {
 @view
 func test_is_nn_signed{range_check_ptr}() {
     // False results
-    let (res_1) = SafeCmp.is_nn_signed(MIN_SIGNED_FELT);
+    let res_1 = SafeCmp.is_nn_signed(MIN_SIGNED_FELT);
     assert res_1 = FALSE;
-    let (res_2) = SafeCmp.is_nn_signed(MAX_UNSIGNED_FELT);
+    let res_2 = SafeCmp.is_nn_signed(MAX_UNSIGNED_FELT);
     assert res_2 = FALSE;
-    let (res_3) = SafeCmp.is_nn_signed(-1);
+    let res_3 = SafeCmp.is_nn_signed(-1);
     assert res_3 = FALSE;
 
     // True results
-    let (res_4) = SafeCmp.is_nn_signed(MAX_SIGNED_FELT);
+    let res_4 = SafeCmp.is_nn_signed(MAX_SIGNED_FELT);
     assert res_4 = TRUE;
-    let (res_5) = SafeCmp.is_nn_signed(0);
+    let res_5 = SafeCmp.is_nn_signed(0);
     assert res_5 = TRUE;
 
     return ();
@@ -177,36 +170,25 @@ func test_is_nn_signed{range_check_ptr}() {
 @view
 func test_is_le_signed{range_check_ptr}() {
     // tests when a = b
-    let (res_1) = SafeCmp.is_le_signed(1, 1);
-    assert res_1 = TRUE;
-    let (res_2) = SafeCmp.is_le_signed(-1, -1);
-    assert res_2 = TRUE;
-    let (res_3) = SafeCmp.is_le_signed(MIN_SIGNED_FELT, MIN_SIGNED_FELT);
-    assert res_3 = TRUE;
+    // notice : we can use it as a 1-liner, because there's no ambiguity in the value of ap.
+    assert SafeCmp.is_le_signed(1, 1) = TRUE;
+    assert SafeCmp.is_le_signed(-1, -1) = TRUE;
+    assert SafeCmp.is_le_signed(MIN_SIGNED_FELT, MIN_SIGNED_FELT) = TRUE;
 
     // tests when a is non negative and b neg (always FALSE)
-    let (res_4) = SafeCmp.is_le_signed(3, -1);
-    assert res_4 = FALSE;
-    let (res_5) = SafeCmp.is_le_signed(1, MIN_SIGNED_FELT);
-    assert res_5 = FALSE;
+    assert SafeCmp.is_le_signed(3, -1) = FALSE;
+    assert SafeCmp.is_le_signed(1, MIN_SIGNED_FELT) = FALSE;
 
     // tests when a is neg and b non neg (always TRUE)
-    let (res_6) = SafeCmp.is_le_signed(MIN_SIGNED_FELT, 2);
-    assert res_6 = TRUE;
-    let (res_7) = SafeCmp.is_le_signed(-1, 5);
-    assert res_7 = TRUE;
+    assert SafeCmp.is_le_signed(MIN_SIGNED_FELT, 2) = TRUE;
+    assert SafeCmp.is_le_signed(-1, 5) = TRUE;
 
     // tests when a and b are the same sign
-    let (res_8) = SafeCmp.is_le_signed(CAIRO_FIELD_ORDER + 1, MAX_SIGNED_FELT);
-    assert res_8 = TRUE;
-    let (res_9) = SafeCmp.is_le_signed(3, 2);
-    assert res_9 = FALSE;
-    let (res_10) = SafeCmp.is_le_signed(MAX_SIGNED_FELT, CAIRO_FIELD_ORDER + 1);
-    assert res_10 = FALSE;
-    let (res_11) = SafeCmp.is_le_signed(MAX_UNSIGNED_FELT, MIN_SIGNED_FELT);
-    assert res_11 = FALSE;
-    let (res_12) = SafeCmp.is_le_signed(MIN_SIGNED_FELT, MAX_UNSIGNED_FELT);
-    assert res_12 = TRUE;
+    assert SafeCmp.is_le_signed(CAIRO_FIELD_ORDER + 1, MAX_SIGNED_FELT) = TRUE;
+    assert SafeCmp.is_le_signed(3, 2) = FALSE;
+    assert SafeCmp.is_le_signed(MAX_SIGNED_FELT, CAIRO_FIELD_ORDER + 1) = FALSE;
+    assert SafeCmp.is_le_signed(MAX_UNSIGNED_FELT, MIN_SIGNED_FELT) = FALSE;
+    assert SafeCmp.is_le_signed(MIN_SIGNED_FELT, MAX_UNSIGNED_FELT) = TRUE;
 
     return ();
 }
@@ -214,35 +196,35 @@ func test_is_le_signed{range_check_ptr}() {
 @view
 func test_is_lt_signed{range_check_ptr}() {
     // tests when a = b
-    let (res_1) = SafeCmp.is_lt_signed(1, 1);
+    let res_1 = SafeCmp.is_lt_signed(1, 1);
     assert res_1 = FALSE;
-    let (res_2) = SafeCmp.is_lt_signed(-1, -1);
+    let res_2 = SafeCmp.is_lt_signed(-1, -1);
     assert res_2 = FALSE;
-    let (res_3) = SafeCmp.is_lt_signed(MIN_SIGNED_FELT, MIN_SIGNED_FELT);
+    let res_3 = SafeCmp.is_lt_signed(MIN_SIGNED_FELT, MIN_SIGNED_FELT);
     assert res_3 = FALSE;
 
     // tests when a is non negative and b neg (always FALSE)
-    let (res_4) = SafeCmp.is_lt_signed(3, -1);
+    let res_4 = SafeCmp.is_lt_signed(3, -1);
     assert res_4 = FALSE;
-    let (res_5) = SafeCmp.is_lt_signed(1, MIN_SIGNED_FELT);
+    let res_5 = SafeCmp.is_lt_signed(1, MIN_SIGNED_FELT);
     assert res_5 = FALSE;
 
     // tests when a is neg and b non neg (always TRUE)
-    let (res_6) = SafeCmp.is_lt_signed(MIN_SIGNED_FELT, 2);
+    let res_6 = SafeCmp.is_lt_signed(MIN_SIGNED_FELT, 2);
     assert res_6 = TRUE;
-    let (res_7) = SafeCmp.is_lt_signed(-1, 5);
+    let res_7 = SafeCmp.is_lt_signed(-1, 5);
     assert res_7 = TRUE;
 
     // tests when a and b are the same sign
-    let (res_8) = SafeCmp.is_lt_signed(CAIRO_FIELD_ORDER + 1, MAX_SIGNED_FELT);
+    let res_8 = SafeCmp.is_lt_signed(CAIRO_FIELD_ORDER + 1, MAX_SIGNED_FELT);
     assert res_8 = TRUE;
-    let (res_9) = SafeCmp.is_lt_signed(3, 2);
+    let res_9 = SafeCmp.is_lt_signed(3, 2);
     assert res_9 = FALSE;
-    let (res_10) = SafeCmp.is_lt_signed(MAX_SIGNED_FELT, CAIRO_FIELD_ORDER + 1);
+    let res_10 = SafeCmp.is_lt_signed(MAX_SIGNED_FELT, CAIRO_FIELD_ORDER + 1);
     assert res_10 = FALSE;
-    let (res_11) = SafeCmp.is_lt_signed(MAX_UNSIGNED_FELT, MIN_SIGNED_FELT);
+    let res_11 = SafeCmp.is_lt_signed(MAX_UNSIGNED_FELT, MIN_SIGNED_FELT);
     assert res_11 = FALSE;
-    let (res_12) = SafeCmp.is_lt_signed(MIN_SIGNED_FELT, MAX_UNSIGNED_FELT);
+    let res_12 = SafeCmp.is_lt_signed(MIN_SIGNED_FELT, MAX_UNSIGNED_FELT);
     assert res_12 = TRUE;
 
     return ();
@@ -265,37 +247,37 @@ func test_is_in_range_signed_2{range_check_ptr}() {
 @view
 func test_is_in_range_signed_3{range_check_ptr}() {
     // test when value = low : always TRUE
-    let (res_1) = SafeCmp.is_in_range_signed(5, 5, 6);
+    let res_1 = SafeCmp.is_in_range_signed(5, 5, 6);
     assert res_1 = TRUE;
 
     assert CAIRO_FIELD_ORDER = 0;
-    let (res_2) = SafeCmp.is_in_range_signed(CAIRO_FIELD_ORDER, 0, MAX_SIGNED_FELT);
+    let res_2 = SafeCmp.is_in_range_signed(CAIRO_FIELD_ORDER, 0, MAX_SIGNED_FELT);
     assert res_2 = TRUE;
 
     // tests when  low is neg, high and value are positive
-    let (res_3) = SafeCmp.is_in_range_signed(1, MAX_UNSIGNED_FELT, MAX_SIGNED_FELT);
+    let res_3 = SafeCmp.is_in_range_signed(1, MAX_UNSIGNED_FELT, MAX_SIGNED_FELT);
     assert res_3 = TRUE;
-    let (res_4) = SafeCmp.is_in_range_signed(1, -1, 2);
+    let res_4 = SafeCmp.is_in_range_signed(1, -1, 2);
     assert res_4 = TRUE;
-    let (res_5) = SafeCmp.is_in_range_signed(2, -1, 2);
+    let res_5 = SafeCmp.is_in_range_signed(2, -1, 2);
     assert res_5 = FALSE;
 
     // tests when  low and value are neg, high is positive
-    let (res_6) = SafeCmp.is_in_range_signed(MAX_UNSIGNED_FELT, CAIRO_FIELD_ORDER - 2, 1);
+    let res_6 = SafeCmp.is_in_range_signed(MAX_UNSIGNED_FELT, CAIRO_FIELD_ORDER - 2, 1);
     assert res_6 = TRUE;
-    let (res_7) = SafeCmp.is_in_range_signed(-1, -1, 2);
+    let res_7 = SafeCmp.is_in_range_signed(-1, -1, 2);
     assert res_7 = TRUE;
-    let (res_8) = SafeCmp.is_in_range_signed(-3, -2, 3);
+    let res_8 = SafeCmp.is_in_range_signed(-3, -2, 3);
     assert res_8 = FALSE;
 
     // tests when  low and high are same sign
-    let (res_9) = SafeCmp.is_in_range_signed(-2, MIN_SIGNED_FELT, MAX_UNSIGNED_FELT);
+    let res_9 = SafeCmp.is_in_range_signed(-2, MIN_SIGNED_FELT, MAX_UNSIGNED_FELT);
     assert res_9 = TRUE;
-    let (res_10) = SafeCmp.is_in_range_signed(1, CAIRO_FIELD_ORDER, MAX_SIGNED_FELT);
+    let res_10 = SafeCmp.is_in_range_signed(1, CAIRO_FIELD_ORDER, MAX_SIGNED_FELT);
     assert res_10 = TRUE;
-    let (res_11) = SafeCmp.is_in_range_signed(CAIRO_FIELD_ORDER, 1, MAX_SIGNED_FELT);
+    let res_11 = SafeCmp.is_in_range_signed(CAIRO_FIELD_ORDER, 1, MAX_SIGNED_FELT);
     assert res_11 = FALSE;
-    let (res_12) = SafeCmp.is_in_range_signed(MAX_UNSIGNED_FELT, MIN_SIGNED_FELT, -2);
+    let res_12 = SafeCmp.is_in_range_signed(MAX_UNSIGNED_FELT, MIN_SIGNED_FELT, -2);
     assert res_12 = FALSE;
 
     return ();

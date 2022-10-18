@@ -90,9 +90,9 @@ func _mint{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}(
     tempvar old_user_balance = old_user_state.balance;
 
     // Set new user balance
-    let (local old_user_balance_uint256) = to_uint256(old_user_balance);
-    let (local new_user_balance) = SafeUint256.add(old_user_balance_uint256, amount);
-    let (local new_user_balance_felt) = to_felt(new_user_balance);
+    let old_user_balance_uint256 = to_uint256(old_user_balance);
+    let (new_user_balance) = SafeUint256.add(old_user_balance_uint256, amount);
+    let new_user_balance_felt = to_felt(new_user_balance);
 
     IncentivizedERC20.set_balance(account, new_user_balance_felt);
 
@@ -124,11 +124,11 @@ func _burn{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}(
     tempvar old_user_balance = old_user_state.balance;
 
     // Set new user balance
-    let (local old_user_balance_uint256) = to_uint256(old_user_balance);
+    let old_user_balance_uint256 = to_uint256(old_user_balance);
     with_attr error_message("Amount larger than balance") {
         let (local new_user_balance) = SafeUint256.sub_le(old_user_balance_uint256, amount);
     }
-    let (local new_user_balance_felt) = to_felt(new_user_balance);
+    let new_user_balance_felt = to_felt(new_user_balance);
     IncentivizedERC20.set_balance(account, new_user_balance_felt);
 
     _handle_action(account, old_user_balance_uint256, old_total_supply);
@@ -144,9 +144,9 @@ func _handle_state_change{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_
     alloc_locals;
 
     tempvar amount_ray = amount;
-    let (local index_uint256) = to_uint256(index);
+    let index_uint256 = to_uint256(index);
     tempvar index_ray = index_uint256;
-    let (local amount_scaled) = WadRayMath.ray_div(amount_ray, index_ray);
+    let amount_scaled = WadRayMath.ray_div(amount_ray, index_ray);
 
     // TODO: This error originally identifies whether it is mint or burn
     // There is no easy way to pass that as argument. Should we remove
@@ -158,16 +158,16 @@ func _handle_state_change{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_
 
     let (local old_user_state: DataTypes.UserState) = IncentivizedERC20.get_user_state(user);
     tempvar old_user_balance = old_user_state.balance;
-    let (local old_user_balance_256) = to_uint256(old_user_balance);
+    let old_user_balance_256 = to_uint256(old_user_balance);
     let old_user_balance_ray = old_user_balance_256;
 
     tempvar old_user_index = old_user_state.additional_data;
-    let (local old_user_index_256) = to_uint256(old_user_index);
+    let old_user_index_256 = to_uint256(old_user_index);
     tempvar old_user_index_ray = old_user_index_256;
 
-    let (local new_scaled_balance) = WadRayMath.ray_mul(old_user_balance_ray, index_ray);
-    let (local old_scaled_balance) = WadRayMath.ray_mul(old_user_balance_ray, old_user_index_ray);
-    let (local balance_increase) = WadRayMath.ray_sub(new_scaled_balance, old_scaled_balance);
+    let new_scaled_balance = WadRayMath.ray_mul(old_user_balance_ray, index_ray);
+    let old_scaled_balance = WadRayMath.ray_mul(old_user_balance_ray, old_user_index_ray);
+    let balance_increase = WadRayMath.ray_sub(new_scaled_balance, old_scaled_balance);
 
     IncentivizedERC20.set_additional_data(user, index);
 
@@ -232,15 +232,13 @@ namespace ScaledBalanceToken {
 
         _burn(user, amount_scaled);
 
-        let (is_balance_increase_le_than_amount) = SafeUint256Cmp.le(balance_increase, amount);
-
-        if (is_balance_increase_le_than_amount == TRUE) {
-            let (local amount_to_burn) = WadRayMath.ray_sub(amount_ray, balance_increase);
+        if (SafeUint256Cmp.le(balance_increase, amount) == TRUE) {
+            let amount_to_burn = WadRayMath.ray_sub(amount_ray, balance_increase);
             Transfer.emit(user, 0, amount_to_burn);
             Burn.emit(user, target, amount_to_burn, balance_increase, index);
             return ();
         } else {
-            let (local amount_to_mint) = WadRayMath.ray_sub(balance_increase, amount_ray);
+            let amount_to_mint = WadRayMath.ray_sub(balance_increase, amount_ray);
             Transfer.emit(0, user, amount_to_mint);
             Mint.emit(user, user, amount_to_mint, balance_increase, index);
             return ();

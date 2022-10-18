@@ -29,6 +29,7 @@ func empty_reserve_data() -> (res: DataTypes.ReserveData) {
     return (DataTypes.ReserveData(empty_config, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),);
 }
 
-func uint256_max() -> (max: Uint256) {
-    return (Uint256(UINT128_MAX, UINT128_MAX),);
+func uint256_max() -> Uint256 {
+    let res = Uint256(UINT128_MAX, UINT128_MAX);
+    return res;
 }

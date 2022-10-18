@@ -6,38 +6,38 @@ namespace BoolCmp {
         return ();
     }
 
-    func eq(a: felt, b: felt) -> (res: felt) {
+    func eq(a: felt, b: felt) -> felt {
         if (a == b) {
-            return (res=1);
+            return 1;
         } else {
-            return (res=0);
+            return 0;
         }
     }
 
-    func either(x: felt, y: felt) -> (res: felt) {
+    func either(x: felt, y: felt) -> felt {
         assert x * x = x;
         assert y * y = y;
-        let (res) = eq((x - 1) * (y - 1), 0);
-        return (res=res);
+        let res = eq((x - 1) * (y - 1), 0);
+        return res;
     }
 
-    func both(x: felt, y: felt) -> (res: felt) {
+    func both(x: felt, y: felt) -> felt {
         assert x * x = x;
         assert y * y = y;
-        let (res) = eq((x + y), 2);
-        return (res=res);
+        let res = eq((x + y), 2);
+        return res;
     }
 
-    func neither(x: felt, y: felt) -> (res: felt) {
+    func neither(x: felt, y: felt) -> felt {
         assert x * x = x;
         assert y * y = y;
-        let (res) = eq((x + y), 0);
-        return (res=res);
+        let res = eq((x + y), 0);
+        return res;
     }
 
-    func not(x: felt) -> (res: felt) {
+    func not(x: felt) -> felt {
         assert x * x = x;
         let res = (1 - x);
-        return (res=res);
+        return res;
     }
 }
