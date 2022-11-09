@@ -1,0 +1,15 @@
+[tool.poetry]
+name = "Aave-Starknet core"
+version = "0.1.0"
+description = ""
+authors = ["Nethermind"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+cairo-lang = "0.10.1"
+cairo-toolkit = "1.0.1"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

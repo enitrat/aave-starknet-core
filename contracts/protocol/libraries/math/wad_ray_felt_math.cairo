@@ -1,10 +1,10 @@
+from starkware.cairo.common.bool import FALSE, TRUE
 from starkware.cairo.common.math import assert_le, assert_le_felt, assert_not_equal
 
-from starkware.cairo.common.bool import TRUE, FALSE
 from contracts.protocol.libraries.helpers.constants import MAX_UNSIGNED_FELT
-from contracts.protocol.libraries.math.safe_felt_math import SafeFeltMath
 from contracts.protocol.libraries.math.felt_math import FeltMath
 from contracts.protocol.libraries.math.felt_math import to_felt
+from contracts.protocol.libraries.math.safe_felt_math import SafeFeltMath
 
 using Wad = felt;
 using Ray = felt;

@@ -1,14 +1,14 @@
 %lang starknet
 
 from starkware.cairo.common.cairo_builtins import HashBuiltin
-from starkware.cairo.common.registers import get_fp_and_pc
 from starkware.cairo.common.math import assert_le_felt
+from starkware.cairo.common.registers import get_fp_and_pc
 
 from contracts.protocol.libraries.helpers.bool_cmp import BoolCmp
-from contracts.protocol.pool.pool_storage import PoolStorage
+from contracts.protocol.libraries.helpers.errors import Errors
 from contracts.protocol.libraries.helpers.helpers import update_struct
 from contracts.protocol.libraries.types.data_types import DataTypes
-from contracts.protocol.libraries.helpers.errors import Errors
+from contracts.protocol.pool.pool_storage import PoolStorage
 
 const MAX_VALID_LTV = 65535;
 const MAX_VALID_LIQUIDATION_THRESHOLD = 65535;

@@ -1,5 +1,7 @@
 %lang starknet
+
 from starkware.cairo.common.cairo_builtins import HashBuiltin
+
 from tests.test_suites.test_specs.pool_addresses_provider_spec import TestPoolAddressesProvider
 
 const MOCKED_PROXY_ADDRESS = 8930645;

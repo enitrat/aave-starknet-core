@@ -17,7 +17,7 @@ namespace IPoolAddressesProvider {
     func set_address(id: felt, new_address: felt) {
     }
 
-    func set_address_as_proxy(id: felt, new_implementation: felt, salt: felt) {
+    func set_address_as_proxy(id: felt, implementation: felt, salt: felt) {
     }
 
     func get_pool() -> (pool: felt) {

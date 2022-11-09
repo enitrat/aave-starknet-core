@@ -1,17 +1,17 @@
 %lang starknet
 
-from starkware.cairo.common.cairo_builtins import HashBuiltin
-from starkware.starknet.common.syscalls import get_caller_address
-from starkware.cairo.common.uint256 import Uint256, uint256_eq
 from starkware.cairo.common.bool import TRUE
+from starkware.cairo.common.cairo_builtins import HashBuiltin
+from starkware.cairo.common.uint256 import Uint256, uint256_eq
+from starkware.starknet.common.syscalls import get_caller_address
 
 from openzeppelin.token.erc20.IERC20 import IERC20
 
-from contracts.protocol.libraries.types.data_types import DataTypes
 from contracts.interfaces.i_a_token import IAToken
-from contracts.protocol.pool.pool_storage import PoolStorage
-from contracts.protocol.libraries.logic.validation_logic import ValidationLogic
 from contracts.protocol.libraries.helpers.constants import UINT128_MAX
+from contracts.protocol.libraries.logic.validation_logic import ValidationLogic
+from contracts.protocol.libraries.types.data_types import DataTypes
+from contracts.protocol.pool.pool_storage import PoolStorage
 
 @event
 func withdraw_event(reserve: felt, user: felt, to: felt, amount: Uint256) {

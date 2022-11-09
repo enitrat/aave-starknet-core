@@ -1,6 +1,7 @@
-from starkware.cairo.common.math_cmp import is_le_felt
-from starkware.cairo.common.math import assert_le_felt, assert_lt_felt
 from starkware.cairo.common.bool import FALSE, TRUE
+from starkware.cairo.common.math import assert_le_felt, assert_lt_felt
+from starkware.cairo.common.math_cmp import is_le_felt
+
 from contracts.protocol.libraries.helpers.bool_cmp import BoolCmp
 from contracts.protocol.libraries.helpers.constants import MAX_SIGNED_FELT, MIN_SIGNED_FELT
 

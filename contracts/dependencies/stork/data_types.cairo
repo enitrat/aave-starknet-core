@@ -5,6 +5,7 @@ struct PriceTick {
     publisher: felt,
     type: felt,
 }
+
 struct PriceAggregate {
     asset: felt,
     median: felt,

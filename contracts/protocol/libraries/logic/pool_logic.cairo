@@ -1,14 +1,14 @@
 %lang starknet
 
+from starkware.cairo.common.bool import FALSE, TRUE
 from starkware.cairo.common.cairo_builtins import HashBuiltin
-from starkware.cairo.common.bool import TRUE, FALSE
 from starkware.cairo.common.math import assert_lt_felt
 from starkware.cairo.common.math_cmp import is_not_zero
 from starkware.cairo.lang.compiler.lib.registers import get_fp_and_pc
 
 from contracts.protocol.libraries.helpers.bool_cmp import BoolCmp
-from contracts.protocol.libraries.helpers.errors import Errors
 from contracts.protocol.libraries.helpers.constants import empty_reserve_data
+from contracts.protocol.libraries.helpers.errors import Errors
 from contracts.protocol.libraries.helpers.helpers import is_zero, update_struct
 from contracts.protocol.libraries.logic.reserve_logic import ReserveLogic
 from contracts.protocol.libraries.logic.validation_logic import ValidationLogic

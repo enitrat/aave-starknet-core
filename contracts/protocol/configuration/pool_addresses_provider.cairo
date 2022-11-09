@@ -1,4 +1,5 @@
 %lang starknet
+
 from starkware.cairo.common.cairo_builtins import HashBuiltin
 
 from contracts.protocol.configuration.pool_addresses_provider_library import PoolAddressesProvider

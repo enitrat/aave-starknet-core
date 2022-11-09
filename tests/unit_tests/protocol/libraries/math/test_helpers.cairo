@@ -1,15 +1,15 @@
 %lang starknet
 
+from starkware.cairo.common.bool import TRUE
 from starkware.cairo.common.cairo_builtins import HashBuiltin
 from starkware.cairo.common.uint256 import Uint256, uint256_eq
-from starkware.cairo.common.bool import TRUE
 
 from contracts.protocol.libraries.helpers.constants import UINT128_MAX
+from contracts.protocol.libraries.math.felt_math import to_felt, to_uint256
 from contracts.protocol.libraries.math.helpers import (
     assert_nonnegative_uint256,
     assert_not_zero_uint256,
 )
-from contracts.protocol.libraries.math.felt_math import to_felt, to_uint256
 
 // Values chosen randomly where: Uint(LOW, HIGH) = VALUE
 const HIGH_LARGE = 21;

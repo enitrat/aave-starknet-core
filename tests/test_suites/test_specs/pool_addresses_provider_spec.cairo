@@ -10,7 +10,8 @@ from contracts.interfaces.i_pool_addresses_provider import IPoolAddressesProvide
 from contracts.interfaces.i_proxy import IProxy
 from contracts.protocol.configuration.pool_addresses_provider_library import PoolAddressesProvider
 from contracts.protocol.libraries.helpers.constants import INITIALIZE_SELECTOR
-from tests.utils.constants import USER_1, USER_2, MOCK_CONTRACT_ADDRESS
+
+from tests.utils.constants import MOCK_CONTRACT_ADDRESS, USER_1, USER_2
 
 const convertible_address_id = 'CONVERTIBLE_ADDRESS';
 const convertible_2_address_id = 'CONVERTIBLE_2_ADDRESS';

@@ -1,7 +1,7 @@
+from starkware.cairo.common.bool import FALSE, TRUE
 from starkware.cairo.common.cairo_builtins import HashBuiltin
-from starkware.cairo.common.uint256 import Uint256, uint256_signed_nn, uint256_eq, uint256_check
-from starkware.cairo.common.bool import TRUE, FALSE
-from starkware.cairo.common.math import assert_250_bit, assert_nn, split_felt, assert_not_equal
+from starkware.cairo.common.math import assert_250_bit, assert_nn, assert_not_equal, split_felt
+from starkware.cairo.common.uint256 import Uint256, uint256_check, uint256_eq, uint256_signed_nn
 
 from contracts.protocol.libraries.math.felt_math import FeltMath, to_felt
 

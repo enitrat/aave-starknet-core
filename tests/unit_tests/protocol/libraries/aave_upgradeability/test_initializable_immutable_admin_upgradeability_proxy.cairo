@@ -5,6 +5,7 @@ from starkware.starknet.common.syscalls import get_contract_address
 
 from contracts.interfaces.i_proxy import IProxy
 from contracts.protocol.libraries.helpers.constants import INITIALIZE_SELECTOR
+
 from tests.utils.constants import USER_1
 
 @contract_interface

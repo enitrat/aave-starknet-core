@@ -1,6 +1,6 @@
 %lang starknet
 
-from starkware.cairo.common.bool import TRUE, FALSE
+from starkware.cairo.common.bool import FALSE, TRUE
 
 from contracts.protocol.libraries.helpers.bool_cmp import BoolCmp
 

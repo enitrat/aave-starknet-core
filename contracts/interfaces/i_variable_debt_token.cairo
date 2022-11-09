@@ -63,7 +63,7 @@ namespace IVariableDebtToken {
     func get_scaled_user_balance_and_supply(user: felt) -> (balance: Uint256, supply: Uint256) {
     }
 
-    func get_previous_index() -> (index: Uint256) {
+    func get_previous_index(user: felt) -> (index: felt) {
     }
 
     func get_revision() -> (revision: felt) {
@@ -75,7 +75,7 @@ namespace IVariableDebtToken {
     func total_supply() -> (total_supply: Uint256) {
     }
 
-    func mint(user: felt, on_behalf_of: felt, amount: felt, index: felt) -> (
+    func mint(user: felt, on_behalf_of: felt, amount: Uint256, index: felt) -> (
         is_scaled_balance_null: felt, total_supply: Uint256
     ) {
     }

@@ -5,13 +5,14 @@ from starkware.cairo.common.cairo_builtins import HashBuiltin
 from contracts.protocol.libraries.helpers.constants import empty_reserve_configuration
 from contracts.protocol.libraries.logic.reserve_logic import ReserveLogic
 from contracts.protocol.libraries.types.data_types import DataTypes
+
 from tests.utils.constants import (
-    MOCK_A_TOKEN_1,
     BASE_LIQUIDITY_INDEX,
-    STABLE_DEBT_TOKEN_ADDRESS,
-    VARIABLE_DEBT_TOKEN_ADDRESS,
     INTEREST_RATE_STRATEGY_ADDRESS,
+    MOCK_A_TOKEN_1,
+    STABLE_DEBT_TOKEN_ADDRESS,
     VARIABLE_BORROW_INDEX,
+    VARIABLE_DEBT_TOKEN_ADDRESS,
 )
 
 @view

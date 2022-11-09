@@ -2,13 +2,13 @@
 
 from starkware.cairo.common.bool import FALSE, TRUE
 
-from contracts.protocol.libraries.math.safe_cmp import SafeCmp
 from contracts.protocol.libraries.helpers.constants import (
     CAIRO_FIELD_ORDER,
-    MIN_SIGNED_FELT,
     MAX_SIGNED_FELT,
     MAX_UNSIGNED_FELT,
+    MIN_SIGNED_FELT,
 )
+from contracts.protocol.libraries.math.safe_cmp import SafeCmp
 
 @view
 func test_max_unsigned_felt{range_check_ptr}() {

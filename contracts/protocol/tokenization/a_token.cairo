@@ -1,7 +1,7 @@
 %lang starknet
 
-from starkware.cairo.common.cairo_builtins import HashBuiltin
 from starkware.cairo.common.bool import TRUE
+from starkware.cairo.common.cairo_builtins import HashBuiltin
 from starkware.cairo.common.uint256 import Uint256
 
 from openzeppelin.token.erc20.library import ERC20
@@ -72,6 +72,12 @@ func balanceOf{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}(
 ) {
     let (balance: Uint256) = AToken.balance_of(account);
     return (balance,);
+}
+
+@view
+func scaled_balance_of(account: felt) -> (balance: Uint256) {
+    // TODO
+    return (balance=Uint256(0, 0));
 }
 
 @view

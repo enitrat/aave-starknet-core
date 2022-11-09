@@ -1,11 +1,14 @@
 %lang starknet
 // Starware imports
+
 from starkware.cairo.common.math import unsigned_div_rem
-// Internal imports
-from contracts.protocol.libraries.math.wad_ray_felt_math import WadRayFelt
-from contracts.protocol.libraries.math.felt_math import FeltMath
+
 from contracts.protocol.libraries.helpers.constants import uint256_max
 from contracts.protocol.libraries.helpers.constants import MAX_SIGNED_FELT, MAX_UNSIGNED_FELT
+from contracts.protocol.libraries.math.felt_math import FeltMath
+from contracts.protocol.libraries.math.wad_ray_felt_math import WadRayFelt
+
+// Internal imports
 
 //
 // Below are test for expected results when wad/ray inputs are provided to wad/ray functions:

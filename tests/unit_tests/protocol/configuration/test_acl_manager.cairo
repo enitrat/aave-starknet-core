@@ -8,9 +8,10 @@ from openzeppelin.utils.constants.library import DEFAULT_ADMIN_ROLE
 
 from contracts.protocol.configuration.acl_manager_library import (
     ACLManager,
-    POOL_ADMIN_ROLE,
     EMERGENCY_ADMIN_ROLE,
+    POOL_ADMIN_ROLE,
 )
+
 from tests.utils.constants import USER_1
 
 const PRANK_PROVIDER = 111;

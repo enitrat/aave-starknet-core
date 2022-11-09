@@ -2,6 +2,19 @@
 
 @contract_interface
 namespace IAaveOracle {
+    func initialize(
+        provider: felt,
+        oracle_address: felt,
+        assets_len: felt,
+        assets: felt*,
+        tickers_len: felt,
+        tickers: felt*,
+        fallback_oracle: felt,
+        base_currency: felt,
+        base_currency_unit: felt,
+    ) {
+    }
+
     func ADDRESSES_PROVIDER() -> (provider: felt) {
     }
 

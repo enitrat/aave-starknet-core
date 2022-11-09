@@ -31,9 +31,17 @@ jobs:
         run: |
           export PATH="$PATH:/home/runner/.protostar/dist/protostar" && protostar install
 
+      - name: Install cairo-toolkit
+        run: |
+          pip install cairo-toolkit
+
       - name: Check format
         run: |
           export PATH="$PATH:/home/runner/.protostar/dist/protostar" && protostar format contracts --check && protostar format tests --check
+
+      - name: Check interfaces
+        run: |
+          cairo-toolkit check-interface --protostar -d contracts/interfaces
 
       - name: Build contracts
         run: |

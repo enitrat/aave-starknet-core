@@ -1,7 +1,8 @@
-from starkware.cairo.common.bool import TRUE, FALSE
-from contracts.protocol.libraries.math.safe_cmp import SafeCmp
-from contracts.protocol.libraries.math.felt_math import FeltMath
+from starkware.cairo.common.bool import FALSE, TRUE
+
 from contracts.protocol.libraries.helpers.bool_cmp import BoolCmp
+from contracts.protocol.libraries.math.felt_math import FeltMath
+from contracts.protocol.libraries.math.safe_cmp import SafeCmp
 
 // @notice Library to safely compare felts interpreted as unsigned or signed integers.
 //

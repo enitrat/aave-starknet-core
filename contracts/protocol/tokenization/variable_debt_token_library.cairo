@@ -1,19 +1,19 @@
 %lang starknet
 
+from starkware.cairo.common.bool import FALSE, TRUE
 from starkware.cairo.common.cairo_builtins import HashBuiltin
 from starkware.cairo.common.uint256 import Uint256, uint256_eq
-from starkware.cairo.common.bool import TRUE, FALSE
 
+from contracts.interfaces.i_pool import IPool
 from contracts.protocol.libraries.aave_upgradeability.versioned_initializable_library import (
     VersionedInitializable,
 )
-from contracts.protocol.tokenization.base.incentivized_erc20_library import IncentivizedERC20
-from contracts.protocol.tokenization.base.debt_token_base_library import DebtTokenBase
-from contracts.protocol.tokenization.base.scaled_balance_token_library import ScaledBalanceToken
 from contracts.protocol.libraries.helpers.helpers import is_zero
-from contracts.protocol.libraries.math.wad_ray_math import WadRayMath
 from contracts.protocol.libraries.math.felt_math import to_uint256
-from contracts.interfaces.i_pool import IPool
+from contracts.protocol.libraries.math.wad_ray_math import WadRayMath
+from contracts.protocol.tokenization.base.debt_token_base_library import DebtTokenBase
+from contracts.protocol.tokenization.base.incentivized_erc20_library import IncentivizedERC20
+from contracts.protocol.tokenization.base.scaled_balance_token_library import ScaledBalanceToken
 
 @event
 func Initialized(

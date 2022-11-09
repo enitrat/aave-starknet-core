@@ -1,12 +1,14 @@
 %lang starknet
 
-from starkware.starknet.common.syscalls import get_block_timestamp
+from starkware.cairo.common.bool import FALSE, TRUE
 from starkware.cairo.common.cairo_builtins import HashBuiltin
 from starkware.cairo.common.uint256 import Uint256, uint256_eq
-from starkware.cairo.common.bool import TRUE, FALSE
-from contracts.protocol.libraries.math.wad_ray_math import WadRayMath
-from contracts.protocol.libraries.helpers.helpers import uint256_checked_sub_return_zero_when_lt
+from starkware.starknet.common.syscalls import get_block_timestamp
+
 from openzeppelin.security.safemath.library import SafeUint256
+
+from contracts.protocol.libraries.helpers.helpers import uint256_checked_sub_return_zero_when_lt
+from contracts.protocol.libraries.math.wad_ray_math import WadRayMath
 
 namespace MathUtils {
     const SECONDS_PER_YEAR = 365 * 24 * 3600;

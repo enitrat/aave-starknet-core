@@ -1,32 +1,33 @@
 %lang starknet
-from starkware.starknet.common.syscalls import get_contract_address
-from starkware.cairo.common.cairo_builtins import HashBuiltin
+
 from starkware.cairo.common.alloc import alloc
 from starkware.cairo.common.bool import TRUE
+from starkware.cairo.common.cairo_builtins import HashBuiltin
+from starkware.starknet.common.syscalls import get_contract_address
 
 from contracts.interfaces.i_a_token import IAToken
-from contracts.interfaces.i_proxy import IProxy
 from contracts.interfaces.i_pool import IPool
 from contracts.interfaces.i_pool_addresses_provider import IPoolAddressesProvider
-from contracts.protocol.libraries.types.data_types import DataTypes
+from contracts.interfaces.i_proxy import IProxy
 from contracts.protocol.libraries.helpers.constants import INITIALIZE_SELECTOR
+from contracts.protocol.libraries.types.data_types import DataTypes
 
+from tests.test_suites.test_specs.a_token_modifiers_spec import ATokenModifier
+from tests.test_suites.test_specs.acl_manager_spec import PRANK_ADMIN_ADDRESS, TestACLManager
+from tests.test_suites.test_specs.pool_addresses_provider_spec import (
+    TestPoolAddressesProviderDeployed,
+)
 from tests.test_suites.test_specs.pool_drop_spec import TestPoolDropDeployed
 from tests.test_suites.test_specs.pool_get_reserve_address_by_id_spec import (
     TestPoolGetReserveAddressByIdDeployed,
 )
 from tests.test_suites.test_specs.pool_supply_withdraw_spec import TestPoolSupplyWithdrawDeployed
-from tests.test_suites.test_specs.pool_addresses_provider_spec import (
-    TestPoolAddressesProviderDeployed,
-)
-from tests.test_suites.test_specs.a_token_modifiers_spec import ATokenModifier
-from tests.test_suites.test_specs.stable_debt_token_spec import TestStableDebtTokenDeployed
-from tests.test_suites.test_specs.acl_manager_spec import TestACLManager, PRANK_ADMIN_ADDRESS
 from tests.test_suites.test_specs.price_oracle_sentinel_spec import (
-    TestPriceOracleSentinel,
-    PRANK_OWNER,
     GRACE_PERIOD,
+    PRANK_OWNER,
+    TestPriceOracleSentinel,
 )
+from tests.test_suites.test_specs.stable_debt_token_spec import TestStableDebtTokenDeployed
 
 // @notice setup hook for the test execution. It deploys the contracts
 // saves the Starknet state at the end of this function. All test cases will be executed

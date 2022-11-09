@@ -58,7 +58,7 @@ func get_grace_period{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_chec
 
 @view
 func ADDRESSES_PROVIDER{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}() -> (
-    addresses_provider: felt
+    provider: felt
 ) {
     return PriceOracleSentinel.ADDRESSES_PROVIDER();
 }

@@ -2,14 +2,14 @@
 
 from starkware.cairo.common.bool import TRUE
 from starkware.cairo.common.cairo_builtins import HashBuiltin
-from starkware.starknet.common.syscalls import get_caller_address
 from starkware.cairo.common.math_cmp import is_le
+from starkware.starknet.common.syscalls import get_caller_address
 from starkware.starknet.common.syscalls import get_block_timestamp
 
-from contracts.protocol.libraries.helpers.bool_cmp import BoolCmp
-from contracts.interfaces.i_pool_addresses_provider import IPoolAddressesProvider
 from contracts.interfaces.i_acl_manager import IACLManager
+from contracts.interfaces.i_pool_addresses_provider import IPoolAddressesProvider
 from contracts.interfaces.i_sequencer_oracle import ISequencerOracle
+from contracts.protocol.libraries.helpers.bool_cmp import BoolCmp
 from contracts.protocol.libraries.helpers.errors import Errors
 
 // store address of IPoolAddressesProvider here
@@ -135,9 +135,9 @@ namespace PriceOracleSentinel {
     }
 
     func ADDRESSES_PROVIDER{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}() -> (
-        addresses_provider: felt
+        provider: felt
     ) {
-        let (addresses_provider) = PriceOracleSentinel_addresses_provider.read();
-        return (addresses_provider,);
+        let (provider) = PriceOracleSentinel_addresses_provider.read();
+        return (provider,);
     }
 }

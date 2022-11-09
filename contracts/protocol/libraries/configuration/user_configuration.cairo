@@ -1,18 +1,19 @@
 %lang starknet
 
+from starkware.cairo.common.bool import FALSE, TRUE
 from starkware.cairo.common.cairo_builtins import HashBuiltin
+from starkware.cairo.common.math import assert_le_felt, assert_not_zero
 from starkware.cairo.common.math_cmp import is_not_zero
-from starkware.cairo.common.bool import TRUE, FALSE
+
+from contracts.protocol.libraries.configuration.reserve_configuration import ReserveConfiguration
 from contracts.protocol.libraries.configuration.reserve_index_operations import (
-    ReserveIndex,
     BORROWING_TYPE,
+    ReserveIndex,
     USING_AS_COLLATERAL_TYPE,
 )
-from contracts.protocol.pool.pool_storage import PoolStorage
-from contracts.protocol.libraries.types.data_types import DataTypes
-from contracts.protocol.libraries.configuration.reserve_configuration import ReserveConfiguration
-from starkware.cairo.common.math import assert_not_zero, assert_le_felt
 from contracts.protocol.libraries.helpers.bool_cmp import BoolCmp
+from contracts.protocol.libraries.types.data_types import DataTypes
+from contracts.protocol.pool.pool_storage import PoolStorage
 
 namespace UserConfiguration {
     const MAX_RESERVES_COUNT = 128;

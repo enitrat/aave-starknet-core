@@ -2,12 +2,12 @@
 
 from starkware.cairo.common.bool import FALSE, TRUE
 
-from contracts.protocol.libraries.math.felt_math import FeltMath
 from contracts.protocol.libraries.helpers.constants import (
     CAIRO_FIELD_ORDER,
     MAX_SIGNED_FELT,
     MAX_UNSIGNED_FELT,
 )
+from contracts.protocol.libraries.math.felt_math import FeltMath
 
 @view
 func test_add_unsigned{range_check_ptr}() {

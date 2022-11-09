@@ -1,10 +1,12 @@
 %lang starknet
 
+from starkware.cairo.common.bool import FALSE, TRUE
 from starkware.cairo.common.cairo_builtins import HashBuiltin
 from starkware.cairo.common.uint256 import Uint256, uint256_eq
-from starkware.cairo.common.bool import FALSE, TRUE
-from contracts.protocol.libraries.math.safe_uint256_cmp import SafeUint256Cmp
+
 from openzeppelin.security.safemath.library import SafeUint256
+
+from contracts.protocol.libraries.math.safe_uint256_cmp import SafeUint256Cmp
 
 const RANGE_CHECK_BOUND = 2 ** 128 - 1;
 

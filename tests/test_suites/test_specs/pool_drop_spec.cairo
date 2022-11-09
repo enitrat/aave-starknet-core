@@ -6,12 +6,13 @@ from starkware.starknet.common.syscalls import get_contract_address
 
 from contracts.interfaces.i_pool import IPool
 from contracts.protocol.libraries.helpers.constants import UINT128_MAX
-from contracts.protocol.libraries.math.wad_ray_math import WadRayMath
 from contracts.protocol.libraries.helpers.errors import Errors
+from contracts.protocol.libraries.math.wad_ray_math import WadRayMath
 
 from tests.interfaces.IERC20_Mintable import IERC20_Mintable
-from tests.utils.utils import array_includes, parse_ether
 from tests.utils.constants import UNDEPLOYED_RESERVE, USER_1
+from tests.utils.utils import array_includes, parse_ether
+
 // TODO test should integrate pool_configurator when implemented
 
 namespace TestPoolDropDeployed {

@@ -45,6 +45,9 @@ namespace IAToken {
     func POOL() -> (res: felt) {
     }
 
+    func get_incentives_controller() -> (res: felt) {
+    }
+
     func transfer(recipient: felt, amount: Uint256) -> (success: felt) {
     }
 
@@ -70,27 +73,12 @@ namespace IAToken {
     ) {
     }
 
-    func mint_to_treasury(amount: Uint256, index: Uint256) -> (success: felt) {
-    }
-
     func transfer_on_liquidation(from_: felt, to: felt, value: Uint256) {
     }
 
     func transfer_underlying_to(target: felt, amount: Uint256) {
     }
 
-    func handle_repayment(token: felt, to: felt, amount: Uint256) {
-    }
-
-    func permit(token: felt, to: felt, amount: Uint256) {
-    }
-
     func rescue_tokens(token: felt, to: felt, amount: Uint256) {
-    }
-
-    func scaled_total_supply() -> (total_supply: Uint256) {
-    }
-
-    func get_incentives_controller() -> (controller: felt) {
     }
 }

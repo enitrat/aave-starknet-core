@@ -6,6 +6,9 @@ from contracts.protocol.libraries.types.data_types import DataTypes
 
 @contract_interface
 namespace IPool {
+    func get_revision() -> (revision: felt) {
+    }
+
     func initialize(provider: felt) {
     }
 
@@ -30,10 +33,19 @@ namespace IPool {
     func set_configuration(asset: felt, configuration: DataTypes.ReserveConfiguration) {
     }
 
-    func get_configuration(asset: felt) -> (reserve_config: DataTypes.ReserveConfiguration) {
+    func get_addresses_provider() -> (provider: felt) {
     }
 
     func get_reserve_data(asset: felt) -> (reserve_data: DataTypes.ReserveData) {
+    }
+
+    func get_configuration(asset: felt) -> (config: DataTypes.ReserveConfiguration) {
+    }
+
+    func get_reserve_normalized_variable_debt(asset: felt) -> (normalized_variable_debt: felt) {
+    }
+
+    func get_reserve_normalized_income(asset: felt) -> (res: Uint256) {
     }
 
     func get_reserves_list() -> (assets_len: felt, assets: felt*) {
@@ -45,12 +57,6 @@ namespace IPool {
     func MAX_NUMBER_RESERVES() -> (max_number: felt) {
     }
 
-    func get_reserve_normalized_income(asset: felt) -> (res: Uint256) {
-    }
-
-    func get_reserve_normalized_variable_debt(asset: felt) -> (res: felt) {
-    }
-
     func finalize_transfer(
         asset: felt,
         sender: felt,
@@ -59,11 +65,5 @@ namespace IPool {
         sender_balance: Uint256,
         recipient_balance: Uint256,
     ) {
-    }
-
-    func get_addresses_provider() -> (provider: felt) {
-    }
-
-    func get_revision() -> (val: felt) {
     }
 }

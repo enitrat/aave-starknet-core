@@ -1,14 +1,15 @@
 %lang starknet
 
+from starkware.cairo.common.bool import FALSE, TRUE
 from starkware.cairo.common.cairo_builtins import HashBuiltin
-from starkware.cairo.common.bool import TRUE, FALSE
-from contracts.protocol.pool.pool_storage import PoolStorage
-from contracts.protocol.libraries.configuration.user_configuration import UserConfiguration
+
 from contracts.protocol.libraries.configuration.reserve_configuration import ReserveConfiguration
 from contracts.protocol.libraries.configuration.reserve_index_operations import (
     BORROWING_TYPE,
     USING_AS_COLLATERAL_TYPE,
 )
+from contracts.protocol.libraries.configuration.user_configuration import UserConfiguration
+from contracts.protocol.pool.pool_storage import PoolStorage
 
 const TEST_ADDRESS = 4812950810879290;
 const TEST_ADDRESS_2 = 5832954280734189;

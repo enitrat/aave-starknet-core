@@ -1,8 +1,8 @@
 %lang starknet
 
+from starkware.cairo.common.bool import TRUE
 from starkware.cairo.common.cairo_builtins import HashBuiltin
 from starkware.cairo.common.math_cmp import is_le
-from starkware.cairo.common.bool import TRUE
 
 @storage_var
 func VersionedInitializable_last_initialized_revision() -> (revision: felt) {

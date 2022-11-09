@@ -1,19 +1,20 @@
 %lang starknet
 
-from starkware.starknet.common.syscalls import get_caller_address
+from starkware.cairo.common.bool import FALSE, TRUE
 from starkware.cairo.common.cairo_builtins import HashBuiltin
-from starkware.cairo.common.bool import TRUE, FALSE
 from starkware.cairo.common.math import assert_not_equal
 from starkware.cairo.common.uint256 import Uint256, uint256_eq
+from starkware.starknet.common.syscalls import get_caller_address
 
-from openzeppelin.token.erc20.library import ERC20
 from openzeppelin.token.erc20.IERC20 import IERC20
+from openzeppelin.token.erc20.library import ERC20
 
 from contracts.interfaces.i_pool import IPool
 from contracts.protocol.libraries.helpers.bool_cmp import BoolCmp
-from contracts.protocol.libraries.math.wad_ray_math import WadRayMath
 from contracts.protocol.libraries.helpers.errors import Errors
+from contracts.protocol.libraries.math.wad_ray_math import WadRayMath
 from contracts.protocol.tokenization.base.incentivized_erc20_library import IncentivizedERC20
+
 // from contracts.protocol.tokenization.base.scaled_balance_token_base import ScaledBalanceTokenBase
 
 //

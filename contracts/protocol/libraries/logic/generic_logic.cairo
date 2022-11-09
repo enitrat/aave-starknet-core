@@ -1,28 +1,28 @@
 %lang starknet
 
+from starkware.cairo.common.bool import FALSE, TRUE
 from starkware.cairo.common.cairo_builtins import HashBuiltin
-from starkware.cairo.common.math_cmp import is_not_zero, is_le
-from starkware.cairo.common.bool import TRUE, FALSE
 from starkware.cairo.common.math import unsigned_div_rem
+from starkware.cairo.common.math_cmp import is_le, is_not_zero
 from starkware.cairo.common.uint256 import Uint256, uint256_eq
 
 from openzeppelin.token.erc20.IERC20 import IERC20
 
-from contracts.protocol.pool.pool_storage import PoolStorage
-from contracts.interfaces.i_price_oracle_getter import IPriceOracleGetter
 from contracts.interfaces.i_a_token import IAToken
+from contracts.interfaces.i_price_oracle_getter import IPriceOracleGetter
 from contracts.interfaces.i_variable_debt_token import IVariableDebtToken
-from contracts.protocol.libraries.helpers.helpers import is_zero
-from contracts.protocol.libraries.helpers.constants import MAX_UNSIGNED_FELT
+from contracts.protocol.libraries.configuration.reserve_configuration import ReserveConfiguration
+from contracts.protocol.libraries.configuration.user_configuration import UserConfiguration
 from contracts.protocol.libraries.helpers.bool_cmp import BoolCmp
+from contracts.protocol.libraries.helpers.constants import MAX_UNSIGNED_FELT
+from contracts.protocol.libraries.helpers.helpers import is_zero
 from contracts.protocol.libraries.logic.e_mode_logic import EModeLogic
 from contracts.protocol.libraries.logic.reserve_logic import ReserveLogic
-from contracts.protocol.libraries.configuration.user_configuration import UserConfiguration
-from contracts.protocol.libraries.configuration.reserve_configuration import ReserveConfiguration
 from contracts.protocol.libraries.math.felt_math import FeltMath, to_felt, to_uint256
 from contracts.protocol.libraries.math.percentage_math import PercentageMath
 from contracts.protocol.libraries.math.wad_ray_math import WadRayMath
 from contracts.protocol.libraries.types.data_types import DataTypes
+from contracts.protocol.pool.pool_storage import PoolStorage
 
 namespace GenericLogic {
     //

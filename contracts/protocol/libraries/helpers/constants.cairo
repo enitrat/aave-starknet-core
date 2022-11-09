@@ -1,4 +1,5 @@
 from starkware.cairo.common.uint256 import Uint256
+
 from contracts.protocol.libraries.types.data_types import DataTypes
 
 const UINT128_MAX = 2 ** 128 - 1;

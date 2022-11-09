@@ -2,8 +2,9 @@
 
 from starkware.cairo.common.cairo_builtins import HashBuiltin
 from starkware.cairo.common.uint256 import Uint256
-from contracts.protocol.libraries.math.wad_ray_math import WadRayMath
+
 from contracts.protocol.libraries.math.math_utils import MathUtils
+from contracts.protocol.libraries.math.wad_ray_math import WadRayMath
 
 const rate_in_ray = 34 * WadRayMath.RAY;
 

@@ -1,25 +1,25 @@
 %lang starknet
 
+from starkware.cairo.common.bool import FALSE, TRUE
 from starkware.cairo.common.cairo_builtins import HashBuiltin
 from starkware.cairo.common.math_cmp import is_not_zero
 from starkware.cairo.common.uint256 import Uint256, uint256_eq
-from starkware.cairo.common.bool import TRUE, FALSE
 from starkware.starknet.common.syscalls import get_block_timestamp
 
 from openzeppelin.security.safemath.library import SafeUint256
 from openzeppelin.token.erc20.library import Transfer
 
+from contracts.interfaces.i_aave_incentives_controller import IAaveIncentivesController
 from contracts.protocol.libraries.aave_upgradeability.versioned_initializable_library import (
     VersionedInitializable,
 )
-from contracts.protocol.tokenization.base.incentivized_erc20_library import IncentivizedERC20
-from contracts.protocol.tokenization.base.debt_token_base_library import DebtTokenBase
-from contracts.protocol.libraries.types.data_types import DataTypes
-from contracts.protocol.libraries.math.math_utils import MathUtils
-from contracts.protocol.libraries.math.wad_ray_math import WadRayMath
 from contracts.protocol.libraries.math.felt_math import to_felt, to_uint256
-from contracts.interfaces.i_aave_incentives_controller import IAaveIncentivesController
+from contracts.protocol.libraries.math.math_utils import MathUtils
 from contracts.protocol.libraries.math.safe_uint256_cmp import SafeUint256Cmp
+from contracts.protocol.libraries.math.wad_ray_math import WadRayMath
+from contracts.protocol.libraries.types.data_types import DataTypes
+from contracts.protocol.tokenization.base.debt_token_base_library import DebtTokenBase
+from contracts.protocol.tokenization.base.incentivized_erc20_library import IncentivizedERC20
 
 @event
 func Initialized(

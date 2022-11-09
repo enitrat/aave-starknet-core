@@ -1,6 +1,7 @@
 %lang starknet
 
 from starkware.cairo.common.cairo_builtins import HashBuiltin
+
 from tests.test_suites.test_specs.aave_oracle_spec import TestAaveOracle
 
 @external

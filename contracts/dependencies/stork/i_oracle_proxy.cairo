@@ -1,6 +1,6 @@
 %lang starknet
 
-from contracts.dependencies.stork.data_types import PriceTick, PriceAggregate
+from contracts.dependencies.stork.data_types import PriceAggregate, PriceTick
 
 @contract_interface
 namespace IOracleProxy {

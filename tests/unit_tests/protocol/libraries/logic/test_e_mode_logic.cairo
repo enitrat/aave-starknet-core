@@ -1,12 +1,12 @@
 %lang starknet
 
-from starkware.cairo.common.bool import TRUE, FALSE
+from starkware.cairo.common.bool import FALSE, TRUE
 from starkware.cairo.common.cairo_builtins import HashBuiltin
 from starkware.starknet.common.syscalls import get_contract_address
 
 from contracts.interfaces.i_sequencer_oracle import ISequencerOracle
-from contracts.protocol.libraries.types.data_types import DataTypes
 from contracts.protocol.libraries.logic.e_mode_logic import EModeLogic
+from contracts.protocol.libraries.types.data_types import DataTypes
 
 const PRANK_LTV = 1;
 const PRANK_LIQUIDIATION_TH = 1;

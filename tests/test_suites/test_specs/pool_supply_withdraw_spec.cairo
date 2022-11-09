@@ -1,15 +1,17 @@
 %lang starknet
+
 from starkware.cairo.common.cairo_builtins import HashBuiltin
 from starkware.cairo.common.uint256 import Uint256
 
 from openzeppelin.token.erc20.IERC20 import IERC20
 
-from contracts.interfaces.i_pool import IPool
 from contracts.interfaces.i_a_token import IAToken
-from contracts.protocol.libraries.math.wad_ray_math import WadRayMath
+from contracts.interfaces.i_pool import IPool
 from contracts.protocol.libraries.helpers.errors import Errors
-from tests.utils.constants import USER_1
+from contracts.protocol.libraries.math.wad_ray_math import WadRayMath
+
 from tests.interfaces.IERC20_Mintable import IERC20_Mintable
+from tests.utils.constants import USER_1
 
 // @notice this test spec is not in Aave's codebase but we keep it until we can adapt their pool tests
 namespace TestPoolSupplyWithdrawDeployed {

@@ -7,21 +7,21 @@ from starkware.cairo.common.math_cmp import is_not_zero
 from starkware.cairo.common.uint256 import Uint256
 from starkware.starknet.common.syscalls import get_caller_address
 
-from contracts.interfaces.i_pool_addresses_provider import IPoolAddressesProvider
 from contracts.interfaces.i_acl_manager import IACLManager
-from contracts.protocol.libraries.helpers.helpers import is_zero
-from contracts.protocol.libraries.helpers.bool_cmp import BoolCmp
-from contracts.protocol.pool.pool_storage import PoolStorage
+from contracts.interfaces.i_pool_addresses_provider import IPoolAddressesProvider
 from contracts.protocol.libraries.aave_upgradeability.versioned_initializable_library import (
     VersionedInitializable,
 )
+from contracts.protocol.libraries.helpers.bool_cmp import BoolCmp
+from contracts.protocol.libraries.helpers.errors import Errors
+from contracts.protocol.libraries.helpers.helpers import is_zero
 from contracts.protocol.libraries.logic.pool_logic import PoolLogic
-from contracts.protocol.libraries.logic.reserve_logic import ReserveLogic
 from contracts.protocol.libraries.logic.reserve_configuration import ReserveConfiguration
+from contracts.protocol.libraries.logic.reserve_logic import ReserveLogic
 from contracts.protocol.libraries.logic.supply_logic import SupplyLogic
 from contracts.protocol.libraries.types.data_types import DataTypes
 from contracts.protocol.pool.pool_library import Pool
-from contracts.protocol.libraries.helpers.errors import Errors
+from contracts.protocol.pool.pool_storage import PoolStorage
 
 const REVISION = 1;
 
@@ -238,6 +238,12 @@ func get_reserve_normalized_variable_debt{
 }
 
 @view
+func get_reserve_normalized_income(asset: felt) -> (res: Uint256) {
+    // TODO
+    return (res=Uint256(0, 0));
+}
+
+@view
 func get_reserves_list{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}() -> (
     assets_len: felt, assets: felt*
 ) {
@@ -259,4 +265,17 @@ func MAX_NUMBER_RESERVES{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_c
 ) {
     let max_number = ReserveConfiguration.MAX_RESERVES_COUNT;
     return (max_number,);
+}
+
+@external
+func finalize_transfer(
+    asset: felt,
+    sender: felt,
+    recipient: felt,
+    amount: Uint256,
+    sender_balance: Uint256,
+    recipient_balance: Uint256,
+) {
+    // TODO
+    return ();
 }

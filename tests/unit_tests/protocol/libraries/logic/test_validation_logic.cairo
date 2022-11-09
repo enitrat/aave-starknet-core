@@ -2,24 +2,25 @@
 
 from starkware.cairo.common.bool import TRUE
 from starkware.cairo.common.cairo_builtins import HashBuiltin
-from starkware.cairo.common.uint256 import Uint256
 from starkware.cairo.common.registers import get_fp_and_pc
+from starkware.cairo.common.uint256 import Uint256
 from starkware.starknet.common.syscalls import get_contract_address
 
-from contracts.protocol.libraries.helpers.helpers import update_struct
+from contracts.protocol.libraries.configuration.reserve_configuration import ReserveConfiguration
 from contracts.protocol.libraries.helpers.constants import empty_reserve_configuration
+from contracts.protocol.libraries.helpers.errors import Errors
+from contracts.protocol.libraries.helpers.helpers import update_struct
 from contracts.protocol.libraries.logic.validation_logic import ValidationLogic
 from contracts.protocol.libraries.types.data_types import DataTypes
-from contracts.protocol.libraries.configuration.reserve_configuration import ReserveConfiguration
-from contracts.protocol.libraries.helpers.errors import Errors
+
 from tests.utils.constants import (
+    BASE_LIQUIDITY_INDEX,
+    INTEREST_RATE_STRATEGY_ADDRESS,
     MOCK_ASSET_1,
     MOCK_A_TOKEN_1,
-    BASE_LIQUIDITY_INDEX,
     STABLE_DEBT_TOKEN_ADDRESS,
-    VARIABLE_DEBT_TOKEN_ADDRESS,
-    INTEREST_RATE_STRATEGY_ADDRESS,
     VARIABLE_BORROW_INDEX,
+    VARIABLE_DEBT_TOKEN_ADDRESS,
 )
 
 func get_test_reserve{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}() -> (

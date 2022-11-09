@@ -1,10 +1,11 @@
 %lang starknet
 
 from starkware.cairo.common.cairo_builtins import HashBuiltin
-from starkware.starknet.common.syscalls import get_caller_address
 from starkware.cairo.common.uint256 import Uint256
+from starkware.starknet.common.syscalls import get_caller_address
 
 from contracts.protocol.tokenization.base.debt_token_base_library import DebtTokenBase
+
 from tests.utils.constants import USER_1
 
 @external

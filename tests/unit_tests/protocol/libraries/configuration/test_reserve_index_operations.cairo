@@ -1,7 +1,8 @@
 %lang starknet
 
+from starkware.cairo.common.bool import FALSE, TRUE
 from starkware.cairo.common.cairo_builtins import HashBuiltin
-from starkware.cairo.common.bool import TRUE, FALSE
+
 from contracts.protocol.libraries.configuration.reserve_index_operations import ReserveIndex
 
 const USER_ADDRESS = 123456;

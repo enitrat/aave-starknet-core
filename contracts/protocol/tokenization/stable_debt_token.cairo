@@ -5,8 +5,8 @@ from starkware.cairo.common.uint256 import Uint256
 
 from openzeppelin.token.erc20.library import ERC20
 
-from contracts.protocol.tokenization.base.incentivized_erc20_library import IncentivizedERC20
 from contracts.protocol.tokenization.base.debt_token_base_library import DebtTokenBase
+from contracts.protocol.tokenization.base.incentivized_erc20_library import IncentivizedERC20
 from contracts.protocol.tokenization.stable_debt_token_library import StableDebtToken
 
 @external

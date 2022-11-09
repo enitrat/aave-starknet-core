@@ -1,2 +1,5 @@
-protostar format contracts && protostar format tests
+cairo-toolkit order-imports -d contracts && cairo-toolkit order-imports -d tests 
+if ! cairo-toolkit check-interface --protostar -d contracts/interfaces; then
+  exit 1
+fi
 git add -u

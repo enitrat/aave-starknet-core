@@ -4,18 +4,19 @@ from starkware.cairo.common.cairo_builtins import HashBuiltin
 from starkware.cairo.common.uint256 import Uint256
 from starkware.starknet.common.syscalls import get_contract_address
 
-from contracts.protocol.tokenization.variable_debt_token_library import VariableDebtToken
-from contracts.protocol.tokenization.base.scaled_balance_token_library import ScaledBalanceToken
+from contracts.protocol.libraries.helpers.errors import Errors
 from contracts.protocol.tokenization.base.debt_token_base_library import DebtTokenBase
 from contracts.protocol.tokenization.base.incentivized_erc20_library import IncentivizedERC20
-from contracts.protocol.libraries.helpers.errors import Errors
+from contracts.protocol.tokenization.base.scaled_balance_token_library import ScaledBalanceToken
+from contracts.protocol.tokenization.variable_debt_token_library import VariableDebtToken
+
 from tests.utils.constants import (
-    POOL,
-    MOCK_ASSET_1,
-    INCENTIVES_CONTROLLER,
-    USER_1,
-    POOL_ADDRESSES_PROVIDER,
     ACL_MANAGER,
+    INCENTIVES_CONTROLLER,
+    MOCK_ASSET_1,
+    POOL,
+    POOL_ADDRESSES_PROVIDER,
+    USER_1,
 )
 
 const DECIMALS = 18;

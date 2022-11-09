@@ -5,8 +5,8 @@ from starkware.starknet.common.syscalls import get_contract_address
 
 from contracts.interfaces.i_acl_manager import IACLManager
 from contracts.interfaces.i_pool_addresses_provider import IPoolAddressesProvider
-from contracts.interfaces.i_sequencer_oracle import ISequencerOracle
 from contracts.interfaces.i_price_oracle_sentinel import IPriceOracleSentinel
+from contracts.interfaces.i_sequencer_oracle import ISequencerOracle
 from contracts.protocol.libraries.helpers.errors import Errors
 
 const PRANK_ADMIN_ADDRESS = 2222;

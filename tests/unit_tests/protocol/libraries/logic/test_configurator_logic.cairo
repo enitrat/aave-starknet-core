@@ -9,25 +9,26 @@ from contracts.interfaces.i_stable_debt_token import IStableDebtToken
 from contracts.protocol.libraries.helpers.constants import INITIALIZE_SELECTOR
 from contracts.protocol.libraries.logic.configurator_logic import ConfiguratorLogic
 from contracts.protocol.libraries.types.configurator_input_types import ConfiguratorInputTypes
+
 from tests.utils.constants import (
-    USER_1,
-    INCENTIVES_CONTROLLER,
-    INCENTIVES_CONTROLLER_2,
-    POOL,
-    POOL_2,
-    MOCK_ASSET_1,
-    MOCK_ASSET_2,
-    TREASURY_1,
-    TREASURY_2,
-    NAME_1,
-    NAME_2,
-    SYMBOL_1,
-    SYMBOL_2,
     DECIMALS_1,
     DECIMALS_2,
+    INCENTIVES_CONTROLLER,
+    INCENTIVES_CONTROLLER_2,
     MOCK_ACL_MANAGER,
+    MOCK_ASSET_1,
+    MOCK_ASSET_2,
     MOCK_POOL_ADDRESSES_PROVIDER,
     MOCK_POOL_CONFIGURATOR,
+    NAME_1,
+    NAME_2,
+    POOL,
+    POOL_2,
+    SYMBOL_1,
+    SYMBOL_2,
+    TREASURY_1,
+    TREASURY_2,
+    USER_1,
 )
 
 const PRANK_SALT_A_TOKEN = 81;

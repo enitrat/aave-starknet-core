@@ -1,16 +1,16 @@
 %lang starknet
 
-from starkware.cairo.common.bool import TRUE, FALSE
+from starkware.cairo.common.bool import FALSE, TRUE
 from starkware.cairo.common.cairo_builtins import HashBuiltin
-from starkware.starknet.common.syscalls import get_contract_address
 from starkware.cairo.common.math import unsigned_div_rem
 from starkware.cairo.common.uint256 import Uint256
+from starkware.starknet.common.syscalls import get_contract_address
 
 from contracts.interfaces.i_sequencer_oracle import ISequencerOracle
-from contracts.protocol.libraries.types.data_types import DataTypes
 from contracts.protocol.libraries.logic.generic_logic import GenericLogic
-from contracts.protocol.pool.pool_storage import PoolStorage
 from contracts.protocol.libraries.math.wad_ray_math import WadRayMath
+from contracts.protocol.libraries.types.data_types import DataTypes
+from contracts.protocol.pool.pool_storage import PoolStorage
 
 const USER_1 = 1;
 const USER_2 = 2;

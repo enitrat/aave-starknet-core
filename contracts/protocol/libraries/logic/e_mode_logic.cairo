@@ -1,12 +1,12 @@
 %lang starknet
 
+from starkware.cairo.common.bool import TRUE
 from starkware.cairo.common.cairo_builtins import HashBuiltin
 from starkware.cairo.common.math_cmp import is_not_zero
-from starkware.cairo.common.bool import TRUE
 
-from contracts.protocol.libraries.helpers.helpers import is_zero
-from contracts.protocol.libraries.helpers.bool_cmp import BoolCmp
 from contracts.interfaces.i_price_oracle_getter import IPriceOracleGetter
+from contracts.protocol.libraries.helpers.bool_cmp import BoolCmp
+from contracts.protocol.libraries.helpers.helpers import is_zero
 from contracts.protocol.libraries.types.data_types import DataTypes
 
 @event

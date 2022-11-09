@@ -1,12 +1,13 @@
 %lang starknet
 
 from starkware.cairo.common.cairo_builtins import HashBuiltin
-from starkware.starknet.common.syscalls import get_contract_address
 from starkware.cairo.common.uint256 import Uint256
+from starkware.starknet.common.syscalls import get_contract_address
 
 from contracts.interfaces.i_pool import IPool
 from contracts.interfaces.i_stable_debt_token import IStableDebtToken
 from contracts.protocol.libraries.helpers.errors import Errors
+
 from tests.utils.constants import USER_1
 
 const MOCK_INCENTIVES_CONTROLLER = 11235813;

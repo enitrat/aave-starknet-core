@@ -1,12 +1,11 @@
 %lang starknet
 
 from starkware.cairo.common.cairo_builtins import HashBuiltin
+from starkware.cairo.common.math_cmp import is_le
 
 from contracts.protocol.libraries.aave_upgradeability.versioned_initializable_library import (
     VersionedInitializable,
 )
-
-from starkware.cairo.common.math_cmp import is_le
 
 const REVISION_V1 = 1;
 const REVISION_V2 = 2;

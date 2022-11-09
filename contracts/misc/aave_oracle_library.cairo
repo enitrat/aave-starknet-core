@@ -1,17 +1,18 @@
 %lang starknet
 
+from starkware.cairo.common.alloc import alloc
+from starkware.cairo.common.bool import TRUE
 from starkware.cairo.common.cairo_builtins import HashBuiltin
+from starkware.cairo.common.math import split_felt
 from starkware.cairo.common.math_cmp import is_nn
 from starkware.starknet.common.syscalls import get_caller_address
-from starkware.cairo.common.bool import TRUE
-from starkware.cairo.common.alloc import alloc
-from starkware.cairo.common.math import split_felt
-from contracts.dependencies.empiric.i_oracle_proxy import IEmpiricOracle, EmpiricAggregationModes
-from contracts.interfaces.i_pool_addresses_provider import IPoolAddressesProvider
+
+from contracts.dependencies.empiric.i_oracle_proxy import EmpiricAggregationModes, IEmpiricOracle
 from contracts.interfaces.i_acl_manager import IACLManager
+from contracts.interfaces.i_pool_addresses_provider import IPoolAddressesProvider
 from contracts.protocol.libraries.helpers.bool_cmp import BoolCmp
-from contracts.protocol.libraries.helpers.helpers import is_zero
 from contracts.protocol.libraries.helpers.errors import Errors
+from contracts.protocol.libraries.helpers.helpers import is_zero
 
 @storage_var
 func AaveOracle_addresses_provider() -> (addresses_provider: felt) {

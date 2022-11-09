@@ -10,26 +10,27 @@ from contracts.interfaces.i_a_token import IAToken
 from contracts.interfaces.i_pool import IPool
 from contracts.interfaces.i_stable_debt_token import IStableDebtToken
 from contracts.interfaces.i_variable_debt_token import IVariableDebtToken
-from contracts.protocol.pool.pool_configurator_library import PoolConfigurator
 from contracts.protocol.libraries.types.configurator_input_types import ConfiguratorInputTypes
+from contracts.protocol.pool.pool_configurator_library import PoolConfigurator
+
 from tests.utils.constants import (
-    MOCK_POOL_ADDRESSES_PROVIDER,
-    MOCK_ACL_MANAGER,
-    POOL,
-    MOCK_POOL_CONFIGURATOR,
-    MOCK_ASSET_1,
-    MOCK_ASSET_2,
-    USER_1,
     DECIMALS_1,
     DECIMALS_2,
-    TREASURY_1,
-    TREASURY_2,
     INCENTIVES_CONTROLLER,
     INCENTIVES_CONTROLLER_2,
+    MOCK_ACL_MANAGER,
+    MOCK_ASSET_1,
+    MOCK_ASSET_2,
+    MOCK_POOL_ADDRESSES_PROVIDER,
+    MOCK_POOL_CONFIGURATOR,
     NAME_1,
     NAME_2,
+    POOL,
     SYMBOL_1,
     SYMBOL_2,
+    TREASURY_1,
+    TREASURY_2,
+    USER_1,
 )
 
 @external

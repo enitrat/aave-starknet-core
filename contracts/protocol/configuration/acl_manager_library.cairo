@@ -1,7 +1,7 @@
 %lang starknet
 
-from starkware.cairo.common.math import assert_not_zero
 from starkware.cairo.common.cairo_builtins import HashBuiltin
+from starkware.cairo.common.math import assert_not_zero
 
 from openzeppelin.access.accesscontrol.library import AccessControl
 from openzeppelin.utils.constants.library import DEFAULT_ADMIN_ROLE
