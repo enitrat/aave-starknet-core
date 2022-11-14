@@ -31,4 +31,4 @@ jobs:
         with:
           commit_message: Generate documentation
           create_branch: false
-          commit_author: ${{ github.event.pull_request.user.login }}
+          commit_author: ${{ github.event.pull_request.user.login }} <${{ github.event.pull_request.user.login }}@users.noreply.github.com>
