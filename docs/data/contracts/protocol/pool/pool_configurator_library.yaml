@@ -1,0 +1,385 @@
+- attributeName: event
+  functionName:
+    name: ReserveDropped
+    charIndex:
+      start: 982
+      end: 996
+  functionSignature:
+    implicitArgs:
+      - name: ''
+        type: ''
+    explicitArgs:
+      - name: asset
+        type: felt
+    returns: null
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 0
+      end: 0
+- attributeName: event
+  functionName:
+    name: ReserveBorrowing
+    charIndex:
+      start: 1027
+      end: 1043
+  functionSignature:
+    implicitArgs:
+      - name: ''
+        type: ''
+    explicitArgs:
+      - name: asset
+        type: felt
+      - name: enabled
+        type: felt
+    returns: null
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 0
+      end: 0
+- attributeName: storage_var
+  functionName:
+    name: PoolConfigurator_pool
+    charIndex:
+      start: 1113
+      end: 1134
+  functionSignature:
+    implicitArgs:
+      - name: ''
+        type: ''
+    explicitArgs: null
+    returns:
+      - name: res
+        type: felt
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 0
+      end: 0
+- attributeName: storage_var
+  functionName:
+    name: PoolConfigurator_addresses_provider
+    charIndex:
+      start: 1175
+      end: 1210
+  functionSignature:
+    implicitArgs:
+      - name: ''
+        type: ''
+    explicitArgs: null
+    returns:
+      - name: res
+        type: felt
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 0
+      end: 0
+- attributeName: namespace PoolConfigurator
+  functionName:
+    name: assert_only_pool_admin
+    charIndex:
+      start: 1356
+      end: 1378
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs: null
+    returns: null
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 0
+      end: 0
+- attributeName: namespace PoolConfigurator
+  functionName:
+    name: assert_only_emergency_admin
+    charIndex:
+      start: 1941
+      end: 1968
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs: null
+    returns: null
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 0
+      end: 0
+- attributeName: namespace PoolConfigurator
+  functionName:
+    name: assert_only_pool_or_emergency_admin
+    charIndex:
+      start: 2587
+      end: 2622
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs: null
+    returns: null
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 0
+      end: 0
+- attributeName: namespace PoolConfigurator
+  functionName:
+    name: assert_only_asset_listing_or_pool_admins
+    charIndex:
+      start: 3471
+      end: 3511
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs: null
+    returns: null
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 0
+      end: 0
+- attributeName: namespace PoolConfigurator
+  functionName:
+    name: assert_only_risk_or_pool_admins
+    charIndex:
+      start: 4384
+      end: 4415
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs: null
+    returns: null
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 0
+      end: 0
+- attributeName: namespace PoolConfigurator
+  functionName:
+    name: initialize
+    charIndex:
+      start: 5208
+      end: 5218
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: provider
+        type: felt
+    returns: null
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 0
+      end: 0
+- attributeName: namespace PoolConfigurator
+  functionName:
+    name: drop_reserve
+    charIndex:
+      start: 5926
+      end: 5938
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: asset
+        type: felt
+    returns: null
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 0
+      end: 0
+- attributeName: namespace PoolConfigurator
+  functionName:
+    name: set_reserve_borrowing
+    charIndex:
+      start: 7264
+      end: 7285
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: asset
+        type: felt
+      - name: enabled
+        type: felt
+    returns: null
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 0
+      end: 0
+- attributeName: namespace PoolConfigurator
+  functionName:
+    name: get_revision
+    charIndex:
+      start: 8850
+      end: 8862
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs: null
+    returns:
+      - name: revision
+        type: felt
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 0
+      end: 0
+- attributeName: namespace PoolConfigurator
+  functionName:
+    name: get_pool
+    charIndex:
+      start: 9010
+      end: 9018
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs: null
+    returns:
+      - name: pool
+        type: felt
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 0
+      end: 0
+- attributeName: namespace PoolConfigurator
+  functionName:
+    name: get_addresses_provider
+    charIndex:
+      start: 9209
+      end: 9231
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: ''
+        type: ''
+    returns:
+      - name: addresses_provider
+        type: felt
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 0
+      end: 0

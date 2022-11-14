@@ -1,0 +1,329 @@
+- attributeName: event
+  functionName:
+    name: Upgraded
+    charIndex:
+      start: 275
+      end: 283
+  functionSignature:
+    implicitArgs:
+      - name: ''
+        type: ''
+    explicitArgs:
+      - name: implementation
+        type: felt
+    returns: null
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 0
+      end: 0
+- attributeName: event
+  functionName:
+    name: AdminChanged
+    charIndex:
+      start: 323
+      end: 335
+  functionSignature:
+    implicitArgs:
+      - name: ''
+        type: ''
+    explicitArgs:
+      - name: previous_admin
+        type: felt
+      - name: new_admin
+        type: felt
+    returns: null
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 0
+      end: 0
+- attributeName: storage_var
+  functionName:
+    name: Proxy_implementation_hash
+    charIndex:
+      start: 426
+      end: 451
+  functionSignature:
+    implicitArgs:
+      - name: ''
+        type: ''
+    explicitArgs: null
+    returns:
+      - name: class_hash
+        type: felt
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 0
+      end: 0
+- attributeName: storage_var
+  functionName:
+    name: Proxy_admin
+    charIndex:
+      start: 499
+      end: 510
+  functionSignature:
+    implicitArgs:
+      - name: ''
+        type: ''
+    explicitArgs: null
+    returns:
+      - name: proxy_admin
+        type: felt
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 0
+      end: 0
+- attributeName: storage_var
+  functionName:
+    name: Proxy_initialized
+    charIndex:
+      start: 559
+      end: 576
+  functionSignature:
+    implicitArgs:
+      - name: ''
+        type: ''
+    explicitArgs: null
+    returns:
+      - name: initialized
+        type: felt
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 0
+      end: 0
+- attributeName: namespace Proxy
+  functionName:
+    name: assert_only_admin
+    charIndex:
+      start: 663
+      end: 680
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs: null
+    returns: null
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 0
+      end: 0
+- attributeName: namespace Proxy
+  functionName:
+    name: assert_not_admin
+    charIndex:
+      start: 981
+      end: 997
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs: null
+    returns: null
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 0
+      end: 0
+- attributeName: namespace Proxy
+  functionName:
+    name: get_implementation_hash
+    charIndex:
+      start: 1334
+      end: 1357
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: ''
+        type: ''
+    returns:
+      - name: implementation
+        type: felt
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 0
+      end: 0
+- attributeName: namespace Proxy
+  functionName:
+    name: get_initialized
+    charIndex:
+      start: 1577
+      end: 1592
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs: null
+    returns:
+      - name: implementation
+        type: felt
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 0
+      end: 0
+- attributeName: namespace Proxy
+  functionName:
+    name: get_admin
+    charIndex:
+      start: 1804
+      end: 1813
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs: null
+    returns:
+      - name: admin
+        type: felt
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 0
+      end: 0
+- attributeName: namespace Proxy
+  functionName:
+    name: _set_admin
+    charIndex:
+      start: 2031
+      end: 2041
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: new_admin
+        type: felt
+    returns: null
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 0
+      end: 0
+- attributeName: namespace Proxy
+  functionName:
+    name: _set_implementation_hash
+    charIndex:
+      start: 2341
+      end: 2365
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: new_implementation_hash
+        type: felt
+    returns: null
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 0
+      end: 0
+- attributeName: namespace Proxy
+  functionName:
+    name: _set_initialized
+    charIndex:
+      start: 2770
+      end: 2786
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs: null
+    returns: null
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 0
+      end: 0

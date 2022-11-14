@@ -1,0 +1,607 @@
+- attributeName: namespace UserConfiguration
+  functionName:
+    name: set_borrowing
+    charIndex:
+      start: 1125
+      end: 1138
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: user_address
+        type: felt
+      - name: reserve_index
+        type: felt
+      - name: borrowing
+        type: felt
+    returns: null
+  functionComment:
+    desc:
+      - name: ''
+        type: ''
+        desc: Sets if the user is borrowing the reserve identified by reserve_index
+        charIndex:
+          start: 15
+          end: 84
+    implicitArgs: null
+    explicitArgs:
+      - name: user_address
+        type: ''
+        desc: The address of a user
+        charIndex:
+          start: 184
+          end: 205
+      - name: reserve_index
+        type: ''
+        desc: The index of the reserve object
+        charIndex:
+          start: 234
+          end: 265
+      - name: borrowing
+        type: ''
+        desc: TRUE if user is borrowing the reserve, FALSE otherwise
+        charIndex:
+          start: 290
+          end: 344
+    returns: null
+    raises: null
+    charIndex:
+      start: 771
+      end: 1115
+- attributeName: namespace UserConfiguration
+  functionName:
+    name: set_using_as_collateral
+    charIndex:
+      start: 2439
+      end: 2462
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: user_address
+        type: felt
+      - name: reserve_index
+        type: felt
+      - name: using_as_collateral
+        type: felt
+    returns: null
+  functionComment:
+    desc:
+      - name: ''
+        type: ''
+        desc: >-
+          Sets if the user is using as collateral the reserve identified by
+          reserve_index
+        charIndex:
+          start: 15
+          end: 94
+    implicitArgs: null
+    explicitArgs:
+      - name: user_address
+        type: ''
+        desc: The address of a user
+        charIndex:
+          start: 194
+          end: 215
+      - name: reserve_index
+        type: ''
+        desc: The index of the reserve object
+        charIndex:
+          start: 244
+          end: 275
+      - name: using_as_collateral
+        type: ''
+        desc: TRUE if user is using the reserve as collateral, FALSE otherwise
+        charIndex:
+          start: 310
+          end: 374
+    returns: null
+    raises: null
+    charIndex:
+      start: 2055
+      end: 2429
+- attributeName: namespace UserConfiguration
+  functionName:
+    name: is_using_as_collateral_or_borrowing
+    charIndex:
+      start: 3750
+      end: 3785
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: user_address
+        type: felt
+      - name: reserve_index
+        type: felt
+    returns:
+      - name: res
+        type: felt
+  functionComment:
+    desc:
+      - name: ''
+        type: ''
+        desc: >-
+          Returns if a user has been using the reserve for borrowing or as
+          collateral
+        charIndex:
+          start: 15
+          end: 90
+    implicitArgs: null
+    explicitArgs:
+      - name: user_address
+        type: ''
+        desc: The address of a user
+        charIndex:
+          start: 118
+          end: 139
+      - name: reserve_index
+        type: ''
+        desc: The index of the reserve object
+        charIndex:
+          start: 168
+          end: 199
+    returns: null
+    raises: null
+    charIndex:
+      start: 3436
+      end: 3740
+- attributeName: namespace UserConfiguration
+  functionName:
+    name: is_borrowing
+    charIndex:
+      start: 4783
+      end: 4795
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: user_address
+        type: felt
+      - name: reserve_index
+        type: felt
+    returns:
+      - name: res
+        type: felt
+  functionComment:
+    desc:
+      - name: ''
+        type: ''
+        desc: Validate a user has been using the reserve for borrowing
+        charIndex:
+          start: 15
+          end: 71
+    implicitArgs: null
+    explicitArgs:
+      - name: user_address
+        type: ''
+        desc: The address of a user
+        charIndex:
+          start: 99
+          end: 120
+      - name: reserve_index
+        type: ''
+        desc: The index of the reserve object
+        charIndex:
+          start: 149
+          end: 180
+    returns: null
+    raises: null
+    charIndex:
+      start: 4505
+      end: 4773
+- attributeName: namespace UserConfiguration
+  functionName:
+    name: is_using_as_collateral
+    charIndex:
+      start: 5470
+      end: 5492
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: user_address
+        type: felt
+      - name: reserve_index
+        type: felt
+    returns:
+      - name: res
+        type: felt
+  functionComment:
+    desc:
+      - name: ''
+        type: ''
+        desc: Validate a user has been using the reserve as collateral
+        charIndex:
+          start: 15
+          end: 71
+    implicitArgs: null
+    explicitArgs:
+      - name: user_address
+        type: ''
+        desc: The address of a user
+        charIndex:
+          start: 99
+          end: 120
+      - name: reserve_index
+        type: ''
+        desc: The index of the reserve object
+        charIndex:
+          start: 149
+          end: 180
+    returns: null
+    raises: null
+    charIndex:
+      start: 5192
+      end: 5460
+- attributeName: namespace UserConfiguration
+  functionName:
+    name: is_using_as_collateral_one
+    charIndex:
+      start: 6133
+      end: 6159
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: user_address
+        type: felt
+    returns:
+      - name: res
+        type: felt
+  functionComment:
+    desc:
+      - name: ''
+        type: ''
+        desc: Checks if a user has been supplying only one reserve as collateral
+        charIndex:
+          start: 15
+          end: 81
+    implicitArgs: null
+    explicitArgs:
+      - name: user_address
+        type: ''
+        desc: The address of a user
+        charIndex:
+          start: 109
+          end: 130
+    returns: null
+    raises: null
+    charIndex:
+      start: 5899
+      end: 6123
+- attributeName: namespace UserConfiguration
+  functionName:
+    name: is_using_as_collateral_any
+    charIndex:
+      start: 6669
+      end: 6695
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: user_address
+        type: felt
+    returns:
+      - name: res
+        type: felt
+  functionComment:
+    desc:
+      - name: ''
+        type: ''
+        desc: Checks if a user has been supplying any reserve as collateral
+        charIndex:
+          start: 15
+          end: 76
+    implicitArgs: null
+    explicitArgs:
+      - name: user_address
+        type: ''
+        desc: The address of a user
+        charIndex:
+          start: 104
+          end: 125
+    returns: null
+    raises: null
+    charIndex:
+      start: 6440
+      end: 6659
+- attributeName: namespace UserConfiguration
+  functionName:
+    name: is_borrowing_one
+    charIndex:
+      start: 7307
+      end: 7323
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: user_address
+        type: felt
+    returns:
+      - name: res
+        type: felt
+  functionComment:
+    desc:
+      - name: ''
+        type: ''
+        desc: Checks if a user has been borrowing only one asset
+        charIndex:
+          start: 15
+          end: 65
+    implicitArgs: null
+    explicitArgs:
+      - name: user_address
+        type: ''
+        desc: The address of a user
+        charIndex:
+          start: 93
+          end: 114
+    returns: null
+    raises: null
+    charIndex:
+      start: 7100
+      end: 7297
+- attributeName: namespace UserConfiguration
+  functionName:
+    name: is_borrowing_any
+    charIndex:
+      start: 7822
+      end: 7838
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: user_address
+        type: felt
+    returns:
+      - name: res
+        type: felt
+  functionComment:
+    desc:
+      - name: ''
+        type: ''
+        desc: Checks if a user has been borrowing from any reserve
+        charIndex:
+          start: 15
+          end: 67
+    implicitArgs: null
+    explicitArgs:
+      - name: user_address
+        type: ''
+        desc: The address of a user
+        charIndex:
+          start: 95
+          end: 116
+    returns: null
+    raises: null
+    charIndex:
+      start: 7616
+      end: 7812
+- attributeName: namespace UserConfiguration
+  functionName:
+    name: is_empty
+    charIndex:
+      start: 8452
+      end: 8460
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: user_address
+        type: felt
+    returns:
+      - name: res
+        type: felt
+  functionComment:
+    desc:
+      - name: ''
+        type: ''
+        desc: >-
+          Checks if a user has not been using any reserve for borrowing or
+          supply
+        charIndex:
+          start: 15
+          end: 86
+    implicitArgs: null
+    explicitArgs:
+      - name: user_address
+        type: ''
+        desc: The address of a user
+        charIndex:
+          start: 114
+          end: 135
+    returns: null
+    raises: null
+    charIndex:
+      start: 8210
+      end: 8442
+- attributeName: namespace UserConfiguration
+  functionName:
+    name: get_isolation_mode_state
+    charIndex:
+      start: 9273
+      end: 9297
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: user_address
+        type: felt
+    returns:
+      - name: bool
+        type: felt
+      - name: asset_address
+        type: felt
+      - name: ceilling
+        type: felt
+  functionComment:
+    desc:
+      - name: ''
+        type: ''
+        desc: Returns the Isolation Mode state of the user
+        charIndex:
+          start: 15
+          end: 59
+    implicitArgs: null
+    explicitArgs:
+      - name: user_address
+        type: ''
+        desc: The address of a user
+        charIndex:
+          start: 87
+          end: 108
+    returns: null
+    raises: null
+    charIndex:
+      start: 8974
+      end: 9263
+- attributeName: namespace UserConfiguration
+  functionName:
+    name: get_siloed_borrowing_state
+    charIndex:
+      start: 10335
+      end: 10361
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: user_address
+        type: felt
+    returns:
+      - name: bool
+        type: felt
+      - name: asset_address
+        type: felt
+  functionComment:
+    desc:
+      - name: ''
+        type: ''
+        desc: Returns the siloed borrowing state for the user
+        charIndex:
+          start: 15
+          end: 62
+    implicitArgs: null
+    explicitArgs:
+      - name: user_address
+        type: ''
+        desc: The address of a user
+        charIndex:
+          start: 90
+          end: 111
+    returns: null
+    raises: null
+    charIndex:
+      start: 10083
+      end: 10325
+- attributeName: namespace UserConfiguration
+  functionName:
+    name: get_first_asset_by_type
+    charIndex:
+      start: 11391
+      end: 11414
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: user_address
+        type: felt
+      - name: type
+        type: felt
+    returns:
+      - name: res
+        type: felt
+  functionComment:
+    desc:
+      - name: ''
+        type: ''
+        desc: >-
+          Returns the address of the first asset (lowest index) flagged given
+          the corresponding type (borrowing/using as collateral)
+        charIndex:
+          start: 15
+          end: 137
+    implicitArgs: null
+    explicitArgs:
+      - name: user_address
+        type: ''
+        desc: The address of a user
+        charIndex:
+          start: 165
+          end: 186
+      - name: type
+        type: ''
+        desc: 'The type of asset: BORROWING_TYPE or USING_AS_COLLATERAL_TYPE'
+        charIndex:
+          start: 206
+          end: 267
+    returns: null
+    raises: null
+    charIndex:
+      start: 11045
+      end: 11381

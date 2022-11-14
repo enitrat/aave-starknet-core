@@ -1,0 +1,602 @@
+- attributeName: view
+  functionName:
+    name: get_revision
+    charIndex:
+      start: 2478
+      end: 2490
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs: null
+    returns:
+      - name: revision
+        type: felt
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 0
+      end: 0
+- attributeName: view
+  functionName:
+    name: get_addresses_provider
+    charIndex:
+      start: 8538
+      end: 8560
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs: null
+    returns:
+      - name: provider
+        type: felt
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 0
+      end: 0
+- attributeName: view
+  functionName:
+    name: get_reserve_data
+    charIndex:
+      start: 8754
+      end: 8770
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: asset
+        type: felt
+    returns:
+      - name: reserve_data
+        type: ''
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 0
+      end: 0
+- attributeName: view
+  functionName:
+    name: get_configuration
+    charIndex:
+      start: 8989
+      end: 9006
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: asset
+        type: felt
+    returns:
+      - name: config
+        type: ''
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 0
+      end: 0
+- attributeName: view
+  functionName:
+    name: get_reserve_normalized_variable_debt
+    charIndex:
+      start: 9267
+      end: 9303
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: asset
+        type: felt
+    returns:
+      - name: normalized_variable_debt
+        type: felt
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 0
+      end: 0
+- attributeName: view
+  functionName:
+    name: get_reserve_normalized_income
+    charIndex:
+      start: 9492
+      end: 9521
+  functionSignature:
+    implicitArgs: null
+    explicitArgs:
+      - name: asset
+        type: felt
+    returns:
+      - name: res
+        type: Uint256
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 0
+      end: 0
+- attributeName: view
+  functionName:
+    name: get_reserves_list
+    charIndex:
+      start: 9613
+      end: 9630
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs: null
+    returns:
+      - name: assets_len
+        type: felt
+      - name: assets
+        type: felt*
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 0
+      end: 0
+- attributeName: view
+  functionName:
+    name: get_reserve_address_by_id
+    charIndex:
+      start: 9847
+      end: 9872
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: reserve_id
+        type: felt
+    returns:
+      - name: address
+        type: felt
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 0
+      end: 0
+- attributeName: view
+  functionName:
+    name: MAX_NUMBER_RESERVES
+    charIndex:
+      start: 10090
+      end: 10109
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs: null
+    returns:
+      - name: max_number
+        type: felt
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 0
+      end: 0
+- attributeName: external
+  functionName:
+    name: initialize
+    charIndex:
+      start: 2850
+      end: 2860
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: provider
+        type: felt
+    returns: null
+  functionComment:
+    desc:
+      - name: ''
+        type: ''
+        desc: Initializes the Pool.
+        charIndex:
+          start: 11
+          end: 32
+    implicitArgs: null
+    explicitArgs:
+      - name: provider
+        type: ''
+        desc: The address of the PoolAddressesProvider
+        charIndex:
+          start: 181
+          end: 221
+    returns: null
+    raises: null
+    charIndex:
+      start: 2613
+      end: 2834
+- attributeName: external
+  functionName:
+    name: supply
+    charIndex:
+      start: 3964
+      end: 3970
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: asset
+        type: felt
+      - name: amount
+        type: Uint256
+      - name: on_behalf_of
+        type: felt
+      - name: referral_code
+        type: felt
+    returns: null
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs:
+      - name: asset
+        type: ''
+        desc: The address of the underlying asset to supply
+        charIndex:
+          start: 179
+          end: 224
+      - name: amount
+        type: ''
+        desc: The amount to be supplied
+        charIndex:
+          start: 242
+          end: 267
+      - name: on_behalf_of
+        type: ''
+        desc: >-
+          The address that will receive the aTokens, same as caller_address if
+          the user
+
+          wants to receive them on his own wallet, or a different address if the
+          beneficiary of aTokens
+
+          is a different wallet.
+        charIndex:
+          start: 291
+          end: 491
+      - name: referral_code
+        type: ''
+        desc: >-
+          Code used to register the integrator originating the operation, for
+          potential rewards.
+
+          0 if the action is executed directly by the user, without any
+          middle-man.
+        charIndex:
+          start: 516
+          end: 679
+    returns: null
+    raises: null
+    charIndex:
+      start: 3269
+      end: 3948
+- attributeName: external
+  functionName:
+    name: withdraw
+    charIndex:
+      start: 5101
+      end: 5109
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: asset
+        type: felt
+      - name: amount
+        type: Uint256
+      - name: to
+        type: felt
+    returns: null
+  functionComment:
+    desc:
+      - name: ''
+        type: ''
+        desc: >-
+          Withdraws an `amount` of underlying asset from the reserve, burning
+          the equivalent aTokens owned
+
+          E.g. User has 100 aUSDC, calls withdraw() and receives 100 USDC,
+          burning the 100 aUSDC
+        charIndex:
+          start: 11
+          end: 197
+    implicitArgs: null
+    explicitArgs:
+      - name: asset
+        type: ''
+        desc: The address of the underlying asset to withdraw
+        charIndex:
+          start: 214
+          end: 261
+      - name: amount
+        type: ''
+        desc: >-
+          The underlying amount to be withdrawn
+
+          - Send the value type(uint256).max in order to withdraw the whole
+          aToken balance
+        charIndex:
+          start: 279
+          end: 402
+      - name: to
+        type: ''
+        desc: >-
+          The address that will receive the underlying, same as msg.sender if
+          the user
+
+          wants to receive it on his own wallet, or a different address if the
+          beneficiary is a
+
+          different wallet
+        charIndex:
+          start: 416
+          end: 605
+    returns: null
+    raises: null
+    charIndex:
+      start: 4442
+      end: 5085
+- attributeName: external
+  functionName:
+    name: init_reserve
+    charIndex:
+      start: 5904
+      end: 5916
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: asset
+        type: felt
+      - name: a_token_address
+        type: felt
+      - name: stable_debt_token_address
+        type: felt
+      - name: variable_debt_token_address
+        type: felt
+      - name: interest_rate_strategy_address
+        type: felt
+      - name: ''
+        type: ''
+    returns: null
+  functionComment:
+    desc:
+      - name: ''
+        type: ''
+        desc: >-
+          Initializes a reserve, activating it, assigning an aToken and debt
+          tokens and an
+
+          interest rate strategy
+        charIndex:
+          start: 11
+          end: 117
+    implicitArgs: null
+    explicitArgs:
+      - name: asset
+        type: ''
+        desc: The address of the underlying asset of the reserve
+        charIndex:
+          start: 189
+          end: 239
+      - name: a_token_address
+        type: ''
+        desc: The address of the aToken that will be assigned to the reserve
+        charIndex:
+          start: 266
+          end: 328
+    returns: null
+    raises: null
+    charIndex:
+      start: 5560
+      end: 5888
+- attributeName: external
+  functionName:
+    name: drop_reserve
+    charIndex:
+      start: 7285
+      end: 7297
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: asset
+        type: felt
+    returns: null
+  functionComment:
+    desc:
+      - name: ''
+        type: ''
+        desc: Drop a reserve
+        charIndex:
+          start: 11
+          end: 25
+    implicitArgs: null
+    explicitArgs:
+      - name: asset
+        type: ''
+        desc: The address of the underlying asset of the reserve
+        charIndex:
+          start: 97
+          end: 147
+    returns: null
+    raises: null
+    charIndex:
+      start: 7122
+      end: 7269
+- attributeName: external
+  functionName:
+    name: set_configuration
+    charIndex:
+      start: 7675
+      end: 7692
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs: null
+    returns: null
+  functionComment:
+    desc:
+      - name: ''
+        type: ''
+        desc: Set pool configuration
+        charIndex:
+          start: 11
+          end: 33
+    implicitArgs: null
+    explicitArgs:
+      - name: asset
+        type: ''
+        desc: The address of the underlying asset of the reserve
+        charIndex:
+          start: 105
+          end: 155
+      - name: configuration
+        type: ''
+        desc: The configuration to set for the reserve
+        charIndex:
+          start: 180
+          end: 220
+    returns: null
+    raises: null
+    charIndex:
+      start: 7439
+      end: 7659
+- attributeName: external
+  functionName:
+    name: finalize_transfer
+    charIndex:
+      start: 10313
+      end: 10330
+  functionSignature:
+    implicitArgs: null
+    explicitArgs:
+      - name: asset
+        type: felt
+      - name: sender
+        type: felt
+      - name: recipient
+        type: felt
+      - name: amount
+        type: Uint256
+      - name: sender_balance
+        type: Uint256
+      - name: recipient_balance
+        type: Uint256
+      - name: ''
+        type: ''
+    returns: null
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 0
+      end: 0

@@ -1,0 +1,750 @@
+- attributeName: storage_var
+  functionName:
+    name: PoolStorage_addresses_provider
+    charIndex:
+      start: 166
+      end: 196
+  functionSignature:
+    implicitArgs:
+      - name: ''
+        type: ''
+    explicitArgs: null
+    returns:
+      - name: address
+        type: felt
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 0
+      end: 0
+- attributeName: storage_var
+  functionName:
+    name: PoolStorage_reserves_list
+    charIndex:
+      start: 803
+      end: 828
+  functionSignature:
+    implicitArgs:
+      - name: ''
+        type: ''
+    explicitArgs:
+      - name: reserve_id
+        type: felt
+    returns:
+      - name: address
+        type: felt
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 731
+      end: 784
+- attributeName: storage_var
+  functionName:
+    name: PoolStorage_users_e_mode_category
+    charIndex:
+      start: 1116
+      end: 1149
+  functionSignature:
+    implicitArgs:
+      - name: ''
+        type: ''
+    explicitArgs:
+      - name: user_address
+        type: felt
+    returns:
+      - name: category_id
+        type: felt
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 1011
+      end: 1097
+- attributeName: storage_var
+  functionName:
+    name: PoolStorage_bridge_protocol_fee
+    charIndex:
+      start: 1264
+      end: 1295
+  functionSignature:
+    implicitArgs:
+      - name: ''
+        type: ''
+    explicitArgs: null
+    returns:
+      - name: bps
+        type: felt
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 1198
+      end: 1245
+- attributeName: storage_var
+  functionName:
+    name: PoolStorage_flash_loan_premium_total
+    charIndex:
+      start: 1381
+      end: 1417
+  functionSignature:
+    implicitArgs:
+      - name: ''
+        type: ''
+    explicitArgs: null
+    returns:
+      - name: bps
+        type: felt
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 1318
+      end: 1362
+- attributeName: storage_var
+  functionName:
+    name: PoolStorage_flash_loan_premium_to_protocol
+    charIndex:
+      start: 1523
+      end: 1565
+  functionSignature:
+    implicitArgs:
+      - name: ''
+        type: ''
+    explicitArgs: null
+    returns:
+      - name: bps
+        type: felt
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 1440
+      end: 1504
+- attributeName: storage_var
+  functionName:
+    name: PoolStorage_max_stable_rate_borrow_size_percent
+    charIndex:
+      start: 1691
+      end: 1738
+  functionSignature:
+    implicitArgs:
+      - name: ''
+        type: ''
+    explicitArgs: null
+    returns:
+      - name: bps
+        type: felt
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 1588
+      end: 1672
+- attributeName: storage_var
+  functionName:
+    name: PoolStorage_reserves_count
+    charIndex:
+      start: 1892
+      end: 1918
+  functionSignature:
+    implicitArgs:
+      - name: ''
+        type: ''
+    explicitArgs: null
+    returns:
+      - name: count
+        type: felt
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 1761
+      end: 1873
+- attributeName: namespace PoolStorage
+  functionName:
+    name: addresses_provider_read
+    charIndex:
+      start: 2004
+      end: 2027
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: ''
+        type: ''
+    returns:
+      - name: address
+        type: felt
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 0
+      end: 0
+- attributeName: namespace PoolStorage
+  functionName:
+    name: reserves_read
+    charIndex:
+      start: 2231
+      end: 2244
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: address
+        type: felt
+    returns:
+      - name: reserve_data
+        type: DataTypes
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 0
+      end: 0
+- attributeName: namespace PoolStorage
+  functionName:
+    name: reserves_config_read
+    charIndex:
+      start: 2485
+      end: 2505
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: address
+        type: felt
+    returns:
+      - name: res_config
+        type: DataTypes
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 0
+      end: 0
+- attributeName: namespace PoolStorage
+  functionName:
+    name: users_config_read
+    charIndex:
+      start: 2752
+      end: 2769
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: user_address
+        type: felt
+      - name: reserve_id
+        type: felt
+    returns:
+      - name: user_config
+        type: DataTypes
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 0
+      end: 0
+- attributeName: namespace PoolStorage
+  functionName:
+    name: reserves_list_read
+    charIndex:
+      start: 3070
+      end: 3088
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: reserve_id
+        type: felt
+    returns:
+      - name: address
+        type: felt
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 0
+      end: 0
+- attributeName: namespace PoolStorage
+  functionName:
+    name: users_e_mode_category_read
+    charIndex:
+      start: 3318
+      end: 3344
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: user_address
+        type: felt
+    returns:
+      - name: category_id
+        type: felt
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 0
+      end: 0
+- attributeName: namespace PoolStorage
+  functionName:
+    name: e_mode_categories_read
+    charIndex:
+      start: 3598
+      end: 3620
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: category_id
+        type: felt
+    returns:
+      - name: category
+        type: DataTypes
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 0
+      end: 0
+- attributeName: namespace PoolStorage
+  functionName:
+    name: bridge_protocol_fee_read
+    charIndex:
+      start: 3878
+      end: 3902
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: ''
+        type: ''
+    returns:
+      - name: bps
+        type: felt
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 0
+      end: 0
+- attributeName: namespace PoolStorage
+  functionName:
+    name: flash_loan_premium_total_read
+    charIndex:
+      start: 4095
+      end: 4124
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs: null
+    returns:
+      - name: bps
+        type: felt
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 0
+      end: 0
+- attributeName: namespace PoolStorage
+  functionName:
+    name: flash_loan_premium_to_protocol_read
+    charIndex:
+      start: 4327
+      end: 4362
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs: null
+    returns:
+      - name: bps
+        type: felt
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 0
+      end: 0
+- attributeName: namespace PoolStorage
+  functionName:
+    name: max_stable_rate_borrow_size_percent_read
+    charIndex:
+      start: 4571
+      end: 4611
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs: null
+    returns:
+      - name: bps
+        type: felt
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 0
+      end: 0
+- attributeName: namespace PoolStorage
+  functionName:
+    name: reserves_count_read
+    charIndex:
+      start: 4825
+      end: 4844
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs: null
+    returns:
+      - name: count
+        type: felt
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 0
+      end: 0
+- attributeName: namespace PoolStorage
+  functionName:
+    name: addresses_provider_write
+    charIndex:
+      start: 5072
+      end: 5096
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: address
+        type: felt
+    returns: null
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 0
+      end: 0
+- attributeName: namespace PoolStorage
+  functionName:
+    name: reserves_list_write
+    charIndex:
+      start: 6079
+      end: 6098
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: reserve_id
+        type: felt
+      - name: address
+        type: felt
+    returns: null
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 0
+      end: 0
+- attributeName: namespace PoolStorage
+  functionName:
+    name: users_e_mode_category_write
+    charIndex:
+      start: 6578
+      end: 6605
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: user_address
+        type: felt
+      - name: category_id
+        type: felt
+    returns: null
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 0
+      end: 0
+- attributeName: namespace PoolStorage
+  functionName:
+    name: bridge_protocol_fee_write
+    charIndex:
+      start: 6837
+      end: 6862
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: bps
+        type: felt
+    returns: null
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 0
+      end: 0
+- attributeName: namespace PoolStorage
+  functionName:
+    name: flash_loan_premium_total_write
+    charIndex:
+      start: 7042
+      end: 7072
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: bps
+        type: felt
+    returns: null
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 0
+      end: 0
+- attributeName: namespace PoolStorage
+  functionName:
+    name: flash_loan_premium_to_protocol_write
+    charIndex:
+      start: 7257
+      end: 7293
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: bps
+        type: felt
+    returns: null
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 0
+      end: 0
+- attributeName: namespace PoolStorage
+  functionName:
+    name: max_stable_rate_borrow_size_percent_write
+    charIndex:
+      start: 7484
+      end: 7525
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: bps
+        type: felt
+    returns: null
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 0
+      end: 0
+- attributeName: namespace PoolStorage
+  functionName:
+    name: reserves_count_write
+    charIndex:
+      start: 7721
+      end: 7741
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: count
+        type: felt
+    returns: null
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 0
+      end: 0

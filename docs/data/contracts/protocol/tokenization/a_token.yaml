@@ -1,0 +1,768 @@
+- attributeName: view
+  functionName:
+    name: name
+    charIndex:
+      start: 826
+      end: 830
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs: null
+    returns:
+      - name: name
+        type: felt
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 0
+      end: 0
+- attributeName: view
+  functionName:
+    name: symbol
+    charIndex:
+      start: 981
+      end: 987
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs: null
+    returns:
+      - name: symbol
+        type: felt
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 0
+      end: 0
+- attributeName: view
+  functionName:
+    name: totalSupply
+    charIndex:
+      start: 1146
+      end: 1157
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs: null
+    returns:
+      - name: totalSupply
+        type: Uint256
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 0
+      end: 0
+- attributeName: view
+  functionName:
+    name: decimals
+    charIndex:
+      start: 1356
+      end: 1364
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs: null
+    returns:
+      - name: decimals
+        type: felt
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 0
+      end: 0
+- attributeName: view
+  functionName:
+    name: balanceOf
+    charIndex:
+      start: 1537
+      end: 1546
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: account
+        type: felt
+    returns:
+      - name: balance
+        type: Uint256
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 0
+      end: 0
+- attributeName: view
+  functionName:
+    name: scaled_balance_of
+    charIndex:
+      start: 1751
+      end: 1768
+  functionSignature:
+    implicitArgs: null
+    explicitArgs:
+      - name: account
+        type: felt
+    returns:
+      - name: balance
+        type: Uint256
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 0
+      end: 0
+- attributeName: view
+  functionName:
+    name: allowance
+    charIndex:
+      start: 1870
+      end: 1879
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: owner
+        type: felt
+      - name: spender
+        type: felt
+    returns:
+      - name: remaining
+        type: Uint256
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 0
+      end: 0
+- attributeName: view
+  functionName:
+    name: RESERVE_TREASURY_ADDRESS
+    charIndex:
+      start: 2108
+      end: 2132
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: ''
+        type: ''
+    returns:
+      - name: res
+        type: felt
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 0
+      end: 0
+- attributeName: view
+  functionName:
+    name: UNDERLYING_ASSET_ADDRESS
+    charIndex:
+      start: 2306
+      end: 2330
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: ''
+        type: ''
+    returns:
+      - name: res
+        type: felt
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 0
+      end: 0
+- attributeName: view
+  functionName:
+    name: POOL
+    charIndex:
+      start: 2504
+      end: 2508
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs: null
+    returns:
+      - name: res
+        type: felt
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 0
+      end: 0
+- attributeName: view
+  functionName:
+    name: get_incentives_controller
+    charIndex:
+      start: 2657
+      end: 2682
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: ''
+        type: ''
+    returns:
+      - name: res
+        type: felt
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 0
+      end: 0
+- attributeName: external
+  functionName:
+    name: initialize
+    charIndex:
+      start: 331
+      end: 341
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: pool
+        type: felt
+      - name: treasury
+        type: felt
+      - name: underlying_asset
+        type: felt
+      - name: incentives_controller
+        type: felt
+      - name: a_token_decimals
+        type: felt
+      - name: a_token_name
+        type: felt
+      - name: a_token_symbol
+        type: felt
+      - name: ''
+        type: ''
+    returns: null
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 0
+      end: 0
+- attributeName: external
+  functionName:
+    name: transfer
+    charIndex:
+      start: 2881
+      end: 2889
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: recipient
+        type: felt
+      - name: amount
+        type: Uint256
+    returns:
+      - name: success
+        type: felt
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 0
+      end: 0
+- attributeName: external
+  functionName:
+    name: transferFrom
+    charIndex:
+      start: 3093
+      end: 3105
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: sender
+        type: felt
+      - name: recipient
+        type: felt
+      - name: amount
+        type: Uint256
+    returns:
+      - name: success
+        type: felt
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 0
+      end: 0
+- attributeName: external
+  functionName:
+    name: approve
+    charIndex:
+      start: 3336
+      end: 3343
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: spender
+        type: felt
+      - name: amount
+        type: Uint256
+    returns:
+      - name: success
+        type: felt
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 0
+      end: 0
+- attributeName: external
+  functionName:
+    name: increaseAllowance
+    charIndex:
+      start: 3542
+      end: 3559
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: spender
+        type: felt
+      - name: added_value
+        type: Uint256
+    returns:
+      - name: success
+        type: felt
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 0
+      end: 0
+- attributeName: external
+  functionName:
+    name: decreaseAllowance
+    charIndex:
+      start: 3779
+      end: 3796
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: spender
+        type: felt
+      - name: subtracted_value
+        type: Uint256
+    returns:
+      - name: success
+        type: felt
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 0
+      end: 0
+- attributeName: external
+  functionName:
+    name: mint
+    charIndex:
+      start: 4026
+      end: 4030
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: caller
+        type: felt
+      - name: on_behalf_of
+        type: felt
+      - name: amount
+        type: Uint256
+      - name: index
+        type: Uint256
+    returns:
+      - name: success
+        type: felt
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 0
+      end: 0
+- attributeName: external
+  functionName:
+    name: burn
+    charIndex:
+      start: 4288
+      end: 4292
+  functionSignature:
+    implicitArgs: null
+    explicitArgs:
+      - name: from_
+        type: felt
+      - name: receiver_or_underlying
+        type: felt
+      - name: amount
+        type: Uint256
+      - name: index
+        type: Uint256
+    returns:
+      - name: success
+        type: felt
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 4257
+      end: 4269
+- attributeName: external
+  functionName:
+    name: burn
+    charIndex:
+      start: 4655
+      end: 4659
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: from_
+        type: felt
+      - name: receiver_or_underlying
+        type: felt
+      - name: amount
+        type: Uint256
+      - name: index
+        type: Uint256
+    returns:
+      - name: success
+        type: felt
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 4596
+      end: 4639
+- attributeName: external
+  functionName:
+    name: mint_to_treasury
+    charIndex:
+      start: 4935
+      end: 4951
+  functionSignature:
+    implicitArgs: null
+    explicitArgs:
+      - name: amount
+        type: Uint256
+      - name: index
+        type: Uint256
+    returns:
+      - name: success
+        type: felt
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 4904
+      end: 4916
+- attributeName: external
+  functionName:
+    name: transfer_on_liquidation
+    charIndex:
+      start: 5206
+      end: 5229
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: from_
+        type: felt
+      - name: to
+        type: felt
+      - name: value
+        type: Uint256
+    returns: null
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 0
+      end: 0
+- attributeName: external
+  functionName:
+    name: transfer_underlying_to
+    charIndex:
+      start: 5429
+      end: 5451
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: target
+        type: felt
+      - name: amount
+        type: Uint256
+    returns: null
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 0
+      end: 0
+- attributeName: external
+  functionName:
+    name: handle_repayment
+    charIndex:
+      start: 5646
+      end: 5662
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs: null
+    returns: null
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 5615
+      end: 5627
+- attributeName: external
+  functionName:
+    name: permit
+    charIndex:
+      start: 5870
+      end: 5876
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs: null
+    returns: null
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 5839
+      end: 5851
+- attributeName: external
+  functionName:
+    name: rescue_tokens
+    charIndex:
+      start: 6068
+      end: 6081
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: token
+        type: felt
+      - name: to
+        type: felt
+      - name: amount
+        type: Uint256
+    returns: null
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 0
+      end: 0

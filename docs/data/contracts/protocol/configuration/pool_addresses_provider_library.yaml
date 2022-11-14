@@ -1,0 +1,1338 @@
+- attributeName: event
+  functionName:
+    name: MarketIdSet
+    charIndex:
+      start: 1344
+      end: 1355
+  functionSignature:
+    implicitArgs:
+      - name: ''
+        type: ''
+    explicitArgs:
+      - name: old_market_id
+        type: ''
+      - name: new_market_id
+        type: ''
+    returns: null
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs:
+      - name: old_market_id
+        type: ''
+        desc: The old id of the market
+        charIndex:
+          start: 79
+          end: 103
+      - name: new_market_id
+        type: ''
+        desc: The new id of the market
+        charIndex:
+          start: 128
+          end: 152
+    returns: null
+    raises: null
+    charIndex:
+      start: 1179
+      end: 1331
+- attributeName: event
+  functionName:
+    name: PoolUpdated
+    charIndex:
+      start: 1573
+      end: 1584
+  functionSignature:
+    implicitArgs:
+      - name: ''
+        type: ''
+    explicitArgs:
+      - name: old_implementation
+        type: ''
+      - name: new_implementation
+        type: ''
+    returns: null
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs:
+      - name: old_implementation
+        type: ''
+        desc: The old implementation of the Pool
+        charIndex:
+          start: 71
+          end: 105
+      - name: new_implementation
+        type: ''
+        desc: The new implementation of the Pool
+        charIndex:
+          start: 135
+          end: 169
+    returns: null
+    raises: null
+    charIndex:
+      start: 1391
+      end: 1560
+- attributeName: event
+  functionName:
+    name: PoolConfiguratorUpdated
+    charIndex:
+      start: 1849
+      end: 1872
+  functionSignature:
+    implicitArgs:
+      - name: ''
+        type: ''
+    explicitArgs:
+      - name: old_implementation
+        type: ''
+      - name: new_implementation
+        type: ''
+    returns: null
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs:
+      - name: old_implementation
+        type: ''
+        desc: The old implementation of the PoolConfigurator
+        charIndex:
+          start: 84
+          end: 130
+      - name: new_implementation
+        type: ''
+        desc: The new implementation of the PoolConfigurator
+        charIndex:
+          start: 160
+          end: 206
+    returns: null
+    raises: null
+    charIndex:
+      start: 1630
+      end: 1836
+- attributeName: event
+  functionName:
+    name: PriceOracleUpdated
+    charIndex:
+      start: 2101
+      end: 2119
+  functionSignature:
+    implicitArgs:
+      - name: ''
+        type: ''
+    explicitArgs:
+      - name: old_implementation
+        type: ''
+      - name: new_implementation
+        type: ''
+    returns: null
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs:
+      - name: old_address
+        type: ''
+        desc: The old address of the PriceOracle
+        charIndex:
+          start: 72
+          end: 106
+      - name: new_implementation
+        type: ''
+        desc: The new address of the PriceOracle
+        charIndex:
+          start: 136
+          end: 170
+    returns: null
+    raises: null
+    charIndex:
+      start: 1918
+      end: 2088
+- attributeName: event
+  functionName:
+    name: ACLManagerUpdated
+    charIndex:
+      start: 2338
+      end: 2355
+  functionSignature:
+    implicitArgs:
+      - name: ''
+        type: ''
+    explicitArgs:
+      - name: old_address
+        type: ''
+      - name: new_address
+        type: ''
+    returns: null
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs:
+      - name: old_address
+        type: ''
+        desc: The old address of the ACLManager
+        charIndex:
+          start: 71
+          end: 104
+      - name: new_address
+        type: ''
+        desc: The new address of the ACLManager
+        charIndex:
+          start: 127
+          end: 160
+    returns: null
+    raises: null
+    charIndex:
+      start: 2165
+      end: 2325
+- attributeName: event
+  functionName:
+    name: ACLAdminUpdated
+    charIndex:
+      start: 2554
+      end: 2569
+  functionSignature:
+    implicitArgs:
+      - name: ''
+        type: ''
+    explicitArgs:
+      - name: old_address
+        type: ''
+      - name: new_address
+        type: ''
+    returns: null
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs:
+      - name: old_address
+        type: ''
+        desc: The old address of the ACLAdmin
+        charIndex:
+          start: 69
+          end: 100
+      - name: new_address
+        type: ''
+        desc: The new address of the ACLAdmin
+        charIndex:
+          start: 123
+          end: 154
+    returns: null
+    raises: null
+    charIndex:
+      start: 2387
+      end: 2541
+- attributeName: event
+  functionName:
+    name: PriceOracleSentinelUpdated
+    charIndex:
+      start: 2802
+      end: 2828
+  functionSignature:
+    implicitArgs:
+      - name: ''
+        type: ''
+    explicitArgs:
+      - name: old_address
+        type: ''
+      - name: new_address
+        type: ''
+    returns: null
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs:
+      - name: old_address
+        type: ''
+        desc: The old address of the PriceOracleSentinel
+        charIndex:
+          start: 81
+          end: 123
+      - name: new_address
+        type: ''
+        desc: The new address of the PriceOracleSentinel
+        charIndex:
+          start: 146
+          end: 188
+    returns: null
+    raises: null
+    charIndex:
+      start: 2601
+      end: 2789
+- attributeName: event
+  functionName:
+    name: PoolDataProviderUpdated
+    charIndex:
+      start: 3052
+      end: 3075
+  functionSignature:
+    implicitArgs:
+      - name: ''
+        type: ''
+    explicitArgs:
+      - name: old_address
+        type: ''
+      - name: new_address
+        type: ''
+    returns: null
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs:
+      - name: old_address
+        type: ''
+        desc: The old address of the PoolDataProvider
+        charIndex:
+          start: 78
+          end: 117
+      - name: new_address
+        type: ''
+        desc: The new address of the PoolDataProvider
+        charIndex:
+          start: 140
+          end: 179
+    returns: null
+    raises: null
+    charIndex:
+      start: 2860
+      end: 3039
+- attributeName: event
+  functionName:
+    name: ProxyCreated
+    charIndex:
+      start: 3344
+      end: 3356
+  functionSignature:
+    implicitArgs:
+      - name: ''
+        type: ''
+    explicitArgs:
+      - name: id
+        type: ''
+      - name: proxy_address
+        type: ''
+      - name: implementation_hash
+        type: ''
+    returns: null
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs:
+      - name: id
+        type: ''
+        desc: The identifier of the proxy
+        charIndex:
+          start: 58
+          end: 85
+      - name: proxy_address
+        type: ''
+        desc: The address of the created proxy contract
+        charIndex:
+          start: 110
+          end: 151
+      - name: implementation_hash
+        type: ''
+        desc: The address of the implementation contract
+        charIndex:
+          start: 182
+          end: 224
+    returns: null
+    raises: null
+    charIndex:
+      start: 3107
+      end: 3331
+- attributeName: event
+  functionName:
+    name: AddressSet
+    charIndex:
+      start: 3637
+      end: 3647
+  functionSignature:
+    implicitArgs:
+      - name: ''
+        type: ''
+    explicitArgs:
+      - name: id
+        type: felt
+      - name: old_address
+        type: felt
+      - name: new_address
+        type: felt
+    returns: null
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs:
+      - name: id
+        type: ''
+        desc: The identifier of the contract
+        charIndex:
+          start: 84
+          end: 114
+      - name: old_address
+        type: ''
+        desc: The address of the old contract
+        charIndex:
+          start: 137
+          end: 168
+      - name: new_address
+        type: ''
+        desc: The address of the new contract
+        charIndex:
+          start: 191
+          end: 222
+    returns: null
+    raises: null
+    charIndex:
+      start: 3402
+      end: 3624
+- attributeName: event
+  functionName:
+    name: AddressSetAsProxy
+    charIndex:
+      start: 4022
+      end: 4039
+  functionSignature:
+    implicitArgs:
+      - name: ''
+        type: ''
+    explicitArgs:
+      - name: id
+        type: felt
+      - name: proxy_address
+        type: felt
+      - name: old_implementation_hash
+        type: felt
+      - name: new_implementation_hash
+        type: felt
+    returns: null
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs:
+      - name: id
+        type: ''
+        desc: The identifier of the contract
+        charIndex:
+          start: 96
+          end: 126
+      - name: proxy_address
+        type: ''
+        desc: The address of the proxy contract
+        charIndex:
+          start: 151
+          end: 184
+      - name: old_implementation_hash
+        type: ''
+        desc: The old implementation hash
+        charIndex:
+          start: 219
+          end: 246
+      - name: new_implementation_hash
+        type: ''
+        desc: The new implementation hash
+        charIndex:
+          start: 281
+          end: 308
+    returns: null
+    raises: null
+    charIndex:
+      start: 3701
+      end: 4009
+- attributeName: storage_var
+  functionName:
+    name: PoolAddressesProvider_market_id
+    charIndex:
+      start: 662
+      end: 693
+  functionSignature:
+    implicitArgs:
+      - name: ''
+        type: ''
+    explicitArgs: null
+    returns:
+      - name: id
+        type: felt
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 0
+      end: 0
+- attributeName: storage_var
+  functionName:
+    name: PoolAddressesProvider_addresses
+    charIndex:
+      start: 778
+      end: 809
+  functionSignature:
+    implicitArgs:
+      - name: ''
+        type: ''
+    explicitArgs:
+      - name: id
+        type: felt
+    returns:
+      - name: registered_address
+        type: felt
+  functionComment:
+    desc:
+      - name: ''
+        type: ''
+        desc: Maps an identifier to its address
+        charIndex:
+          start: 11
+          end: 44
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 715
+      end: 759
+- attributeName: storage_var
+  functionName:
+    name: PoolAddressesProvider_proxy_class_hash
+    charIndex:
+      start: 1100
+      end: 1138
+  functionSignature:
+    implicitArgs:
+      - name: ''
+        type: ''
+    explicitArgs: null
+    returns:
+      - name: salt
+        type: felt
+  functionComment:
+    desc:
+      - name: ''
+        type: ''
+        desc: Stores the class_hash of a proxy contract.
+        charIndex:
+          start: 11
+          end: 53
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 855
+      end: 1081
+- attributeName: namespace PoolAddressesProvider
+  functionName:
+    name: initializer
+    charIndex:
+      start: 4221
+      end: 4232
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: market_id
+        type: felt
+      - name: owner
+        type: felt
+      - name: proxy_class_hash
+        type: felt
+    returns: null
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 0
+      end: 0
+- attributeName: namespace PoolAddressesProvider
+  functionName:
+    name: transfer_ownership
+    charIndex:
+      start: 4586
+      end: 4604
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: new_owner
+        type: felt
+    returns: null
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 0
+      end: 0
+- attributeName: namespace PoolAddressesProvider
+  functionName:
+    name: get_market_id
+    charIndex:
+      start: 4940
+      end: 4953
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs: null
+    returns:
+      - name: market_id
+        type: felt
+  functionComment:
+    desc:
+      - name: ''
+        type: ''
+        desc: Returns the id of the Aave market to which this contract points to.
+        charIndex:
+          start: 15
+          end: 82
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 4819
+      end: 4930
+- attributeName: namespace PoolAddressesProvider
+  functionName:
+    name: set_market_id
+    charIndex:
+      start: 5422
+      end: 5435
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: new_market_id
+        type: felt
+    returns: null
+  functionComment:
+    desc:
+      - name: ''
+        type: ''
+        desc: Associates an id with a specific PoolAddressesProvider.
+        charIndex:
+          start: 15
+          end: 70
+    implicitArgs: null
+    explicitArgs:
+      - name: new_market_id
+        type: ''
+        desc: The market id
+        charIndex:
+          start: 239
+          end: 252
+    returns: null
+    raises: null
+    charIndex:
+      start: 5160
+      end: 5412
+- attributeName: namespace PoolAddressesProvider
+  functionName:
+    name: get_address
+    charIndex:
+      start: 5949
+      end: 5960
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: id
+        type: felt
+    returns:
+      - name: address
+        type: felt
+  functionComment:
+    desc:
+      - name: ''
+        type: ''
+        desc: Returns an address by its identifier.
+        charIndex:
+          start: 15
+          end: 52
+    implicitArgs: null
+    explicitArgs:
+      - name: id
+        type: ''
+        desc: The id
+        charIndex:
+          start: 218
+          end: 224
+    returns: null
+    raises: null
+    charIndex:
+      start: 5640
+      end: 5939
+- attributeName: namespace PoolAddressesProvider
+  functionName:
+    name: set_address_as_proxy
+    charIndex:
+      start: 6737
+      end: 6757
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: id
+        type: felt
+      - name: new_implementation
+        type: felt
+      - name: salt
+        type: felt
+    returns: null
+  functionComment:
+    desc:
+      - name: ''
+        type: ''
+        desc: >-
+          General function to update the implementation of a proxy registered
+          with
+
+          certain `id`. If there is no proxy registered, it will instantiate one
+          and
+
+          set as implementation the `new_implementation`.
+        charIndex:
+          start: 15
+          end: 224
+    implicitArgs: null
+    explicitArgs:
+      - name: id
+        type: ''
+        desc: The id
+        charIndex:
+          start: 400
+          end: 406
+      - name: salt
+        type: ''
+        desc: random number required to deploy a proxy
+        charIndex:
+          start: 426
+          end: 466
+      - name: new_implementation
+        type: ''
+        desc: The hash of the new implementation
+        charIndex:
+          start: 500
+          end: 534
+    returns: null
+    raises: null
+    charIndex:
+      start: 6193
+      end: 6727
+- attributeName: namespace PoolAddressesProvider
+  functionName:
+    name: set_address
+    charIndex:
+      start: 7504
+      end: 7515
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: id
+        type: felt
+      - name: new_address
+        type: felt
+    returns: null
+  functionComment:
+    desc:
+      - name: ''
+        type: ''
+        desc: >-
+          Sets an address for an id replacing the address saved in the addresses
+          map.
+        charIndex:
+          start: 15
+          end: 90
+    implicitArgs: null
+    explicitArgs:
+      - name: id
+        type: ''
+        desc: The id
+        charIndex:
+          start: 192
+          end: 198
+      - name: new_address
+        type: ''
+        desc: The address to set
+        charIndex:
+          start: 225
+          end: 243
+    returns: null
+    raises: null
+    charIndex:
+      start: 7251
+      end: 7494
+- attributeName: namespace PoolAddressesProvider
+  functionName:
+    name: get_pool
+    charIndex:
+      start: 7979
+      end: 7987
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs: null
+    returns:
+      - name: pool
+        type: felt
+  functionComment:
+    desc:
+      - name: ''
+        type: ''
+        desc: Returns the address of the Pool proxy.
+        charIndex:
+          start: 15
+          end: 53
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 7878
+      end: 7969
+- attributeName: namespace PoolAddressesProvider
+  functionName:
+    name: set_pool_impl
+    charIndex:
+      start: 8473
+      end: 8486
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: new_pool_impl
+        type: felt
+      - name: salt
+        type: felt
+    returns: null
+  functionComment:
+    desc:
+      - name: ''
+        type: ''
+        desc: >-
+          Updates the implementation of the Pool, or creates a proxy
+
+          setting the new `pool` implementation when the function is called for
+          the first time.
+        charIndex:
+          start: 15
+          end: 166
+    implicitArgs: null
+    explicitArgs:
+      - name: new_pool_impl
+        type: ''
+        desc: The new Pool implementation
+        charIndex:
+          start: 195
+          end: 222
+      - name: salt
+        type: ''
+        desc: random number required to deploy a proxy
+        charIndex:
+          start: 242
+          end: 282
+    returns: null
+    raises: null
+    charIndex:
+      start: 8181
+      end: 8463
+- attributeName: namespace PoolAddressesProvider
+  functionName:
+    name: get_pool_configurator
+    charIndex:
+      start: 8987
+      end: 9008
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: ''
+        type: ''
+    returns:
+      - name: pool_configurator
+        type: felt
+  functionComment:
+    desc:
+      - name: ''
+        type: ''
+        desc: Returns the address of the PoolConfigurator proxy.
+        charIndex:
+          start: 15
+          end: 65
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 8862
+      end: 8977
+- attributeName: namespace PoolAddressesProvider
+  functionName:
+    name: set_pool_configurator_impl
+    charIndex:
+      start: 9564
+      end: 9590
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: new_pool_configurator_impl
+        type: felt
+      - name: salt
+        type: felt
+    returns: null
+  functionComment:
+    desc:
+      - name: ''
+        type: ''
+        desc: >-
+          Updates the implementation of the PoolConfigurator, or creates a proxy
+
+          setting the new `PoolConfigurator` implementation when the function is
+          called for the first time.
+        charIndex:
+          start: 15
+          end: 190
+    implicitArgs: null
+    explicitArgs:
+      - name: new_pool_configurator_impl
+        type: ''
+        desc: The new PoolConfigurator implementation
+        charIndex:
+          start: 232
+          end: 271
+      - name: salt
+        type: ''
+        desc: random number required to deploy a proxy
+        charIndex:
+          start: 291
+          end: 331
+    returns: null
+    raises: null
+    charIndex:
+      start: 9223
+      end: 9554
+- attributeName: namespace PoolAddressesProvider
+  functionName:
+    name: get_price_oracle
+    charIndex:
+      start: 10154
+      end: 10170
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs: null
+    returns:
+      - name: price_oracle
+        type: felt
+  functionComment:
+    desc:
+      - name: ''
+        type: ''
+        desc: Returns the address of the price oracle.
+        charIndex:
+          start: 15
+          end: 55
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 10043
+      end: 10144
+- attributeName: namespace PoolAddressesProvider
+  functionName:
+    name: set_price_oracle
+    charIndex:
+      start: 10511
+      end: 10527
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: new_price_oracle
+        type: felt
+    returns: null
+  functionComment:
+    desc:
+      - name: ''
+        type: ''
+        desc: Updates the address of the price oracle.
+        charIndex:
+          start: 15
+          end: 55
+    implicitArgs: null
+    explicitArgs:
+      - name: new_price_oracle
+        type: ''
+        desc: The address of the new PriceOracle
+        charIndex:
+          start: 87
+          end: 121
+    returns: null
+    raises: null
+    charIndex:
+      start: 10380
+      end: 10501
+- attributeName: namespace PoolAddressesProvider
+  functionName:
+    name: get_ACL_manager
+    charIndex:
+      start: 11028
+      end: 11043
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs: null
+    returns:
+      - name: ACL_manager
+        type: felt
+  functionComment:
+    desc:
+      - name: ''
+        type: ''
+        desc: Returns the address of the ACL manager.
+        charIndex:
+          start: 15
+          end: 54
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 10919
+      end: 11018
+- attributeName: namespace PoolAddressesProvider
+  functionName:
+    name: set_ACL_manager
+    charIndex:
+      start: 11379
+      end: 11394
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: new_acl_manager
+        type: felt
+    returns: null
+  functionComment:
+    desc:
+      - name: ''
+        type: ''
+        desc: Updates the address of the ACL manager.
+        charIndex:
+          start: 15
+          end: 54
+    implicitArgs: null
+    explicitArgs:
+      - name: new_acl_manager
+        type: ''
+        desc: The address of the new ACLManager
+        charIndex:
+          start: 85
+          end: 118
+    returns: null
+    raises: null
+    charIndex:
+      start: 11251
+      end: 11369
+- attributeName: namespace PoolAddressesProvider
+  functionName:
+    name: get_ACL_admin
+    charIndex:
+      start: 11886
+      end: 11899
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs: null
+    returns:
+      - name: ACL_admin
+        type: felt
+  functionComment:
+    desc:
+      - name: ''
+        type: ''
+        desc: Returns the address of the ACL admin.
+        charIndex:
+          start: 15
+          end: 52
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 11780
+      end: 11876
+- attributeName: namespace PoolAddressesProvider
+  functionName:
+    name: set_ACL_admin
+    charIndex:
+      start: 12226
+      end: 12239
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: new_acl_admin
+        type: felt
+    returns: null
+  functionComment:
+    desc:
+      - name: ''
+        type: ''
+        desc: Updates the address of the ACL admin.
+        charIndex:
+          start: 15
+          end: 52
+    implicitArgs: null
+    explicitArgs:
+      - name: new_acl_admin
+        type: ''
+        desc: The address of the new ACL admin
+        charIndex:
+          start: 81
+          end: 113
+    returns: null
+    raises: null
+    charIndex:
+      start: 12103
+      end: 12216
+- attributeName: namespace PoolAddressesProvider
+  functionName:
+    name: get_price_oracle_sentinel
+    charIndex:
+      start: 12741
+      end: 12766
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: ''
+        type: ''
+    returns:
+      - name: price_oracle_sentinel
+        type: felt
+  functionComment:
+    desc:
+      - name: ''
+        type: ''
+        desc: Returns the address of the price oracle sentinel.
+        charIndex:
+          start: 15
+          end: 64
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 12613
+      end: 12731
+- attributeName: namespace PoolAddressesProvider
+  functionName:
+    name: set_price_oracle_sentinel
+    charIndex:
+      start: 13146
+      end: 13171
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: new_price_oracle_sentinel
+        type: felt
+    returns: null
+  functionComment:
+    desc:
+      - name: ''
+        type: ''
+        desc: Updates the address of the price oracle sentinel.
+        charIndex:
+          start: 15
+          end: 64
+    implicitArgs: null
+    explicitArgs:
+      - name: new_price_oracle_sentinel
+        type: ''
+        desc: The address of the new PriceOracleSentinel
+        charIndex:
+          start: 105
+          end: 147
+    returns: null
+    raises: null
+    charIndex:
+      start: 12989
+      end: 13136
+- attributeName: namespace PoolAddressesProvider
+  functionName:
+    name: get_pool_data_provider
+    charIndex:
+      start: 13729
+      end: 13751
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: ''
+        type: ''
+    returns:
+      - name: pool_data_provider
+        type: felt
+  functionComment:
+    desc:
+      - name: ''
+        type: ''
+        desc: Returns the address of the data provider.
+        charIndex:
+          start: 15
+          end: 56
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 13616
+      end: 13719
+- attributeName: namespace PoolAddressesProvider
+  functionName:
+    name: set_pool_data_provider
+    charIndex:
+      start: 14097
+      end: 14119
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: new_data_provider
+        type: felt
+    returns: null
+  functionComment:
+    desc:
+      - name: ''
+        type: ''
+        desc: Updates the address of the data provider.
+        charIndex:
+          start: 15
+          end: 56
+    implicitArgs: null
+    explicitArgs:
+      - name: new_data_provider
+        type: ''
+        desc: The address of the new DataProvider
+        charIndex:
+          start: 89
+          end: 124
+    returns: null
+    raises: null
+    charIndex:
+      start: 13963
+      end: 14087

@@ -1,0 +1,694 @@
+- attributeName: namespace SafeCmp
+  functionName:
+    name: is_le_unsigned
+    charIndex:
+      start: 1863
+      end: 1877
+  functionSignature:
+    implicitArgs:
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: a
+        type: felt
+      - name: b
+        type: felt
+    returns:
+      - name: felt
+        type: ''
+  functionComment:
+    desc:
+      - name: ''
+        type: ''
+        desc: Checks if the a <= b. Interprets a, b in range [0, P)
+        charIndex:
+          start: 15
+          end: 68
+    implicitArgs: null
+    explicitArgs:
+      - name: a
+        type: ''
+        desc: Unsigned felt integer
+        charIndex:
+          start: 85
+          end: 106
+      - name: b
+        type: ''
+        desc: Unsigned felt integer
+        charIndex:
+          start: 123
+          end: 144
+    returns:
+      - name: ''
+        type: ''
+        desc: res Bool felt indicating if a <= b
+        charIndex:
+          start: 161
+          end: 195
+    raises: null
+    charIndex:
+      start: 1658
+      end: 1853
+- attributeName: namespace SafeCmp
+  functionName:
+    name: is_lt_unsigned
+    charIndex:
+      start: 2166
+      end: 2180
+  functionSignature:
+    implicitArgs:
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: a
+        type: felt
+      - name: b
+        type: felt
+    returns:
+      - name: felt
+        type: ''
+  functionComment:
+    desc:
+      - name: ''
+        type: ''
+        desc: Checks if the a < b. Interprets a, b in range [0, P)
+        charIndex:
+          start: 15
+          end: 67
+    implicitArgs: null
+    explicitArgs:
+      - name: a
+        type: ''
+        desc: Unsigned felt integer
+        charIndex:
+          start: 84
+          end: 105
+      - name: b
+        type: ''
+        desc: Unsigned felt integer
+        charIndex:
+          start: 122
+          end: 143
+    returns:
+      - name: ''
+        type: ''
+        desc: res Bool felt indicating if a < b
+        charIndex:
+          start: 160
+          end: 193
+    raises: null
+    charIndex:
+      start: 1963
+      end: 2156
+- attributeName: namespace SafeCmp
+  functionName:
+    name: is_in_range_unsigned
+    charIndex:
+      start: 2642
+      end: 2662
+  functionSignature:
+    implicitArgs:
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: value
+        type: felt
+      - name: low
+        type: felt
+      - name: high
+        type: felt
+    returns:
+      - name: felt
+        type: ''
+  functionComment:
+    desc:
+      - name: ''
+        type: ''
+        desc: >-
+          Checks if the vale is in range [low, high). Interprets value, low,
+          high in range [0, P)
+        charIndex:
+          start: 15
+          end: 102
+    implicitArgs: null
+    explicitArgs:
+      - name: value
+        type: ''
+        desc: Unsigned felt integer, checked if is in range
+        charIndex:
+          start: 123
+          end: 168
+      - name: low
+        type: ''
+        desc: Unsigned felt integer, lower bound of the range
+        charIndex:
+          start: 187
+          end: 234
+      - name: high
+        type: ''
+        desc: Unsigned felt integer, upper bound of the range
+        charIndex:
+          start: 254
+          end: 301
+    returns:
+      - name: ''
+        type: ''
+        desc: res Bool felt indicating if low <= value < high
+        charIndex:
+          start: 318
+          end: 365
+    raises: null
+    charIndex:
+      start: 2267
+      end: 2632
+- attributeName: namespace SafeCmp
+  functionName:
+    name: assert_le_unsigned
+    charIndex:
+      start: 3234
+      end: 3252
+  functionSignature:
+    implicitArgs:
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: a
+        type: felt
+      - name: b
+        type: felt
+    returns: null
+  functionComment:
+    desc:
+      - name: ''
+        type: ''
+        desc: Asserts that a <= b. Interprets a, b in range [0, P)
+        charIndex:
+          start: 15
+          end: 67
+    implicitArgs: null
+    explicitArgs:
+      - name: a
+        type: ''
+        desc: Unsigned felt integer
+        charIndex:
+          start: 84
+          end: 105
+      - name: b
+        type: ''
+        desc: Unsigned felt integer
+        charIndex:
+          start: 122
+          end: 143
+    returns: null
+    raises: null
+    charIndex:
+      start: 3081
+      end: 3224
+- attributeName: namespace SafeCmp
+  functionName:
+    name: assert_lt_unsigned
+    charIndex:
+      start: 3498
+      end: 3516
+  functionSignature:
+    implicitArgs:
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: a
+        type: felt
+      - name: b
+        type: felt
+    returns: null
+  functionComment:
+    desc:
+      - name: ''
+        type: ''
+        desc: Asserts that a < b. Interprets a, b in range [0, P)
+        charIndex:
+          start: 15
+          end: 66
+    implicitArgs: null
+    explicitArgs:
+      - name: a
+        type: ''
+        desc: Unsigned felt integer
+        charIndex:
+          start: 83
+          end: 104
+      - name: b
+        type: ''
+        desc: Unsigned felt integer
+        charIndex:
+          start: 121
+          end: 142
+    returns: null
+    raises: null
+    charIndex:
+      start: 3346
+      end: 3488
+- attributeName: namespace SafeCmp
+  functionName:
+    name: assert_in_range_unsigned
+    charIndex:
+      start: 3925
+      end: 3949
+  functionSignature:
+    implicitArgs:
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: value
+        type: felt
+      - name: low
+        type: felt
+      - name: high
+        type: felt
+    returns: null
+  functionComment:
+    desc:
+      - name: ''
+        type: ''
+        desc: >-
+          Asserts that the value is in range [low, high). Interprets value, low,
+          high in range [0, P)
+        charIndex:
+          start: 15
+          end: 106
+    implicitArgs: null
+    explicitArgs:
+      - name: value
+        type: ''
+        desc: Unsigned felt integer, checked if is in range
+        charIndex:
+          start: 127
+          end: 172
+      - name: low
+        type: ''
+        desc: Unsigned felt integer, lower bound of the range
+        charIndex:
+          start: 191
+          end: 238
+      - name: high
+        type: ''
+        desc: Unsigned felt integer, upper bound of the range
+        charIndex:
+          start: 258
+          end: 305
+    returns: null
+    raises: null
+    charIndex:
+      start: 3610
+      end: 3915
+- attributeName: namespace SafeCmp
+  functionName:
+    name: is_nn_signed
+    charIndex:
+      start: 4817
+      end: 4829
+  functionSignature:
+    implicitArgs:
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: value
+        type: felt
+    returns:
+      - name: felt
+        type: ''
+  functionComment:
+    desc:
+      - name: ''
+        type: ''
+        desc: >-
+          Checks if the value is non-negative integer, i.e. 0 <= value <
+          floor(P/2) + 1. Interprets a in range [floor(-P/2), floor(P/2)]
+        charIndex:
+          start: 15
+          end: 141
+    implicitArgs: null
+    explicitArgs:
+      - name: a
+        type: ''
+        desc: Signed felt integer
+        charIndex:
+          start: 285
+          end: 304
+    returns:
+      - name: ''
+        type: ''
+        desc: >-
+          res Bool felt indicating if 0 <= value < floor(P/2) + 1 (Recall :
+          floor(P/2) = (P-1)/2)
+        charIndex:
+          start: 321
+          end: 408
+    raises: null
+    charIndex:
+      start: 4399
+      end: 4807
+- attributeName: namespace SafeCmp
+  functionName:
+    name: is_le_signed
+    charIndex:
+      start: 5345
+      end: 5357
+  functionSignature:
+    implicitArgs:
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: a
+        type: felt
+      - name: b
+        type: felt
+    returns:
+      - name: felt
+        type: ''
+  functionComment:
+    desc:
+      - name: ''
+        type: ''
+        desc: >-
+          Checks if the a <= b. Interprets a, b in range [floor(-P/2),
+          floor(P/2)] (Recall : floor(P/2) = (P-1)/2)
+        charIndex:
+          start: 15
+          end: 119
+    implicitArgs: null
+    explicitArgs:
+      - name: a
+        type: ''
+        desc: Signed felt integer
+        charIndex:
+          start: 300
+          end: 319
+      - name: b
+        type: ''
+        desc: Signed felt integer
+        charIndex:
+          start: 336
+          end: 355
+    returns:
+      - name: ''
+        type: ''
+        desc: res Bool felt indicating if a <= b
+        charIndex:
+          start: 372
+          end: 406
+    raises: null
+    charIndex:
+      start: 4929
+      end: 5335
+- attributeName: namespace SafeCmp
+  functionName:
+    name: is_lt_signed
+    charIndex:
+      start: 5858
+      end: 5870
+  functionSignature:
+    implicitArgs:
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: a
+        type: felt
+      - name: b
+        type: felt
+    returns:
+      - name: felt
+        type: ''
+  functionComment:
+    desc:
+      - name: ''
+        type: ''
+        desc: >-
+          Checks if the a < b. Interprets a, b in range [floor(-P/2),
+          floor(P/2)]
+        charIndex:
+          start: 15
+          end: 86
+    implicitArgs: null
+    explicitArgs:
+      - name: a
+        type: ''
+        desc: Signed felt integer
+        charIndex:
+          start: 264
+          end: 283
+      - name: b
+        type: ''
+        desc: Signed felt integer
+        charIndex:
+          start: 300
+          end: 319
+    returns:
+      - name: ''
+        type: ''
+        desc: res Bool felt indicating if a < b
+        charIndex:
+          start: 336
+          end: 369
+    raises: null
+    charIndex:
+      start: 5479
+      end: 5848
+- attributeName: namespace SafeCmp
+  functionName:
+    name: is_in_range_signed
+    charIndex:
+      start: 6535
+      end: 6553
+  functionSignature:
+    implicitArgs:
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: value
+        type: felt
+      - name: low
+        type: felt
+      - name: high
+        type: felt
+    returns:
+      - name: felt
+        type: ''
+  functionComment:
+    desc:
+      - name: ''
+        type: ''
+        desc: >-
+          Checks if the [low, high). Interprets value, low, high in range
+          [floor(-P/2), floor(P/2)]
+        charIndex:
+          start: 15
+          end: 104
+    implicitArgs: null
+    explicitArgs:
+      - name: value
+        type: ''
+        desc: Signed felt integer, checked if is in range
+        charIndex:
+          start: 286
+          end: 329
+      - name: low
+        type: ''
+        desc: Signed felt integer, lower bound of the range
+        charIndex:
+          start: 348
+          end: 393
+      - name: high
+        type: ''
+        desc: Signed felt integer, upper bound of the range
+        charIndex:
+          start: 413
+          end: 458
+    returns:
+      - name: ''
+        type: ''
+        desc: res Bool felt indicating if value is in [low, high) range
+        charIndex:
+          start: 475
+          end: 532
+    raises: null
+    charIndex:
+      start: 5993
+      end: 6525
+- attributeName: namespace SafeCmp
+  functionName:
+    name: assert_nn_signed
+    charIndex:
+      start: 7060
+      end: 7076
+  functionSignature:
+    implicitArgs:
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: value
+        type: felt
+    returns: null
+  functionComment:
+    desc:
+      - name: ''
+        type: ''
+        desc: >-
+          Asserts that a is non-negative integer, i.e. 0 <= a < floor(P/2) + 1.
+          Interprets a in range [floor(-P/2), floor(P/2)]
+        charIndex:
+          start: 15
+          end: 132
+    implicitArgs: null
+    explicitArgs:
+      - name: a
+        type: ''
+        desc: Signed felt integer
+        charIndex:
+          start: 276
+          end: 295
+    returns: null
+    raises: null
+    charIndex:
+      start: 6755
+      end: 7050
+- attributeName: namespace SafeCmp
+  functionName:
+    name: assert_le_signed
+    charIndex:
+      start: 7512
+      end: 7528
+  functionSignature:
+    implicitArgs:
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: a
+        type: felt
+      - name: b
+        type: felt
+    returns: null
+  functionComment:
+    desc:
+      - name: ''
+        type: ''
+        desc: >-
+          Asserts that a <= b. Interprets a, b in range [floor(-P/2),
+          floor(P/2)]
+        charIndex:
+          start: 15
+          end: 86
+    implicitArgs: null
+    explicitArgs:
+      - name: a
+        type: ''
+        desc: Signed felt integer
+        charIndex:
+          start: 264
+          end: 283
+      - name: b
+        type: ''
+        desc: Signed felt integer
+        charIndex:
+          start: 300
+          end: 319
+    returns: null
+    raises: null
+    charIndex:
+      start: 7183
+      end: 7502
+- attributeName: namespace SafeCmp
+  functionName:
+    name: assert_lt_signed
+    charIndex:
+      start: 7986
+      end: 8002
+  functionSignature:
+    implicitArgs:
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: a
+        type: felt
+      - name: b
+        type: felt
+    returns: null
+  functionComment:
+    desc:
+      - name: ''
+        type: ''
+        desc: Asserts that a < b. Interprets a, b in range [floor(-P/2), floor(P/2)]
+        charIndex:
+          start: 15
+          end: 85
+    implicitArgs: null
+    explicitArgs:
+      - name: a
+        type: ''
+        desc: Signed felt integer
+        charIndex:
+          start: 263
+          end: 282
+      - name: b
+        type: ''
+        desc: Signed felt integer
+        charIndex:
+          start: 299
+          end: 318
+    returns: null
+    raises: null
+    charIndex:
+      start: 7658
+      end: 7976
+- attributeName: namespace SafeCmp
+  functionName:
+    name: assert_in_range_signed
+    charIndex:
+      start: 8615
+      end: 8637
+  functionSignature:
+    implicitArgs:
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: value
+        type: felt
+      - name: low
+        type: felt
+      - name: high
+        type: felt
+    returns: null
+  functionComment:
+    desc:
+      - name: ''
+        type: ''
+        desc: >-
+          Asserts that the value is in [low, high). Interprets value, low, high
+          in range [floor(-P/2), floor(P/2)]
+        charIndex:
+          start: 15
+          end: 119
+    implicitArgs: null
+    explicitArgs:
+      - name: value
+        type: ''
+        desc: Signed felt integer, checked if is in range
+        charIndex:
+          start: 301
+          end: 344
+      - name: low
+        type: ''
+        desc: Signed felt integer, lower bound of the range
+        charIndex:
+          start: 363
+          end: 408
+      - name: high
+        type: ''
+        desc: Signed felt integer, upper bound of the range
+        charIndex:
+          start: 428
+          end: 473
+    returns: null
+    raises: null
+    charIndex:
+      start: 8132
+      end: 8605

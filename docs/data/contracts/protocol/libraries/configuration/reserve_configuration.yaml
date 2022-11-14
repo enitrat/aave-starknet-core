@@ -1,0 +1,1449 @@
+- attributeName: namespace ReserveConfiguration
+  functionName:
+    name: set_ltv
+    charIndex:
+      start: 1243
+      end: 1250
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: reserve_asset
+        type: felt
+      - name: value
+        type: felt
+    returns: null
+  functionComment:
+    desc:
+      - name: ''
+        type: ''
+        desc: Sets the Loan to Value of the reserve
+        charIndex:
+          start: 15
+          end: 52
+    implicitArgs: null
+    explicitArgs:
+      - name: reserve_asset
+        type: ''
+        desc: underlying asset of the reserve
+        charIndex:
+          start: 81
+          end: 112
+      - name: value
+        type: ''
+        desc: The new ltv
+        charIndex:
+          start: 133
+          end: 144
+    returns: null
+    raises: null
+    charIndex:
+      start: 1089
+      end: 1233
+- attributeName: namespace ReserveConfiguration
+  functionName:
+    name: get_ltv
+    charIndex:
+      start: 2152
+      end: 2159
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: reserve_asset
+        type: felt
+    returns:
+      - name: value
+        type: felt
+  functionComment:
+    desc:
+      - name: ''
+        type: ''
+        desc: Gets the Loan to Value of the reserve
+        charIndex:
+          start: 15
+          end: 52
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 2057
+      end: 2142
+- attributeName: namespace ReserveConfiguration
+  functionName:
+    name: set_liquidation_threshold
+    charIndex:
+      start: 2567
+      end: 2592
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: reserve_asset
+        type: felt
+      - name: value
+        type: felt
+    returns: null
+  functionComment:
+    desc:
+      - name: ''
+        type: ''
+        desc: Sets the liquidation threshold of the reserve
+        charIndex:
+          start: 15
+          end: 60
+    implicitArgs: null
+    explicitArgs:
+      - name: value
+        type: ''
+        desc: The new liquidation threshold
+        charIndex:
+          start: 81
+          end: 110
+    returns: null
+    raises: null
+    charIndex:
+      start: 2447
+      end: 2557
+- attributeName: namespace ReserveConfiguration
+  functionName:
+    name: get_liquidation_threshold
+    charIndex:
+      start: 3557
+      end: 3582
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: reserve_asset
+        type: felt
+    returns:
+      - name: value
+        type: felt
+  functionComment:
+    desc:
+      - name: ''
+        type: ''
+        desc: Gets the liquidation threshold of the reserve
+        charIndex:
+          start: 15
+          end: 60
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 3446
+      end: 3547
+- attributeName: namespace ReserveConfiguration
+  functionName:
+    name: set_liquidation_bonus
+    charIndex:
+      start: 4000
+      end: 4021
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: reserve_asset
+        type: felt
+      - name: value
+        type: felt
+    returns: null
+  functionComment:
+    desc:
+      - name: ''
+        type: ''
+        desc: Sets the liquidation bonus of the reserve
+        charIndex:
+          start: 15
+          end: 56
+    implicitArgs: null
+    explicitArgs:
+      - name: value
+        type: ''
+        desc: The new liquidation bonus
+        charIndex:
+          start: 77
+          end: 102
+    returns: null
+    raises: null
+    charIndex:
+      start: 3888
+      end: 3990
+- attributeName: namespace ReserveConfiguration
+  functionName:
+    name: get_liquidation_bonus
+    charIndex:
+      start: 4966
+      end: 4987
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: reserve_asset
+        type: felt
+    returns:
+      - name: value
+        type: felt
+  functionComment:
+    desc:
+      - name: ''
+        type: ''
+        desc: Gets the liquidation bonus of the reserve
+        charIndex:
+          start: 15
+          end: 56
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 4863
+      end: 4956
+- attributeName: namespace ReserveConfiguration
+  functionName:
+    name: set_decimals
+    charIndex:
+      start: 5403
+      end: 5415
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: reserve_asset
+        type: felt
+      - name: value
+        type: felt
+    returns: null
+  functionComment:
+    desc:
+      - name: ''
+        type: ''
+        desc: Sets the decimals of the underlying asset of the reserve
+        charIndex:
+          start: 15
+          end: 71
+    implicitArgs: null
+    explicitArgs:
+      - name: value
+        type: ''
+        desc: The decimals
+        charIndex:
+          start: 92
+          end: 104
+    returns: null
+    raises: null
+    charIndex:
+      start: 5289
+      end: 5393
+- attributeName: namespace ReserveConfiguration
+  functionName:
+    name: get_decimals
+    charIndex:
+      start: 6360
+      end: 6372
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: reserve_asset
+        type: felt
+    returns:
+      - name: value
+        type: felt
+  functionComment:
+    desc:
+      - name: ''
+        type: ''
+        desc: Gets the decimals of the underlying asset of the reserve
+        charIndex:
+          start: 15
+          end: 71
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 6238
+      end: 6350
+- attributeName: namespace ReserveConfiguration
+  functionName:
+    name: set_active
+    charIndex:
+      start: 6838
+      end: 6848
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: reserve_asset
+        type: felt
+      - name: active
+        type: felt
+    returns: null
+  functionComment:
+    desc:
+      - name: ''
+        type: ''
+        desc: Sets the active state of the reserve
+        charIndex:
+          start: 15
+          end: 51
+    implicitArgs: null
+    explicitArgs:
+      - name: active
+        type: ''
+        desc: The active state
+        charIndex:
+          start: 73
+          end: 89
+    returns: null
+    raises: null
+    charIndex:
+      start: 6739
+      end: 6828
+- attributeName: namespace ReserveConfiguration
+  functionName:
+    name: get_active
+    charIndex:
+      start: 7641
+      end: 7651
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: reserve_asset
+        type: felt
+    returns:
+      - name: value
+        type: felt
+  functionComment:
+    desc:
+      - name: ''
+        type: ''
+        desc: Gets the active state of the reserve
+        charIndex:
+          start: 15
+          end: 51
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 7548
+      end: 7631
+- attributeName: namespace ReserveConfiguration
+  functionName:
+    name: set_frozen
+    charIndex:
+      start: 8129
+      end: 8139
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: reserve_asset
+        type: felt
+      - name: frozen
+        type: felt
+    returns: null
+  functionComment:
+    desc:
+      - name: ''
+        type: ''
+        desc: Sets the frozen state of the reserve
+        charIndex:
+          start: 15
+          end: 51
+    implicitArgs: null
+    explicitArgs:
+      - name: frozen
+        type: ''
+        desc: The frozen state
+        charIndex:
+          start: 73
+          end: 89
+    returns: null
+    raises: null
+    charIndex:
+      start: 8030
+      end: 8119
+- attributeName: namespace ReserveConfiguration
+  functionName:
+    name: get_frozen
+    charIndex:
+      start: 8932
+      end: 8942
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: reserve_asset
+        type: felt
+    returns:
+      - name: value
+        type: felt
+  functionComment:
+    desc:
+      - name: ''
+        type: ''
+        desc: Gets the frozen state of the reserve
+        charIndex:
+          start: 15
+          end: 51
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 8839
+      end: 8922
+- attributeName: namespace ReserveConfiguration
+  functionName:
+    name: set_paused
+    charIndex:
+      start: 9339
+      end: 9349
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: reserve_asset
+        type: felt
+      - name: paused
+        type: felt
+    returns: null
+  functionComment:
+    desc:
+      - name: ''
+        type: ''
+        desc: Sets the paused state of the reserve
+        charIndex:
+          start: 15
+          end: 51
+    implicitArgs: null
+    explicitArgs:
+      - name: value
+        type: ''
+        desc: The paused state
+        charIndex:
+          start: 72
+          end: 88
+    returns: null
+    raises: null
+    charIndex:
+      start: 9241
+      end: 9329
+- attributeName: namespace ReserveConfiguration
+  functionName:
+    name: get_paused
+    charIndex:
+      start: 10140
+      end: 10150
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: reserve_asset
+        type: felt
+    returns:
+      - name: value
+        type: felt
+  functionComment:
+    desc:
+      - name: ''
+        type: ''
+        desc: Gets the paused state of the reserve
+        charIndex:
+          start: 15
+          end: 51
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 10047
+      end: 10130
+- attributeName: namespace ReserveConfiguration
+  functionName:
+    name: set_borrowable_in_isolation
+    charIndex:
+      start: 10948
+      end: 10975
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: reserve_asset
+        type: felt
+      - name: borrowable
+        type: felt
+    returns: null
+  functionComment:
+    desc:
+      - name: ''
+        type: ''
+        desc: Sets the borrowable in isolation flag for the reserve
+        charIndex:
+          start: 15
+          end: 68
+    implicitArgs: null
+    explicitArgs:
+      - name: borrowable
+        type: ''
+        desc: True if the asset is borrowable
+        charIndex:
+          start: 460
+          end: 491
+    returns: null
+    raises: null
+    charIndex:
+      start: 10447
+      end: 10938
+- attributeName: namespace ReserveConfiguration
+  functionName:
+    name: get_borrowable_in_isolation
+    charIndex:
+      start: 12197
+      end: 12224
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: reserve_asset
+        type: felt
+    returns:
+      - name: value
+        type: felt
+  functionComment:
+    desc:
+      - name: ''
+        type: ''
+        desc: Gets the borrowable in isolation flag for the reserve.
+        charIndex:
+          start: 15
+          end: 69
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 11696
+      end: 12187
+- attributeName: namespace ReserveConfiguration
+  functionName:
+    name: set_siloed_borrowing
+    charIndex:
+      start: 12770
+      end: 12790
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: reserve_asset
+        type: felt
+      - name: siloed
+        type: felt
+    returns: null
+  functionComment:
+    desc:
+      - name: ''
+        type: ''
+        desc: Sets the siloed borrowing flag for the reserve.
+        charIndex:
+          start: 15
+          end: 62
+    implicitArgs: null
+    explicitArgs:
+      - name: siloed
+        type: ''
+        desc: True if the asset is siloed
+        charIndex:
+          start: 201
+          end: 228
+    returns: null
+    raises: null
+    charIndex:
+      start: 12532
+      end: 12760
+- attributeName: namespace ReserveConfiguration
+  functionName:
+    name: get_siloed_borrowing
+    charIndex:
+      start: 13722
+      end: 13742
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: reserve_asset
+        type: felt
+    returns:
+      - name: value
+        type: felt
+  functionComment:
+    desc:
+      - name: ''
+        type: ''
+        desc: Gets the siloed borrowing flag for the reserve.
+        charIndex:
+          start: 15
+          end: 62
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 13492
+      end: 13712
+- attributeName: namespace ReserveConfiguration
+  functionName:
+    name: set_borrowing_enabled
+    charIndex:
+      start: 14193
+      end: 14214
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: reserve_asset
+        type: felt
+      - name: enabled
+        type: felt
+    returns: null
+  functionComment:
+    desc:
+      - name: ''
+        type: ''
+        desc: Enables or disables borrowing on the reserve
+        charIndex:
+          start: 15
+          end: 59
+    implicitArgs: null
+    explicitArgs:
+      - name: enabled
+        type: ''
+        desc: True if the borrowing needs to be enabled, false otherwise
+        charIndex:
+          start: 82
+          end: 140
+    returns: null
+    raises: null
+    charIndex:
+      start: 14043
+      end: 14183
+- attributeName: namespace ReserveConfiguration
+  functionName:
+    name: get_borrowing_enabled
+    charIndex:
+      start: 15019
+      end: 15040
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: reserve_asset
+        type: felt
+    returns:
+      - name: value
+        type: felt
+  functionComment:
+    desc:
+      - name: ''
+        type: ''
+        desc: Gets the borrowing state of the reserve
+        charIndex:
+          start: 15
+          end: 54
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 14920
+      end: 15009
+- attributeName: namespace ReserveConfiguration
+  functionName:
+    name: set_stable_rate_borrowing_enabled
+    charIndex:
+      start: 15516
+      end: 15549
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: reserve_asset
+        type: felt
+      - name: enabled
+        type: felt
+    returns: null
+  functionComment:
+    desc:
+      - name: ''
+        type: ''
+        desc: Enables or disables stable rate borrowing on the reserve
+        charIndex:
+          start: 15
+          end: 71
+    implicitArgs: null
+    explicitArgs:
+      - name: enabled
+        type: ''
+        desc: True if the stable rate borrowing needs to be enabled, false otherwise
+        charIndex:
+          start: 94
+          end: 164
+    returns: null
+    raises: null
+    charIndex:
+      start: 15342
+      end: 15506
+- attributeName: namespace ReserveConfiguration
+  functionName:
+    name: get_stable_rate_borrowing_enabled
+    charIndex:
+      start: 16390
+      end: 16423
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: reserve_asset
+        type: felt
+    returns:
+      - name: value
+        type: felt
+  functionComment:
+    desc:
+      - name: ''
+        type: ''
+        desc: Gets the stable rate borrowing state of the reserve
+        charIndex:
+          start: 15
+          end: 66
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 16267
+      end: 16380
+- attributeName: namespace ReserveConfiguration
+  functionName:
+    name: set_reserve_factor
+    charIndex:
+      start: 16847
+      end: 16865
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: reserve_asset
+        type: felt
+      - name: value
+        type: felt
+    returns: null
+  functionComment:
+    desc:
+      - name: ''
+        type: ''
+        desc: Sets the reserve factor of the reserve
+        charIndex:
+          start: 15
+          end: 53
+    implicitArgs: null
+    explicitArgs:
+      - name: reserveFactor
+        type: ''
+        desc: The reserve factor
+        charIndex:
+          start: 82
+          end: 100
+    returns: null
+    raises: null
+    charIndex:
+      start: 16737
+      end: 16837
+- attributeName: namespace ReserveConfiguration
+  functionName:
+    name: get_reserve_factor
+    charIndex:
+      start: 17803
+      end: 17821
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: reserve_asset
+        type: felt
+    returns:
+      - name: value
+        type: felt
+  functionComment:
+    desc:
+      - name: ''
+        type: ''
+        desc: Gets the reserve factor of the reserve
+        charIndex:
+          start: 15
+          end: 53
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 17706
+      end: 17793
+- attributeName: namespace ReserveConfiguration
+  functionName:
+    name: set_borrow_cap
+    charIndex:
+      start: 18219
+      end: 18233
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: reserve_asset
+        type: felt
+      - name: value
+        type: felt
+    returns: null
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 0
+      end: 0
+- attributeName: namespace ReserveConfiguration
+  functionName:
+    name: get_borrow_cap
+    charIndex:
+      start: 19152
+      end: 19166
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: reserve_asset
+        type: felt
+    returns:
+      - name: value
+        type: felt
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 0
+      end: 0
+- attributeName: namespace ReserveConfiguration
+  functionName:
+    name: set_supply_cap
+    charIndex:
+      start: 19560
+      end: 19574
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: reserve_asset
+        type: felt
+      - name: value
+        type: felt
+    returns: null
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 0
+      end: 0
+- attributeName: namespace ReserveConfiguration
+  functionName:
+    name: get_supply_cap
+    charIndex:
+      start: 20493
+      end: 20507
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: reserve_asset
+        type: felt
+    returns:
+      - name: value
+        type: felt
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 0
+      end: 0
+- attributeName: namespace ReserveConfiguration
+  functionName:
+    name: set_debt_ceiling
+    charIndex:
+      start: 20941
+      end: 20957
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: reserve_asset
+        type: felt
+      - name: ceiling
+        type: felt
+    returns: null
+  functionComment:
+    desc:
+      - name: ''
+        type: ''
+        desc: Sets the debt ceiling in isolation mode for the asset
+        charIndex:
+          start: 15
+          end: 68
+    implicitArgs: null
+    explicitArgs:
+      - name: ceiling
+        type: ''
+        desc: The maximum debt ceiling for the asset
+        charIndex:
+          start: 91
+          end: 129
+    returns: null
+    raises: null
+    charIndex:
+      start: 20802
+      end: 20931
+- attributeName: namespace ReserveConfiguration
+  functionName:
+    name: get_debt_ceiling
+    charIndex:
+      start: 21954
+      end: 21970
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: reserve_asset
+        type: felt
+    returns:
+      - name: value
+        type: felt
+  functionComment:
+    desc:
+      - name: ''
+        type: ''
+        desc: Gets the debt ceiling for the asset if the asset is in isolation mode
+        charIndex:
+          start: 15
+          end: 84
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 21798
+      end: 21944
+- attributeName: namespace ReserveConfiguration
+  functionName:
+    name: set_liquidation_protocol_fee
+    charIndex:
+      start: 22389
+      end: 22417
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: reserve_asset
+        type: felt
+      - name: value
+        type: felt
+    returns: null
+  functionComment:
+    desc:
+      - name: ''
+        type: ''
+        desc: Sets the liquidation protocol fee of the reserve
+        charIndex:
+          start: 15
+          end: 63
+    implicitArgs: null
+    explicitArgs:
+      - name: value
+        type: ''
+        desc: The liquidation protocol fee
+        charIndex:
+          start: 84
+          end: 112
+    returns: null
+    raises: null
+    charIndex:
+      start: 22267
+      end: 22379
+- attributeName: namespace ReserveConfiguration
+  functionName:
+    name: get_liquidation_protocol_fee
+    charIndex:
+      start: 23387
+      end: 23415
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: reserve_asset
+        type: felt
+    returns:
+      - name: value
+        type: felt
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 23288
+      end: 23377
+- attributeName: namespace ReserveConfiguration
+  functionName:
+    name: set_unbacked_mint_cap
+    charIndex:
+      start: 23832
+      end: 23853
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: reserve_asset
+        type: felt
+      - name: value
+        type: felt
+    returns: null
+  functionComment:
+    desc:
+      - name: ''
+        type: ''
+        desc: Sets the unbacked mint cap of the reserve
+        charIndex:
+          start: 15
+          end: 56
+    implicitArgs: null
+    explicitArgs:
+      - name: value
+        type: ''
+        desc: The unbacked mint cap
+        charIndex:
+          start: 77
+          end: 98
+    returns: null
+    raises: null
+    charIndex:
+      start: 23724
+      end: 23822
+- attributeName: namespace ReserveConfiguration
+  functionName:
+    name: get_unbacked_mint_cap
+    charIndex:
+      start: 24803
+      end: 24824
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: reserve_asset
+        type: felt
+    returns:
+      - name: value
+        type: felt
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 24703
+      end: 24793
+- attributeName: namespace ReserveConfiguration
+  functionName:
+    name: set_e_mode_category
+    charIndex:
+      start: 25256
+      end: 25275
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: reserve_asset
+        type: felt
+      - name: category
+        type: felt
+    returns: null
+  functionComment:
+    desc:
+      - name: ''
+        type: ''
+        desc: Sets the e_mode asset category
+        charIndex:
+          start: 15
+          end: 45
+    implicitArgs: null
+    explicitArgs:
+      - name: category
+        type: ''
+        desc: The asset category when the user selects the e_mode
+        charIndex:
+          start: 69
+          end: 120
+    returns: null
+    raises: null
+    charIndex:
+      start: 25126
+      end: 25246
+- attributeName: namespace ReserveConfiguration
+  functionName:
+    name: get_e_mode_category
+    charIndex:
+      start: 26238
+      end: 26257
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: reserve_asset
+        type: felt
+    returns:
+      - name: value
+        type: felt
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 26137
+      end: 26228
+- attributeName: namespace ReserveConfiguration
+  functionName:
+    name: get_flags
+    charIndex:
+      start: 26906
+      end: 26915
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: reserve_asset
+        type: felt
+    returns:
+      - name: is_active
+        type: felt
+      - name: is_frozen
+        type: felt
+      - name: is_borrowing_enabled
+        type: felt
+      - name: is_stable_rate_borrowing_enabled
+        type: felt
+      - name: is_paused
+        type: felt
+      - name: ''
+        type: ''
+  functionComment:
+    desc:
+      - name: ''
+        type: ''
+        desc: Gets the configuration flags of the reserve
+        charIndex:
+          start: 15
+          end: 58
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 26556
+      end: 26896
+- attributeName: namespace ReserveConfiguration
+  functionName:
+    name: get_params
+    charIndex:
+      start: 28177
+      end: 28187
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: reserve_asset
+        type: felt
+    returns:
+      - name: ltv_value
+        type: felt
+      - name: liquidation_threshold_value
+        type: felt
+      - name: liquidation_bonus_value
+        type: felt
+      - name: decimals_value
+        type: felt
+      - name: reserve_factor_value
+        type: felt
+      - name: e_mode_category_value
+        type: felt
+      - name: ''
+        type: ''
+  functionComment:
+    desc:
+      - name: ''
+        type: ''
+        desc: Gets the configuration parameters of the reserve from storage
+        charIndex:
+          start: 15
+          end: 76
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 27735
+      end: 28167
+- attributeName: namespace ReserveConfiguration
+  functionName:
+    name: get_caps
+    charIndex:
+      start: 29404
+      end: 29412
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: reserve_asset
+        type: felt
+    returns:
+      - name: borrow_cap
+        type: felt
+      - name: supply_cap
+        type: felt
+  functionComment:
+    desc:
+      - name: ''
+        type: ''
+        desc: Gets the caps parameters of the reserve from storage
+        charIndex:
+          start: 15
+          end: 67
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 29216
+      end: 29394

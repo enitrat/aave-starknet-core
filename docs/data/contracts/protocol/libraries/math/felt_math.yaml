@@ -1,0 +1,502 @@
+- attributeName: namespace FeltMath
+  functionName:
+    name: add_unsigned
+    charIndex:
+      start: 1729
+      end: 1741
+  functionSignature:
+    implicitArgs:
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: a
+        type: felt
+      - name: b
+        type: felt
+    returns:
+      - name: res
+        type: felt
+      - name: carry
+        type: felt
+  functionComment:
+    desc:
+      - name: ''
+        type: ''
+        desc: >-
+          Adds two integers, and return output and carry. Interprets a, b in
+          range [0, P)
+        charIndex:
+          start: 15
+          end: 94
+    implicitArgs: null
+    explicitArgs:
+      - name: a
+        type: ''
+        desc: Unsigned felt integer
+        charIndex:
+          start: 111
+          end: 132
+      - name: b
+        type: ''
+        desc: Unsigned felt integer
+        charIndex:
+          start: 149
+          end: 170
+    returns:
+      - name: ''
+        type: ''
+        desc: res Sum of a and b
+        charIndex:
+          start: 187
+          end: 205
+      - name: ''
+        type: ''
+        desc: carry Bool flag indicating if overflow occured
+        charIndex:
+          start: 222
+          end: 268
+    raises: null
+    charIndex:
+      start: 1451
+      end: 1719
+- attributeName: namespace FeltMath
+  functionName:
+    name: sub_unsigned
+    charIndex:
+      start: 2367
+      end: 2379
+  functionSignature:
+    implicitArgs:
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: a
+        type: felt
+      - name: b
+        type: felt
+    returns:
+      - name: res
+        type: felt
+      - name: underflow
+        type: felt
+  functionComment:
+    desc:
+      - name: ''
+        type: ''
+        desc: >-
+          Subtracts two integers, and return output and underflow flag.
+          Interprets a, b in range [0, P)
+        charIndex:
+          start: 15
+          end: 108
+    implicitArgs: null
+    explicitArgs:
+      - name: a
+        type: ''
+        desc: Unsigned felt integer
+        charIndex:
+          start: 125
+          end: 146
+      - name: b
+        type: ''
+        desc: Unsigned felt integer
+        charIndex:
+          start: 163
+          end: 184
+    returns:
+      - name: ''
+        type: ''
+        desc: res Difference between a and b
+        charIndex:
+          start: 201
+          end: 231
+      - name: ''
+        type: ''
+        desc: underflow Bool flag indicating if underflow occured
+        charIndex:
+          start: 248
+          end: 299
+    raises: null
+    charIndex:
+      start: 2058
+      end: 2357
+- attributeName: namespace FeltMath
+  functionName:
+    name: mul_unsigned
+    charIndex:
+      start: 2866
+      end: 2878
+  functionSignature:
+    implicitArgs:
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: a
+        type: felt
+      - name: b
+        type: felt
+    returns:
+      - name: res
+        type: felt
+      - name: overflow
+        type: felt
+  functionComment:
+    desc:
+      - name: ''
+        type: ''
+        desc: >-
+          Multiplies two integers, and return output and overflow flag.
+          Interprets a, b in range [0, P)
+        charIndex:
+          start: 15
+          end: 108
+    implicitArgs: null
+    explicitArgs:
+      - name: a
+        type: ''
+        desc: Unsigned felt integer
+        charIndex:
+          start: 125
+          end: 146
+      - name: b
+        type: ''
+        desc: Unsigned felt integer
+        charIndex:
+          start: 163
+          end: 184
+    returns:
+      - name: ''
+        type: ''
+        desc: res Product of a and b
+        charIndex:
+          start: 201
+          end: 223
+      - name: ''
+        type: ''
+        desc: overflow Bool flag indicating if overflow occured
+        charIndex:
+          start: 240
+          end: 289
+    raises: null
+    charIndex:
+      start: 2567
+      end: 2856
+- attributeName: namespace FeltMath
+  functionName:
+    name: div_unsigned
+    charIndex:
+      start: 3872
+      end: 3884
+  functionSignature:
+    implicitArgs:
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: a
+        type: felt
+      - name: b
+        type: felt
+    returns:
+      - name: q
+        type: felt
+      - name: r
+        type: felt
+  functionComment:
+    desc:
+      - name: ''
+        type: ''
+        desc: >-
+          Divides two felts, and return the quotient and the remainder.
+          Interprets a, b in range [0, P)
+        charIndex:
+          start: 15
+          end: 108
+    implicitArgs: null
+    explicitArgs:
+      - name: a
+        type: ''
+        desc: Unsigned felt integer
+        charIndex:
+          start: 125
+          end: 146
+      - name: b
+        type: ''
+        desc: Unsigned felt integer
+        charIndex:
+          start: 163
+          end: 184
+    returns:
+      - name: ''
+        type: ''
+        desc: q quotient of a divided by b
+        charIndex:
+          start: 201
+          end: 229
+      - name: ''
+        type: ''
+        desc: r remainder of a divided by b
+        charIndex:
+          start: 246
+          end: 275
+    raises: null
+    charIndex:
+      start: 3587
+      end: 3862
+- attributeName: namespace FeltMath
+  functionName:
+    name: pow_unsigned
+    charIndex:
+      start: 4838
+      end: 4850
+  functionSignature:
+    implicitArgs:
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: base
+        type: felt
+      - name: power
+        type: felt
+    returns:
+      - name: res
+        type: felt
+      - name: overflow
+        type: felt
+  functionComment:
+    desc:
+      - name: ''
+        type: ''
+        desc: >-
+          Calculates exponention of an integer, and return output and an
+          overflow flag. Interprets base, power in range [0, P)
+        charIndex:
+          start: 15
+          end: 131
+    implicitArgs: null
+    explicitArgs:
+      - name: base
+        type: ''
+        desc: Unsigned felt integer
+        charIndex:
+          start: 239
+          end: 260
+      - name: power
+        type: ''
+        desc: Unsigned felt integer
+        charIndex:
+          start: 281
+          end: 302
+    returns:
+      - name: ''
+        type: ''
+        desc: res Exponention of base to the power
+        charIndex:
+          start: 319
+          end: 355
+      - name: ''
+        type: ''
+        desc: overflow Bool flag indicating if overflow occured
+        charIndex:
+          start: 372
+          end: 421
+    raises: null
+    charIndex:
+      start: 4407
+      end: 4828
+- attributeName: namespace FeltMath
+  functionName:
+    name: _pow_inner
+    charIndex:
+      start: 5491
+      end: 5501
+  functionSignature:
+    implicitArgs:
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: acc
+        type: felt
+      - name: flag_overflow
+        type: felt
+      - name: base
+        type: felt
+      - name: counter
+        type: felt
+    returns:
+      - name: res
+        type: felt
+      - name: overflow
+        type: felt
+  functionComment:
+    desc:
+      - name: ''
+        type: ''
+        desc: Inner function to pow_unsigned
+        charIndex:
+          start: 15
+          end: 45
+    implicitArgs: null
+    explicitArgs:
+      - name: acc
+        type: ''
+        desc: Accumulated result from the previous recursive calls
+        charIndex:
+          start: 100
+          end: 152
+      - name: flag_overflow
+        type: ''
+        desc: Bool flag indicating if overflow happened
+        charIndex:
+          start: 181
+          end: 222
+      - name: base
+        type: ''
+        desc: Unsigned integer - base of exponantion
+        charIndex:
+          start: 242
+          end: 280
+      - name: power
+        type: ''
+        desc: Unsigned integer - exponent
+        charIndex:
+          start: 301
+          end: 328
+    returns:
+      - name: ''
+        type: ''
+        desc: res Product of acc and base
+        charIndex:
+          start: 345
+          end: 372
+      - name: ''
+        type: ''
+        desc: overflow Bool flag indicating if overflow happened
+        charIndex:
+          start: 389
+          end: 439
+    raises: null
+    charIndex:
+      start: 5042
+      end: 5481
+- attributeName: namespace FeltMath
+  functionName:
+    name: add_signed
+    charIndex:
+      start: 6286
+      end: 6296
+  functionSignature:
+    implicitArgs:
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: a
+        type: felt
+      - name: b
+        type: felt
+    returns:
+      - name: res
+        type: felt
+      - name: carry
+        type: felt
+  functionComment:
+    desc:
+      - name: ''
+        type: ''
+        desc: >-
+          Adds two integers, and return output and carry. Interprets a, b in
+          range [-(P-1)/2, (P-1)/2]
+        charIndex:
+          start: 15
+          end: 107
+    implicitArgs: null
+    explicitArgs:
+      - name: a
+        type: ''
+        desc: Signed felt integer
+        charIndex:
+          start: 124
+          end: 143
+      - name: b
+        type: ''
+        desc: Signed felt integer
+        charIndex:
+          start: 160
+          end: 179
+    returns:
+      - name: ''
+        type: ''
+        desc: res Sum of a and b
+        charIndex:
+          start: 196
+          end: 214
+      - name: ''
+        type: ''
+        desc: carry Bool flag indicating if overflow occured
+        charIndex:
+          start: 231
+          end: 277
+    raises: null
+    charIndex:
+      start: 5999
+      end: 6276
+- attributeName: namespace FeltMath
+  functionName:
+    name: sub_signed
+    charIndex:
+      start: 7246
+      end: 7256
+  functionSignature:
+    implicitArgs:
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: a
+        type: felt
+      - name: b
+        type: felt
+    returns:
+      - name: res
+        type: felt
+      - name: carry
+        type: felt
+  functionComment:
+    desc:
+      - name: ''
+        type: ''
+        desc: >-
+          Subtracts two integers, and return output and underflow flag.
+          Interprets a, b in range [-P/2, P/2]
+        charIndex:
+          start: 15
+          end: 113
+    implicitArgs: null
+    explicitArgs:
+      - name: a
+        type: ''
+        desc: Signed felt integer
+        charIndex:
+          start: 130
+          end: 149
+      - name: b
+        type: ''
+        desc: Signed felt integer
+        charIndex:
+          start: 166
+          end: 185
+    returns:
+      - name: ''
+        type: ''
+        desc: res Difference between a and b
+        charIndex:
+          start: 202
+          end: 232
+      - name: ''
+        type: ''
+        desc: underflow Bool flag indicating if underflow occured
+        charIndex:
+          start: 249
+          end: 300
+    raises: null
+    charIndex:
+      start: 6936
+      end: 7236

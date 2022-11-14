@@ -1,0 +1,701 @@
+- attributeName: event
+  functionName:
+    name: BaseCurrencySet
+    charIndex:
+      start: 1437
+      end: 1452
+  functionSignature:
+    implicitArgs:
+      - name: ''
+        type: ''
+    explicitArgs:
+      - name: base_currency
+        type: felt
+      - name: base_currency_unit
+        type: felt
+    returns: null
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs:
+      - name: base_currency
+        type: ''
+        desc: The base currency of used for price quotes
+        charIndex:
+          start: 71
+          end: 113
+      - name: base_currency_unit
+        type: ''
+        desc: The unit of the base currency
+        charIndex:
+          start: 143
+          end: 172
+    returns: null
+    raises: null
+    charIndex:
+      start: 1252
+      end: 1424
+- attributeName: event
+  functionName:
+    name: AssetSourceUpdated
+    charIndex:
+      start: 1661
+      end: 1679
+  functionSignature:
+    implicitArgs:
+      - name: ''
+        type: ''
+    explicitArgs:
+      - name: asset
+        type: felt
+      - name: ticker
+        type: felt
+    returns: null
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs:
+      - name: asset
+        type: ''
+        desc: The address of the asset
+        charIndex:
+          start: 72
+          end: 96
+      - name: ticker
+        type: ''
+        desc: The price ticker of the asset
+        charIndex:
+          start: 114
+          end: 143
+    returns: null
+    raises: null
+    charIndex:
+      start: 1505
+      end: 1648
+- attributeName: event
+  functionName:
+    name: FallbackOracleUpdated
+    charIndex:
+      start: 1849
+      end: 1870
+  functionSignature:
+    implicitArgs:
+      - name: ''
+        type: ''
+    explicitArgs:
+      - name: fallback_oracle
+        type: felt
+    returns: null
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs:
+      - name: fallback_oracle
+        type: ''
+        desc: The address of the fallback oracle
+        charIndex:
+          start: 90
+          end: 124
+    returns: null
+    raises: null
+    charIndex:
+      start: 1712
+      end: 1836
+- attributeName: storage_var
+  functionName:
+    name: AaveOracle_addresses_provider
+    charIndex:
+      start: 790
+      end: 819
+  functionSignature:
+    implicitArgs:
+      - name: ''
+        type: ''
+    explicitArgs: null
+    returns:
+      - name: addresses_provider
+        type: felt
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 0
+      end: 0
+- attributeName: storage_var
+  functionName:
+    name: AaveOracle_asset_tickers
+    charIndex:
+      start: 875
+      end: 899
+  functionSignature:
+    implicitArgs:
+      - name: ''
+        type: ''
+    explicitArgs:
+      - name: asset
+        type: felt
+    returns:
+      - name: ticker
+        type: felt
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 0
+      end: 0
+- attributeName: storage_var
+  functionName:
+    name: AaveOracle_oracle_address
+    charIndex:
+      start: 954
+      end: 979
+  functionSignature:
+    implicitArgs:
+      - name: ''
+        type: ''
+    explicitArgs: null
+    returns:
+      - name: oracle_address
+        type: felt
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 0
+      end: 0
+- attributeName: storage_var
+  functionName:
+    name: AaveOracle_fallback_oracle
+    charIndex:
+      start: 1031
+      end: 1057
+  functionSignature:
+    implicitArgs:
+      - name: ''
+        type: ''
+    explicitArgs: null
+    returns:
+      - name: fallback_oracle
+        type: felt
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 0
+      end: 0
+- attributeName: storage_var
+  functionName:
+    name: AaveOracle_base_currency
+    charIndex:
+      start: 1110
+      end: 1134
+  functionSignature:
+    implicitArgs:
+      - name: ''
+        type: ''
+    explicitArgs: null
+    returns:
+      - name: base_currency
+        type: felt
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 0
+      end: 0
+- attributeName: storage_var
+  functionName:
+    name: AaveOracle_base_currency_unit
+    charIndex:
+      start: 1185
+      end: 1214
+  functionSignature:
+    implicitArgs:
+      - name: ''
+        type: ''
+    explicitArgs: null
+    returns:
+      - name: base_currency_unit
+        type: felt
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 0
+      end: 0
+- attributeName: namespace AaveOracle
+  functionName:
+    name: initializer
+    charIndex:
+      start: 3342
+      end: 3353
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: provider
+        type: felt
+      - name: oracle_address
+        type: felt
+      - name: assets_len
+        type: felt
+      - name: assets
+        type: felt*
+      - name: tickers_len
+        type: felt
+      - name: tickers
+        type: felt*
+      - name: fallback_oracle
+        type: felt
+      - name: base_currency
+        type: felt
+      - name: base_currency_unit
+        type: felt
+      - name: ''
+        type: ''
+    returns: null
+  functionComment:
+    desc:
+      - name: ''
+        type: ''
+        desc: Initializer
+        charIndex:
+          start: 15
+          end: 26
+    implicitArgs: null
+    explicitArgs:
+      - name: provider
+        type: ''
+        desc: The address of the new PoolAddressesProvider
+        charIndex:
+          start: 50
+          end: 94
+      - name: oracle_address
+        type: ''
+        desc: The address of the oracle
+        charIndex:
+          start: 124
+          end: 149
+      - name: assets_len
+        type: ''
+        desc: Length of the assets array
+        charIndex:
+          start: 175
+          end: 201
+      - name: assets
+        type: ''
+        desc: The addresses of the assets
+        charIndex:
+          start: 223
+          end: 250
+      - name: tickers_len
+        type: ''
+        desc: Length of the tickers array
+        charIndex:
+          start: 277
+          end: 304
+      - name: tickers
+        type: ''
+        desc: The tickers of each asset
+        charIndex:
+          start: 327
+          end: 352
+      - name: fallback_oracle
+        type: ''
+        desc: |-
+          The address of the fallback oracle to use if the data of an
+          aggregator is not consistent
+        charIndex:
+          start: 383
+          end: 485
+      - name: base_currency
+        type: ''
+        desc: >-
+          The base currency used for the price quotes. If USD is used, base
+          currency is 0
+        charIndex:
+          start: 514
+          end: 593
+      - name: base_currency_unit
+        type: ''
+        desc: The unit of the base currency
+        charIndex:
+          start: 627
+          end: 656
+    returns: null
+    raises: null
+    charIndex:
+      start: 2676
+      end: 3332
+- attributeName: namespace AaveOracle
+  functionName:
+    name: ADDRESSES_PROVIDER
+    charIndex:
+      start: 4193
+      end: 4211
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs: null
+    returns:
+      - name: provider
+        type: felt
+  functionComment:
+    desc:
+      - name: ''
+        type: ''
+        desc: Returns the PoolAddressesProvider
+        charIndex:
+          start: 15
+          end: 48
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 4070
+      end: 4183
+- attributeName: namespace AaveOracle
+  functionName:
+    name: BASE_CURRENCY
+    charIndex:
+      start: 4526
+      end: 4539
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs: null
+    returns:
+      - name: base_currency
+        type: felt
+  functionComment:
+    desc:
+      - name: ''
+        type: ''
+        desc: Returns the base currency
+        charIndex:
+          start: 15
+          end: 40
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 4443
+      end: 4516
+- attributeName: namespace AaveOracle
+  functionName:
+    name: BASE_CURRENCY_UNIT
+    charIndex:
+      start: 4859
+      end: 4877
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs: null
+    returns:
+      - name: base_currency_unit
+        type: felt
+  functionComment:
+    desc:
+      - name: ''
+        type: ''
+        desc: Returns the base_currency_unit
+        charIndex:
+          start: 15
+          end: 45
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 4751
+      end: 4849
+- attributeName: namespace AaveOracle
+  functionName:
+    name: set_assets_tickers
+    charIndex:
+      start: 5280
+      end: 5298
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: assets_len
+        type: felt
+      - name: assets
+        type: felt*
+      - name: tickers_len
+        type: felt
+      - name: tickers
+        type: felt*
+    returns: null
+  functionComment:
+    desc:
+      - name: ''
+        type: ''
+        desc: Sets or replaces price tickers of assets
+        charIndex:
+          start: 15
+          end: 55
+    implicitArgs: null
+    explicitArgs:
+      - name: assets
+        type: ''
+        desc: The addresses of the assets
+        charIndex:
+          start: 77
+          end: 104
+      - name: tickers
+        type: ''
+        desc: The addresses of the price tickers
+        charIndex:
+          start: 127
+          end: 161
+    returns: null
+    raises: null
+    charIndex:
+      start: 5109
+      end: 5270
+- attributeName: namespace AaveOracle
+  functionName:
+    name: set_fallback_oracle
+    charIndex:
+      start: 5710
+      end: 5729
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: fallback_oracle
+        type: felt
+    returns: null
+  functionComment:
+    desc:
+      - name: ''
+        type: ''
+        desc: Sets the fallback oracle
+        charIndex:
+          start: 15
+          end: 39
+    implicitArgs: null
+    explicitArgs:
+      - name: fallback_oracle
+        type: ''
+        desc: The address of the fallback oracle
+        charIndex:
+          start: 70
+          end: 104
+    returns: null
+    raises: null
+    charIndex:
+      start: 5596
+      end: 5700
+- attributeName: namespace AaveOracle
+  functionName:
+    name: get_asset_price
+    charIndex:
+      start: 6110
+      end: 6125
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: asset
+        type: felt
+    returns:
+      - name: price
+        type: felt
+  functionComment:
+    desc:
+      - name: ''
+        type: ''
+        desc: Returns the asset price in the base currency
+        charIndex:
+          start: 15
+          end: 59
+    implicitArgs: null
+    explicitArgs:
+      - name: asset
+        type: ''
+        desc: The address of the asset
+        charIndex:
+          start: 80
+          end: 104
+    returns: null
+    raises: null
+    charIndex:
+      start: 5958
+      end: 6100
+- attributeName: namespace AaveOracle
+  functionName:
+    name: get_assets_prices
+    charIndex:
+      start: 6900
+      end: 6917
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: assets_len
+        type: felt
+      - name: assets
+        type: felt*
+    returns:
+      - name: prices_len
+        type: felt
+      - name: prices
+        type: felt*
+  functionComment:
+    desc:
+      - name: ''
+        type: ''
+        desc: Returns a list of prices from a list of assets addresses
+        charIndex:
+          start: 15
+          end: 71
+    implicitArgs: null
+    explicitArgs:
+      - name: assets
+        type: ''
+        desc: The list of assets addresses
+        charIndex:
+          start: 93
+          end: 121
+    returns: null
+    raises: null
+    charIndex:
+      start: 6723
+      end: 6890
+- attributeName: namespace AaveOracle
+  functionName:
+    name: get_ticker_of_asset
+    charIndex:
+      start: 7422
+      end: 7441
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: asset
+        type: felt
+    returns:
+      - name: ticker
+        type: felt
+  functionComment:
+    desc:
+      - name: ''
+        type: ''
+        desc: Returns the address of the ticker for an asset address
+        charIndex:
+          start: 15
+          end: 69
+    implicitArgs: null
+    explicitArgs:
+      - name: asset
+        type: ''
+        desc: The address of the asset
+        charIndex:
+          start: 90
+          end: 114
+    returns: null
+    raises: null
+    charIndex:
+      start: 7258
+      end: 7412
+- attributeName: namespace AaveOracle
+  functionName:
+    name: get_fallback_oracle
+    charIndex:
+      start: 7765
+      end: 7784
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs: null
+    returns:
+      - name: fallback_oracle
+        type: felt
+  functionComment:
+    desc:
+      - name: ''
+        type: ''
+        desc: Returns the address of the fallback oracle
+        charIndex:
+          start: 15
+          end: 57
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 7648
+      end: 7755

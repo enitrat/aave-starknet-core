@@ -1,0 +1,41 @@
+- attributeName: namespace GenericLogic
+  functionName:
+    name: _calculate_e_mode_account_data
+    charIndex:
+      start: 5141
+      end: 5171
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: user_e_mode_category
+        type: felt
+      - name: oracle
+        type: felt
+    returns:
+      - name: e_mode_ltv
+        type: felt
+      - name: e_mode_liq_th
+        type: felt
+      - name: e_mode_asset_price
+        type: felt
+  functionComment:
+    desc:
+      - name: ''
+        type: ''
+        desc: calculates the e_mode data needed in the function
+        charIndex:
+          start: 15
+          end: 64
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 5067
+      end: 5131

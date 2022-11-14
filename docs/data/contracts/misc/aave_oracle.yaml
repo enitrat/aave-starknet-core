@@ -1,0 +1,304 @@
+- attributeName: view
+  functionName:
+    name: ADDRESSES_PROVIDER
+    charIndex:
+      start: 702
+      end: 720
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs: null
+    returns:
+      - name: provider
+        type: felt
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 0
+      end: 0
+- attributeName: view
+  functionName:
+    name: BASE_CURRENCY
+    charIndex:
+      start: 874
+      end: 887
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs: null
+    returns:
+      - name: base_currency
+        type: felt
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 0
+      end: 0
+- attributeName: view
+  functionName:
+    name: BASE_CURRENCY_UNIT
+    charIndex:
+      start: 1041
+      end: 1059
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs: null
+    returns:
+      - name: base_currency_unit
+        type: felt
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 0
+      end: 0
+- attributeName: view
+  functionName:
+    name: get_asset_price
+    charIndex:
+      start: 1695
+      end: 1710
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: asset
+        type: felt
+    returns:
+      - name: price
+        type: felt
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 0
+      end: 0
+- attributeName: view
+  functionName:
+    name: get_assets_prices
+    charIndex:
+      start: 1874
+      end: 1891
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: assets_len
+        type: felt
+      - name: assets
+        type: felt*
+    returns:
+      - name: prices_len
+        type: felt
+      - name: prices
+        type: felt*
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 0
+      end: 0
+- attributeName: view
+  functionName:
+    name: get_ticker_of_asset
+    charIndex:
+      start: 2110
+      end: 2129
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: asset
+        type: felt
+    returns:
+      - name: ticker
+        type: felt
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 0
+      end: 0
+- attributeName: view
+  functionName:
+    name: get_fallback_oracle
+    charIndex:
+      start: 2298
+      end: 2317
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs: null
+    returns:
+      - name: fallback_oracle
+        type: felt
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 0
+      end: 0
+- attributeName: external
+  functionName:
+    name: initialize
+    charIndex:
+      start: 153
+      end: 163
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: provider
+        type: felt
+      - name: oracle_address
+        type: felt
+      - name: assets_len
+        type: felt
+      - name: assets
+        type: felt*
+      - name: tickers_len
+        type: felt
+      - name: tickers
+        type: felt*
+      - name: fallback_oracle
+        type: felt
+      - name: base_currency
+        type: felt
+      - name: base_currency_unit
+        type: felt
+      - name: ''
+        type: ''
+    returns: null
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 0
+      end: 0
+- attributeName: external
+  functionName:
+    name: set_assets_tickers
+    charIndex:
+      start: 1227
+      end: 1245
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: assets_len
+        type: felt
+      - name: assets
+        type: felt*
+      - name: tickers_len
+        type: felt
+      - name: tickers
+        type: felt*
+    returns: null
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 0
+      end: 0
+- attributeName: external
+  functionName:
+    name: set_fallback_oracle
+    charIndex:
+      start: 1497
+      end: 1516
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: fallback_oracle
+        type: felt
+    returns: null
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 0
+      end: 0

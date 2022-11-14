@@ -1,0 +1,438 @@
+- attributeName: namespace SafeFeltMath
+  functionName:
+    name: add_unsigned
+    charIndex:
+      start: 1291
+      end: 1303
+  functionSignature:
+    implicitArgs:
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: a
+        type: felt
+      - name: b
+        type: felt
+    returns:
+      - name: felt
+        type: ''
+  functionComment:
+    desc:
+      - name: ''
+        type: ''
+        desc: Adds two integers, and returns output. Interprets a, b in range [0, P)
+        charIndex:
+          start: 15
+          end: 85
+    implicitArgs: null
+    explicitArgs:
+      - name: a
+        type: ''
+        desc: Unsigned felt integer
+        charIndex:
+          start: 150
+          end: 171
+      - name: b
+        type: ''
+        desc: Unsigned felt integer
+        charIndex:
+          start: 188
+          end: 209
+    returns:
+      - name: ''
+        type: ''
+        desc: res Sum of a and b
+        charIndex:
+          start: 226
+          end: 244
+    raises: null
+    charIndex:
+      start: 1037
+      end: 1281
+- attributeName: namespace SafeFeltMath
+  functionName:
+    name: sub_le_unsigned
+    charIndex:
+      start: 1854
+      end: 1869
+  functionSignature:
+    implicitArgs:
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: a
+        type: felt
+      - name: b
+        type: felt
+    returns:
+      - name: felt
+        type: ''
+  functionComment:
+    desc:
+      - name: ''
+        type: ''
+        desc: >-
+          Subtracts two integers, and return output and underflow flag.
+          Interprets a, b in range [0, P)
+        charIndex:
+          start: 15
+          end: 108
+    implicitArgs: null
+    explicitArgs:
+      - name: a
+        type: ''
+        desc: Unsigned felt integer
+        charIndex:
+          start: 174
+          end: 195
+      - name: b
+        type: ''
+        desc: Unsigned felt integer
+        charIndex:
+          start: 212
+          end: 233
+    returns:
+      - name: ''
+        type: ''
+        desc: res Difference between a and b
+        charIndex:
+          start: 250
+          end: 280
+    raises: null
+    charIndex:
+      start: 1564
+      end: 1844
+- attributeName: namespace SafeFeltMath
+  functionName:
+    name: mul_unsigned
+    charIndex:
+      start: 2416
+      end: 2428
+  functionSignature:
+    implicitArgs:
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: a
+        type: felt
+      - name: b
+        type: felt
+    returns:
+      - name: felt
+        type: ''
+  functionComment:
+    desc:
+      - name: ''
+        type: ''
+        desc: >-
+          Multiplies two integers, and return output and overflow flag.
+          Interprets a, b in range [0, P)
+        charIndex:
+          start: 15
+          end: 108
+    implicitArgs: null
+    explicitArgs:
+      - name: a
+        type: ''
+        desc: Unsigned felt integer
+        charIndex:
+          start: 173
+          end: 194
+      - name: b
+        type: ''
+        desc: Unsigned felt integer
+        charIndex:
+          start: 211
+          end: 232
+    returns:
+      - name: ''
+        type: ''
+        desc: res Product of a and b
+        charIndex:
+          start: 249
+          end: 271
+    raises: null
+    charIndex:
+      start: 2135
+      end: 2406
+- attributeName: namespace SafeFeltMath
+  functionName:
+    name: pow_unsigned
+    charIndex:
+      start: 3013
+      end: 3025
+  functionSignature:
+    implicitArgs:
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: base
+        type: felt
+      - name: power
+        type: felt
+    returns:
+      - name: felt
+        type: ''
+  functionComment:
+    desc:
+      - name: ''
+        type: ''
+        desc: >-
+          Calculates exponention of an integer, and return output and an
+          overflow flag. Interprets base, power in range [0, P)
+        charIndex:
+          start: 15
+          end: 131
+    implicitArgs: null
+    explicitArgs:
+      - name: base
+        type: ''
+        desc: Unsigned felt integer
+        charIndex:
+          start: 199
+          end: 220
+      - name: power
+        type: ''
+        desc: Unsigned felt integer
+        charIndex:
+          start: 241
+          end: 262
+    returns:
+      - name: ''
+        type: ''
+        desc: res Exponention of base to the power
+        charIndex:
+          start: 279
+          end: 315
+    raises: null
+    charIndex:
+      start: 2688
+      end: 3003
+- attributeName: namespace SafeFeltMath
+  functionName:
+    name: add_mul_unsigned
+    charIndex:
+      start: 3642
+      end: 3658
+  functionSignature:
+    implicitArgs:
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: a
+        type: felt
+      - name: b
+        type: felt
+      - name: c
+        type: felt
+    returns:
+      - name: felt
+        type: ''
+  functionComment:
+    desc:
+      - name: ''
+        type: ''
+        desc: >-
+          Adds two integers and multiplies result by last integer, and returns
+          output. Interprets a, b and c in range [0, P)
+        charIndex:
+          start: 15
+          end: 129
+    implicitArgs: null
+    explicitArgs:
+      - name: a
+        type: ''
+        desc: Unsigned felt integer
+        charIndex:
+          start: 194
+          end: 215
+      - name: b
+        type: ''
+        desc: Unsigned felt integer
+        charIndex:
+          start: 232
+          end: 253
+      - name: b
+        type: ''
+        desc: Unsigned felt integer
+        charIndex:
+          start: 232
+          end: 253
+    returns:
+      - name: ''
+        type: ''
+        desc: res Result of (a + b) * c
+        charIndex:
+          start: 308
+          end: 333
+    raises: null
+    charIndex:
+      start: 3299
+      end: 3632
+- attributeName: namespace SafeFeltMath
+  functionName:
+    name: mul_add_unsigned
+    charIndex:
+      start: 4422
+      end: 4438
+  functionSignature:
+    implicitArgs:
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: a
+        type: felt
+      - name: b
+        type: felt
+      - name: c
+        type: felt
+    returns:
+      - name: felt
+        type: ''
+  functionComment:
+    desc:
+      - name: ''
+        type: ''
+        desc: >-
+          Multiplies two integers and adds result to the last integer, and
+          returns output. Interprets a, b and c in range [0, P)
+        charIndex:
+          start: 15
+          end: 133
+    implicitArgs: null
+    explicitArgs:
+      - name: a
+        type: ''
+        desc: Unsigned felt integer
+        charIndex:
+          start: 198
+          end: 219
+      - name: b
+        type: ''
+        desc: Unsigned felt integer
+        charIndex:
+          start: 236
+          end: 257
+      - name: b
+        type: ''
+        desc: Unsigned felt integer
+        charIndex:
+          start: 236
+          end: 257
+    returns:
+      - name: ''
+        type: ''
+        desc: res Result of (a * b) + c
+        charIndex:
+          start: 312
+          end: 337
+    raises: null
+    charIndex:
+      start: 4075
+      end: 4412
+- attributeName: namespace SafeFeltMath
+  functionName:
+    name: add_signed
+    charIndex:
+      start: 5171
+      end: 5181
+  functionSignature:
+    implicitArgs:
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: a
+        type: felt
+      - name: b
+        type: felt
+    returns:
+      - name: felt
+        type: ''
+  functionComment:
+    desc:
+      - name: ''
+        type: ''
+        desc: >-
+          Adds two integers, and return output and carry. Interprets a, b in
+          range [-(P-1)/2, (P-1)/2]
+        charIndex:
+          start: 15
+          end: 107
+    implicitArgs: null
+    explicitArgs:
+      - name: a
+        type: ''
+        desc: Signed felt integer
+        charIndex:
+          start: 172
+          end: 191
+      - name: b
+        type: ''
+        desc: Signed felt integer
+        charIndex:
+          start: 208
+          end: 227
+    returns:
+      - name: ''
+        type: ''
+        desc: res Sum of a and b
+        charIndex:
+          start: 244
+          end: 262
+    raises: null
+    charIndex:
+      start: 4899
+      end: 5161
+- attributeName: namespace SafeFeltMath
+  functionName:
+    name: sub_signed
+    charIndex:
+      start: 5728
+      end: 5738
+  functionSignature:
+    implicitArgs:
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: a
+        type: felt
+      - name: b
+        type: felt
+    returns:
+      - name: felt
+        type: ''
+  functionComment:
+    desc:
+      - name: ''
+        type: ''
+        desc: >-
+          Subtracts two integers, and return output and underflow flag.
+          Interprets a, b in range [-P/2, P/2]
+        charIndex:
+          start: 15
+          end: 113
+    implicitArgs: null
+    explicitArgs:
+      - name: a
+        type: ''
+        desc: Signed felt integer
+        charIndex:
+          start: 179
+          end: 198
+      - name: b
+        type: ''
+        desc: Signed felt integer
+        charIndex:
+          start: 215
+          end: 234
+    returns:
+      - name: ''
+        type: ''
+        desc: res Difference between a and b
+        charIndex:
+          start: 251
+          end: 281
+    raises: null
+    charIndex:
+      start: 5437
+      end: 5718

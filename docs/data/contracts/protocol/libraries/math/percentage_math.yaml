@@ -1,0 +1,98 @@
+- attributeName: namespace PercentageMath
+  functionName:
+    name: percent_mul
+    charIndex:
+      start: 1196
+      end: 1207
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: value
+        type: Uint256
+      - name: percentage
+        type: Uint256
+    returns:
+      - name: Uint256
+        type: ''
+  functionComment:
+    desc:
+      - name: ''
+        type: ''
+        desc: Executes a percentage multiplication
+        charIndex:
+          start: 15
+          end: 51
+    implicitArgs: null
+    explicitArgs:
+      - name: value
+        type: ''
+        desc: The value of which the percentage needs to be calculated
+        charIndex:
+          start: 72
+          end: 128
+      - name: percentage
+        type: ''
+        desc: The percentage of the value to be calculated
+        charIndex:
+          start: 154
+          end: 198
+    returns: null
+    raises: null
+    charIndex:
+      start: 938
+      end: 1186
+- attributeName: namespace PercentageMath
+  functionName:
+    name: percent_div
+    charIndex:
+      start: 2663
+      end: 2674
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: value
+        type: Uint256
+      - name: percentage
+        type: Uint256
+    returns:
+      - name: Uint256
+        type: ''
+  functionComment:
+    desc:
+      - name: ''
+        type: ''
+        desc: Executes a percentage division
+        charIndex:
+          start: 15
+          end: 45
+    implicitArgs: null
+    explicitArgs:
+      - name: value
+        type: ''
+        desc: The value of which the percentage needs to be calculated
+        charIndex:
+          start: 66
+          end: 122
+      - name: percentage
+        type: ''
+        desc: The percentage of the value to be calculated
+        charIndex:
+          start: 148
+          end: 192
+    returns: null
+    raises: null
+    charIndex:
+      start: 2411
+      end: 2653

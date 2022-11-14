@@ -1,0 +1,39 @@
+- attributeName: namespace PoolLogic
+  functionName:
+    name: execute_drop_reserve
+    charIndex:
+      start: 3173
+      end: 3193
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: asset
+        type: felt
+    returns: null
+  functionComment:
+    desc:
+      - name: ''
+        type: ''
+        desc: Drop a reserve
+        charIndex:
+          start: 15
+          end: 29
+    implicitArgs: null
+    explicitArgs:
+      - name: asset
+        type: ''
+        desc: The address of the underlying asset of the reserve
+        charIndex:
+          start: 50
+          end: 100
+    returns: null
+    raises: null
+    charIndex:
+      start: 3063
+      end: 3163
