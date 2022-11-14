@@ -33,4 +33,4 @@ jobs:
           create_branch: false
       - name: Push changes
         run: |
-          git push
+          git push ${{ github.head_ref }}
