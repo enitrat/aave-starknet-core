@@ -1,0 +1,760 @@
+- attributeName: namespace WadRayFelt
+  functionName:
+    name: wad_mul_unsigned
+    charIndex:
+      start: 941
+      end: 957
+  functionSignature:
+    implicitArgs:
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: a
+        type: Wad
+      - name: b
+        type: Wad
+    returns:
+      - name: Wad
+        type: ''
+  functionComment:
+    desc:
+      - name: ''
+        type: ''
+        desc: multiplies two unsigned wad felts
+        charIndex:
+          start: 15
+          end: 48
+    implicitArgs: null
+    explicitArgs:
+      - name: a
+        type: ''
+        desc: unsigned wad felt
+        charIndex:
+          start: 65
+          end: 82
+      - name: b
+        type: ''
+        desc: unsigned wad felt
+        charIndex:
+          start: 99
+          end: 116
+    returns:
+      - name: ''
+        type: ''
+        desc: a multiplied by b, unsigned wad felt
+        charIndex:
+          start: 133
+          end: 169
+    raises: null
+    charIndex:
+      start: 762
+      end: 931
+- attributeName: namespace WadRayFelt
+  functionName:
+    name: wad_mul_unsigned_no_rounding
+    charIndex:
+      start: 1531
+      end: 1559
+  functionSignature:
+    implicitArgs:
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: a
+        type: Wad
+      - name: b
+        type: Wad
+    returns:
+      - name: Wad
+        type: ''
+  functionComment:
+    desc:
+      - name: ''
+        type: ''
+        desc: >-
+          multiplies two unsigned wad felts without rounding the result to the
+          upper number
+        charIndex:
+          start: 15
+          end: 96
+    implicitArgs: null
+    explicitArgs:
+      - name: a
+        type: ''
+        desc: unsigned wad felt
+        charIndex:
+          start: 113
+          end: 130
+      - name: b
+        type: ''
+        desc: unsigned wad felt
+        charIndex:
+          start: 147
+          end: 164
+    returns:
+      - name: ''
+        type: ''
+        desc: a multiplied by b, unsigned wad felt
+        charIndex:
+          start: 181
+          end: 217
+    raises: null
+    charIndex:
+      start: 1304
+      end: 1521
+- attributeName: namespace WadRayFelt
+  functionName:
+    name: wad_div_unsigned
+    charIndex:
+      start: 2057
+      end: 2073
+  functionSignature:
+    implicitArgs:
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: a
+        type: Wad
+      - name: b
+        type: Wad
+    returns:
+      - name: Wad
+        type: ''
+  functionComment:
+    desc:
+      - name: ''
+        type: ''
+        desc: divides two unsigned wad felts
+        charIndex:
+          start: 15
+          end: 45
+    implicitArgs: null
+    explicitArgs:
+      - name: a
+        type: ''
+        desc: unsigned wad felt
+        charIndex:
+          start: 62
+          end: 79
+      - name: b
+        type: ''
+        desc: unsigned wad felt
+        charIndex:
+          start: 96
+          end: 113
+    returns:
+      - name: ''
+        type: ''
+        desc: a divided by b, unsigned wad felt
+        charIndex:
+          start: 130
+          end: 163
+    raises: null
+    charIndex:
+      start: 1884
+      end: 2047
+- attributeName: namespace WadRayFelt
+  functionName:
+    name: wad_div_unsigned_no_rounding
+    charIndex:
+      start: 2588
+      end: 2616
+  functionSignature:
+    implicitArgs:
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: a
+        type: Wad
+      - name: b
+        type: Wad
+    returns:
+      - name: Wad
+        type: ''
+  functionComment:
+    desc:
+      - name: ''
+        type: ''
+        desc: divides two unsigned wad felts without rounding to the upper number
+        charIndex:
+          start: 15
+          end: 82
+    implicitArgs: null
+    explicitArgs:
+      - name: a
+        type: ''
+        desc: unsigned wad felt
+        charIndex:
+          start: 99
+          end: 116
+      - name: b
+        type: ''
+        desc: unsigned wad felt
+        charIndex:
+          start: 133
+          end: 150
+    returns:
+      - name: ''
+        type: ''
+        desc: a divided by b, unsigned wad felt
+        charIndex:
+          start: 167
+          end: 200
+    raises: null
+    charIndex:
+      start: 2378
+      end: 2578
+- attributeName: namespace WadRayFelt
+  functionName:
+    name: ray_mul_unsigned
+    charIndex:
+      start: 3011
+      end: 3027
+  functionSignature:
+    implicitArgs:
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: a
+        type: Ray
+      - name: b
+        type: Ray
+    returns:
+      - name: Ray
+        type: ''
+  functionComment:
+    desc:
+      - name: ''
+        type: ''
+        desc: multiplies two unsigned ray felts
+        charIndex:
+          start: 15
+          end: 48
+    implicitArgs: null
+    explicitArgs:
+      - name: a
+        type: ''
+        desc: unsigned ray felt
+        charIndex:
+          start: 65
+          end: 82
+      - name: b
+        type: ''
+        desc: unsigned ray felt
+        charIndex:
+          start: 99
+          end: 116
+    returns:
+      - name: ''
+        type: ''
+        desc: a*b, unsigned ray felt
+        charIndex:
+          start: 133
+          end: 155
+    raises: null
+    charIndex:
+      start: 2846
+      end: 3001
+- attributeName: namespace WadRayFelt
+  functionName:
+    name: ray_mul_unsigned_no_rounding
+    charIndex:
+      start: 3587
+      end: 3615
+  functionSignature:
+    implicitArgs:
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: a
+        type: Ray
+      - name: b
+        type: Ray
+    returns:
+      - name: Ray
+        type: ''
+  functionComment:
+    desc:
+      - name: ''
+        type: ''
+        desc: >-
+          multiplies two unsigned ray felts without rounding the result to the
+          upper number
+        charIndex:
+          start: 15
+          end: 96
+    implicitArgs: null
+    explicitArgs:
+      - name: a
+        type: ''
+        desc: unsigned ray felt
+        charIndex:
+          start: 113
+          end: 130
+      - name: b
+        type: ''
+        desc: unsigned ray felt
+        charIndex:
+          start: 147
+          end: 164
+    returns:
+      - name: ''
+        type: ''
+        desc: a*b, unsigned ray felt
+        charIndex:
+          start: 181
+          end: 203
+    raises: null
+    charIndex:
+      start: 3374
+      end: 3577
+- attributeName: namespace WadRayFelt
+  functionName:
+    name: ray_div_unsigned
+    charIndex:
+      start: 4102
+      end: 4118
+  functionSignature:
+    implicitArgs:
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: a
+        type: Ray
+      - name: b
+        type: Ray
+    returns:
+      - name: Ray
+        type: ''
+  functionComment:
+    desc:
+      - name: ''
+        type: ''
+        desc: divides two unsigned ray felts
+        charIndex:
+          start: 15
+          end: 45
+    implicitArgs: null
+    explicitArgs:
+      - name: a
+        type: ''
+        desc: unsigned ray felt
+        charIndex:
+          start: 62
+          end: 79
+      - name: b
+        type: ''
+        desc: unsigned ray felt
+        charIndex:
+          start: 96
+          end: 113
+    returns:
+      - name: ''
+        type: ''
+        desc: a/b, unsigned ray felt
+        charIndex:
+          start: 130
+          end: 152
+    raises: null
+    charIndex:
+      start: 3940
+      end: 4092
+- attributeName: namespace WadRayFelt
+  functionName:
+    name: ray_div_unsigned_no_rounding
+    charIndex:
+      start: 4585
+      end: 4613
+  functionSignature:
+    implicitArgs:
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: a
+        type: Ray
+      - name: b
+        type: Ray
+    returns:
+      - name: Ray
+        type: ''
+  functionComment:
+    desc:
+      - name: ''
+        type: ''
+        desc: divides two unsigned ray felts
+        charIndex:
+          start: 15
+          end: 45
+    implicitArgs: null
+    explicitArgs:
+      - name: a
+        type: ''
+        desc: unsigned ray felt
+        charIndex:
+          start: 62
+          end: 79
+      - name: b
+        type: ''
+        desc: unsigned ray felt
+        charIndex:
+          start: 96
+          end: 113
+    returns:
+      - name: ''
+        type: ''
+        desc: a/b, unsigned ray felt
+        charIndex:
+          start: 130
+          end: 152
+    raises: null
+    charIndex:
+      start: 4423
+      end: 4575
+- attributeName: namespace WadRayFelt
+  functionName:
+    name: felt_to_wad_unsigned
+    charIndex:
+      start: 4991
+      end: 5011
+  functionSignature:
+    implicitArgs:
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: 'n'
+        type: felt
+    returns:
+      - name: Wad
+        type: ''
+  functionComment:
+    desc:
+      - name: ''
+        type: ''
+        desc: converts an unsigned felt to a wad
+        charIndex:
+          start: 15
+          end: 49
+    implicitArgs: null
+    explicitArgs:
+      - name: 'n'
+        type: ''
+        desc: felt
+        charIndex:
+          start: 66
+          end: 70
+    returns:
+      - name: ''
+        type: ''
+        desc: unsigned wad felt
+        charIndex:
+          start: 87
+          end: 104
+    raises: null
+    charIndex:
+      start: 4877
+      end: 4981
+- attributeName: namespace WadRayFelt
+  functionName:
+    name: wad_to_felt_unsigned_no_rounding
+    charIndex:
+      start: 5261
+      end: 5293
+  functionSignature:
+    implicitArgs:
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: 'n'
+        type: Wad
+    returns:
+      - name: felt
+        type: ''
+  functionComment:
+    desc:
+      - name: ''
+        type: ''
+        desc: converts a wad to an unsigned felt
+        charIndex:
+          start: 15
+          end: 49
+    implicitArgs: null
+    explicitArgs:
+      - name: 'n'
+        type: ''
+        desc: wad felt
+        charIndex:
+          start: 109
+          end: 117
+    returns:
+      - name: ''
+        type: ''
+        desc: unsigned felt
+        charIndex:
+          start: 134
+          end: 147
+    raises: null
+    charIndex:
+      start: 5104
+      end: 5251
+- attributeName: namespace WadRayFelt
+  functionName:
+    name: wad_to_felt_unsigned
+    charIndex:
+      start: 5568
+      end: 5588
+  functionSignature:
+    implicitArgs:
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: 'n'
+        type: Wad
+    returns:
+      - name: felt
+        type: ''
+  functionComment:
+    desc:
+      - name: ''
+        type: ''
+        desc: converts a wad to an unsigned felt
+        charIndex:
+          start: 15
+          end: 49
+    implicitArgs: null
+    explicitArgs:
+      - name: 'n'
+        type: ''
+        desc: wad number
+        charIndex:
+          start: 108
+          end: 118
+    returns:
+      - name: ''
+        type: ''
+        desc: unsigned felt
+        charIndex:
+          start: 135
+          end: 148
+    raises: null
+    charIndex:
+      start: 5410
+      end: 5558
+- attributeName: namespace WadRayFelt
+  functionName:
+    name: wad_to_ray_unsigned
+    charIndex:
+      start: 5898
+      end: 5917
+  functionSignature:
+    implicitArgs:
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: 'n'
+        type: Wad
+    returns:
+      - name: Ray
+        type: ''
+  functionComment:
+    desc:
+      - name: ''
+        type: ''
+        desc: converts a wad to an unsigned ray
+        charIndex:
+          start: 15
+          end: 48
+    implicitArgs: null
+    explicitArgs:
+      - name: 'n'
+        type: ''
+        desc: unsigned wad felt
+        charIndex:
+          start: 65
+          end: 82
+    returns:
+      - name: ''
+        type: ''
+        desc: unsigned ray
+        charIndex:
+          start: 99
+          end: 111
+    raises: null
+    charIndex:
+      start: 5777
+      end: 5888
+- attributeName: namespace WadRayFelt
+  functionName:
+    name: ray_to_felt_unsigned_no_rounding
+    charIndex:
+      start: 6184
+      end: 6216
+  functionSignature:
+    implicitArgs:
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: 'n'
+        type: Ray
+    returns:
+      - name: felt
+        type: ''
+  functionComment:
+    desc:
+      - name: ''
+        type: ''
+        desc: converts a ray to an unsigned felt
+        charIndex:
+          start: 15
+          end: 49
+    implicitArgs: null
+    explicitArgs:
+      - name: 'n'
+        type: ''
+        desc: unsigned ray
+        charIndex:
+          start: 113
+          end: 125
+    returns:
+      - name: ''
+        type: ''
+        desc: unsigned felt
+        charIndex:
+          start: 142
+          end: 155
+    raises: null
+    charIndex:
+      start: 6019
+      end: 6174
+- attributeName: namespace WadRayFelt
+  functionName:
+    name: ray_to_felt_unsigned
+    charIndex:
+      start: 6548
+      end: 6568
+  functionSignature:
+    implicitArgs:
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: 'n'
+        type: Ray
+    returns:
+      - name: felt
+        type: ''
+  functionComment:
+    desc:
+      - name: ''
+        type: ''
+        desc: >-
+          converts an unsigned ray to an unsigned felt without rounding to the
+          upper number
+        charIndex:
+          start: 15
+          end: 96
+    implicitArgs: null
+    explicitArgs:
+      - name: 'n'
+        type: ''
+        desc: unsigned ray felt
+        charIndex:
+          start: 158
+          end: 175
+    returns:
+      - name: ''
+        type: ''
+        desc: unsigned felt
+        charIndex:
+          start: 192
+          end: 205
+    raises: null
+    charIndex:
+      start: 6333
+      end: 6538
+- attributeName: namespace WadRayFelt
+  functionName:
+    name: ray_to_wad_unsigned_no_rounding
+    charIndex:
+      start: 6972
+      end: 7003
+  functionSignature:
+    implicitArgs:
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: 'n'
+        type: Ray
+    returns:
+      - name: Wad
+        type: ''
+  functionComment:
+    desc:
+      - name: ''
+        type: ''
+        desc: >-
+          converts an unsigned ray to an unsigned wad without rounding to the
+          upper number
+        charIndex:
+          start: 15
+          end: 95
+    implicitArgs: null
+    explicitArgs:
+      - name: 'n'
+        type: ''
+        desc: unsigned ray felt
+        charIndex:
+          start: 159
+          end: 176
+    returns:
+      - name: ''
+        type: ''
+        desc: unsigned wad
+        charIndex:
+          start: 193
+          end: 205
+    raises: null
+    charIndex:
+      start: 6757
+      end: 6962
+- attributeName: namespace WadRayFelt
+  functionName:
+    name: ray_to_wad_unsigned
+    charIndex:
+      start: 7287
+      end: 7306
+  functionSignature:
+    implicitArgs:
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: a
+        type: Ray
+    returns:
+      - name: Wad
+        type: ''
+  functionComment:
+    desc:
+      - name: ''
+        type: ''
+        desc: converts a ray to an unsigned wad
+        charIndex:
+          start: 15
+          end: 48
+    implicitArgs: null
+    explicitArgs:
+      - name: 'n'
+        type: ''
+        desc: unsigned ray
+        charIndex:
+          start: 107
+          end: 119
+    returns:
+      - name: ''
+        type: ''
+        desc: unsigned wad
+        charIndex:
+          start: 136
+          end: 148
+    raises: null
+    charIndex:
+      start: 7129
+      end: 7277

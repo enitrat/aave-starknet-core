@@ -1,0 +1,725 @@
+- attributeName: event
+  functionName:
+    name: Initialized
+    charIndex:
+      start: 1201
+      end: 1212
+  functionSignature:
+    implicitArgs:
+      - name: ''
+        type: ''
+    explicitArgs:
+      - name: underlying_asset
+        type: felt
+      - name: pool
+        type: felt
+      - name: incentives_controller
+        type: felt
+      - name: debt_token_decimals
+        type: felt
+      - name: debt_token_name
+        type: felt
+      - name: debt_token_symbol
+        type: felt
+      - name: params
+        type: felt
+      - name: ''
+        type: ''
+    returns: null
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 0
+      end: 0
+- attributeName: event
+  functionName:
+    name: Mint
+    charIndex:
+      start: 2532
+      end: 2536
+  functionSignature:
+    implicitArgs:
+      - name: ''
+        type: ''
+    explicitArgs:
+      - name: user
+        type: felt
+      - name: on_behalf_of
+        type: felt
+      - name: amount
+        type: Uint256
+      - name: current_balance
+        type: Uint256
+      - name: balance_increase
+        type: Uint256
+      - name: new_rate
+        type: Uint256
+      - name: avg_stable_rate
+        type: Uint256
+      - name: new_total_supply
+        type: Uint256
+      - name: ''
+        type: ''
+    returns: null
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs:
+      - name: user
+        type: ''
+        desc: The address of the user who triggered the minting
+        charIndex:
+          start: 62
+          end: 111
+      - name: on_behalf_of
+        type: ''
+        desc: The recipient of stable debt tokens
+        charIndex:
+          start: 135
+          end: 170
+      - name: amount
+        type: ''
+        desc: >-
+          The amount minted (user entered amount + balance increase from
+          interest)
+        charIndex:
+          start: 188
+          end: 260
+      - name: current_balance
+        type: ''
+        desc: The current balance of the user
+        charIndex:
+          start: 287
+          end: 318
+      - name: balance_increase
+        type: ''
+        desc: The increase in balance since the last action of the user
+        charIndex:
+          start: 346
+          end: 403
+      - name: new_rate
+        type: ''
+        desc: The rate of the debt after the minting
+        charIndex:
+          start: 423
+          end: 461
+      - name: avg_stable_rate
+        type: ''
+        desc: The next average stable rate after the minting
+        charIndex:
+          start: 488
+          end: 534
+      - name: new_total_supply
+        type: ''
+        desc: The next total supply of the stable debt token after the action
+        charIndex:
+          start: 562
+          end: 625
+    returns: null
+    raises: null
+    charIndex:
+      start: 1894
+      end: 2519
+- attributeName: event
+  functionName:
+    name: Burn
+    charIndex:
+      start: 3287
+      end: 3291
+  functionSignature:
+    implicitArgs:
+      - name: ''
+        type: ''
+    explicitArgs:
+      - name: address_from
+        type: felt
+      - name: amount
+        type: Uint256
+      - name: current_balance
+        type: Uint256
+      - name: balance_increase
+        type: Uint256
+      - name: avg_stable_rate
+        type: Uint256
+      - name: new_total_supply
+        type: Uint256
+      - name: ''
+        type: ''
+    returns: null
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs:
+      - name: address_from
+        type: ''
+        desc: The address from which the debt will be burned
+        charIndex:
+          start: 70
+          end: 116
+      - name: amount
+        type: ''
+        desc: >-
+          The amount being burned (user entered amount - balance increase from
+          interest)
+        charIndex:
+          start: 134
+          end: 212
+      - name: current_balance
+        type: ''
+        desc: The current balance of the user
+        charIndex:
+          start: 239
+          end: 270
+      - name: balance_increase
+        type: ''
+        desc: The the increase in balance since the last action of the user
+        charIndex:
+          start: 298
+          end: 359
+      - name: avg_stable_rate
+        type: ''
+        desc: The next average stable rate after the burning
+        charIndex:
+          start: 386
+          end: 432
+      - name: new_total_supply
+        type: ''
+        desc: The next total supply of the stable debt token after the action
+        charIndex:
+          start: 460
+          end: 523
+    returns: null
+    raises: null
+    charIndex:
+      start: 2751
+      end: 3274
+- attributeName: storage_var
+  functionName:
+    name: StableDebtToken_avg_stable_rate
+    charIndex:
+      start: 1421
+      end: 1452
+  functionSignature:
+    implicitArgs:
+      - name: ''
+        type: ''
+    explicitArgs: null
+    returns:
+      - name: rate
+        type: felt
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 0
+      end: 0
+- attributeName: storage_var
+  functionName:
+    name: StableDebtToken_timestamps
+    charIndex:
+      start: 1590
+      end: 1616
+  functionSignature:
+    implicitArgs:
+      - name: ''
+        type: ''
+    explicitArgs:
+      - name: user
+        type: felt
+    returns:
+      - name: last_updated
+        type: felt
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 1476
+      end: 1571
+- attributeName: storage_var
+  functionName:
+    name: StableDebtToken_total_supply_timestamp
+    charIndex:
+      start: 1827
+      end: 1865
+  functionSignature:
+    implicitArgs:
+      - name: ''
+        type: ''
+    explicitArgs: null
+    returns:
+      - name: timestamp
+        type: felt
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 1757
+      end: 1808
+- attributeName: namespace StableDebtToken
+  functionName:
+    name: initialize
+    charIndex:
+      start: 3525
+      end: 3535
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: initializing_pool
+        type: felt
+      - name: underlying_asset
+        type: felt
+      - name: incentives_controller
+        type: felt
+      - name: debt_token_decimals
+        type: felt
+      - name: debt_token_name
+        type: felt
+      - name: debt_token_symbol
+        type: felt
+      - name: params
+        type: felt
+      - name: ''
+        type: ''
+    returns: null
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 0
+      end: 0
+- attributeName: namespace StableDebtToken
+  functionName:
+    name: get_average_stable_rate
+    charIndex:
+      start: 4657
+      end: 4680
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: ''
+        type: ''
+    returns:
+      - name: avg_stable_rate
+        type: felt
+  functionComment:
+    desc:
+      - name: ''
+        type: ''
+        desc: Returns the average rate of all the stable rate loans.
+        charIndex:
+          start: 15
+          end: 69
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 4539
+      end: 4647
+- attributeName: namespace StableDebtToken
+  functionName:
+    name: get_user_last_updated
+    charIndex:
+      start: 5049
+      end: 5070
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: user
+        type: felt
+    returns:
+      - name: timestamp
+        type: felt
+  functionComment:
+    desc:
+      - name: ''
+        type: ''
+        desc: Returns the timestamp of the last update of the user
+        charIndex:
+          start: 15
+          end: 67
+    implicitArgs: null
+    explicitArgs:
+      - name: user
+        type: ''
+        desc: The address of the user
+        charIndex:
+          start: 87
+          end: 110
+    returns: null
+    raises: null
+    charIndex:
+      start: 4900
+      end: 5039
+- attributeName: namespace StableDebtToken
+  functionName:
+    name: get_user_stable_rate
+    charIndex:
+      start: 5437
+      end: 5457
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: user
+        type: felt
+    returns:
+      - name: stable_rate
+        type: felt
+  functionComment:
+    desc:
+      - name: ''
+        type: ''
+        desc: Returns the stable rate of the user debt
+        charIndex:
+          start: 15
+          end: 55
+    implicitArgs: null
+    explicitArgs:
+      - name: user
+        type: ''
+        desc: The address of the user
+        charIndex:
+          start: 75
+          end: 98
+    returns: null
+    raises: null
+    charIndex:
+      start: 5286
+      end: 5427
+- attributeName: namespace StableDebtToken
+  functionName:
+    name: balance_of
+    charIndex:
+      start: 5756
+      end: 5766
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: account
+        type: felt
+    returns:
+      - name: balance
+        type: Uint256
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 5733
+      end: 5746
+- attributeName: namespace StableDebtToken
+  functionName:
+    name: mint
+    charIndex:
+      start: 7246
+      end: 7250
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: user
+        type: felt
+      - name: on_behalf_of
+        type: felt
+      - name: amount
+        type: Uint256
+      - name: rate
+        type: felt
+    returns:
+      - name: is_first_borrow
+        type: felt
+      - name: total_stable_debt
+        type: Uint256
+      - name: avg_stable_borrow_rate
+        type: felt
+  functionComment:
+    desc:
+      - name: ''
+        type: ''
+        desc: Mints debt token to the `onBehalfOf` address.
+        charIndex:
+          start: 15
+          end: 60
+    implicitArgs: null
+    explicitArgs:
+      - name: user
+        type: ''
+        desc: >-
+          The address receiving the borrowed underlying, being the delegatee in
+          case
+
+          of credit delegate, or same as `on_behalf_of` otherwise
+        charIndex:
+          start: 209
+          end: 346
+      - name: on_behalf_of
+        type: ''
+        desc: The address receiving the debt tokens
+        charIndex:
+          start: 374
+          end: 411
+      - name: amount
+        type: ''
+        desc: The amount of debt tokens to mint
+        charIndex:
+          start: 433
+          end: 466
+      - name: rate
+        type: ''
+        desc: The rate of the debt being minted
+        charIndex:
+          start: 486
+          end: 519
+    returns: null
+    raises: null
+    charIndex:
+      start: 6571
+      end: 7236
+- attributeName: namespace StableDebtToken
+  functionName:
+    name: burn
+    charIndex:
+      start: 12258
+      end: 12262
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: address_from
+        type: felt
+      - name: amount
+        type: Uint256
+    returns:
+      - name: next_supply
+        type: Uint256
+      - name: next_avg_stable_rate
+        type: felt
+  functionComment:
+    desc:
+      - name: ''
+        type: ''
+        desc: Burns debt of `user`
+        charIndex:
+          start: 15
+          end: 35
+    implicitArgs: null
+    explicitArgs:
+      - name: address_from
+        type: ''
+        desc: The address from which the debt will be burned
+        charIndex:
+          start: 336
+          end: 382
+      - name: amount
+        type: ''
+        desc: The amount of debt tokens getting burned
+        charIndex:
+          start: 404
+          end: 444
+    returns: null
+    raises: null
+    charIndex:
+      start: 11721
+      end: 12248
+- attributeName: namespace StableDebtToken
+  functionName:
+    name: get_supply_data
+    charIndex:
+      start: 15101
+      end: 15116
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs: null
+    returns:
+      - name: principal_supply
+        type: Uint256
+      - name: total_supply
+        type: Uint256
+      - name: avg_stable_rate
+        type: felt
+      - name: total_supply_timestamp
+        type: felt
+      - name: ''
+        type: ''
+  functionComment:
+    desc:
+      - name: ''
+        type: ''
+        desc: >-
+          Returns the principal, the total supply, the average stable rate and
+          the timestamp for the last update
+        charIndex:
+          start: 15
+          end: 117
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 14826
+      end: 15091
+- attributeName: namespace StableDebtToken
+  functionName:
+    name: get_total_supply_and_avg_rate
+    charIndex:
+      start: 15883
+      end: 15912
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs: null
+    returns:
+      - name: total_supply
+        type: Uint256
+      - name: avg_rate
+        type: felt
+  functionComment:
+    desc:
+      - name: ''
+        type: ''
+        desc: Returns the total supply and the average stable rate
+        charIndex:
+          start: 15
+          end: 67
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 15742
+      end: 15873
+- attributeName: namespace StableDebtToken
+  functionName:
+    name: total_supply
+    charIndex:
+      start: 16403
+      end: 16415
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs: null
+    returns:
+      - name: total_supply
+        type: Uint256
+  functionComment:
+    desc:
+      - name: ''
+        type: ''
+        desc: Returns the total supply
+        charIndex:
+          start: 15
+          end: 39
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 16322
+      end: 16393
+- attributeName: namespace StableDebtToken
+  functionName:
+    name: get_total_supply_last_updated
+    charIndex:
+      start: 16803
+      end: 16832
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs: null
+    returns:
+      - name: timestamp
+        type: felt
+  functionComment:
+    desc:
+      - name: ''
+        type: ''
+        desc: Returns the timestamp of the last update of the total supply
+        charIndex:
+          start: 15
+          end: 75
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 16689
+      end: 16793

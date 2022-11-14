@@ -1,0 +1,376 @@
+- attributeName: namespace WadRayMath
+  functionName:
+    name: wad_mul
+    charIndex:
+      start: 1504
+      end: 1511
+  functionSignature:
+    implicitArgs:
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: a
+        type: Wad
+      - name: b
+        type: Wad
+    returns:
+      - name: Wad
+        type: ''
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 0
+      end: 0
+- attributeName: namespace WadRayMath
+  functionName:
+    name: wad_div
+    charIndex:
+      start: 2688
+      end: 2695
+  functionSignature:
+    implicitArgs:
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: a
+        type: Wad
+      - name: b
+        type: Wad
+    returns:
+      - name: Wad
+        type: ''
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 0
+      end: 0
+- attributeName: namespace WadRayMath
+  functionName:
+    name: wad_add
+    charIndex:
+      start: 3783
+      end: 3790
+  functionSignature:
+    implicitArgs:
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: a
+        type: Wad
+      - name: b
+        type: Wad
+    returns:
+      - name: res
+        type: Wad
+      - name: overflow
+        type: felt
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 0
+      end: 0
+- attributeName: namespace WadRayMath
+  functionName:
+    name: wad_sub
+    charIndex:
+      start: 4005
+      end: 4012
+  functionSignature:
+    implicitArgs:
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: a
+        type: Wad
+      - name: b
+        type: Wad
+    returns:
+      - name: Wad
+        type: ''
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 0
+      end: 0
+- attributeName: namespace WadRayMath
+  functionName:
+    name: ray_mul
+    charIndex:
+      start: 4184
+      end: 4191
+  functionSignature:
+    implicitArgs:
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: a
+        type: Ray
+      - name: b
+        type: Ray
+    returns:
+      - name: Ray
+        type: ''
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 0
+      end: 0
+- attributeName: namespace WadRayMath
+  functionName:
+    name: ray_div
+    charIndex:
+      start: 5357
+      end: 5364
+  functionSignature:
+    implicitArgs:
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: a
+        type: Ray
+      - name: b
+        type: Ray
+    returns:
+      - name: Ray
+        type: ''
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 0
+      end: 0
+- attributeName: namespace WadRayMath
+  functionName:
+    name: ray_to_wad
+    charIndex:
+      start: 6463
+      end: 6473
+  functionSignature:
+    implicitArgs:
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: a
+        type: Ray
+    returns:
+      - name: Wad
+        type: ''
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 0
+      end: 0
+- attributeName: namespace WadRayMath
+  functionName:
+    name: wad_to_ray
+    charIndex:
+      start: 6970
+      end: 6980
+  functionSignature:
+    implicitArgs:
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: a
+        type: Wad
+    returns:
+      - name: Ray
+        type: ''
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 0
+      end: 0
+- attributeName: namespace WadRayMath
+  functionName:
+    name: ray_mul_no_rounding
+    charIndex:
+      start: 7352
+      end: 7371
+  functionSignature:
+    implicitArgs:
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: a
+        type: Ray
+      - name: b
+        type: Ray
+    returns:
+      - name: Ray
+        type: ''
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 0
+      end: 0
+- attributeName: namespace WadRayMath
+  functionName:
+    name: ray_div_no_rounding
+    charIndex:
+      start: 8039
+      end: 8058
+  functionSignature:
+    implicitArgs:
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: a
+        type: Ray
+      - name: b
+        type: Ray
+    returns:
+      - name: Ray
+        type: ''
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 0
+      end: 0
+- attributeName: namespace WadRayMath
+  functionName:
+    name: ray_to_wad_no_rounding
+    charIndex:
+      start: 8628
+      end: 8650
+  functionSignature:
+    implicitArgs:
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: a
+        type: Ray
+    returns:
+      - name: Wad
+        type: ''
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 0
+      end: 0
+- attributeName: namespace WadRayMath
+  functionName:
+    name: ray_add
+    charIndex:
+      start: 8869
+      end: 8876
+  functionSignature:
+    implicitArgs:
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: a
+        type: Ray
+      - name: b
+        type: Ray
+    returns:
+      - name: res
+        type: Ray
+      - name: overflow
+        type: felt
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 0
+      end: 0
+- attributeName: namespace WadRayMath
+  functionName:
+    name: ray_sub
+    charIndex:
+      start: 9091
+      end: 9098
+  functionSignature:
+    implicitArgs:
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: a
+        type: Ray
+      - name: b
+        type: Ray
+    returns:
+      - name: Ray
+        type: ''
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 0
+      end: 0
+- attributeName: namespace WadRayMath
+  functionName:
+    name: wad_le
+    charIndex:
+      start: 9270
+      end: 9276
+  functionSignature:
+    implicitArgs:
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: a
+        type: Wad
+      - name: b
+        type: Wad
+    returns:
+      - name: felt
+        type: ''
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 0
+      end: 0

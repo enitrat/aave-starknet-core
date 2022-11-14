@@ -1,0 +1,81 @@
+- attributeName: event
+  functionName:
+    name: UserEModeSet
+    charIndex:
+      start: 466
+      end: 478
+  functionSignature:
+    implicitArgs:
+      - name: ''
+        type: ''
+    explicitArgs:
+      - name: user
+        type: felt
+      - name: category_id
+        type: felt
+    returns: null
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 0
+      end: 0
+- attributeName: namespace EModeLogic
+  functionName:
+    name: execute_set_user_emode
+    charIndex:
+      start: 669
+      end: 691
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs: null
+    returns: null
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 609
+      end: 659
+- attributeName: namespace EModeLogic
+  functionName:
+    name: is_in_e_mode_category
+    charIndex:
+      start: 1497
+      end: 1518
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: e_mode_user_category
+        type: felt
+      - name: e_mode_asset_category
+        type: felt
+    returns:
+      - name: is_in_e_mode
+        type: felt
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 0
+      end: 0

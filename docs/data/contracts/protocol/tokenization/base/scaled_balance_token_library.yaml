@@ -1,0 +1,192 @@
+- attributeName: event
+  functionName:
+    name: Mint
+    charIndex:
+      start: 1405
+      end: 1409
+  functionSignature:
+    implicitArgs:
+      - name: ''
+        type: ''
+    explicitArgs:
+      - name: caller
+        type: felt
+      - name: on_behalf_of
+        type: felt
+      - name: amount_to_mint
+        type: Uint256
+      - name: balance_increase
+        type: Uint256
+      - name: index
+        type: felt
+      - name: ''
+        type: ''
+    returns: null
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 0
+      end: 0
+- attributeName: event
+  functionName:
+    name: Burn
+    charIndex:
+      start: 1549
+      end: 1553
+  functionSignature:
+    implicitArgs:
+      - name: ''
+        type: ''
+    explicitArgs:
+      - name: user
+        type: felt
+      - name: target
+        type: felt
+      - name: amount_to_burn
+        type: Uint256
+      - name: balance_decrease
+        type: Uint256
+      - name: index
+        type: felt
+    returns: null
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 0
+      end: 0
+- attributeName: namespace ScaledBalanceToken
+  functionName:
+    name: mint_scaled
+    charIndex:
+      start: 6820
+      end: 6831
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: caller
+        type: felt
+      - name: on_behalf_of
+        type: felt
+      - name: amount
+        type: Uint256
+      - name: index
+        type: felt
+    returns:
+      - name: success
+        type: felt
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 0
+      end: 0
+- attributeName: namespace ScaledBalanceToken
+  functionName:
+    name: burn_scaled
+    charIndex:
+      start: 8261
+      end: 8272
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: user
+        type: felt
+      - name: target
+        type: felt
+      - name: amount
+        type: Uint256
+      - name: index
+        type: felt
+    returns: null
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 0
+      end: 0
+- attributeName: namespace ScaledBalanceToken
+  functionName:
+    name: get_scaled_user_balance_and_supply
+    charIndex:
+      start: 9197
+      end: 9231
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: user
+        type: felt
+    returns:
+      - name: balance
+        type: Uint256
+      - name: supply
+        type: Uint256
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 0
+      end: 0
+- attributeName: namespace ScaledBalanceToken
+  functionName:
+    name: get_previous_index
+    charIndex:
+      start: 9531
+      end: 9549
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: user
+        type: felt
+    returns:
+      - name: index
+        type: felt
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 0
+      end: 0

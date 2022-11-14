@@ -1,0 +1,204 @@
+- attributeName: event
+  functionName:
+    name: Initialized
+    charIndex:
+      start: 858
+      end: 869
+  functionSignature:
+    implicitArgs:
+      - name: ''
+        type: ''
+    explicitArgs:
+      - name: underlying_asset
+        type: felt
+      - name: pool
+        type: felt
+      - name: incentives_controller
+        type: felt
+      - name: debt_token_decimals
+        type: felt
+      - name: debt_token_name
+        type: felt
+      - name: debt_token_symbol
+        type: felt
+      - name: params
+        type: felt
+      - name: ''
+        type: ''
+    returns: null
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 0
+      end: 0
+- attributeName: namespace VariableDebtToken
+  functionName:
+    name: initialize
+    charIndex:
+      start: 1120
+      end: 1130
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: initializing_pool
+        type: felt
+      - name: underlying_asset
+        type: felt
+      - name: incentives_controller
+        type: felt
+      - name: debt_token_decimals
+        type: felt
+      - name: debt_token_name
+        type: felt
+      - name: debt_token_symbol
+        type: felt
+      - name: params
+        type: felt
+      - name: ''
+        type: ''
+    returns: null
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 0
+      end: 0
+- attributeName: namespace VariableDebtToken
+  functionName:
+    name: balance_of
+    charIndex:
+      start: 2143
+      end: 2153
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: user
+        type: felt
+    returns:
+      - name: balance
+        type: Uint256
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 0
+      end: 0
+- attributeName: namespace VariableDebtToken
+  functionName:
+    name: mint
+    charIndex:
+      start: 2972
+      end: 2976
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: user
+        type: felt
+      - name: on_behalf_of
+        type: felt
+      - name: amount
+        type: Uint256
+      - name: index
+        type: felt
+    returns:
+      - name: is_scaled_balance_null
+        type: felt
+      - name: total_supply
+        type: Uint256
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 0
+      end: 0
+- attributeName: namespace VariableDebtToken
+  functionName:
+    name: burn
+    charIndex:
+      start: 4021
+      end: 4025
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: address_from
+        type: felt
+      - name: amount
+        type: Uint256
+      - name: index
+        type: felt
+    returns:
+      - name: total_supply
+        type: Uint256
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 0
+      end: 0
+- attributeName: namespace VariableDebtToken
+  functionName:
+    name: total_supply
+    charIndex:
+      start: 4427
+      end: 4439
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs: null
+    returns:
+      - name: total_supply
+        type: Uint256
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 0
+      end: 0

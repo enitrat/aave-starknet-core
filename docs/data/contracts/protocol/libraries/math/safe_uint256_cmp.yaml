@@ -1,0 +1,54 @@
+- attributeName: namespace SafeUint256Cmp
+  functionName:
+    name: le
+    charIndex:
+      start: 127
+      end: 129
+  functionSignature:
+    implicitArgs:
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: a
+        type: Uint256
+      - name: b
+        type: Uint256
+    returns:
+      - name: felt
+        type: ''
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 0
+      end: 0
+- attributeName: namespace SafeUint256Cmp
+  functionName:
+    name: lt
+    charIndex:
+      start: 307
+      end: 309
+  functionSignature:
+    implicitArgs:
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: a
+        type: Uint256
+      - name: b
+        type: Uint256
+    returns:
+      - name: felt
+        type: ''
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 0
+      end: 0

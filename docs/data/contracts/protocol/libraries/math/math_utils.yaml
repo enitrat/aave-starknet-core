@@ -1,0 +1,133 @@
+- attributeName: namespace MathUtils
+  functionName:
+    name: calculate_linear_interest
+    charIndex:
+      start: 879
+      end: 904
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: rate
+        type: Uint256
+      - name: last_update_timestamp
+        type: felt
+    returns:
+      - name: Uint256
+        type: ''
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs:
+      - name: rate
+        type: ''
+        desc: The interest rate, in ray
+        charIndex:
+          start: 115
+          end: 140
+      - name: last_update_timestamp
+        type: ''
+        desc: The timestamp of the last update of the interest
+        charIndex:
+          start: 177
+          end: 225
+    returns: null
+    raises: null
+    charIndex:
+      start: 560
+      end: 869
+- attributeName: namespace MathUtils
+  functionName:
+    name: calculate_compounded_interest
+    charIndex:
+      start: 1908
+      end: 1937
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: rate
+        type: Uint256
+      - name: last_update_timestamp
+        type: felt
+    returns:
+      - name: Uint256
+        type: ''
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs:
+      - name: rate
+        type: ''
+        desc: The interest rate (in ray)
+        charIndex:
+          start: 139
+          end: 165
+      - name: last_update_timestamp
+        type: ''
+        desc: >-
+          The timestamp from which the interest accumulation needs to be
+          calculated
+        charIndex:
+          start: 202
+          end: 275
+    returns: null
+    raises: null
+    charIndex:
+      start: 1521
+      end: 1898
+- attributeName: namespace MathUtils
+  functionName:
+    name: _calculate_compounded_interest
+    charIndex:
+      start: 2999
+      end: 3029
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: rate
+        type: Uint256
+      - name: last_update_timestamp
+        type: felt
+      - name: current_timestamp
+        type: felt
+    returns:
+      - name: Uint256
+        type: ''
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs:
+      - name: rate
+        type: ''
+        desc: The interest rate, in ray
+        charIndex:
+          start: 19
+          end: 44
+      - name: last_update_timestamp
+        type: ''
+        desc: The timestamp of the last update of the interest
+        charIndex:
+          start: 81
+          end: 129
+    returns: null
+    raises: null
+    charIndex:
+      start: 2786
+      end: 2989

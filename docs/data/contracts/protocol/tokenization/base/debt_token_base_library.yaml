@@ -1,0 +1,334 @@
+- attributeName: event
+  functionName:
+    name: BorrowAllowanceDelegated
+    charIndex:
+      start: 712
+      end: 736
+  functionSignature:
+    implicitArgs:
+      - name: ''
+        type: ''
+    explicitArgs:
+      - name: from_user
+        type: felt
+      - name: to_user
+        type: felt
+      - name: asset
+        type: felt
+      - name: amount
+        type: Uint256
+    returns: null
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs:
+      - name: from_user
+        type: ''
+        desc: The address of the delegator
+        charIndex:
+          start: 83
+          end: 111
+      - name: to_user
+        type: ''
+        desc: The address of the delegatee
+        charIndex:
+          start: 130
+          end: 158
+      - name: asset
+        type: ''
+        desc: The address of the delegated asset
+        charIndex:
+          start: 175
+          end: 209
+      - name: amount
+        type: ''
+        desc: The amount being delegated
+        charIndex:
+          start: 227
+          end: 253
+    returns: null
+    raises: null
+    charIndex:
+      start: 446
+      end: 699
+- attributeName: storage_var
+  functionName:
+    name: DebtTokenBase_borrow_allowances
+    charIndex:
+      start: 278
+      end: 309
+  functionSignature:
+    implicitArgs:
+      - name: ''
+        type: ''
+    explicitArgs:
+      - name: delegator
+        type: felt
+      - name: delegatee
+        type: felt
+    returns:
+      - name: allowance
+        type: Uint256
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 0
+      end: 0
+- attributeName: storage_var
+  functionName:
+    name: DebtTokenBase_underlying_asset
+    charIndex:
+      start: 391
+      end: 421
+  functionSignature:
+    implicitArgs:
+      - name: ''
+        type: ''
+    explicitArgs: null
+    returns:
+      - name: asset
+        type: felt
+  functionComment:
+    desc: null
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 0
+      end: 0
+- attributeName: namespace DebtTokenBase
+  functionName:
+    name: get_underlying_asset
+    charIndex:
+      start: 955
+      end: 975
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: ''
+        type: ''
+    returns:
+      - name: underlying
+        type: felt
+  functionComment:
+    desc:
+      - name: ''
+        type: ''
+        desc: Returns the underlying asset of the debt token
+        charIndex:
+          start: 15
+          end: 61
+    implicitArgs: null
+    explicitArgs: null
+    returns: null
+    raises: null
+    charIndex:
+      start: 830
+      end: 945
+- attributeName: namespace DebtTokenBase
+  functionName:
+    name: set_underlying_asset
+    charIndex:
+      start: 1311
+      end: 1331
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: underlying
+        type: felt
+    returns: null
+  functionComment:
+    desc:
+      - name: ''
+        type: ''
+        desc: Sets the underlying asset of the debt token
+        charIndex:
+          start: 15
+          end: 58
+    implicitArgs: null
+    explicitArgs:
+      - name: underlying
+        type: ''
+        desc: The underlying asset of the debt token
+        charIndex:
+          start: 84
+          end: 122
+    returns: null
+    raises: null
+    charIndex:
+      start: 1179
+      end: 1301
+- attributeName: namespace DebtTokenBase
+  functionName:
+    name: approve_delegation
+    charIndex:
+      start: 1883
+      end: 1901
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: delegatee
+        type: felt
+      - name: amount
+        type: Uint256
+    returns: null
+  functionComment:
+    desc:
+      - name: ''
+        type: ''
+        desc: >-
+          Delegates borrowing power to a user on the specific debt token.
+
+          Delegation will still respect the liquidation constraints (even if
+          delegated, a
+
+          delegatee cannot force a delegator HF to go below 1)
+        charIndex:
+          start: 15
+          end: 225
+    implicitArgs: null
+    explicitArgs:
+      - name: delegatee
+        type: ''
+        desc: The address receiving the delegated borrowing power
+        charIndex:
+          start: 250
+          end: 301
+      - name: amount
+        type: ''
+        desc: The maximum amount being delegated.
+        charIndex:
+          start: 323
+          end: 358
+    returns: null
+    raises: null
+    charIndex:
+      start: 1515
+      end: 1873
+- attributeName: namespace DebtTokenBase
+  functionName:
+    name: borrow_allowance
+    charIndex:
+      start: 2351
+      end: 2367
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: from_user
+        type: felt
+      - name: to_user
+        type: felt
+    returns:
+      - name: allowance
+        type: Uint256
+  functionComment:
+    desc:
+      - name: ''
+        type: ''
+        desc: Returns the borrow allowance of the user
+        charIndex:
+          start: 15
+          end: 55
+    implicitArgs: null
+    explicitArgs:
+      - name: from_user
+        type: ''
+        desc: The user to giving allowance
+        charIndex:
+          start: 80
+          end: 108
+      - name: to_user
+        type: ''
+        desc: The user to give allowance to
+        charIndex:
+          start: 131
+          end: 160
+    returns: null
+    raises: null
+    charIndex:
+      start: 2132
+      end: 2341
+- attributeName: namespace DebtTokenBase
+  functionName:
+    name: decrease_borrow_allowance
+    charIndex:
+      start: 2932
+      end: 2957
+  functionSignature:
+    implicitArgs:
+      - name: syscall_ptr
+        type: felt*
+      - name: pedersen_ptr
+        type: HashBuiltin*
+      - name: range_check_ptr
+        type: ''
+    explicitArgs:
+      - name: delegator
+        type: felt
+      - name: delegatee
+        type: felt
+      - name: amount
+        type: Uint256
+    returns: null
+  functionComment:
+    desc:
+      - name: ''
+        type: ''
+        desc: Decreases the borrow allowance of a user on the specific debt token.
+        charIndex:
+          start: 15
+          end: 83
+    implicitArgs: null
+    explicitArgs:
+      - name: delegator
+        type: ''
+        desc: The address delegating the borrowing power
+        charIndex:
+          start: 108
+          end: 150
+      - name: delegatee
+        type: ''
+        desc: The address receiving the delegated borrowing power
+        charIndex:
+          start: 175
+          end: 226
+      - name: amount
+        type: ''
+        desc: The amount to subtract from the current allowance
+        charIndex:
+          start: 248
+          end: 297
+    returns: null
+    raises: null
+    charIndex:
+      start: 2625
+      end: 2922
